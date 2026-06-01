@@ -12,14 +12,13 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Menu, BookOpen, Code2, BarChart3, Lock, PlayCircle, CheckCircle2 } from 'lucide-react';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useSyncExternalStore } from 'react';
 
 export default function MobileNav() {
   const pathname = usePathname();
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(() => () => {}, () => true, () => false);
   const [open, setOpen] = useState(false);
   const [revision, setRevision] = useState(0);
-  useEffect(() => { setMounted(true); }, []);
   useEffect(() => {
     const handler = () => setRevision(v => v + 1);
     window.addEventListener('dsa-progress-changed', handler);

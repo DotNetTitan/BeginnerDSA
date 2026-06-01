@@ -6,7 +6,7 @@ import { BookOpen, Code2, CheckCircle2, GraduationCap, Lock } from 'lucide-react
 import { cn } from '@/lib/utils';
 import { getTopicProgress } from '@/lib/progress-store';
 import { getTopic } from '@/lib/topics';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useSyncExternalStore } from 'react';
 
 interface Props {
   topicId: string;
@@ -19,10 +19,9 @@ const steps = [
 ] as const;
 
 export default function ModuleFlow({ topicId }: Props) {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(() => () => {}, () => true, () => false);
   const [, forceUpdate] = useState(0);
   useEffect(() => {
-    setMounted(true);
     const handler = () => forceUpdate(n => n + 1);
     window.addEventListener('dsa-progress-changed', handler);
     return () => window.removeEventListener('dsa-progress-changed', handler);
