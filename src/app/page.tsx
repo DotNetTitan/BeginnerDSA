@@ -7,7 +7,7 @@ export default function HomePage() {
       <div className="mb-8">
         <h1 className="text-2xl font-bold tracking-tight">DSA University</h1>
         <p className="text-sm text-muted-foreground mt-1">
-          A structured C# DSA course — 11 modules, 52 practice problems spanning easy to hard. Complete topics in order; each unlocks the next.
+          Learn DSA from zero. Structured modules and real problems for absolute beginners.
         </p>
       </div>
 
@@ -25,7 +25,7 @@ export default function HomePage() {
         <div className="border rounded-lg p-3 text-center">
           <Signal className="h-4 w-4 mx-auto mb-1 text-primary" />
           <p className="text-lg font-bold leading-tight">15 / 34 / 3</p>
-          <p className="text-[11px] text-muted-foreground">Easy / Med / Hard</p>
+          <p className="text-[11px] text-muted-foreground">Easy / Medium / Hard</p>
         </div>
       </div>
 
