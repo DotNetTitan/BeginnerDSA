@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { topics } from '@/lib/topics';
@@ -10,7 +11,7 @@ import { getProgress } from '@/lib/progress-store';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Menu, BookOpen, Code2, BarChart3, GraduationCap, Lock, PlayCircle, CheckCircle2 } from 'lucide-react';
+import { Menu, BookOpen, Code2, BarChart3, Lock, PlayCircle, CheckCircle2 } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 
 export default function MobileNav() {
@@ -57,7 +58,7 @@ export default function MobileNav() {
       </SheetTrigger>
       <SheetContent side="left" className="p-0 w-72">
         <div className="flex items-center gap-2 p-4 border-b">
-          <GraduationCap className="h-5 w-5 text-primary" />
+          <Image src="/logo.png" alt="Zero To DSA" width={36} height={36} className="h-9 w-9" />
           <span className="font-bold text-lg">Zero To DSA</span>
         </div>
 

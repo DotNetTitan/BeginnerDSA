@@ -1,9 +1,10 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import { Button } from '@/components/ui/button';
-import { Moon, Sun, BookOpen, Code2, BarChart3, GraduationCap } from 'lucide-react';
+import { Moon, Sun, BookOpen, Code2, BarChart3 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import MobileNav from './MobileNav';
 
@@ -17,7 +18,7 @@ export default function Navbar() {
     <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="flex h-14 items-center px-4 md:px-6">
         <Link href="/" className="flex items-center gap-2 font-bold text-lg mr-4 sm:mr-8">
-          <GraduationCap className="h-5 w-5" />
+          <Image src="/logo.png" alt="Zero To DSA" width={36} height={36} className="h-9 w-9" />
           <span className="hidden sm:inline">Zero To DSA</span>
         </Link>
 

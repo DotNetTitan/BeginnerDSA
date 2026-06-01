@@ -19,8 +19,10 @@ const steps = [
 ] as const;
 
 export default function ModuleFlow({ topicId }: Props) {
+  const [mounted, setMounted] = useState(false);
   const [, forceUpdate] = useState(0);
   useEffect(() => {
+    setMounted(true);
     const handler = () => forceUpdate(n => n + 1);
     window.addEventListener('dsa-progress-changed', handler);
     return () => window.removeEventListener('dsa-progress-changed', handler);
@@ -28,7 +30,7 @@ export default function ModuleFlow({ topicId }: Props) {
 
   const topic = getTopic(topicId);
   const totalProblems = topic?.problemIds.length ?? 0;
-  const progress = getTopicProgress(topicId);
+  const progress = mounted ? getTopicProgress(topicId) : { completed: false, solvedProblems: [] as string[], examPassed: false };
   const theoryRead = progress.completed;
   const problemsSolved = progress.solvedProblems.length;
   const examPassed = progress.examPassed;
