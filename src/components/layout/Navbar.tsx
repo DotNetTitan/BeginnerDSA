@@ -18,7 +18,7 @@ export default function Navbar() {
       <div className="flex h-14 items-center px-4 md:px-6">
         <Link href="/" className="flex items-center gap-2 font-bold text-lg mr-4 sm:mr-8">
           <GraduationCap className="h-5 w-5" />
-          <span className="hidden sm:inline">DSA University</span>
+          <span className="hidden sm:inline">Zero To DSA</span>
         </Link>
 
         <div className="hidden md:flex items-center gap-1 text-sm">

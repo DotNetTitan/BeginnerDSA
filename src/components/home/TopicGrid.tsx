@@ -91,7 +91,7 @@ export default function TopicGrid() {
         </div>
 
         <Card
-          className={`flex-1 mb-0 transition-all cursor-pointer hover:ring-primary/30 ${
+          className={`flex-1 mb-0 transition-all cursor-pointer hover:scale-[1.02] hover:-translate-y-0.5 hover:ring-primary/30 ${
             !isClickable ? 'opacity-60 hover:ring-foreground/10' : ''
           }`}
           title={!isClickable && t.prerequisites.length > 0 ? `Requires: ${t.prerequisites.map(id => topics.find(t2 => t2.id === id)?.title).join(', ')}` : undefined}
@@ -194,7 +194,7 @@ export default function TopicGrid() {
         </Card>
       ) : nextTopic && (
         <Card
-          className="border-emerald-500/30 bg-emerald-50/50 dark:bg-emerald-950/20 cursor-pointer transition-all hover:ring-emerald-500/40"
+          className="border-emerald-500/30 bg-emerald-50/50 dark:bg-emerald-950/20 cursor-pointer transition-all hover:scale-[1.02] hover:-translate-y-0.5 hover:ring-emerald-500/40"
           onClick={() => router.push(isNextReadyForExam ? `/exam/${nextTopic.id}` : `/learn/${nextTopic.id}`)}
         >
           <CardContent className="py-4 px-5">

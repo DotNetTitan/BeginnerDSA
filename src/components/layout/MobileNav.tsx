@@ -51,7 +51,7 @@ export default function MobileNav() {
       <SheetContent side="left" className="p-0 w-72">
         <div className="flex items-center gap-2 p-4 border-b">
           <GraduationCap className="h-5 w-5 text-primary" />
-          <span className="font-bold text-lg">DSA University</span>
+          <span className="font-bold text-lg">Zero To DSA</span>
         </div>
 
         <div className="flex items-center gap-1 p-4 border-b">

@@ -3,7 +3,7 @@ import "./globals.css";
 import { Providers } from "@/components/providers";
 
 export const metadata: Metadata = {
-  title: "DSA University",
+  title: "Zero To DSA",
   description: "Learn data structures and algorithms for technical interviews",
 };
 

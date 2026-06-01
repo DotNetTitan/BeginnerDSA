@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { topicId, problemId } = await params;
   const problem = getProblem(topicId, problemId);
   if (!problem) return { title: 'Problem Not Found' };
-  return { title: `${problem.title} — DSA University` };
+  return { title: `${problem.title} — Zero To DSA` };
 }
 
 export default async function ProblemPage({ params }: Props) {
