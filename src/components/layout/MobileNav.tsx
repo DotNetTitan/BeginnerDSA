@@ -17,17 +17,24 @@ export default function MobileNav() {
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
   const [open, setOpen] = useState(false);
-  useEffect(() => { setMounted(true); }, []); // eslint-disable-line react-hooks/set-state-in-effect
+  const [revision, setRevision] = useState(0);
+  useEffect(() => { setMounted(true); }, []);
+  useEffect(() => {
+    const handler = () => setRevision(v => v + 1);
+    window.addEventListener('dsa-progress-changed', handler);
+    return () => window.removeEventListener('dsa-progress-changed', handler);
+  }, []);
 
   const statuses = useMemo(() => {
     if (!mounted) return {} as Record<string, TopicStatus>;
+    void revision;
     const p = getProgress();
     const s: Record<string, TopicStatus> = {};
     for (const t of topics) {
       s[t.id] = getTopicStatus(t, p, topics);
     }
     return s;
-  }, [mounted]);
+  }, [mounted, revision]);
 
   const basePath = pathname.startsWith('/practice') ? '/practice' : '/learn';
   const currentTopicId = pathname.split('/')[2];
