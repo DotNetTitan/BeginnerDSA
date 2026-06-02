@@ -19,7 +19,7 @@ export function getTopicStatus(
     }
   }
 
-  // All prerequisites done — topic is available
+  // All prerequisites done - topic is available
   const problemsSolved = tp?.solvedProblems?.length ?? 0;
   const theoryRead = tp?.completed ?? false;
   const examPassed = tp?.examPassed ?? false;

@@ -100,12 +100,12 @@ list.addFirst("b");
     {
       id: 'reversal',
       title: 'Reversing a Linked List',
-      content: `Reversal is the most common linked list operation. The key: track three nodes — **prev**, **current**, and **next** — and reverse the pointer direction at each step.`,
+      content: `Reversal is the most common linked list operation. The key: track three nodes - **prev**, **current**, and **next** - and reverse the pointer direction at each step.`,
       codeExamples: [
         {
           title: 'Iterative reversal',
           code: {
-            csharp: `// Reverse a singly linked list — O(n), O(1) space
+            csharp: `// Reverse a singly linked list - O(n), O(1) space
 ListNode ReverseList(ListNode head) {
     ListNode prev = null;
     ListNode curr = head;
@@ -119,7 +119,7 @@ ListNode ReverseList(ListNode head) {
 
     return prev; // new head
 }`,
-            python: `# Reverse a singly linked list — O(n), O(1) space
+            python: `# Reverse a singly linked list - O(n), O(1) space
 def reverse_list(head):
     prev = None
     curr = head
@@ -129,7 +129,7 @@ def reverse_list(head):
         prev = curr       # move prev forward
         curr = nxt        # move curr forward
     return prev  # new head`,
-            java: `// Reverse a singly linked list — O(n), O(1) space
+            java: `// Reverse a singly linked list - O(n), O(1) space
 public ListNode reverseList(ListNode head) {
     ListNode prev = null;
     ListNode curr = head;
@@ -143,7 +143,7 @@ public ListNode reverseList(ListNode head) {
 
     return prev; // new head
 }`,
-            javascript: `// Reverse a singly linked list — O(n), O(1) space
+            javascript: `// Reverse a singly linked list - O(n), O(1) space
 const reverseList = (head) => {
     let prev = null;
     let curr = head;
@@ -157,7 +157,7 @@ const reverseList = (head) => {
 
     return prev; // new head
 };`,
-          cpp: `// Reverse a singly linked list — O(n), O(1) space
+          cpp: `// Reverse a singly linked list - O(n), O(1) space
 ListNode* reverseList(ListNode* head) {
     ListNode* prev = nullptr;
     ListNode* curr = head;
@@ -181,14 +181,14 @@ ListNode* reverseList(ListNode* head) {
       content: `Two pointers traverse the list at different speeds. The **slow** pointer moves 1 step, the **fast** pointer moves 2 steps.
 
 **Applications:**
-- **Cycle detection** — if fast meets slow, there's a cycle (Floyd's algorithm)
-- **Find middle** — when fast reaches the end, slow is at the middle
-- **Find nth from end** — move fast n steps ahead, then advance both`,
+- **Cycle detection** - if fast meets slow, there's a cycle (Floyd's algorithm)
+- **Find middle** - when fast reaches the end, slow is at the middle
+- **Find nth from end** - move fast n steps ahead, then advance both`,
       codeExamples: [
         {
           title: 'Cycle detection and find middle',
           code: {
-            csharp: `// Detect cycle — O(n), O(1) space
+            csharp: `// Detect cycle - O(n), O(1) space
 bool HasCycle(ListNode head) {
     ListNode slow = head, fast = head;
     while (fast?.next != null) {
@@ -199,7 +199,7 @@ bool HasCycle(ListNode head) {
     return false;
 }
 
-// Find middle node — O(n), O(1) space
+// Find middle node - O(n), O(1) space
 ListNode FindMiddle(ListNode head) {
     ListNode slow = head, fast = head;
     while (fast?.next != null) {
@@ -208,7 +208,7 @@ ListNode FindMiddle(ListNode head) {
     }
     return slow;
 }`,
-            python: `# Detect cycle — O(n), O(1) space
+            python: `# Detect cycle - O(n), O(1) space
 def has_cycle(head):
     slow = fast = head
     while fast and fast.next:
@@ -218,14 +218,14 @@ def has_cycle(head):
             return True
     return False
 
-# Find middle node — O(n), O(1) space
+# Find middle node - O(n), O(1) space
 def find_middle(head):
     slow = fast = head
     while fast and fast.next:
         slow = slow.next
         fast = fast.next.next
     return slow`,
-            java: `// Detect cycle — O(n), O(1) space
+            java: `// Detect cycle - O(n), O(1) space
 public boolean hasCycle(ListNode head) {
     ListNode slow = head, fast = head;
     while (fast != null && fast.next != null) {
@@ -236,7 +236,7 @@ public boolean hasCycle(ListNode head) {
     return false;
 }
 
-// Find middle node — O(n), O(1) space
+// Find middle node - O(n), O(1) space
 public ListNode findMiddle(ListNode head) {
     ListNode slow = head, fast = head;
     while (fast != null && fast.next != null) {
@@ -245,7 +245,7 @@ public ListNode findMiddle(ListNode head) {
     }
     return slow;
 }`,
-            javascript: `// Detect cycle — O(n), O(1) space
+            javascript: `// Detect cycle - O(n), O(1) space
 const hasCycle = (head) => {
     let slow = head, fast = head;
     while (fast !== null && fast.next !== null) {
@@ -256,7 +256,7 @@ const hasCycle = (head) => {
     return false;
 };
 
-// Find middle node — O(n), O(1) space
+// Find middle node - O(n), O(1) space
 const findMiddle = (head) => {
     let slow = head, fast = head;
     while (fast !== null && fast.next !== null) {
@@ -265,7 +265,7 @@ const findMiddle = (head) => {
     }
     return slow;
 };`,
-          cpp: `// Detect cycle — O(n), O(1) space
+          cpp: `// Detect cycle - O(n), O(1) space
 bool hasCycle(ListNode* head) {
     ListNode* slow = head;
     ListNode* fast = head;
@@ -277,7 +277,7 @@ bool hasCycle(ListNode* head) {
     return false;
 }
 
-// Find middle node — O(n), O(1) space
+// Find middle node - O(n), O(1) space
 ListNode* findMiddle(ListNode* head) {
     ListNode* slow = head;
     ListNode* fast = head;
@@ -294,11 +294,11 @@ ListNode* findMiddle(ListNode* head) {
     {
       id: 'common-patterns',
       title: 'Common Interview Patterns',
-      content: `1. **Reverse** — full reversal, reverse between positions, reverse in k-groups
-2. **Merge** — merge two sorted lists, merge k sorted lists
-3. **Fast & slow** — cycle detection, middle, palindrome check
-4. **Dummy head** — create a dummy node before the real head to simplify edge cases (especially with deletions)
-5. **Two lists** — intersection, addition (sum two numbers represented as lists)`,
+      content: `1. **Reverse** - full reversal, reverse between positions, reverse in k-groups
+2. **Merge** - merge two sorted lists, merge k sorted lists
+3. **Fast & slow** - cycle detection, middle, palindrome check
+4. **Dummy head** - create a dummy node before the real head to simplify edge cases (especially with deletions)
+5. **Two lists** - intersection, addition (sum two numbers represented as lists)`,
     },
   ],
   problemIds: ['reverse-linked-list', 'merge-two-sorted-lists', 'linked-list-cycle', 'remove-nth-from-end', 'palindrome-linked-list'],

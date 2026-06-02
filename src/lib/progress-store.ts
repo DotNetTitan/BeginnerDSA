@@ -30,7 +30,7 @@ function saveProgress(progress: AppProgress): void {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
     window.dispatchEvent(new CustomEvent('dsa-progress-changed'));
   } catch {
-    // localStorage unavailable — silently degrade
+    // localStorage unavailable - silently degrade
   }
 }
 

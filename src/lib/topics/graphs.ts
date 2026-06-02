@@ -37,7 +37,7 @@ void BuildGraph(int[][] edges) {
         if (!graph.ContainsKey(u)) graph[u] = new List<int>();
         if (!graph.ContainsKey(v)) graph[v] = new List<int>();
         graph[u].Add(v);
-        graph[v].Add(u); // undirected — add both directions
+        graph[v].Add(u); // undirected - add both directions
     }
 }
 
@@ -62,7 +62,7 @@ def build_graph(edges):
         if v not in graph:
             graph[v] = []
         graph[u].append(v)
-        graph[v].append(u)  # undirected — add both directions
+        graph[v].append(u)  # undirected - add both directions
 
 # Graph represented as list of lists (if vertices are 0..n-1)
 n = 6
@@ -84,7 +84,7 @@ public void buildGraph(int[][] edges) {
         graph.putIfAbsent(u, new ArrayList<>());
         graph.putIfAbsent(v, new ArrayList<>());
         graph.get(u).add(v);
-        graph.get(v).add(u); // undirected — add both directions
+        graph.get(v).add(u); // undirected - add both directions
     }
 }
 
@@ -107,7 +107,7 @@ const buildGraph = (edges) => {
         if (!graph.has(u)) graph.set(u, []);
         if (!graph.has(v)) graph.set(v, []);
         graph.get(u).push(v);
-        graph.get(v).push(u); // undirected — add both directions
+        graph.get(v).push(u); // undirected - add both directions
     }
 };
 
@@ -130,7 +130,7 @@ void buildGraph(std::vector<std::vector<int>>& edges) {
     for (auto& e : edges) {
         int u = e[0], v = e[1];
         graph[u].push_back(v);
-        graph[v].push_back(u); // undirected — add both directions
+        graph[v].push_back(u); // undirected - add both directions
     }
 }
 
@@ -162,7 +162,7 @@ std::unordered_map<int, std::vector<std::pair<int, int>>> weighted;
         {
           title: 'BFS and DFS templates',
           code: {
-            csharp: `// BFS — shortest path in unweighted graph
+            csharp: `// BFS - shortest path in unweighted graph
 int Bfs(Dictionary<int, List<int>> graph, int start, int target) {
     var q = new Queue<int>();
     var visited = new HashSet<int>();
@@ -186,7 +186,7 @@ int Bfs(Dictionary<int, List<int>> graph, int start, int target) {
     return -1; // not reachable
 }
 
-// DFS — recursive (for connectivity, cycle detection)
+// DFS - recursive (for connectivity, cycle detection)
 bool Dfs(Dictionary<int, List<int>> graph, int node, HashSet<int> visited) {
     if (visited.Contains(node)) return false;
     visited.Add(node);
@@ -198,7 +198,7 @@ bool Dfs(Dictionary<int, List<int>> graph, int node, HashSet<int> visited) {
 }`,
             python: `from collections import deque
 
-# BFS — shortest path in unweighted graph
+# BFS - shortest path in unweighted graph
 def bfs(graph, start, target):
     q = deque([start])
     visited = {start}
@@ -217,7 +217,7 @@ def bfs(graph, start, target):
         distance += 1
     return -1  # not reachable
 
-# DFS — recursive (for connectivity, cycle detection)
+# DFS - recursive (for connectivity, cycle detection)
 def dfs(graph, node, visited):
     if node in visited:
         return False
@@ -229,7 +229,7 @@ def dfs(graph, node, visited):
     return True`,
             java: `import java.util.*;
 
-// BFS — shortest path in unweighted graph
+// BFS - shortest path in unweighted graph
 public int bfs(Map<Integer, List<Integer>> graph, int start, int target) {
     Queue<Integer> q = new LinkedList<>();
     Set<Integer> visited = new HashSet<>();
@@ -253,7 +253,7 @@ public int bfs(Map<Integer, List<Integer>> graph, int start, int target) {
     return -1; // not reachable
 }
 
-// DFS — recursive (for connectivity, cycle detection)
+// DFS - recursive (for connectivity, cycle detection)
 public boolean dfs(Map<Integer, List<Integer>> graph, int node, Set<Integer> visited) {
     if (visited.contains(node)) return false;
     visited.add(node);
@@ -263,7 +263,7 @@ public boolean dfs(Map<Integer, List<Integer>> graph, int node, Set<Integer> vis
 
     return true;
 }`,
-            javascript: `// BFS — shortest path in unweighted graph
+            javascript: `// BFS - shortest path in unweighted graph
 const bfs = (graph, start, target) => {
     const q = [start];
     const visited = new Set([start]);
@@ -287,7 +287,7 @@ const bfs = (graph, start, target) => {
     return -1; // not reachable
 };
 
-// DFS — recursive (for connectivity, cycle detection)
+// DFS - recursive (for connectivity, cycle detection)
 const dfs = (graph, node, visited = new Set()) => {
     if (visited.has(node)) return false;
     visited.add(node);
@@ -302,7 +302,7 @@ const dfs = (graph, node, visited = new Set()) => {
 #include <queue>
 #include <vector>
 
-// BFS — shortest path in unweighted graph
+// BFS - shortest path in unweighted graph
 int bfs(std::unordered_map<int, std::vector<int>>& graph, int start, int target) {
     std::queue<int> q;
     std::unordered_set<int> visited;
@@ -327,7 +327,7 @@ int bfs(std::unordered_map<int, std::vector<int>>& graph, int start, int target)
     return -1; // not reachable
 }
 
-// DFS — recursive (for connectivity, cycle detection)
+// DFS - recursive (for connectivity, cycle detection)
 void dfs(std::unordered_map<int, std::vector<int>>& graph, int node, std::unordered_set<int>& visited) {
     if (visited.count(node)) return;
     visited.insert(node);
@@ -347,8 +347,8 @@ void dfs(std::unordered_map<int, std::vector<int>>& graph, int node, std::unorde
 **Applications:** Course prerequisites, build dependencies, task scheduling.
 
 Two algorithms:
-1. **Kahn's algorithm (BFS)** — track in-degrees, process nodes with 0 in-degree
-2. **DFS-based** — post-order traversal, reverse the result`,
+1. **Kahn's algorithm (BFS)** - track in-degrees, process nodes with 0 in-degree
+2. **DFS-based** - post-order traversal, reverse the result`,
       codeExamples: [
         {
           title: 'Kahn\'s algorithm (BFS)',
@@ -500,12 +500,12 @@ std::vector<int> topologicalSort(int n, std::vector<std::vector<int>>& edges) {
     {
       id: 'common-patterns',
       title: 'Common Interview Patterns',
-      content: `1. **Number of islands / connected components** — DFS or BFS on grid
-2. **Course schedule / prerequisite order** — topological sort
-3. **Clone graph** — BFS/DFS with hash map to track cloned nodes
-4. **Word ladder** — BFS shortest path on implicit graph
-5. **Detect cycle** — DFS with recursion stack tracking (3-coloring: unvisited, in-stack, done)
-6. **Dijkstra's shortest path** — PriorityQueue for weighted graphs`,
+      content: `1. **Number of islands / connected components** - DFS or BFS on grid
+2. **Course schedule / prerequisite order** - topological sort
+3. **Clone graph** - BFS/DFS with hash map to track cloned nodes
+4. **Word ladder** - BFS shortest path on implicit graph
+5. **Detect cycle** - DFS with recursion stack tracking (3-coloring: unvisited, in-stack, done)
+6. **Dijkstra's shortest path** - PriorityQueue for weighted graphs`,
     },
   ],
   problemIds: ['number-of-islands', 'clone-graph', 'course-schedule', 'rotting-oranges', 'word-ladder'],

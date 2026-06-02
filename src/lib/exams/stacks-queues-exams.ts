@@ -11,7 +11,7 @@ export const questions: ExamQuestion[] = [
       'Priority-based ordering',
     ],
     correctIndex: 1,
-    explanation: 'A stack follows LIFO: the last element pushed is the first one popped. Think of a stack of plates — you remove from the top.',
+    explanation: 'A stack follows LIFO: the last element pushed is the first one popped. Think of a stack of plates - you remove from the top.',
   },
   {
     id: 'sq-2',

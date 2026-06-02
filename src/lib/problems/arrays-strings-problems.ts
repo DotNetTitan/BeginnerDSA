@@ -6,7 +6,7 @@ export const problems: Problem[] = [
     title: 'Two Sum (Brute Force)',
     topicId: 'arrays-strings',
     difficulty: 'easy',
-    description: `Given an array of integers \`nums\` and an integer \`target\`, return the indices of the two numbers that add up to \`target\`. Solve this without using a hash map (O(nÂ²) solution).`,
+    description: `Given an array of integers \`nums\` and an integer \`target\`, return the indices of the two numbers that add up to \`target\`. Solve this without using a hash map (O(n²) solution).`,
     examples: [
       { input: 'nums = [2,7,11,15], target = 9', output: '[0, 1]', explanation: 'nums[0] + nums[1] = 2 + 7 = 9' },
       { input: 'nums = [3,2,4], target = 6', output: '[1, 2]' },
@@ -60,7 +60,7 @@ std::vector<int> twoSum(const std::vector<int>& nums, int target) {
     return {};
 }`,
     },
-    timeComplexity: 'O(nÂ²)',
+    timeComplexity: 'O(n²)',
     spaceComplexity: 'O(1)',
   },
   {

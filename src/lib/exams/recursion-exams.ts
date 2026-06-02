@@ -17,10 +17,10 @@ export const questions: ExamQuestion[] = [
     id: 'rec-2',
     question: 'What is the time complexity of the naive recursive Fibonacci (Fib(n) = Fib(n-1) + Fib(n-2))?',
     options: [
-      'O(n) — linear recursion depth',
-      'O(n²) — quadratic growth',
-      'O(2ⁿ) — exponential, each call branches into two',
-      'O(log n) — divide and conquer',
+      'O(n) - linear recursion depth',
+      'O(n²) - quadratic growth',
+      'O(2ⁿ) - exponential, each call branches into two',
+      'O(log n) - divide and conquer',
     ],
     correctIndex: 2,
     explanation: 'Naive recursion computes Fib(n) in O(2ⁿ) because each call spawns two more calls, forming a binary tree of height n. This is why memoization or tabulation is essential.',
@@ -53,7 +53,7 @@ export const questions: ExamQuestion[] = [
     id: 'rec-5',
     question: 'Which of the following can always be converted to an iterative solution?',
     options: [
-      'Any recursive function — recursion and iteration are equally expressive',
+      'Any recursive function - recursion and iteration are equally expressive',
       'Only tail-recursive functions',
       'Only functions with a single base case',
       'Recursive functions cannot be converted to iteration',

@@ -423,7 +423,7 @@ std::vector<std::string> generateParenthesis(int n) {
     title: 'N-Queens',
     topicId: 'recursion',
     difficulty: 'hard',
-    description: `The n-queens puzzle: place n queens on an nÃ—n board such that no two queens attack each other. Return all distinct solutions.`,
+    description: `The n-queens puzzle: place n queens on an n×n board such that no two queens attack each other. Return all distinct solutions.`,
     examples: [
       { input: 'n = 4', output: '[[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]' },
       { input: 'n = 1', output: '[["Q"]]' },
@@ -573,6 +573,6 @@ std::vector<std::vector<std::string>> solveNQueens(int n) {
 }`,
     },
     timeComplexity: 'O(n!)',
-    spaceComplexity: 'O(nÂ²)',
+    spaceComplexity: 'O(n²)',
   },
 ];

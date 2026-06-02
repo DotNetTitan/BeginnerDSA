@@ -5,7 +5,7 @@ export const topic: Topic = {
   title: 'Dynamic Programming',
   icon: 'BrainCircuit',
   order: 11,
-  description: 'Optimization through memoization and tabulation. The hardest topic — but pattern recognition makes it solvable.',
+  description: 'Optimization through memoization and tabulation. The hardest topic - but pattern recognition makes it solvable.',
   difficulty: 'advanced',
   prerequisites: ['big-o', 'arrays-strings', 'recursion'],
   theory: [
@@ -15,8 +15,8 @@ export const topic: Topic = {
       content: `Dynamic Programming = **recursion + memoization**. Solve problems by breaking them into overlapping subproblems and caching results.
 
 **Two approaches:**
-1. **Top-down (memoization)** — recursive with cache
-2. **Bottom-up (tabulation)** — iterative, filling a table
+1. **Top-down (memoization)** - recursive with cache
+2. **Bottom-up (tabulation)** - iterative, filling a table
 
 **When to use DP:**
 1. Problem asks for **count**, **max/min**, or **true/false** (is it possible?)
@@ -28,7 +28,7 @@ export const topic: Topic = {
         {
           title: 'Top-down vs bottom-up (Fibonacci)',
           code: {
-            csharp: `// Top-down (memoization) — O(n) time, O(n) space
+            csharp: `// Top-down (memoization) - O(n) time, O(n) space
 int FibMemo(int n, Dictionary<int, int> memo = null) {
     memo ??= new Dictionary<int, int>();
     if (n <= 1) return n;
@@ -36,7 +36,7 @@ int FibMemo(int n, Dictionary<int, int> memo = null) {
     return memo[n] = FibMemo(n - 1, memo) + FibMemo(n - 2, memo);
 }
 
-// Bottom-up (tabulation) — O(n) time, O(1) space
+// Bottom-up (tabulation) - O(n) time, O(1) space
 int FibTab(int n) {
     if (n <= 1) return n;
     int a = 0, b = 1;
@@ -48,7 +48,7 @@ int FibTab(int n) {
     return b;
 }
 
-// Bottom-up (full table) — O(n) time, O(n) space
+// Bottom-up (full table) - O(n) time, O(n) space
 int FibTable(int n) {
     if (n <= 1) return n;
     var dp = new int[n + 1];
@@ -59,14 +59,14 @@ int FibTable(int n) {
 }`,
             python: `from functools import lru_cache
 
-# Top-down (memoization) — O(n) time, O(n) space
+# Top-down (memoization) - O(n) time, O(n) space
 @lru_cache(maxsize=None)
 def fib_memo(n):
     if n <= 1:
         return n
     return fib_memo(n - 1) + fib_memo(n - 2)
 
-# Bottom-up (tabulation) — O(n) time, O(1) space
+# Bottom-up (tabulation) - O(n) time, O(1) space
 def fib_tab(n):
     if n <= 1:
         return n
@@ -75,7 +75,7 @@ def fib_tab(n):
         a, b = b, a + b
     return b
 
-# Bottom-up (full table) — O(n) time, O(n) space
+# Bottom-up (full table) - O(n) time, O(n) space
 def fib_table(n):
     if n <= 1:
         return n
@@ -86,7 +86,7 @@ def fib_table(n):
     return dp[n]`,
             java: `import java.util.*;
 
-// Top-down (memoization) — O(n) time, O(n) space
+// Top-down (memoization) - O(n) time, O(n) space
 public int fibMemo(int n, Map<Integer, Integer> memo) {
     if (memo == null) memo = new HashMap<>();
     if (n <= 1) return n;
@@ -96,7 +96,7 @@ public int fibMemo(int n, Map<Integer, Integer> memo) {
     return result;
 }
 
-// Bottom-up (tabulation) — O(n) time, O(1) space
+// Bottom-up (tabulation) - O(n) time, O(1) space
 public int fibTab(int n) {
     if (n <= 1) return n;
     int a = 0, b = 1;
@@ -108,7 +108,7 @@ public int fibTab(int n) {
     return b;
 }
 
-// Bottom-up (full table) — O(n) time, O(n) space
+// Bottom-up (full table) - O(n) time, O(n) space
 public int fibTable(int n) {
     if (n <= 1) return n;
     int[] dp = new int[n + 1];
@@ -117,14 +117,14 @@ public int fibTable(int n) {
         dp[i] = dp[i - 1] + dp[i - 2];
     return dp[n];
 }`,
-            javascript: `// Top-down (memoization) — O(n) time, O(n) space
+            javascript: `// Top-down (memoization) - O(n) time, O(n) space
 const fibMemo = (n, memo = {}) => {
     if (n <= 1) return n;
     if (n in memo) return memo[n];
     return memo[n] = fibMemo(n - 1, memo) + fibMemo(n - 2, memo);
 };
 
-// Bottom-up (tabulation) — O(n) time, O(1) space
+// Bottom-up (tabulation) - O(n) time, O(1) space
 const fibTab = (n) => {
     if (n <= 1) return n;
     let a = 0, b = 1;
@@ -136,7 +136,7 @@ const fibTab = (n) => {
     return b;
 };
 
-// Bottom-up (full table) — O(n) time, O(n) space
+// Bottom-up (full table) - O(n) time, O(n) space
 const fibTable = (n) => {
     if (n <= 1) return n;
     const dp = new Array(n + 1).fill(0);
@@ -148,14 +148,14 @@ const fibTable = (n) => {
           cpp: `#include <unordered_map>
 #include <vector>
 
-// Top-down (memoization) — O(n) time, O(n) space
+// Top-down (memoization) - O(n) time, O(n) space
 int fibMemo(int n, std::unordered_map<int, int>& memo) {
     if (n <= 1) return n;
     if (memo.count(n)) return memo[n];
     return memo[n] = fibMemo(n - 1, memo) + fibMemo(n - 2, memo);
 }
 
-// Bottom-up (tabulation) — O(n) time, O(1) space
+// Bottom-up (tabulation) - O(n) time, O(1) space
 int fibTab(int n) {
     if (n <= 1) return n;
     int a = 0, b = 1;
@@ -167,7 +167,7 @@ int fibTab(int n) {
     return b;
 }
 
-// Bottom-up (full table) — O(n) time, O(n) space
+// Bottom-up (full table) - O(n) time, O(n) space
 int fibTable(int n) {
     if (n <= 1) return n;
     std::vector<int> dp(n + 1);
@@ -199,7 +199,7 @@ int fibTable(int n) {
         {
           title: 'Classic 1D DP problems',
           code: {
-            csharp: `// House Robber — O(n), O(1) space
+            csharp: `// House Robber - O(n), O(1) space
 int Rob(int[] nums) {
     int prev2 = 0, prev1 = 0;
     foreach (var n in nums) {
@@ -210,7 +210,7 @@ int Rob(int[] nums) {
     return prev1;
 }
 
-// Climbing Stairs — O(n), O(1) space
+// Climbing Stairs - O(n), O(1) space
 int ClimbStairs(int n) {
     if (n <= 2) return n;
     int a = 1, b = 2;
@@ -221,7 +221,7 @@ int ClimbStairs(int n) {
     return b;
 }
 
-// Coin Change (minimum coins) — O(amount * coins), O(amount) space
+// Coin Change (minimum coins) - O(amount * coins), O(amount) space
 int CoinChange(int[] coins, int amount) {
     var dp = new int[amount + 1];
     Array.Fill(dp, amount + 1);
@@ -235,7 +235,7 @@ int CoinChange(int[] coins, int amount) {
     }
     return dp[amount] > amount ? -1 : dp[amount];
 }`,
-            python: `# House Robber — O(n), O(1) space
+            python: `# House Robber - O(n), O(1) space
 def rob(nums):
     prev2 = prev1 = 0
     for n in nums:
@@ -243,7 +243,7 @@ def rob(nums):
         prev2, prev1 = prev1, curr
     return prev1
 
-# Climbing Stairs — O(n), O(1) space
+# Climbing Stairs - O(n), O(1) space
 def climb_stairs(n):
     if n <= 2:
         return n
@@ -252,7 +252,7 @@ def climb_stairs(n):
         a, b = b, a + b
     return b
 
-# Coin Change (minimum coins) — O(amount * coins), O(amount) space
+# Coin Change (minimum coins) - O(amount * coins), O(amount) space
 def coin_change(coins, amount):
     dp = [amount + 1] * (amount + 1)
     dp[0] = 0
@@ -263,7 +263,7 @@ def coin_change(coins, amount):
                 dp[i] = min(dp[i], dp[i - coin] + 1)
 
     return -1 if dp[amount] > amount else dp[amount]`,
-            java: `// House Robber — O(n), O(1) space
+            java: `// House Robber - O(n), O(1) space
 public int rob(int[] nums) {
     int prev2 = 0, prev1 = 0;
     for (int n : nums) {
@@ -274,7 +274,7 @@ public int rob(int[] nums) {
     return prev1;
 }
 
-// Climbing Stairs — O(n), O(1) space
+// Climbing Stairs - O(n), O(1) space
 public int climbStairs(int n) {
     if (n <= 2) return n;
     int a = 1, b = 2;
@@ -285,7 +285,7 @@ public int climbStairs(int n) {
     return b;
 }
 
-// Coin Change (minimum coins) — O(amount * coins), O(amount) space
+// Coin Change (minimum coins) - O(amount * coins), O(amount) space
 public int coinChange(int[] coins, int amount) {
     int[] dp = new int[amount + 1];
     Arrays.fill(dp, amount + 1);
@@ -299,7 +299,7 @@ public int coinChange(int[] coins, int amount) {
     }
     return dp[amount] > amount ? -1 : dp[amount];
 }`,
-            javascript: `// House Robber — O(n), O(1) space
+            javascript: `// House Robber - O(n), O(1) space
 const rob = (nums) => {
     let prev2 = 0, prev1 = 0;
     for (const n of nums) {
@@ -310,7 +310,7 @@ const rob = (nums) => {
     return prev1;
 };
 
-// Climbing Stairs — O(n), O(1) space
+// Climbing Stairs - O(n), O(1) space
 const climbStairs = (n) => {
     if (n <= 2) return n;
     let a = 1, b = 2;
@@ -321,7 +321,7 @@ const climbStairs = (n) => {
     return b;
 };
 
-// Coin Change (minimum coins) — O(amount * coins), O(amount) space
+// Coin Change (minimum coins) - O(amount * coins), O(amount) space
 const coinChange = (coins, amount) => {
     const dp = new Array(amount + 1).fill(amount + 1);
     dp[0] = 0;
@@ -338,7 +338,7 @@ const coinChange = (coins, amount) => {
 #include <algorithm>
 #include <climits>
 
-// House Robber — O(n), O(1) space
+// House Robber - O(n), O(1) space
 int rob(const std::vector<int>& nums) {
     int prev2 = 0, prev1 = 0;
     for (int n : nums) {
@@ -349,7 +349,7 @@ int rob(const std::vector<int>& nums) {
     return prev1;
 }
 
-// Climbing Stairs — O(n), O(1) space
+// Climbing Stairs - O(n), O(1) space
 int climbStairs(int n) {
     if (n <= 2) return n;
     int a = 1, b = 2;
@@ -360,7 +360,7 @@ int climbStairs(int n) {
     return b;
 }
 
-// Coin Change (minimum coins) — O(amount * coins), O(amount) space
+// Coin Change (minimum coins) - O(amount * coins), O(amount) space
 int coinChange(const std::vector<int>& coins, int amount) {
     std::vector<int> dp(amount + 1, amount + 1);
     dp[0] = 0;
@@ -395,7 +395,7 @@ int coinChange(const std::vector<int>& coins, int amount) {
         {
           title: '2D DP templates',
           code: {
-            csharp: `// Longest Common Subsequence — O(m*n)
+            csharp: `// Longest Common Subsequence - O(m*n)
 int LCS(string text1, string text2) {
     int m = text1.Length, n = text2.Length;
     var dp = new int[m + 1, n + 1];
@@ -411,7 +411,7 @@ int LCS(string text1, string text2) {
     return dp[m, n];
 }
 
-// 0/1 Knapsack — O(n * capacity)
+// 0/1 Knapsack - O(n * capacity)
 int Knapsack(int[] weights, int[] values, int capacity) {
     int n = weights.Length;
     var dp = new int[n + 1, capacity + 1];
@@ -429,7 +429,7 @@ int Knapsack(int[] weights, int[] values, int capacity) {
     }
     return dp[n, capacity];
 }`,
-            python: `# Longest Common Subsequence — O(m*n)
+            python: `# Longest Common Subsequence - O(m*n)
 def lcs(text1, text2):
     m, n = len(text1), len(text2)
     dp = [[0] * (n + 1) for _ in range(m + 1)]
@@ -442,7 +442,7 @@ def lcs(text1, text2):
                 dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
     return dp[m][n]
 
-# 0/1 Knapsack — O(n * capacity)
+# 0/1 Knapsack - O(n * capacity)
 def knapsack(weights, values, capacity):
     n = len(weights)
     dp = [[0] * (capacity + 1) for _ in range(n + 1)]
@@ -457,7 +457,7 @@ def knapsack(weights, values, capacity):
             else:
                 dp[i][w] = dp[i - 1][w]
     return dp[n][capacity]`,
-            java: `// Longest Common Subsequence — O(m*n)
+            java: `// Longest Common Subsequence - O(m*n)
 public int lcs(String text1, String text2) {
     int m = text1.length(), n = text2.length();
     int[][] dp = new int[m + 1][n + 1];
@@ -473,7 +473,7 @@ public int lcs(String text1, String text2) {
     return dp[m][n];
 }
 
-// 0/1 Knapsack — O(n * capacity)
+// 0/1 Knapsack - O(n * capacity)
 public int knapsack(int[] weights, int[] values, int capacity) {
     int n = weights.length;
     int[][] dp = new int[n + 1][capacity + 1];
@@ -491,7 +491,7 @@ public int knapsack(int[] weights, int[] values, int capacity) {
     }
     return dp[n][capacity];
 }`,
-            javascript: `// Longest Common Subsequence — O(m*n)
+            javascript: `// Longest Common Subsequence - O(m*n)
 const lcs = (text1, text2) => {
     const m = text1.length, n = text2.length;
     const dp = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));
@@ -507,7 +507,7 @@ const lcs = (text1, text2) => {
     return dp[m][n];
 };
 
-// 0/1 Knapsack — O(n * capacity)
+// 0/1 Knapsack - O(n * capacity)
 const knapsack = (weights, values, capacity) => {
     const n = weights.length;
     const dp = Array.from({ length: n + 1 }, () => new Array(capacity + 1).fill(0));
@@ -529,7 +529,7 @@ const knapsack = (weights, values, capacity) => {
 #include <algorithm>
 #include <string>
 
-// Longest Common Subsequence — O(m*n)
+// Longest Common Subsequence - O(m*n)
 int lcs(const std::string& text1, const std::string& text2) {
     int m = text1.size(), n = text2.size();
     std::vector<std::vector<int>> dp(m + 1, std::vector<int>(n + 1, 0));
@@ -545,7 +545,7 @@ int lcs(const std::string& text1, const std::string& text2) {
     return dp[m][n];
 }
 
-// 0/1 Knapsack — O(n * capacity)
+// 0/1 Knapsack - O(n * capacity)
 int knapsack(const std::vector<int>& weights, const std::vector<int>& values, int capacity) {
     int n = weights.size();
     std::vector<std::vector<int>> dp(n + 1, std::vector<int>(capacity + 1, 0));
@@ -570,12 +570,12 @@ int knapsack(const std::vector<int>& weights, const std::vector<int>& values, in
     {
       id: 'common-patterns',
       title: 'Common Interview Patterns',
-      content: `1. **Fibonacci-style** — climbing stairs, house robber, decode ways
-2. **Grid DP** — unique paths, min path sum, maximal square
-3. **Two sequences** — LCS, edit distance, wildcard matching
-4. **Knapsack / subset sum** — partition equal subset sum, coin change
-5. **DP on intervals** — burst balloons, matrix chain multiplication
-6. **DP on trees** — tree diameter, max path sum (post-order traversal)
+      content: `1. **Fibonacci-style** - climbing stairs, house robber, decode ways
+2. **Grid DP** - unique paths, min path sum, maximal square
+3. **Two sequences** - LCS, edit distance, wildcard matching
+4. **Knapsack / subset sum** - partition equal subset sum, coin change
+5. **DP on intervals** - burst balloons, matrix chain multiplication
+6. **DP on trees** - tree diameter, max path sum (post-order traversal)
 
 **Quick checklist to find the DP recurrence:**
 1. Define the state (what does dp[i] represent?)

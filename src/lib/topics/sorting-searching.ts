@@ -29,7 +29,7 @@ export const topic: Topic = {
         {
           title: 'Binary search and its variants',
           code: {
-            csharp: `// Standard binary search — O(log n)
+            csharp: `// Standard binary search - O(log n)
 int BinarySearch(int[] arr, int target) {
     int left = 0, right = arr.Length - 1;
     while (left <= right) {
@@ -41,7 +41,7 @@ int BinarySearch(int[] arr, int target) {
     return -1;
 }
 
-// Lower bound — first index where arr[i] >= target
+// Lower bound - first index where arr[i] >= target
 int LowerBound(int[] arr, int target) {
     int left = 0, right = arr.Length;
     while (left < right) {
@@ -52,7 +52,7 @@ int LowerBound(int[] arr, int target) {
     return left;
 }
 
-// Upper bound — first index where arr[i] > target
+// Upper bound - first index where arr[i] > target
 int UpperBound(int[] arr, int target) {
     int left = 0, right = arr.Length;
     while (left < right) {
@@ -62,7 +62,7 @@ int UpperBound(int[] arr, int target) {
     }
     return left;
 }`,
-            python: `# Standard binary search — O(log n)
+            python: `# Standard binary search - O(log n)
 def binary_search(arr, target):
     left, right = 0, len(arr) - 1
     while left <= right:
@@ -75,7 +75,7 @@ def binary_search(arr, target):
             right = mid - 1
     return -1
 
-# Lower bound — first index where arr[i] >= target
+# Lower bound - first index where arr[i] >= target
 def lower_bound(arr, target):
     left, right = 0, len(arr)
     while left < right:
@@ -86,7 +86,7 @@ def lower_bound(arr, target):
             right = mid
     return left
 
-# Upper bound — first index where arr[i] > target
+# Upper bound - first index where arr[i] > target
 def upper_bound(arr, target):
     left, right = 0, len(arr)
     while left < right:
@@ -96,7 +96,7 @@ def upper_bound(arr, target):
         else:
             right = mid
     return left`,
-            java: `// Standard binary search — O(log n)
+            java: `// Standard binary search - O(log n)
 public int binarySearch(int[] arr, int target) {
     int left = 0, right = arr.length - 1;
     while (left <= right) {
@@ -108,7 +108,7 @@ public int binarySearch(int[] arr, int target) {
     return -1;
 }
 
-// Lower bound — first index where arr[i] >= target
+// Lower bound - first index where arr[i] >= target
 public int lowerBound(int[] arr, int target) {
     int left = 0, right = arr.length;
     while (left < right) {
@@ -119,7 +119,7 @@ public int lowerBound(int[] arr, int target) {
     return left;
 }
 
-// Upper bound — first index where arr[i] > target
+// Upper bound - first index where arr[i] > target
 public int upperBound(int[] arr, int target) {
     int left = 0, right = arr.length;
     while (left < right) {
@@ -129,7 +129,7 @@ public int upperBound(int[] arr, int target) {
     }
     return left;
 }`,
-            javascript: `// Standard binary search — O(log n)
+            javascript: `// Standard binary search - O(log n)
 const binarySearch = (arr, target) => {
     let left = 0, right = arr.length - 1;
     while (left <= right) {
@@ -141,7 +141,7 @@ const binarySearch = (arr, target) => {
     return -1;
 };
 
-// Lower bound — first index where arr[i] >= target
+// Lower bound - first index where arr[i] >= target
 const lowerBound = (arr, target) => {
     let left = 0, right = arr.length;
     while (left < right) {
@@ -152,7 +152,7 @@ const lowerBound = (arr, target) => {
     return left;
 };
 
-// Upper bound — first index where arr[i] > target
+// Upper bound - first index where arr[i] > target
 const upperBound = (arr, target) => {
     let left = 0, right = arr.length;
     while (left < right) {
@@ -165,7 +165,7 @@ const upperBound = (arr, target) => {
           cpp: `#include <vector>
 #include <algorithm>
 
-// Standard binary search — O(log n)
+// Standard binary search - O(log n)
 int binarySearch(const std::vector<int>& arr, int target) {
     int left = 0, right = arr.size() - 1;
     while (left <= right) {
@@ -177,12 +177,12 @@ int binarySearch(const std::vector<int>& arr, int target) {
     return -1;
 }
 
-// Lower bound — first index where arr[i] >= target
+// Lower bound - first index where arr[i] >= target
 int lowerBound(const std::vector<int>& arr, int target) {
     return (int)(std::lower_bound(arr.begin(), arr.end(), target) - arr.begin());
 }
 
-// Upper bound — first index where arr[i] > target
+// Upper bound - first index where arr[i] > target
 int upperBound(const std::vector<int>& arr, int target) {
     return (int)(std::upper_bound(arr.begin(), arr.end(), target) - arr.begin());
 }`,
@@ -207,7 +207,7 @@ Most languages have a built-in sort that uses **introsort** (quick sort + heap s
         {
           title: 'Key sorting implementations',
           code: {
-            csharp: `// Quick sort — O(n log n) average, O(log n) space
+            csharp: `// Quick sort - O(n log n) average, O(log n) space
 void QuickSort(int[] arr, int left, int right) {
     if (left >= right) return;
     int pivot = Partition(arr, left, right);
@@ -235,7 +235,7 @@ Array.Sort(arr, (a, b) => b.CompareTo(a));  // descending with comparer
 
 // Custom comparer for complex objects
 Array.Sort(people, (a, b) => a.Age.CompareTo(b.Age));`,
-            python: `# Quick sort — O(n log n) average, O(log n) space
+            python: `# Quick sort - O(n log n) average, O(log n) space
 def quick_sort(arr, left, right):
     if left >= right:
         return
@@ -260,7 +260,7 @@ arr.sort(reverse=True)                 # descending
 
 # Custom key for complex objects
 people.sort(key=lambda p: p.age)`,
-            java: `// Quick sort — O(n log n) average, O(log n) space
+            java: `// Quick sort - O(n log n) average, O(log n) space
 public void quickSort(int[] arr, int left, int right) {
     if (left >= right) return;
     int pivot = partition(arr, left, right);
@@ -289,7 +289,7 @@ Arrays.sort(sorted);                  // O(n log n), new array
 
 // Custom comparator for complex objects
 // Arrays.sort(people, (a, b) -> Integer.compare(a.age, b.age));`,
-            javascript: `// Quick sort — O(n log n) average, O(log n) space
+            javascript: `// Quick sort - O(n log n) average, O(log n) space
 const quickSort = (arr, left = 0, right = arr.length - 1) => {
     if (left >= right) return;
     const pivot = partition(arr, left, right);
@@ -321,7 +321,7 @@ arr.sort((a, b) => b - a);              // descending
 #include <algorithm>
 #include <iostream>
 
-// Quick sort — O(n log n) average, O(log n) space
+// Quick sort - O(n log n) average, O(log n) space
 void quickSort(std::vector<int>& arr, int left, int right) {
     if (left >= right) return;
     int pivot = partition(arr, left, right);
@@ -549,11 +549,11 @@ int findMin(const std::vector<int>& arr) {
     {
       id: 'common-patterns',
       title: 'Common Interview Patterns',
-      content: `1. **Binary search on answer** — search for the minimum valid value (e.g., ship capacity, splitting arrays)
-2. **Search in rotated array** — modified binary search with half-range elimination
-3. **Two-pointer with sorting** — sort then use two pointers for pair/three-sum problems
-4. **Dutch national flag** — three-way partition (sort 0s, 1s, 2s)
-5. **Merge intervals after sorting** — sort by start time, then merge`,
+      content: `1. **Binary search on answer** - search for the minimum valid value (e.g., ship capacity, splitting arrays)
+2. **Search in rotated array** - modified binary search with half-range elimination
+3. **Two-pointer with sorting** - sort then use two pointers for pair/three-sum problems
+4. **Dutch national flag** - three-way partition (sort 0s, 1s, 2s)
+5. **Merge intervals after sorting** - sort by start time, then merge`,
     },
   ],
   problemIds: ['binary-search', 'search-rotated-array', 'kth-largest', 'find-min-rotated', 'sort-colors'],
