@@ -57,8 +57,8 @@ export default function MobileNav() {
       </SheetTrigger>
       <SheetContent side="left" className="p-0 w-72">
         <div className="flex items-center gap-2 p-4 border-b">
-          <Image src="/logo.png" alt="BaseCase" width={36} height={36} className="h-9 w-9" />
-          <span className="font-bold text-lg">BaseCase</span>
+          <Image src="/logo.png" alt="Zero To DSA" width={36} height={36} className="h-9 w-9" />
+          <span className="font-bold text-lg">Zero To DSA</span>
         </div>
 
         <div className="flex items-center gap-1 p-4 border-b">

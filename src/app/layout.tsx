@@ -4,9 +4,9 @@ import "./globals.css";
 import { Providers } from "@/components/providers";
 
 export const metadata: Metadata = {
-  title: "BaseCase",
+  title: "Zero To DSA",
   description: "Learn DSA from zero. Structured modules and coding challenges for absolute beginners.",
-  metadataBase: new URL("https://beginner-dsa.vercel.app"),
+  metadataBase: new URL("https://zerotodsa.online"),
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "48x48" },
@@ -17,16 +17,16 @@ export const metadata: Metadata = {
   },
   manifest: "/site.webmanifest",
   openGraph: {
-    title: "BaseCase",
+    title: "Zero To DSA",
     description: "Structured modules and coding challenges with support for Python, Java, C++, JavaScript, and C#.",
-    url: "https://beginner-dsa.vercel.app",
-    siteName: "BaseCase",
+    url: "https://zerotodsa.online",
+    siteName: "Zero To DSA",
     type: "website",
     images: [{ url: "/logo.png", width: 512, height: 512 }],
   },
   twitter: {
     card: "summary",
-    title: "BaseCase",
+    title: "Zero To DSA",
     description: "Structured modules and coding challenges with support for Python, Java, C++, JavaScript, and C#.",
     images: ["/logo.png"],
   },
