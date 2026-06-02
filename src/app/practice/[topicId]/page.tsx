@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { topicId } = await params;
   const topic = getTopic(topicId);
   if (!topic) return { title: 'Topic Not Found' };
-  return { title: `${topic.title} — Practice — DSA From Zero` };
+  return { title: `${topic.title} — Practice — BaseCase` };
 }
 
 export default async function PracticePage({ params }: Props) {

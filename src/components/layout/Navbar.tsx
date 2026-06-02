@@ -19,8 +19,8 @@ export default function Navbar() {
     <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="flex h-14 items-center px-4 md:px-6">
         <Link href="/" className="flex items-center gap-2 font-bold text-lg mr-4 sm:mr-8">
-          <Image src="/logo.png" alt="DSA From Zero" width={36} height={36} className="h-9 w-9" />
-          <span className="hidden sm:inline">DSA From Zero</span>
+          <Image src="/logo.png" alt="BaseCase" width={36} height={36} className="h-9 w-9" />
+          <span className="hidden sm:inline">BaseCase</span>
         </Link>
 
         <div className="hidden md:flex items-center gap-1 text-sm">

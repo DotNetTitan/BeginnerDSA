@@ -4,8 +4,8 @@ import "./globals.css";
 import { Providers } from "@/components/providers";
 
 export const metadata: Metadata = {
-  title: "DSA From Zero",
-  description: "Learn data structures and algorithms for technical interviews",
+  title: "BaseCase",
+  description: "Master data structures and algorithms from the ground up.",
   metadataBase: new URL("https://beginner-dsa.vercel.app"),
   icons: {
     icon: [
@@ -17,16 +17,16 @@ export const metadata: Metadata = {
   },
   manifest: "/site.webmanifest",
   openGraph: {
-    title: "DSA From Zero",
+    title: "BaseCase",
     description: "Structured modules and coding challenges with support for Python, Java, C++, JavaScript, and C#.",
     url: "https://beginner-dsa.vercel.app",
-    siteName: "DSA From Zero",
+    siteName: "BaseCase",
     type: "website",
     images: [{ url: "/logo.png", width: 512, height: 512 }],
   },
   twitter: {
     card: "summary",
-    title: "DSA From Zero",
+    title: "BaseCase",
     description: "Structured modules and coding challenges with support for Python, Java, C++, JavaScript, and C#.",
     images: ["/logo.png"],
   },
