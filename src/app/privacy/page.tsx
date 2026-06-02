@@ -56,20 +56,6 @@ export default function PrivacyPage() {
         </ul>
       </section>
 
-      <section className="space-y-2">
-        <h2 className="text-lg font-semibold">Contact</h2>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          If you have questions about this policy, please open an issue on{" "}
-          <a
-            href="https://github.com/DotNetTitan/BeginnerDSA"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary underline underline-offset-2 hover:text-foreground"
-          >
-            GitHub
-          </a>.
-        </p>
-      </section>
     </div>
   );
 }
