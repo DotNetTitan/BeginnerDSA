@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { Button } from '@/components/ui/button';
 
 export default function CookieBanner() {
   const [visible, setVisible] = useState(false);
@@ -32,18 +33,12 @@ export default function CookieBanner() {
           This site uses a cookie to remember your preferred programming language. No tracking or analytics cookies are used.
         </p>
         <div className="flex items-center gap-2 justify-end">
-          <button
-            onClick={decline}
-            className="text-sm px-3 py-1.5 rounded-lg border border-border text-muted-foreground hover:text-foreground font-medium"
-          >
+          <Button variant="outline" size="sm" onClick={decline}>
             Decline
-          </button>
-          <button
-            onClick={accept}
-            className="text-sm px-3 py-1.5 rounded-lg bg-foreground text-background font-semibold hover:opacity-90"
-          >
+          </Button>
+          <Button variant="default" size="sm" onClick={accept}>
             Accept
-          </button>
+          </Button>
         </div>
       </div>
     </div>
