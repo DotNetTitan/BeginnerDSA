@@ -7,12 +7,12 @@ import Link from 'next/link';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { ChevronLeft } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
-import CodeBlock from '@/components/editor/CodeBlock';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import MarkSolvedButton from './MarkSolvedButton';
 import NextProblemButton from '@/components/practice/NextProblemButton';
 import ExamOfferModal from '@/components/exam/ExamOfferModal';
 import KeyboardNav from '@/components/layout/KeyboardNav';
+import SolutionDisplay from '@/components/practice/SolutionDisplay';
 
 interface Props {
   params: Promise<{ topicId: string; problemId: string }>;
@@ -133,10 +133,7 @@ export default async function ProblemPage({ params }: Props) {
         </div>
       )}
 
-      <div>
-        <h3 className="text-sm font-semibold mb-2">Reference Solution (C#)</h3>
-        <CodeBlock code={problem.solution} language="csharp" />
-      </div>
+      <SolutionDisplay solution={problem.solution} />
 
       {!nextProblem && <ExamOfferModal topicId={topicId} />}
       <KeyboardNav

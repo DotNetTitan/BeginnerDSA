@@ -22,7 +22,8 @@ The **call stack** tracks each recursive call. Too many recursive calls = **stac
       codeExamples: [
         {
           title: 'Recursion vs iteration',
-          code: `// Iterative factorial — O(n) time, O(1) space
+          code: {
+            csharp: `// Iterative factorial — O(n) time, O(1) space
 int FactorialIter(int n) {
     int result = 1;
     for (int i = 2; i <= n; i++) result *= i;
@@ -48,7 +49,116 @@ int FibMemo(int n, Dictionary<int, int> memo = null) {
     if (memo.ContainsKey(n)) return memo[n];
     return memo[n] = FibMemo(n - 1, memo) + FibMemo(n - 2, memo);
 }`,
-          language: 'csharp',
+            python: `# Iterative factorial — O(n) time, O(1) space
+def factorial_iter(n):
+    result = 1
+    for i in range(2, n + 1):
+        result *= i
+    return result
+
+# Recursive factorial — O(n) time, O(n) stack space
+def factorial_rec(n):
+    if n <= 1:          # base case
+        return 1
+    return n * factorial_rec(n - 1)  # recursive case
+
+# Fibonacci — naive: O(2ⁿ) time, O(n) stack space
+def fib_naive(n):
+    if n <= 1:
+        return n
+    return fib_naive(n - 1) + fib_naive(n - 2)  # exponential!
+
+# Fibonacci — memoized: O(n) time, O(n) space
+from functools import lru_cache
+
+@lru_cache(maxsize=None)
+def fib_memo(n):
+    if n <= 1:
+        return n
+    return fib_memo(n - 1) + fib_memo(n - 2)`,
+            java: `import java.util.*;
+
+// Iterative factorial — O(n) time, O(1) space
+public int factorialIter(int n) {
+    int result = 1;
+    for (int i = 2; i <= n; i++) result *= i;
+    return result;
+}
+
+// Recursive factorial — O(n) time, O(n) stack space
+public int factorialRec(int n) {
+    if (n <= 1) return 1;          // base case
+    return n * factorialRec(n - 1); // recursive case
+}
+
+// Fibonacci — naive: O(2ⁿ) time, O(n) stack space
+public int fibNaive(int n) {
+    if (n <= 1) return n;
+    return fibNaive(n - 1) + fibNaive(n - 2); // exponential!
+}
+
+// Fibonacci — memoized: O(n) time, O(n) space
+public int fibMemo(int n, Map<Integer, Integer> memo) {
+    if (memo == null) memo = new HashMap<>();
+    if (n <= 1) return n;
+    if (memo.containsKey(n)) return memo.get(n);
+    int result = fibMemo(n - 1, memo) + fibMemo(n - 2, memo);
+    memo.put(n, result);
+    return result;
+}`,
+            javascript: `// Iterative factorial — O(n) time, O(1) space
+const factorialIter = (n) => {
+    let result = 1;
+    for (let i = 2; i <= n; i++) result *= i;
+    return result;
+};
+
+// Recursive factorial — O(n) time, O(n) stack space
+const factorialRec = (n) => {
+    if (n <= 1) return 1;           // base case
+    return n * factorialRec(n - 1); // recursive case
+};
+
+// Fibonacci — naive: O(2ⁿ) time, O(n) stack space
+const fibNaive = (n) => {
+    if (n <= 1) return n;
+    return fibNaive(n - 1) + fibNaive(n - 2); // exponential!
+};
+
+// Fibonacci — memoized: O(n) time, O(n) space
+const fibMemo = (n, memo = {}) => {
+    if (n <= 1) return n;
+    if (n in memo) return memo[n];
+    return memo[n] = fibMemo(n - 1, memo) + fibMemo(n - 2, memo);
+};`,
+          cpp: `#include <unordered_map>
+
+// Iterative factorial — O(n) time, O(1) space
+int factorialIter(int n) {
+    int result = 1;
+    for (int i = 2; i <= n; i++) result *= i;
+    return result;
+}
+
+// Recursive factorial — O(n) time, O(n) stack space
+int factorialRec(int n) {
+    if (n <= 1) return 1;          // base case
+    return n * factorialRec(n - 1); // recursive case
+}
+
+// Fibonacci — naive: O(2ⁿ) time, O(n) stack space
+int fibNaive(int n) {
+    if (n <= 1) return n;
+    return fibNaive(n - 1) + fibNaive(n - 2); // exponential!
+}
+
+// Fibonacci — memoized: O(n) time, O(n) space
+int fibMemo(int n, std::unordered_map<int, int>& memo) {
+    if (n <= 1) return n;
+    if (memo.count(n)) return memo[n];
+    return memo[n] = fibMemo(n - 1, memo) + fibMemo(n - 2, memo);
+}`,
+          },
         },
       ],
       table: {
@@ -74,7 +184,8 @@ Used for: permutations, subsets, combination sum, N-Queens, Sudoku solver.`,
       codeExamples: [
         {
           title: 'Backtracking template',
-          code: `// Generate all subsets (powerset) — O(2ⁿ)
+          code: {
+            csharp: `// Generate all subsets (powerset) — O(2ⁿ)
 IList<IList<int>> Subsets(int[] nums) {
     var result = new List<IList<int>>();
     var current = new List<int>();
@@ -115,7 +226,171 @@ IList<IList<int>> Permute(int[] nums) {
         }
     }
 }`,
-          language: 'csharp',
+            python: `# Generate all subsets (powerset) — O(2ⁿ)
+def subsets(nums):
+    result = []
+    current = []
+
+    def backtrack(start):
+        result.append(current[:])  # add current subset
+
+        for i in range(start, len(nums)):
+            current.append(nums[i])   # choose
+            backtrack(i + 1)          # explore
+            current.pop()             # un-choose
+
+    backtrack(0)
+    return result
+
+# Generate all permutations — O(n!)
+def permute(nums):
+    result = []
+    used = [False] * len(nums)
+    current = []
+
+    def backtrack():
+        if len(current) == len(nums):
+            result.append(current[:])
+            return
+        for i in range(len(nums)):
+            if used[i]:
+                continue
+            used[i] = True
+            current.append(nums[i])
+            backtrack()
+            current.pop()
+            used[i] = False
+
+    backtrack()
+    return result`,
+            java: `import java.util.*;
+
+// Generate all subsets (powerset) — O(2ⁿ)
+public List<List<Integer>> subsets(int[] nums) {
+    List<List<Integer>> result = new ArrayList<>();
+    backtrackSubsets(nums, 0, new ArrayList<>(), result);
+    return result;
+}
+
+private void backtrackSubsets(int[] nums, int start,
+        List<Integer> current, List<List<Integer>> result) {
+    result.add(new ArrayList<>(current)); // add current subset
+
+    for (int i = start; i < nums.length; i++) {
+        current.add(nums[i]);            // choose
+        backtrackSubsets(nums, i + 1, current, result); // explore
+        current.remove(current.size() - 1); // un-choose
+    }
+}
+
+// Generate all permutations — O(n!)
+public List<List<Integer>> permute(int[] nums) {
+    List<List<Integer>> result = new ArrayList<>();
+    boolean[] used = new boolean[nums.length];
+    backtrackPermute(nums, used, new ArrayList<>(), result);
+    return result;
+}
+
+private void backtrackPermute(int[] nums, boolean[] used,
+        List<Integer> current, List<List<Integer>> result) {
+    if (current.size() == nums.length) {
+        result.add(new ArrayList<>(current));
+        return;
+    }
+    for (int i = 0; i < nums.length; i++) {
+        if (used[i]) continue;
+        used[i] = true;
+        current.add(nums[i]);
+        backtrackPermute(nums, used, current, result);
+        current.remove(current.size() - 1);
+        used[i] = false;
+    }
+}`,
+            javascript: `// Generate all subsets (powerset) — O(2ⁿ)
+const subsets = (nums) => {
+    const result = [];
+    const current = [];
+
+    const backtrack = (start) => {
+        result.push([...current]); // add current subset
+
+        for (let i = start; i < nums.length; i++) {
+            current.push(nums[i]);   // choose
+            backtrack(i + 1);        // explore
+            current.pop();           // un-choose
+        }
+    };
+
+    backtrack(0);
+    return result;
+};
+
+// Generate all permutations — O(n!)
+const permute = (nums) => {
+    const result = [];
+    const used = new Array(nums.length).fill(false);
+    const current = [];
+
+    const backtrack = () => {
+        if (current.length === nums.length) {
+            result.push([...current]);
+            return;
+        }
+        for (let i = 0; i < nums.length; i++) {
+            if (used[i]) continue;
+            used[i] = true;
+            current.push(nums[i]);
+            backtrack();
+            current.pop();
+            used[i] = false;
+        }
+    };
+
+    backtrack();
+    return result;
+};`,
+          cpp: `#include <vector>
+#include <functional>
+
+// Generate all subsets (powerset) — O(2ⁿ)
+std::vector<std::vector<int>> subsets(const std::vector<int>& nums) {
+    std::vector<std::vector<int>> result;
+    std::vector<int> current;
+    std::function<void(int)> backtrack = [&](int start) {
+        result.push_back(current);
+        for (int i = start; i < nums.size(); i++) {
+            current.push_back(nums[i]);
+            backtrack(i + 1);
+            current.pop_back();
+        }
+    };
+    backtrack(0);
+    return result;
+}
+
+// Generate all permutations — O(n!)
+std::vector<std::vector<int>> permute(const std::vector<int>& nums) {
+    std::vector<std::vector<int>> result;
+    std::vector<int> current;
+    std::vector<bool> used(nums.size(), false);
+    std::function<void()> backtrack = [&]() {
+        if (current.size() == nums.size()) {
+            result.push_back(current);
+            return;
+        }
+        for (int i = 0; i < nums.size(); i++) {
+            if (used[i]) continue;
+            used[i] = true;
+            current.push_back(nums[i]);
+            backtrack();
+            current.pop_back();
+            used[i] = false;
+        }
+    };
+    backtrack();
+    return result;
+}`,
+          },
         },
       ],
     },
@@ -131,7 +406,8 @@ Examples: Merge sort, quick sort, binary search, tree traversals.`,
       codeExamples: [
         {
           title: 'Merge sort — classic divide & conquer',
-          code: `int[] MergeSort(int[] arr) {
+          code: {
+            csharp: `int[] MergeSort(int[] arr) {
     if (arr.Length <= 1) return arr;
 
     int mid = arr.Length / 2;
@@ -154,7 +430,105 @@ int[] Merge(int[] left, int[] right) {
     return result;
 }
 // O(n log n) time, O(n) space`,
-          language: 'csharp',
+            python: `def merge_sort(arr):
+    if len(arr) <= 1:
+        return arr
+
+    mid = len(arr) // 2
+    left = merge_sort(arr[:mid])   # divide
+    right = merge_sort(arr[mid:])  # divide
+
+    return merge(left, right)      # combine
+
+def merge(left, right):
+    result = []
+    i = j = 0
+
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+
+    result.extend(left[i:])
+    result.extend(right[j:])
+
+    return result
+# O(n log n) time, O(n) space`,
+            java: `public int[] mergeSort(int[] arr) {
+    if (arr.length <= 1) return arr;
+
+    int mid = arr.length / 2;
+    int[] left = mergeSort(Arrays.copyOfRange(arr, 0, mid));   // divide
+    int[] right = mergeSort(Arrays.copyOfRange(arr, mid, arr.length)); // divide
+
+    return merge(left, right); // combine
+}
+
+public int[] merge(int[] left, int[] right) {
+    int[] result = new int[left.length + right.length];
+    int i = 0, j = 0, k = 0;
+
+    while (i < left.length && j < right.length)
+        result[k++] = left[i] <= right[j] ? left[i++] : right[j++];
+
+    while (i < left.length) result[k++] = left[i++];
+    while (j < right.length) result[k++] = right[j++];
+
+    return result;
+}
+// O(n log n) time, O(n) space`,
+            javascript: `const mergeSort = (arr) => {
+    if (arr.length <= 1) return arr;
+
+    const mid = Math.floor(arr.length / 2);
+    const left = mergeSort(arr.slice(0, mid));   // divide
+    const right = mergeSort(arr.slice(mid));     // divide
+
+    return merge(left, right);                   // combine
+};
+
+const merge = (left, right) => {
+    const result = [];
+    let i = 0, j = 0;
+
+    while (i < left.length && j < right.length)
+        result.push(left[i] <= right[j] ? left[i++] : right[j++]);
+
+    result.push(...left.slice(i));
+    result.push(...right.slice(j));
+
+    return result;
+};
+// O(n log n) time, O(n) space`,
+          cpp: `#include <vector>
+
+std::vector<int> mergeSort(const std::vector<int>& arr) {
+    if (arr.size() <= 1) return arr;
+
+    int mid = arr.size() / 2;
+    auto left = mergeSort(std::vector<int>(arr.begin(), arr.begin() + mid));
+    auto right = mergeSort(std::vector<int>(arr.begin() + mid, arr.end()));
+
+    return merge(left, right);
+}
+
+std::vector<int> merge(const std::vector<int>& left, const std::vector<int>& right) {
+    std::vector<int> result;
+    int i = 0, j = 0;
+
+    while (i < left.size() && j < right.size())
+        result.push_back(left[i] <= right[j] ? left[i++] : right[j++]);
+
+    result.insert(result.end(), left.begin() + i, left.end());
+    result.insert(result.end(), right.begin() + j, right.end());
+
+    return result;
+}
+// O(n log n) time, O(n) space`,
+          },
         },
       ],
     },

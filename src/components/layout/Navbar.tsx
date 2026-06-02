@@ -4,9 +4,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import { Button } from '@/components/ui/button';
-import { Moon, Sun, BookOpen, Code2, BarChart3 } from 'lucide-react';
+import { Moon, Sun, BarChart3 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import MobileNav from './MobileNav';
+import LanguageSelector from './LanguageSelector';
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme();
@@ -23,18 +24,6 @@ export default function Navbar() {
         </Link>
 
         <div className="hidden md:flex items-center gap-1 text-sm">
-          <Link href="/learn/big-o">
-            <Button variant="ghost" size="sm" className="gap-1.5">
-              <BookOpen className="h-4 w-4" />
-              <span className="hidden sm:inline">Learn</span>
-            </Button>
-          </Link>
-          <Link href="/practice/big-o">
-            <Button variant="ghost" size="sm" className="gap-1.5">
-              <Code2 className="h-4 w-4" />
-              <span className="hidden sm:inline">Practice</span>
-            </Button>
-          </Link>
           <Link href="/progress">
             <Button variant="ghost" size="sm" className="gap-1.5">
               <BarChart3 className="h-4 w-4" />
@@ -44,6 +33,7 @@ export default function Navbar() {
         </div>
 
         <div className="ml-auto flex items-center gap-1">
+          <LanguageSelector />
           {mounted && (
             <Button
               variant="ghost"

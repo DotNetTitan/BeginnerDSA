@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import "./globals.css";
 import { Providers } from "@/components/providers";
 
@@ -16,15 +17,18 @@ export const metadata: Metadata = {
   manifest: "/site.webmanifest",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = await cookies();
+  const language = cookieStore.get('dsa-language')?.value;
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="min-h-screen flex flex-col font-sans">
-        <Providers>{children}</Providers>
+        <Providers language={language}>{children}</Providers>
       </body>
     </html>
   );

@@ -2,18 +2,21 @@
 
 import { ThemeProvider } from 'next-themes';
 import Navbar from '@/components/layout/Navbar';
+import { LanguageProvider } from '@/lib/language-context';
 import { Geist } from 'next/font/google';
 import type { ReactNode } from 'react';
 
 const geist = Geist({ subsets: ['latin'] });
 
-export function Providers({ children }: { children: ReactNode }) {
+export function Providers({ children, language }: { children: ReactNode; language?: string }) {
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-      <div className={`${geist.className} min-h-screen bg-background text-foreground antialiased flex flex-col`}>
-        <Navbar />
-        <main className="flex-1">{children}</main>
-      </div>
+      <LanguageProvider serverLanguage={language}>
+        <div className={`${geist.className} min-h-screen bg-background text-foreground antialiased flex flex-col`}>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+        </div>
+      </LanguageProvider>
     </ThemeProvider>
   );
 }

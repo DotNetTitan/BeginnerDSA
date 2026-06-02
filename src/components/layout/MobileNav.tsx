@@ -11,7 +11,7 @@ import { getProgress } from '@/lib/progress-store';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Menu, BookOpen, Code2, BarChart3, Lock, PlayCircle, CheckCircle2 } from 'lucide-react';
+import { Menu, BookOpen, BarChart3, Lock, PlayCircle, CheckCircle2 } from 'lucide-react';
 import { useEffect, useMemo, useState, useSyncExternalStore } from 'react';
 
 export default function MobileNav() {
@@ -62,16 +62,6 @@ export default function MobileNav() {
         </div>
 
         <div className="flex items-center gap-1 p-4 border-b">
-          <Link href="/learn/big-o" onClick={close}>
-            <Button variant="ghost" size="sm" className="gap-1.5">
-              <BookOpen className="h-4 w-4" /> Learn
-            </Button>
-          </Link>
-          <Link href="/practice/big-o" onClick={close}>
-            <Button variant="ghost" size="sm" className="gap-1.5">
-              <Code2 className="h-4 w-4" /> Practice
-            </Button>
-          </Link>
           <Link href="/progress" onClick={close}>
             <Button variant="ghost" size="sm" className="gap-1.5">
               <BarChart3 className="h-4 w-4" /> Progress
