@@ -7,7 +7,7 @@ export default function HomePage() {
       <div className="mb-8">
         <h1 className="text-2xl font-bold tracking-tight">BaseCase</h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Master data structures and algorithms from the ground up.
+          Learn DSA from zero. Structured modules and coding challenges for absolute beginners.
         </p>
       </div>
 

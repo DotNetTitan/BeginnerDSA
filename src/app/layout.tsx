@@ -5,7 +5,7 @@ import { Providers } from "@/components/providers";
 
 export const metadata: Metadata = {
   title: "BaseCase",
-  description: "Master data structures and algorithms from the ground up.",
+  description: "Learn DSA from zero. Structured modules and coding challenges for absolute beginners.",
   metadataBase: new URL("https://beginner-dsa.vercel.app"),
   icons: {
     icon: [
