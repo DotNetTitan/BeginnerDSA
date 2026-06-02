@@ -532,7 +532,7 @@ int orangesRotting(std::vector<std::vector<int>>& grid) {
     difficulty: 'hard',
     description: `Given two words (beginWord and endWord) and a dictionary's word list, return the length of the shortest transformation sequence from beginWord to endWord. Each transformation can change only one letter.`,
     examples: [
-      { input: 'beginWord = "hit", endWord = "cog", wordList = ["hot","dot","dog","lot","log","cog"]', output: '5', explanation: '"hit" â†’ "hot" â†’ "dot" â†’ "dog" â†’ "cog"' },
+      { input: 'beginWord = "hit", endWord = "cog", wordList = ["hot","dot","dog","lot","log","cog"]', output: '5', explanation: '"hit" -> "hot" -> "dot" -> "dog" -> "cog"' },
     ],
     constraints: ['1 <= beginWord.length <= 10', 'All words have the same length.'],
     hints: ['BFS on an implicit graph where edges connect words differing by one letter.', 'Use a HashSet for O(1) word lookup.'],
