@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import "./globals.css";
 import { Providers } from "@/components/providers";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   title: "Zero To DSA",
@@ -47,6 +48,7 @@ export default async function RootLayout({
         <footer className="mt-auto py-4 text-center text-xs text-muted-foreground">
           <a href="/privacy" className="hover:underline">Privacy Policy</a>
         </footer>
+        <Analytics />
       </body>
     </html>
   );
