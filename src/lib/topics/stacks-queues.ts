@@ -23,7 +23,7 @@ export const topic: Topic = {
 **Uses:** Undo/redo, backtracking, expression evaluation, DFS (implicitly via recursion).`,
       codeExamples: [
         {
-          title: 'Stack in C#',
+          title: 'Stack usage',
           code: `var stack = new Stack<int>();
 
 stack.Push(1);  // [1]
@@ -67,7 +67,7 @@ int[] NextGreaterElement(int[] arr) {
 **Uses:** BFS, task scheduling, buffering, sliding window.`,
       codeExamples: [
         {
-          title: 'Queue in C#',
+          title: 'Queue usage',
           code: `var queue = new Queue<int>();
 
 queue.Enqueue(1);  // [1]
@@ -99,10 +99,10 @@ void Bfs(TreeNode root) {
     },
     {
       id: 'priority-queue',
-      title: 'Priority Queue (.NET 6+)',
-      content: `A priority queue dequeues elements by **priority**, not insertion order. In C#, \`PriorityQueue<TElement, TPriority>\` was introduced in .NET 6.
+      title: 'Priority Queue',
+      content: `A priority queue dequeues elements by **priority**, not insertion order.
 
-| Operation | PriorityQueue |
+| Operation | Priority Queue |
 |---|---|
 | Enqueue | O(log n) |
 | Dequeue | O(log n) |
@@ -144,21 +144,6 @@ int[] TopKFrequent(int[] nums, int k) {
           language: 'csharp',
         },
       ],
-    },
-    {
-      id: 'csharp-notes',
-      title: 'C# Specific Notes',
-      content: `**Stack<T> and Queue<T>** are backed by arrays and resize automatically. They are in \`System.Collections.Generic\`.
-
-**PriorityQueue** is in \`System.Collections.Generic\` and available in .NET 6+. For older .NET, implement your own heap.
-
-**Stack vs Stack<T>:** Avoid the non-generic \`System.Collections.Stack\` (boxing overhead).
-
-**Performance tip:** If you know the approximate size, pass the capacity to the constructor to avoid resizing:
-\`\`\`csharp
-var stack = new Stack<int>(1000);
-var queue = new Queue<int>(1000);
-\`\`\``,
     },
     {
       id: 'common-patterns',

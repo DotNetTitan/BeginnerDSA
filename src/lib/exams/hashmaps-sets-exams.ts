@@ -3,7 +3,7 @@ import type { ExamQuestion } from '../types';
 export const questions: ExamQuestion[] = [
   {
     id: 'hash-1',
-    question: 'What is the average time complexity of a Dictionary<TKey, TValue> lookup in C#?',
+    question: 'What is the average time complexity of a hash map (dictionary) lookup?',
     options: [
       'O(n) — linear search through all keys',
       'O(log n) — binary search on sorted keys',
@@ -11,7 +11,7 @@ export const questions: ExamQuestion[] = [
       'O(n²) — compares every key with every other key',
     ],
     correctIndex: 2,
-    explanation: 'Dictionary<TKey, TValue> uses a hash table. Lookups are O(1) on average because the key is hashed to compute the bucket index directly.',
+    explanation: 'A hash map uses a hash table. Lookups are O(1) on average because the key is hashed to compute the bucket index directly.',
   },
   {
     id: 'hash-2',
@@ -23,19 +23,19 @@ export const questions: ExamQuestion[] = [
       'The hash map automatically resizes to prevent the collision',
     ],
     correctIndex: 2,
-    explanation: 'Collisions are inevitable. C# Dictionary uses chaining (each bucket stores a linked list of entries). Other approaches like open addressing use probing.',
+    explanation: 'Collisions are inevitable. Hash maps typically resolve collisions using chaining (linked list per bucket) or open addressing (probing).',
   },
   {
     id: 'hash-3',
-    question: 'Which C# collection would you use to efficiently check if an element has been seen before?',
+    question: 'Which data structure would you use to efficiently check if an element has been seen before?',
     options: [
-      'List<T>',
-      'HashSet<T>',
-      'Queue<T>',
-      'Stack<T>',
+      'Array / List',
+      'Hash set',
+      'Queue',
+      'Stack',
     ],
     correctIndex: 1,
-    explanation: 'HashSet<T> provides O(1) average-time lookups via hashing, making it ideal for existence checks. List<T> would require O(n) linear search.',
+    explanation: 'A hash set provides O(1) average-time lookups via hashing, making it ideal for existence checks. A list would require O(n) linear search.',
   },
   {
     id: 'hash-4',
@@ -51,14 +51,14 @@ export const questions: ExamQuestion[] = [
   },
   {
     id: 'hash-5',
-    question: 'What does GetHashCode() need to satisfy for Dictionary to work correctly?',
+    question: 'What contract must an object\'s hash code satisfy for a hash map to work correctly?',
     options: [
       'It must return a unique value for every possible object',
       'It must return the same value for all objects',
-      'If two objects are equal (Equals returns true), they must have the same hash code',
+      'If two objects are equal, they must have the same hash code',
       'It must return a positive integer',
     ],
     correctIndex: 2,
-    explanation: 'The contract: if Equals() returns true, GetHashCode() must return the same value. The reverse is not required — different objects can share a hash code (collision).',
+    explanation: 'The contract: if two objects are equal, they must have the same hash code. The reverse is not required — different objects can share a hash code (collision).',
   },
 ];

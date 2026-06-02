@@ -134,28 +134,6 @@ int Factorial(int n) {
       ],
     },
     {
-      id: 'csharp-notes',
-      title: 'C# Specific Notes',
-      content: `**Value types vs reference types**
-- \`struct\` values are copied — be mindful of large structs in loops
-- \`class\` instances are reference types — passing them does not copy data
-
-**LINQ deferred execution**
-\`Where()\`, \`Select()\`, \`OrderBy()\` do NOT execute immediately. They create iterators. Materialize with \`.ToList()\` or \`.ToArray()\`.
-
-\`\`\`csharp
-var query = arr.Where(x => x > 5);  // O(1) — not executed yet
-var result = query.ToList();          // O(n) — executed now
-\`\`\`
-
-**Span<T> and stackalloc**
-For performance-critical code, \`Span<T>\` with \`stackalloc\` avoids heap allocation:
-
-\`\`\`csharp
-Span<int> buffer = stackalloc int[256]; // O(1) space — on the stack
-\`\`\``,
-    },
-    {
       id: 'common-patterns',
       title: 'Common Interview Patterns',
       content: `**"What is the complexity of this function?"**

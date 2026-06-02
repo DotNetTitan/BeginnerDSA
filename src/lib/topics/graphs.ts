@@ -151,23 +151,6 @@ Two algorithms:
       ],
     },
     {
-      id: 'csharp-notes',
-      title: 'C# Specific Notes',
-      content: `**Dictionary.GetValueOrDefault()**
-Use \`graph.GetValueOrDefault(node, new List<int>())\` to safely access adjacency lists without null checks.
-
-**HashSet for visited tracking**
-\`HashSet<int>\` is ideal for tracking visited nodes. \`visited.Add(node)\` returns \`false\` if already present.
-
-**Queue and Stack for graph algorithms**
-- \`Queue<T>\` for BFS
-- \`Stack<T>\` for iterative DFS
-- Both are in \`System.Collections.Generic\`
-
-**Performance tip for dense graphs**
-If vertices are 0..n-1, use \`List<int>[]\` instead of \`Dictionary<int, List<int>>\` — it's faster (no hashing overhead) and uses less memory.`,
-    },
-    {
       id: 'common-patterns',
       title: 'Common Interview Patterns',
       content: `1. **Number of islands / connected components** — DFS or BFS on grid

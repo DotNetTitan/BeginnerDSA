@@ -77,7 +77,7 @@ int UpperBound(int[] arr, int target) {
 | Quick Sort | O(n log n) | O(n²) | O(log n) | No |
 | Heap Sort | O(n log n) | O(n log n) | O(1) | No |
 
-In C#, \`Array.Sort()\` uses **introsort** (quick sort + heap sort fallback) for primitive types and a stable sort for reference types.`,
+Most languages have a built-in sort that uses **introsort** (quick sort + heap sort fallback) for primitive types and a stable sort for reference types.`,
       codeExamples: [
         {
           title: 'Key sorting implementations',
@@ -161,26 +161,6 @@ int FindMin(int[] arr) {
           language: 'csharp',
         },
       ],
-    },
-    {
-      id: 'csharp-notes',
-      title: 'C# Specific Notes',
-      content: `**Array.Sort vs LINQ OrderBy**
-- \`Array.Sort(arr)\` — sorts in-place, O(n log n), no extra allocation
-- \`arr.OrderBy(x => x).ToArray()\` — creates a new sorted array, O(n log n), allocates O(n) extra memory
-
-**BinarySearch built-in:**
-\`\`\`csharp
-int index = Array.BinarySearch(arr, target); // returns ~complement if not found
-// If not found, ~index is the insertion point (lower bound)
-\`\`\`
-
-**Custom sorting with IComparer:**
-\`\`\`csharp
-Array.Sort(arr, StringComparer.OrdinalIgnoreCase); // case-insensitive string sort
-\`\`\`
-
-**Stability note:** \`Array.Sort\` is NOT stable for value types. Use LINQ's \`OrderBy\` if stability is needed.`,
     },
     {
       id: 'common-patterns',

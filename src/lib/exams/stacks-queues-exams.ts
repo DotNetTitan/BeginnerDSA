@@ -51,14 +51,14 @@ export const questions: ExamQuestion[] = [
   },
   {
     id: 'sq-5',
-    question: 'In C#, what is the difference between Queue<T> and Stack<T>?',
+    question: 'What is the difference between a queue and a stack?',
     options: [
-      'Queue<T> is FIFO (Dequeue removes oldest); Stack<T> is LIFO (Pop removes newest)',
-      'Queue<T> is LIFO; Stack<T> is FIFO',
-      'Queue<T> allows random access; Stack<T> does not',
-      'Queue<T> stores reference types only; Stack<T> stores value types only',
+      'Queue is FIFO (first in, first out); Stack is LIFO (last in, first out)',
+      'Queue is LIFO; Stack is FIFO',
+      'Queue allows random access; Stack does not',
+      'Queue stores reference types only; Stack stores value types only',
     ],
     correctIndex: 0,
-    explanation: 'Queue<T>: Enqueue adds to back, Dequeue removes from front (FIFO). Stack<T>: Push adds to top, Pop removes from top (LIFO). Both are in System.Collections.Generic.',
+    explanation: 'Queue: enqueue adds to the back, dequeue removes from the front (FIFO). Stack: push adds to the top, pop removes from the top (LIFO).',
   },
 ];

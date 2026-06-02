@@ -159,39 +159,6 @@ int[] Merge(int[] left, int[] right) {
       ],
     },
     {
-      id: 'csharp-notes',
-      title: 'C# Specific Notes',
-      content: `**Stack overflow limit**
-The default stack size in .NET is 1 MB (about ~10,000 frames). For deep recursion, consider:
-- Converting to iterative (using explicit Stack<T>)
-- Using \`EditorBrowsableState.Never\` won't help — you need to structurally avoid deep recursion
-- Tail recursion is NOT optimized by the C# compiler (unlike F#)
-
-**Local functions are your friend**
-C# supports local functions inside methods, which is perfect for recursive helpers:
-
-\`\`\`csharp
-public IList<IList<int>> Subsets(int[] nums) {
-    var result = new List<IList<int>>();
-    var current = new List<int>();
-
-    void Dfs(int start) {   // local function
-        result.Add(new List<int>(current));
-        for (int i = start; i < nums.Length; i++) {
-            current.Add(nums[i]);
-            Dfs(i + 1);
-            current.RemoveAt(current.Count - 1);
-        }
-    }
-
-    Dfs(0);
-    return result;
-}
-\`\`\`
-
-Local functions capture variables (\`result\`, \`current\`, \`nums\`) without needing to pass them as parameters every time.`,
-    },
-    {
       id: 'common-patterns',
       title: 'Common Interview Patterns',
       content: `1. **Subsets (powerset)** — for each element, include or exclude

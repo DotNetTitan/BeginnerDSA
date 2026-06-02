@@ -174,41 +174,6 @@ int Knapsack(int[] weights, int[] values, int capacity) {
       ],
     },
     {
-      id: 'csharp-notes',
-      title: 'C# Specific Notes',
-      content: `**Multi-dimensional arrays in C#**
-\`\`\`csharp
-// Jagged array (array of arrays) — faster, more flexible
-int[][] dp = new int[n][];
-for (int i = 0; i < n; i++) dp[i] = new int[m];
-
-// Multi-dimensional array — more convenient syntax
-int[,] dp = new int[n, m];
-
-// For 1D: Array.Fill is your friend
-int[] dp = new int[n + 1];
-Array.Fill(dp, -1); // fill with sentinel
-\`\`\`
-
-**Space optimization**
-Many 2D DP problems can be optimized to 1D (rolling array):
-\`\`\`csharp
-// Instead of dp[i][j] and dp[i-1][j]
-// Use dp[j] and prev[j]
-int[] dp = new int[n];
-int[] prev = new int[n];
-\`\`\`
-
-**Dictionary as memo cache**
-\`\`\`csharp
-var memo = new Dictionary<(int, int), int>(); // C# 7+ tuple keys
-memo[(i, j)] = result;
-
-// Or use nested Dictionary
-var memo2 = new Dictionary<int, Dictionary<int, int>>();
-\`\`\``,
-    },
-    {
       id: 'common-patterns',
       title: 'Common Interview Patterns',
       content: `1. **Fibonacci-style** — climbing stairs, house robber, decode ways

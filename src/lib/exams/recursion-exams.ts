@@ -47,7 +47,7 @@ export const questions: ExamQuestion[] = [
       'It reduces the base case to a single condition',
     ],
     correctIndex: 1,
-    explanation: 'Memoization stores previously computed results in a cache (e.g., Dictionary). When the same input occurs again, the cached result is returned instead of recomputing.',
+    explanation: 'Memoization stores previously computed results in a cache (e.g., a hash map). When the same input occurs again, the cached result is returned instead of recomputing.',
   },
   {
     id: 'rec-5',

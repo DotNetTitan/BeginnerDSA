@@ -39,15 +39,15 @@ export const questions: ExamQuestion[] = [
   },
   {
     id: 'll-4',
-    question: 'In C#, what is LinkedList<T>?',
+    question: 'What is a doubly linked list?',
     options: [
-      'A dynamic array implementation similar to List<T>',
+      'A dynamic array implementation that resizes automatically',
       'A singly linked list where each node has a value and a next pointer',
-      'A doubly linked list where each node has previous and next pointers',
+      'A linked list where each node has previous and next pointers',
       'A circular linked list where the tail connects to the head',
     ],
     correctIndex: 2,
-    explanation: 'C# LinkedList<T> is a doubly linked list. Each LinkedListNode<T> has both a Next and Previous property, enabling O(1) insertions/deletions at known positions.',
+    explanation: 'A doubly linked list has nodes with both a "next" and "previous" pointer, enabling O(1) insertions/deletions at known positions in both directions.',
   },
   {
     id: 'll-5',

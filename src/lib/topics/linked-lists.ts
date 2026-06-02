@@ -109,23 +109,6 @@ ListNode FindMiddle(ListNode head) {
       ],
     },
     {
-      id: 'csharp-notes',
-      title: 'C# Specific Notes',
-      content: `**LinkedList<T> (built-in)**
-\`\`\`csharp
-var list = new LinkedList<int>();
-list.AddLast(1);    // O(1)
-list.AddFirst(2);   // O(1)
-var first = list.First; // LinkedListNode<int>
-var last = list.Last;
-list.Remove(first); // O(1)
-\`\`\`
-
-**For interviews**, you'll typically define your own \`ListNode\` class (as shown above). The built-in \`LinkedList<T>\` is rarely used in interview problems — it doesn't expose the internal node structure easily.
-
-**Recursion warning:** Recursive linked list solutions use O(n) stack space. If n is large (10⁵+), prefer iterative approaches to avoid stack overflow.`,
-    },
-    {
       id: 'common-patterns',
       title: 'Common Interview Patterns',
       content: `1. **Reverse** — full reversal, reverse between positions, reverse in k-groups

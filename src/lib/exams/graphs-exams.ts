@@ -20,7 +20,7 @@ export const questions: ExamQuestion[] = [
       'Queue — FIFO order',
       'Stack — LIFO order (explicitly or via recursion)',
       'Heap — ordered by depth',
-      'HashSet — for visited tracking only',
+      'Hash set — for visited tracking only',
     ],
     correctIndex: 1,
     explanation: 'DFS uses a stack (explicit or the call stack via recursion). It explores as far as possible along a branch before backtracking.',

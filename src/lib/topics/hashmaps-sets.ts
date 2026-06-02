@@ -20,7 +20,7 @@ export const topic: Topic = {
 | Lookup | O(1) | O(n) |
 | Delete | O(1) | O(n) |
 
-The worst case occurs when all keys collide (rare with a good hash function — C# uses \`GetHashCode()\`).`,
+The worst case occurs when all keys collide (rare with a good hash function).`,
       codeExamples: [
         {
           title: 'Dictionary and HashSet basics',
@@ -88,21 +88,6 @@ bool HasPairSum(int[] arr, int target) {
           language: 'csharp',
         },
       ],
-    },
-    {
-      id: 'csharp-gotchas',
-      title: 'C# Specific Notes',
-      content: `**1. Always use TryGetValue, not ContainsKey + []**
-ContainsKey does one lookup, the indexer does another. TryGetValue does it in one.
-
-**2. Default capacity and resizing**
-Dictionary starts with a small capacity and resizes when full. Resizing is O(n). If you know the size upfront, pass capacity to the constructor: \`new Dictionary<int, string>(1000)\`.
-
-**3. Custom equality**
-For custom types, override \`Equals\` and \`GetHashCode\` (both must be consistent). Use \`record\` types in modern C# — they implement these automatically.
-
-**4. Order is NOT guaranteed**
-Dictionary and HashSet do not preserve insertion order. Use \`OrderedDictionary\` or \`SortedDictionary<K,V>\` if order matters.`,
     },
     {
       id: 'common-patterns',

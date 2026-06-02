@@ -171,35 +171,6 @@ public class Trie {
       ],
     },
     {
-      id: 'csharp-notes',
-      title: 'C# Specific Notes',
-      content: `**Recursion depth warning**
-Tree problems are naturally recursive, but a skewed tree of 10,000+ nodes will overflow the stack. Prefer **iterative** traversals using an explicit \`Stack<T>\` for production code.
-
-\`\`\`csharp
-// Iterative inorder traversal
-IList<int> InorderIterative(TreeNode root) {
-    var result = new List<int>();
-    var stack = new Stack<TreeNode>();
-    var curr = root;
-
-    while (curr != null || stack.Count > 0) {
-        while (curr != null) {
-            stack.Push(curr);
-            curr = curr.left;
-        }
-        curr = stack.Pop();
-        result.Add(curr.val);
-        curr = curr.right;
-    }
-    return result;
-}
-\`\`\`
-
-**Dictionary vs array for Trie children**
-\`TrieNode[] children = new TrieNode[26]\` is faster (no hashing) but only works for lowercase letters. Use \`Dictionary<char, TrieNode>\` for general-purpose.`,
-    },
-    {
       id: 'common-patterns',
       title: 'Common Interview Patterns',
       content: `1. **Tree traversal** — inorder (sorted BST), preorder (serialization), level order (BFS)

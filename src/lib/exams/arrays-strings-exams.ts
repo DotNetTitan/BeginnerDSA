@@ -15,15 +15,15 @@ export const questions: ExamQuestion[] = [
   },
   {
     id: 'arr-2',
-    question: 'In C#, what is the difference between Array and List<T>?',
+    question: 'What is the difference between a static array and a dynamic array?',
     options: [
-      'Array is fixed-size; List<T> is dynamically resizable',
-      'Array is dynamically resizable; List<T> is fixed-size',
-      'Array is reference type; List<T> is value type',
+      'Static array is fixed-size; dynamic array is automatically resizable',
+      'Static array is dynamically resizable; dynamic array is fixed-size',
+      'Static array is a reference type; dynamic array is a value type',
       'There is no difference — they are interchangeable',
     ],
     correctIndex: 0,
-    explanation: 'Arrays have a fixed length set at creation. List<T> wraps an array and automatically resizes when needed, doubling its capacity when full.',
+    explanation: 'Static arrays have a fixed length set at creation. Dynamic arrays wrap a static array and automatically resize (typically doubling capacity) when full.',
   },
   {
     id: 'arr-3',
@@ -39,15 +39,15 @@ export const questions: ExamQuestion[] = [
   },
   {
     id: 'arr-4',
-    question: 'Given int[] nums = { 1, 2, 3, 4, 5 }; what does Array.Reverse(nums) do?',
+    question: 'What does reversing an array in-place do?',
     options: [
       'Returns a new array with elements in reverse order',
-      'Reverses the order of elements in the original array in-place',
+      'Reverses the order of elements in the original array by swapping symmetrically from the ends',
       'Sorts the array in descending order',
       'Creates a copy of the array and reverses it',
     ],
     correctIndex: 1,
-    explanation: 'Array.Reverse() is an in-place operation — it modifies the original array by swapping elements symmetrically from the ends toward the center.',
+    explanation: 'In-place reversal modifies the original array by swapping elements symmetrically from the ends toward the center, using O(1) extra space.',
   },
   {
     id: 'arr-5',

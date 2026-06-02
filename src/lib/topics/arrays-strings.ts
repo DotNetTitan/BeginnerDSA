@@ -12,10 +12,10 @@ export const topic: Topic = {
     {
       id: 'array-basics',
       title: 'Array Basics',
-      content: `Arrays store elements in **contiguous memory** with O(1) index-based access. In C#, arrays are fixed-size. Use \`List<T>\` for dynamic sizing.
+      content: `Arrays store elements in **contiguous memory** with O(1) index-based access. Arrays are fixed-size. Use a dynamic array for dynamic sizing.
 
-| Operation | Array | List<T> |
-|---|---|---|
+| Operation | Array | Dynamic Array |
+|---|---|---|---|
 | Access by index | O(1) | O(1) |
 | Search (unsorted) | O(n) | O(n) |
 | Insert at end | N/A (fixed) | O(1) amortized |
@@ -105,31 +105,6 @@ int MaxSumSubarray(int[] arr, int k) {
           language: 'csharp',
         },
       ],
-    },
-    {
-      id: 'string-gotchas',
-      title: 'C# String Gotchas',
-      content: `**Strings are immutable** in C#. Every "modification" creates a new string. Use \`StringBuilder\` for heavy string manipulation.
-
-\`\`\`csharp
-// BAD — O(n²) time, creates n intermediate strings
-string s = "";
-for (int i = 0; i < 100000; i++)
-    s += i.ToString();
-
-// GOOD — O(n) time
-var sb = new StringBuilder();
-for (int i = 0; i < 100000; i++)
-    sb.Append(i);
-string result = sb.ToString();
-\`\`\`
-
-**Common string operations:**
-- \`s.ToCharArray()\` — O(n)
-- \`s.Substring(start, length)\` — O(length) in .NET 7+
-- \`s.ToLower() / s.ToUpper()\` — O(n)
-- \`string.Join(",", arr)\` — O(n)
-- \`s.Split(delimiter)\` — O(n)`,
     },
     {
       id: 'common-patterns',

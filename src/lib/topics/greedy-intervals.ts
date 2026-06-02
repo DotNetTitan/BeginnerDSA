@@ -174,29 +174,6 @@ int Jump(int[] nums) {
       ],
     },
     {
-      id: 'csharp-notes',
-      title: 'C# Specific Notes',
-      content: `**Sorting intervals**
-Use \`Array.Sort\` with a lambda comparer:
-\`\`\`csharp
-Array.Sort(intervals, (a, b) => a[0].CompareTo(b[0])); // sort by start
-Array.Sort(intervals, (a, b) => a[1].CompareTo(b[1])); // sort by end
-\`\`\`
-
-**LINQ for interval manipulation**
-\`\`\`csharp
-var starts = intervals.Select(i => i[0]).OrderBy(x => x).ToArray();
-var merged = intervals.OrderBy(i => i[0]).Aggregate(...)
-\`\`\`
-
-**int[][] as interval type**
-Most problems use \`int[][]\` where each \`int[2]\` is [start, end]. For readability, create a helper:
-\`\`\`csharp
-int Start(int[] interval) => interval[0];
-int End(int[] interval) => interval[1];
-\`\`\``,
-    },
-    {
       id: 'common-patterns',
       title: 'Common Interview Patterns',
       content: `1. **Interval scheduling** — sort by end, pick non-overlapping
