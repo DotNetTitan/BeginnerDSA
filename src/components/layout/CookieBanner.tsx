@@ -26,21 +26,21 @@ export default function CookieBanner() {
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 border-t bg-background p-4 shadow-lg">
-      <div className="mx-auto max-w-3xl flex items-center gap-4">
-        <p className="text-sm text-muted-foreground flex-1">
+    <div className="fixed bottom-4 right-4 z-50 max-w-sm animate-[toast-up_0.3s_ease-out]">
+      <div className="rounded-xl border bg-background p-4 shadow-xl">
+        <p className="text-sm text-muted-foreground mb-3">
           This site uses a cookie to remember your preferred programming language. No tracking or analytics cookies are used.
         </p>
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex items-center gap-2 justify-end">
           <button
             onClick={decline}
-            className="text-sm px-4 py-2 rounded-md border border-border text-muted-foreground hover:text-foreground font-medium"
+            className="text-sm px-3 py-1.5 rounded-lg border border-border text-muted-foreground hover:text-foreground font-medium"
           >
             Decline
           </button>
           <button
             onClick={accept}
-            className="text-sm px-4 py-2 rounded-md bg-foreground text-background font-semibold hover:opacity-90"
+            className="text-sm px-3 py-1.5 rounded-lg bg-foreground text-background font-semibold hover:opacity-90"
           >
             Accept
           </button>
