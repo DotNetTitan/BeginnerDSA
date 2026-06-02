@@ -44,6 +44,9 @@ export default async function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className="min-h-screen flex flex-col font-sans">
         <Providers language={language}>{children}</Providers>
+        <footer className="mt-auto py-4 text-center text-xs text-muted-foreground">
+          <a href="/privacy" className="hover:underline">Privacy Policy</a>
+        </footer>
       </body>
     </html>
   );
