@@ -6,6 +6,7 @@ import { Providers } from "@/components/providers";
 export const metadata: Metadata = {
   title: "Zero To DSA",
   description: "Learn data structures and algorithms for technical interviews",
+  metadataBase: new URL("https://beginner-dsa.vercel.app"),
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "48x48" },
@@ -15,6 +16,20 @@ export const metadata: Metadata = {
     apple: [{ url: "/apple-touch-icon.png" }],
   },
   manifest: "/site.webmanifest",
+  openGraph: {
+    title: "Zero To DSA",
+    description: "Learn DSA from zero. Structured modules and coding challenges with support for Python, Java, C++, JavaScript, and C#.",
+    url: "https://beginner-dsa.vercel.app",
+    siteName: "Zero To DSA",
+    type: "website",
+    images: [{ url: "/logo.png", width: 512, height: 512 }],
+  },
+  twitter: {
+    card: "summary",
+    title: "Zero To DSA",
+    description: "Learn DSA from zero. Structured modules and coding challenges with support for Python, Java, C++, JavaScript, and C#.",
+    images: ["/logo.png"],
+  },
 };
 
 export default async function RootLayout({
