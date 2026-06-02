@@ -1,4 +1,4 @@
-# DSA University
+# Zero To DSA
 
 <div align="center">
 
@@ -18,7 +18,7 @@
 
 </div>
 
-DSA University is a self-contained web application that guides learners through 11 fundamental DSA topics with:
+Zero To DSA guides learners through 11 fundamental DSA topics with:
 
 - **Theory-first approach** — Each topic begins with clear, example-driven markdown content explaining the core concepts and patterns.
 - **Multi-language code examples** — Solutions in C#, Python, Java, JavaScript, and C++ for every topic, so you can learn in the language you're most comfortable with.
