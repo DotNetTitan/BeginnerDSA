@@ -5,8 +5,8 @@ import { Providers } from "@/components/providers";
 
 export const metadata: Metadata = {
   title: "Zero To DSA",
-  description: "Learn data structures and algorithms for technical interviews",
-  metadataBase: new URL("https://beginner-dsa.vercel.app"),
+  description: "Learn DSA from zero. Structured modules and coding challenges for absolute beginners.",
+  metadataBase: new URL("https://zerotodsa.online"),
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "48x48" },
@@ -18,8 +18,8 @@ export const metadata: Metadata = {
   manifest: "/site.webmanifest",
   openGraph: {
     title: "Zero To DSA",
-    description: "Learn DSA from zero. Structured modules and coding challenges with support for Python, Java, C++, JavaScript, and C#.",
-    url: "https://beginner-dsa.vercel.app",
+    description: "Structured modules and coding challenges with support for Python, Java, C++, JavaScript, and C#.",
+    url: "https://zerotodsa.online",
     siteName: "Zero To DSA",
     type: "website",
     images: [{ url: "/logo.png", width: 512, height: 512 }],
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary",
     title: "Zero To DSA",
-    description: "Learn DSA from zero. Structured modules and coding challenges with support for Python, Java, C++, JavaScript, and C#.",
+    description: "Structured modules and coding challenges with support for Python, Java, C++, JavaScript, and C#.",
     images: ["/logo.png"],
   },
 };
@@ -44,6 +44,9 @@ export default async function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className="min-h-screen flex flex-col font-sans">
         <Providers language={language}>{children}</Providers>
+        <footer className="mt-auto py-4 text-center text-xs text-muted-foreground">
+          <a href="/privacy" className="hover:underline">Privacy Policy</a>
+        </footer>
       </body>
     </html>
   );
