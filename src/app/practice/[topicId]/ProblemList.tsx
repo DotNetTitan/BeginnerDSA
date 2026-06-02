@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect, useMemo } from 'react';
 import { isProblemSolved, getTopicProgress } from '@/lib/progress-store';
-import { GraduationCap } from 'lucide-react';
+import { GraduationCap, Lock } from 'lucide-react';
 
 interface Props {
   problems: Problem[];
@@ -71,18 +71,20 @@ export default function ProblemList({ problems, topicId }: Props) {
         </Card>
       )}
 
-      {problems.map((p) => {
+      {problems.map((p, idx) => {
         const done = solved[p.id];
+        const locked = idx > 0 && !solved[problems[idx - 1].id];
         return (
           <Card
             key={p.id}
-            className="cursor-pointer hover:shadow-sm transition-shadow"
-            onClick={() => router.push(`/practice/${topicId}/${p.id}`)}
+            className={`transition-shadow ${locked ? 'opacity-50' : 'cursor-pointer hover:shadow-sm'}`}
+            onClick={() => { if (!locked) router.push(`/practice/${topicId}/${p.id}`); }}
           >
             <CardHeader className="py-3 px-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <CardTitle className="text-sm font-medium">{p.title}</CardTitle>
+                  {locked && <Lock className="h-4 w-4 text-muted-foreground shrink-0" />}
+                  <CardTitle className={`text-sm font-medium ${locked ? 'text-muted-foreground' : ''}`}>{p.title}</CardTitle>
                   {done && (
                     <Badge variant="secondary" className="bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300 text-xs">
                       Solved
