@@ -59,6 +59,17 @@ export const problems: Problem[] = [
     }
     return prev;
 }`,
+      cpp: `ListNode* reverseList(ListNode* head) {
+    ListNode* prev = nullptr;
+    ListNode* curr = head;
+    while (curr != nullptr) {
+        ListNode* next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+    }
+    return prev;
+}`,
     },
     timeComplexity: 'O(n)',
     spaceComplexity: 'O(1)',

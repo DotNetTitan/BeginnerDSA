@@ -112,7 +112,7 @@ void printPairs(const std::vector<int>& arr) {
           ['O(1)', 'Constant', 'Array lookup by index', 'Instant'],
           ['O(log n)', 'Logarithmic', 'Binary search', '~20 operations'],
           ['O(n)', 'Linear', 'Iterating an array', '1M operations'],
-          ['O(n log n)', 'Linearithmic', 'Merge sort / Quick sort', '~20M operations'],
+          ['O(n log n)', 'Linearithmic', 'Merge sort / Heap sort', '~20M operations'],
           ['O(n²)', 'Quadratic', 'Nested loops', '1 trillion — too slow'],
           ['O(2ⁿ)', 'Exponential', 'Recursive Fibonacci', 'Impossible'],
         ],

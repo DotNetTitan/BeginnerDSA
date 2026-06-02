@@ -256,13 +256,14 @@ queue.push(3);  // [1, 2, 3]
 const front = queue[0];       // 1 (no removal)
 const dequeued = queue.shift(); // 1, queue is now [2, 3]
 
-// BFS template using array as queue
+// BFS template using array as queue (index pointer avoids O(n) shift)
 const bfs = (root) => {
     const q = [root];
-    while (q.length > 0) {
-        const levelSize = q.length;
+    let idx = 0;
+    while (idx < q.length) {
+        const levelSize = q.length - idx;
         for (let i = 0; i < levelSize; i++) {
-            const node = q.shift();
+            const node = q[idx++];
             console.log(node.val + " ");
             if (node.left !== null) q.push(node.left);
             if (node.right !== null) q.push(node.right);
@@ -284,6 +285,7 @@ q.pop();                // removes front, queue is now [2, 3]
 
 // BFS template using Queue
 void bfs(TreeNode* root) {
+    if (root == nullptr) return;
     std::queue<TreeNode*> q;
     q.push(root);
 

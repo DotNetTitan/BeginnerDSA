@@ -35,9 +35,8 @@ export function getTopicStatus(
   return 'available';
 }
 
-export function isPracticeReachable(topic: Topic, progress: AppProgress): boolean {
-  const tp = progress.topics[topic.id];
-  return tp?.completed ?? false;
+export function isPracticeReachable(topic: Topic, progress: AppProgress, allTopics: Topic[]): boolean {
+  return getTopicStatus(topic, progress, allTopics) !== 'locked';
 }
 
 export function isReadyForExam(topic: Topic, progress: AppProgress): boolean {
@@ -66,5 +65,5 @@ export function getNextRecommendedTopic(
       return topic;
     }
   }
-  return allTopics[allTopics.length - 1] ?? null;
+  return null;
 }

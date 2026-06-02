@@ -685,7 +685,7 @@ int ladderLength(const std::string& beginWord, const std::string& endWord, const
     return 0;
 }`,
     },
-    timeComplexity: 'O(n * mÂ² * 26)',
+    timeComplexity: 'O(n * m * 26)',
     spaceComplexity: 'O(n)',
   },
 ];
