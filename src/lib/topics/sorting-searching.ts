@@ -28,7 +28,8 @@ export const topic: Topic = {
       codeExamples: [
         {
           title: 'Binary search and its variants',
-          code: `// Standard binary search — O(log n)
+          code: {
+            csharp: `// Standard binary search — O(log n)
 int BinarySearch(int[] arr, int target) {
     int left = 0, right = arr.Length - 1;
     while (left <= right) {
@@ -61,7 +62,131 @@ int UpperBound(int[] arr, int target) {
     }
     return left;
 }`,
-          language: 'csharp',
+            python: `# Standard binary search — O(log n)
+def binary_search(arr, target):
+    left, right = 0, len(arr) - 1
+    while left <= right:
+        mid = left + (right - left) // 2
+        if arr[mid] == target:
+            return mid
+        if arr[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return -1
+
+# Lower bound — first index where arr[i] >= target
+def lower_bound(arr, target):
+    left, right = 0, len(arr)
+    while left < right:
+        mid = left + (right - left) // 2
+        if arr[mid] < target:
+            left = mid + 1
+        else:
+            right = mid
+    return left
+
+# Upper bound — first index where arr[i] > target
+def upper_bound(arr, target):
+    left, right = 0, len(arr)
+    while left < right:
+        mid = left + (right - left) // 2
+        if arr[mid] <= target:
+            left = mid + 1
+        else:
+            right = mid
+    return left`,
+            java: `// Standard binary search — O(log n)
+public int binarySearch(int[] arr, int target) {
+    int left = 0, right = arr.length - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] == target) return mid;
+        if (arr[mid] < target) left = mid + 1;
+        else right = mid - 1;
+    }
+    return -1;
+}
+
+// Lower bound — first index where arr[i] >= target
+public int lowerBound(int[] arr, int target) {
+    int left = 0, right = arr.length;
+    while (left < right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] < target) left = mid + 1;
+        else right = mid;
+    }
+    return left;
+}
+
+// Upper bound — first index where arr[i] > target
+public int upperBound(int[] arr, int target) {
+    int left = 0, right = arr.length;
+    while (left < right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] <= target) left = mid + 1;
+        else right = mid;
+    }
+    return left;
+}`,
+            javascript: `// Standard binary search — O(log n)
+const binarySearch = (arr, target) => {
+    let left = 0, right = arr.length - 1;
+    while (left <= right) {
+        const mid = left + Math.floor((right - left) / 2);
+        if (arr[mid] === target) return mid;
+        if (arr[mid] < target) left = mid + 1;
+        else right = mid - 1;
+    }
+    return -1;
+};
+
+// Lower bound — first index where arr[i] >= target
+const lowerBound = (arr, target) => {
+    let left = 0, right = arr.length;
+    while (left < right) {
+        const mid = left + Math.floor((right - left) / 2);
+        if (arr[mid] < target) left = mid + 1;
+        else right = mid;
+    }
+    return left;
+};
+
+// Upper bound — first index where arr[i] > target
+const upperBound = (arr, target) => {
+    let left = 0, right = arr.length;
+    while (left < right) {
+        const mid = left + Math.floor((right - left) / 2);
+        if (arr[mid] <= target) left = mid + 1;
+        else right = mid;
+    }
+    return left;
+};`,
+          cpp: `#include <vector>
+#include <algorithm>
+
+// Standard binary search — O(log n)
+int binarySearch(const std::vector<int>& arr, int target) {
+    int left = 0, right = arr.size() - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] == target) return mid;
+        if (arr[mid] < target) left = mid + 1;
+        else right = mid - 1;
+    }
+    return -1;
+}
+
+// Lower bound — first index where arr[i] >= target
+int lowerBound(const std::vector<int>& arr, int target) {
+    return (int)(std::lower_bound(arr.begin(), arr.end(), target) - arr.begin());
+}
+
+// Upper bound — first index where arr[i] > target
+int upperBound(const std::vector<int>& arr, int target) {
+    return (int)(std::upper_bound(arr.begin(), arr.end(), target) - arr.begin());
+}`,
+          },
         },
       ],
     },
@@ -77,11 +202,12 @@ int UpperBound(int[] arr, int target) {
 | Quick Sort | O(n log n) | O(n²) | O(log n) | No |
 | Heap Sort | O(n log n) | O(n log n) | O(1) | No |
 
-In C#, \`Array.Sort()\` uses **introsort** (quick sort + heap sort fallback) for primitive types and a stable sort for reference types.`,
+Most languages have a built-in sort that uses **introsort** (quick sort + heap sort fallback) for primitive types and a stable sort for reference types.`,
       codeExamples: [
         {
           title: 'Key sorting implementations',
-          code: `// Quick sort — O(n log n) average, O(log n) space
+          code: {
+            csharp: `// Quick sort — O(n log n) average, O(log n) space
 void QuickSort(int[] arr, int left, int right) {
     if (left >= right) return;
     int pivot = Partition(arr, left, right);
@@ -102,14 +228,129 @@ int Partition(int[] arr, int left, int right) {
     return i + 1;
 }
 
-// Built-in C# sorting
+// Built-in sorting
 Array.Sort(arr);                     // O(n log n), in-place
 var sorted = arr.OrderBy(x => x).ToArray(); // O(n log n), new array
 Array.Sort(arr, (a, b) => b.CompareTo(a));  // descending with comparer
 
 // Custom comparer for complex objects
 Array.Sort(people, (a, b) => a.Age.CompareTo(b.Age));`,
-          language: 'csharp',
+            python: `# Quick sort — O(n log n) average, O(log n) space
+def quick_sort(arr, left, right):
+    if left >= right:
+        return
+    pivot = partition(arr, left, right)
+    quick_sort(arr, left, pivot - 1)
+    quick_sort(arr, pivot + 1, right)
+
+def partition(arr, left, right):
+    pivot = arr[right]
+    i = left - 1
+    for j in range(left, right):
+        if arr[j] <= pivot:
+            i += 1
+            arr[i], arr[j] = arr[j], arr[i]
+    arr[i + 1], arr[right] = arr[right], arr[i + 1]
+    return i + 1
+
+# Built-in sorting
+arr.sort()                             # O(n log n), in-place
+sorted_arr = sorted(arr)               # O(n log n), new list
+arr.sort(reverse=True)                 # descending
+
+# Custom key for complex objects
+people.sort(key=lambda p: p.age)`,
+            java: `// Quick sort — O(n log n) average, O(log n) space
+public void quickSort(int[] arr, int left, int right) {
+    if (left >= right) return;
+    int pivot = partition(arr, left, right);
+    quickSort(arr, left, pivot - 1);
+    quickSort(arr, pivot + 1, right);
+}
+
+public int partition(int[] arr, int left, int right) {
+    int pivot = arr[right];
+    int i = left - 1;
+    for (int j = left; j < right; j++) {
+        if (arr[j] <= pivot) {
+            i++;
+            int tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+        }
+    }
+    int tmp = arr[i + 1]; arr[i + 1] = arr[right]; arr[right] = tmp;
+    return i + 1;
+}
+
+// Built-in sorting
+Arrays.sort(arr);                     // O(n log n), in-place
+int[] sorted = arr.clone();
+Arrays.sort(sorted);                  // O(n log n), new array
+// Descending requires Integer[] or custom comparator
+
+// Custom comparator for complex objects
+// Arrays.sort(people, (a, b) -> Integer.compare(a.age, b.age));`,
+            javascript: `// Quick sort — O(n log n) average, O(log n) space
+const quickSort = (arr, left = 0, right = arr.length - 1) => {
+    if (left >= right) return;
+    const pivot = partition(arr, left, right);
+    quickSort(arr, left, pivot - 1);
+    quickSort(arr, pivot + 1, right);
+};
+
+const partition = (arr, left, right) => {
+    const pivot = arr[right];
+    let i = left - 1;
+    for (let j = left; j < right; j++) {
+        if (arr[j] <= pivot) {
+            i++;
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+    }
+    [arr[i + 1], arr[right]] = [arr[right], arr[i + 1]];
+    return i + 1;
+};
+
+// Built-in sorting
+arr.sort((a, b) => a - b);              // O(n log n), in-place
+const sorted = [...arr].sort((a, b) => a - b); // O(n log n), new array
+arr.sort((a, b) => b - a);              // descending
+
+// Custom comparator for complex objects
+// people.sort((a, b) => a.age - b.age);`,
+          cpp: `#include <vector>
+#include <algorithm>
+#include <iostream>
+
+// Quick sort — O(n log n) average, O(log n) space
+void quickSort(std::vector<int>& arr, int left, int right) {
+    if (left >= right) return;
+    int pivot = partition(arr, left, right);
+    quickSort(arr, left, pivot - 1);
+    quickSort(arr, pivot + 1, right);
+}
+
+int partition(std::vector<int>& arr, int left, int right) {
+    int pivot = arr[right];
+    int i = left - 1;
+    for (int j = left; j < right; j++) {
+        if (arr[j] <= pivot) {
+            i++;
+            std::swap(arr[i], arr[j]);
+        }
+    }
+    std::swap(arr[i + 1], arr[right]);
+    return i + 1;
+}
+
+// Built-in sorting
+std::sort(arr.begin(), arr.end());                     // O(n log n), in-place
+std::vector<int> sorted = arr;
+std::sort(sorted.begin(), sorted.end());               // O(n log n), new array
+std::sort(arr.begin(), arr.end(), std::greater<>());   // descending
+
+// Custom comparator for complex objects
+// std::sort(people.begin(), people.end(), [](auto& a, auto& b) { return a.age < b.age; });`,
+          },
         },
       ],
     },
@@ -122,7 +363,8 @@ Key insight: One half of the array is always normally sorted. Determine which ha
       codeExamples: [
         {
           title: 'Search in rotated sorted array',
-          code: `int SearchRotated(int[] arr, int target) {
+          code: {
+            csharp: `int SearchRotated(int[] arr, int target) {
     int left = 0, right = arr.Length - 1;
     while (left <= right) {
         int mid = left + (right - left) / 2;
@@ -158,29 +400,151 @@ int FindMin(int[] arr) {
     }
     return arr[left];
 }`,
-          language: 'csharp',
+            python: `def search_rotated(arr, target):
+    left, right = 0, len(arr) - 1
+    while left <= right:
+        mid = left + (right - left) // 2
+        if arr[mid] == target:
+            return mid
+
+        # Left half is sorted
+        if arr[left] <= arr[mid]:
+            if arr[left] <= target < arr[mid]:
+                right = mid - 1
+            else:
+                left = mid + 1
+        # Right half is sorted
+        else:
+            if arr[mid] < target <= arr[right]:
+                left = mid + 1
+            else:
+                right = mid - 1
+    return -1
+
+# Find minimum in rotated array
+def find_min(arr):
+    left, right = 0, len(arr) - 1
+    while left < right:
+        mid = left + (right - left) // 2
+        if arr[mid] > arr[right]:
+            left = mid + 1  # min is in right half
+        else:
+            right = mid     # min is in left half (including mid)
+    return arr[left]`,
+            java: `public int searchRotated(int[] arr, int target) {
+    int left = 0, right = arr.length - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] == target) return mid;
+
+        // Left half is sorted
+        if (arr[left] <= arr[mid]) {
+            if (target >= arr[left] && target < arr[mid])
+                right = mid - 1;
+            else
+                left = mid + 1;
+        }
+        // Right half is sorted
+        else {
+            if (target > arr[mid] && target <= arr[right])
+                left = mid + 1;
+            else
+                right = mid - 1;
+        }
+    }
+    return -1;
+}
+
+// Find minimum in rotated array
+public int findMin(int[] arr) {
+    int left = 0, right = arr.length - 1;
+    while (left < right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] > arr[right])
+            left = mid + 1;  // min is in right half
+        else
+            right = mid;     // min is in left half (including mid)
+    }
+    return arr[left];
+}`,
+            javascript: `const searchRotated = (arr, target) => {
+    let left = 0, right = arr.length - 1;
+    while (left <= right) {
+        const mid = left + Math.floor((right - left) / 2);
+        if (arr[mid] === target) return mid;
+
+        // Left half is sorted
+        if (arr[left] <= arr[mid]) {
+            if (target >= arr[left] && target < arr[mid])
+                right = mid - 1;
+            else
+                left = mid + 1;
+        }
+        // Right half is sorted
+        else {
+            if (target > arr[mid] && target <= arr[right])
+                left = mid + 1;
+            else
+                right = mid - 1;
+        }
+    }
+    return -1;
+};
+
+// Find minimum in rotated array
+const findMin = (arr) => {
+    let left = 0, right = arr.length - 1;
+    while (left < right) {
+        const mid = left + Math.floor((right - left) / 2);
+        if (arr[mid] > arr[right])
+            left = mid + 1;  // min is in right half
+        else
+            right = mid;     // min is in left half (including mid)
+    }
+    return arr[left];
+};`,
+          cpp: `#include <vector>
+#include <algorithm>
+
+int searchRotated(const std::vector<int>& arr, int target) {
+    int left = 0, right = arr.size() - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] == target) return mid;
+
+        // Left half is sorted
+        if (arr[left] <= arr[mid]) {
+            if (target >= arr[left] && target < arr[mid])
+                right = mid - 1;
+            else
+                left = mid + 1;
+        }
+        // Right half is sorted
+        else {
+            if (target > arr[mid] && target <= arr[right])
+                left = mid + 1;
+            else
+                right = mid - 1;
+        }
+    }
+    return -1;
+}
+
+// Find minimum in rotated array
+int findMin(const std::vector<int>& arr) {
+    int left = 0, right = arr.size() - 1;
+    while (left < right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] > arr[right])
+            left = mid + 1;  // min is in right half
+        else
+            right = mid;     // min is in left half (including mid)
+    }
+    return arr[left];
+}`,
+          },
         },
       ],
-    },
-    {
-      id: 'csharp-notes',
-      title: 'C# Specific Notes',
-      content: `**Array.Sort vs LINQ OrderBy**
-- \`Array.Sort(arr)\` — sorts in-place, O(n log n), no extra allocation
-- \`arr.OrderBy(x => x).ToArray()\` — creates a new sorted array, O(n log n), allocates O(n) extra memory
-
-**BinarySearch built-in:**
-\`\`\`csharp
-int index = Array.BinarySearch(arr, target); // returns ~complement if not found
-// If not found, ~index is the insertion point (lower bound)
-\`\`\`
-
-**Custom sorting with IComparer:**
-\`\`\`csharp
-Array.Sort(arr, StringComparer.OrdinalIgnoreCase); // case-insensitive string sort
-\`\`\`
-
-**Stability note:** \`Array.Sort\` is NOT stable for value types. Use LINQ's \`OrderBy\` if stability is needed.`,
     },
     {
       id: 'common-patterns',

@@ -27,7 +27,8 @@ export const topic: Topic = {
       codeExamples: [
         {
           title: 'Singly linked list node',
-          code: `public class ListNode {
+          code: {
+            csharp: `public class ListNode {
     public int val;
     public ListNode next;
     public ListNode(int val = 0, ListNode next = null) {
@@ -43,7 +44,56 @@ list.AddLast("d");
 list.AddBefore(list.First, "b");
 
 // But for interviews, you'll usually implement the node class`,
-          language: 'csharp',
+            python: `class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+# Python doesn't have a built-in linked list,
+# but collections.deque is a double-ended queue
+from collections import deque
+dll = deque()
+dll.appendleft("c")   # add to front
+dll.append("d")       # add to back
+dll.appendleft("b")
+
+# For interviews, you'll usually implement the node class`,
+            java: `public class ListNode {
+    public int val;
+    public ListNode next;
+    public ListNode() {}
+    public ListNode(int val) { this.val = val; }
+    public ListNode(int val, ListNode next) {
+        this.val = val;
+        this.next = next;
+    }
+}
+
+// Java has LinkedList (doubly linked)
+LinkedList<String> list = new LinkedList<>();
+list.addFirst("c");
+list.addLast("d");
+list.addFirst("b");
+
+// But for interviews, you'll usually implement the node class`,
+            javascript: `class ListNode {
+    constructor(val = 0, next = null) {
+        this.val = val;
+        this.next = next;
+    }
+}
+
+// No built-in linked list in JS.
+// For interviews, you'll usually implement the node class`,
+          cpp: `struct ListNode {
+    int val;
+    ListNode* next;
+    ListNode(int x = 0, ListNode* nxt = nullptr) : val(x), next(nxt) {}
+};
+
+// C++ doesn't have a built-in linked list in the standard library.
+// For interviews, you'll usually implement the node struct.`,
+          },
         },
       ],
     },
@@ -54,7 +104,8 @@ list.AddBefore(list.First, "b");
       codeExamples: [
         {
           title: 'Iterative reversal',
-          code: `// Reverse a singly linked list — O(n), O(1) space
+          code: {
+            csharp: `// Reverse a singly linked list — O(n), O(1) space
 ListNode ReverseList(ListNode head) {
     ListNode prev = null;
     ListNode curr = head;
@@ -68,7 +119,59 @@ ListNode ReverseList(ListNode head) {
 
     return prev; // new head
 }`,
-          language: 'csharp',
+            python: `# Reverse a singly linked list — O(n), O(1) space
+def reverse_list(head):
+    prev = None
+    curr = head
+    while curr:
+        nxt = curr.next   # save next
+        curr.next = prev  # reverse pointer
+        prev = curr       # move prev forward
+        curr = nxt        # move curr forward
+    return prev  # new head`,
+            java: `// Reverse a singly linked list — O(n), O(1) space
+public ListNode reverseList(ListNode head) {
+    ListNode prev = null;
+    ListNode curr = head;
+
+    while (curr != null) {
+        ListNode next = curr.next;  // save next
+        curr.next = prev;           // reverse pointer
+        prev = curr;                // move prev forward
+        curr = next;                // move curr forward
+    }
+
+    return prev; // new head
+}`,
+            javascript: `// Reverse a singly linked list — O(n), O(1) space
+const reverseList = (head) => {
+    let prev = null;
+    let curr = head;
+
+    while (curr !== null) {
+        const next = curr.next;  // save next
+        curr.next = prev;        // reverse pointer
+        prev = curr;             // move prev forward
+        curr = next;             // move curr forward
+    }
+
+    return prev; // new head
+};`,
+          cpp: `// Reverse a singly linked list — O(n), O(1) space
+ListNode* reverseList(ListNode* head) {
+    ListNode* prev = nullptr;
+    ListNode* curr = head;
+
+    while (curr != nullptr) {
+        ListNode* next = curr->next;  // save next
+        curr->next = prev;            // reverse pointer
+        prev = curr;                  // move prev forward
+        curr = next;                  // move curr forward
+    }
+
+    return prev; // new head
+}`,
+          },
         },
       ],
     },
@@ -84,7 +187,8 @@ ListNode ReverseList(ListNode head) {
       codeExamples: [
         {
           title: 'Cycle detection and find middle',
-          code: `// Detect cycle — O(n), O(1) space
+          code: {
+            csharp: `// Detect cycle — O(n), O(1) space
 bool HasCycle(ListNode head) {
     ListNode slow = head, fast = head;
     while (fast?.next != null) {
@@ -104,26 +208,88 @@ ListNode FindMiddle(ListNode head) {
     }
     return slow;
 }`,
-          language: 'csharp',
+            python: `# Detect cycle — O(n), O(1) space
+def has_cycle(head):
+    slow = fast = head
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+        if slow is fast:
+            return True
+    return False
+
+# Find middle node — O(n), O(1) space
+def find_middle(head):
+    slow = fast = head
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+    return slow`,
+            java: `// Detect cycle — O(n), O(1) space
+public boolean hasCycle(ListNode head) {
+    ListNode slow = head, fast = head;
+    while (fast != null && fast.next != null) {
+        slow = slow.next;
+        fast = fast.next.next;
+        if (slow == fast) return true;
+    }
+    return false;
+}
+
+// Find middle node — O(n), O(1) space
+public ListNode findMiddle(ListNode head) {
+    ListNode slow = head, fast = head;
+    while (fast != null && fast.next != null) {
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+    return slow;
+}`,
+            javascript: `// Detect cycle — O(n), O(1) space
+const hasCycle = (head) => {
+    let slow = head, fast = head;
+    while (fast !== null && fast.next !== null) {
+        slow = slow.next;
+        fast = fast.next.next;
+        if (slow === fast) return true;
+    }
+    return false;
+};
+
+// Find middle node — O(n), O(1) space
+const findMiddle = (head) => {
+    let slow = head, fast = head;
+    while (fast !== null && fast.next !== null) {
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+    return slow;
+};`,
+          cpp: `// Detect cycle — O(n), O(1) space
+bool hasCycle(ListNode* head) {
+    ListNode* slow = head;
+    ListNode* fast = head;
+    while (fast != nullptr && fast->next != nullptr) {
+        slow = slow->next;
+        fast = fast->next->next;
+        if (slow == fast) return true;
+    }
+    return false;
+}
+
+// Find middle node — O(n), O(1) space
+ListNode* findMiddle(ListNode* head) {
+    ListNode* slow = head;
+    ListNode* fast = head;
+    while (fast != nullptr && fast->next != nullptr) {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    return slow;
+}`,
+          },
         },
       ],
-    },
-    {
-      id: 'csharp-notes',
-      title: 'C# Specific Notes',
-      content: `**LinkedList<T> (built-in)**
-\`\`\`csharp
-var list = new LinkedList<int>();
-list.AddLast(1);    // O(1)
-list.AddFirst(2);   // O(1)
-var first = list.First; // LinkedListNode<int>
-var last = list.Last;
-list.Remove(first); // O(1)
-\`\`\`
-
-**For interviews**, you'll typically define your own \`ListNode\` class (as shown above). The built-in \`LinkedList<T>\` is rarely used in interview problems — it doesn't expose the internal node structure easily.
-
-**Recursion warning:** Recursive linked list solutions use O(n) stack space. If n is large (10⁵+), prefer iterative approaches to avoid stack overflow.`,
     },
     {
       id: 'common-patterns',

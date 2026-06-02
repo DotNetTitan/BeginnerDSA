@@ -26,7 +26,8 @@ export const topic: Topic = {
       codeExamples: [
         {
           title: 'TreeNode class and traversals',
-          code: `public class TreeNode {
+          code: {
+            csharp: `public class TreeNode {
     public int val;
     public TreeNode left;
     public TreeNode right;
@@ -70,7 +71,180 @@ void LevelOrder(TreeNode root) {
         if (node.right != null) q.Enqueue(node.right);
     }
 }`,
-          language: 'csharp',
+            python: `class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+# DFS Traversals (recursive)
+def inorder(node):       # left → root → right
+    if node is None:
+        return
+    inorder(node.left)
+    print(node.val, end=" ")
+    inorder(node.right)
+
+def preorder(node):      # root → left → right
+    if node is None:
+        return
+    print(node.val, end=" ")
+    preorder(node.left)
+    preorder(node.right)
+
+def postorder(node):     # left → right → root
+    if node is None:
+        return
+    postorder(node.left)
+    postorder(node.right)
+    print(node.val, end=" ")
+
+# BFS (Level order)
+from collections import deque
+
+def level_order(root):
+    q = deque([root])
+    while q:
+        node = q.popleft()
+        print(node.val, end=" ")
+        if node.left:
+            q.append(node.left)
+        if node.right:
+            q.append(node.right)`,
+            java: `import java.util.*;
+
+public class TreeNode {
+    public int val;
+    public TreeNode left;
+    public TreeNode right;
+    public TreeNode() {}
+    public TreeNode(int val) { this.val = val; }
+    public TreeNode(int val, TreeNode left, TreeNode right) {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+    }
+}
+
+// DFS Traversals (recursive)
+public void inorder(TreeNode node) {      // left → root → right
+    if (node == null) return;
+    inorder(node.left);
+    System.out.print(node.val + " ");
+    inorder(node.right);
+}
+
+public void preorder(TreeNode node) {     // root → left → right
+    if (node == null) return;
+    System.out.print(node.val + " ");
+    preorder(node.left);
+    preorder(node.right);
+}
+
+public void postorder(TreeNode node) {    // left → right → root
+    if (node == null) return;
+    postorder(node.left);
+    postorder(node.right);
+    System.out.print(node.val + " ");
+}
+
+// BFS (Level order)
+public void levelOrder(TreeNode root) {
+    Queue<TreeNode> q = new LinkedList<>();
+    q.offer(root);
+    while (!q.isEmpty()) {
+        TreeNode node = q.poll();
+        System.out.print(node.val + " ");
+        if (node.left != null) q.offer(node.left);
+        if (node.right != null) q.offer(node.right);
+    }
+}`,
+            javascript: `class TreeNode {
+    constructor(val = 0, left = null, right = null) {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+    }
+}
+
+// DFS Traversals (recursive)
+const inorder = (node) => {        // left → root → right
+    if (node === null) return;
+    inorder(node.left);
+    console.log(node.val + " ");
+    inorder(node.right);
+};
+
+const preorder = (node) => {       // root → left → right
+    if (node === null) return;
+    console.log(node.val + " ");
+    preorder(node.left);
+    preorder(node.right);
+};
+
+const postorder = (node) => {      // left → right → root
+    if (node === null) return;
+    postorder(node.left);
+    postorder(node.right);
+    console.log(node.val + " ");
+};
+
+// BFS (Level order)
+const levelOrder = (root) => {
+    const q = [root];
+    while (q.length > 0) {
+        const node = q.shift();
+        console.log(node.val + " ");
+        if (node.left !== null) q.push(node.left);
+        if (node.right !== null) q.push(node.right);
+    }
+};`,
+          cpp: `#include <iostream>
+#include <queue>
+
+struct TreeNode {
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+    TreeNode(int x = 0, TreeNode* l = nullptr, TreeNode* r = nullptr)
+        : val(x), left(l), right(r) {}
+};
+
+// DFS Traversals (recursive)
+void inorder(TreeNode* node) {      // left -> root -> right
+    if (node == nullptr) return;
+    inorder(node->left);
+    std::cout << node->val << " ";
+    inorder(node->right);
+}
+
+void preorder(TreeNode* node) {     // root -> left -> right
+    if (node == nullptr) return;
+    std::cout << node->val << " ";
+    preorder(node->left);
+    preorder(node->right);
+}
+
+void postorder(TreeNode* node) {    // left -> right -> root
+    if (node == nullptr) return;
+    postorder(node->left);
+    postorder(node->right);
+    std::cout << node->val << " ";
+}
+
+// BFS (Level order)
+void levelOrder(TreeNode* root) {
+    std::queue<TreeNode*> q;
+    q.push(root);
+    while (!q.empty()) {
+        TreeNode* node = q.front();
+        q.pop();
+        std::cout << node->val << " ";
+        if (node->left != nullptr) q.push(node->left);
+        if (node->right != nullptr) q.push(node->right);
+    }
+}`,
+          },
         },
       ],
     },
@@ -83,7 +257,8 @@ This property enables fast search — at each node you eliminate half the tree.`
       codeExamples: [
         {
           title: 'BST search, insert, validate',
-          code: `// BST Search — O(log n) average
+          code: {
+            csharp: `// BST Search — O(log n) average
 TreeNode Search(TreeNode root, int target) {
     while (root != null) {
         if (root.val == target) return root;
@@ -111,7 +286,121 @@ bool Validate(TreeNode node, long min, long max) {
     return Validate(node.left, min, node.val)
         && Validate(node.right, node.val, max);
 }`,
-          language: 'csharp',
+            python: `# BST Search — O(log n) average
+def search(root, target):
+    while root:
+        if root.val == target:
+            return root
+        root = root.left if target < root.val else root.right
+    return None
+
+# BST Insert — O(log n)
+def insert(root, val):
+    if root is None:
+        return TreeNode(val)
+    if val < root.val:
+        root.left = insert(root.left, val)
+    else:
+        root.right = insert(root.right, val)
+    return root
+
+# Validate BST — O(n)
+def is_valid_bst(root):
+    def validate(node, min_val, max_val):
+        if node is None:
+            return True
+        if node.val <= min_val or node.val >= max_val:
+            return False
+        return (validate(node.left, min_val, node.val)
+                and validate(node.right, node.val, max_val))
+
+    return validate(root, float('-inf'), float('inf'))`,
+            java: `// BST Search — O(log n) average
+public TreeNode search(TreeNode root, int target) {
+    while (root != null) {
+        if (root.val == target) return root;
+        root = target < root.val ? root.left : root.right;
+    }
+    return null;
+}
+
+// BST Insert — O(log n)
+public TreeNode insert(TreeNode root, int val) {
+    if (root == null) return new TreeNode(val);
+    if (val < root.val) root.left = insert(root.left, val);
+    else root.right = insert(root.right, val);
+    return root;
+}
+
+// Validate BST — O(n)
+public boolean isValidBST(TreeNode root) {
+    return validate(root, Long.MIN_VALUE, Long.MAX_VALUE);
+}
+
+private boolean validate(TreeNode node, long min, long max) {
+    if (node == null) return true;
+    if (node.val <= min || node.val >= max) return false;
+    return validate(node.left, min, node.val)
+        && validate(node.right, node.val, max);
+}`,
+            javascript: `// BST Search — O(log n) average
+const search = (root, target) => {
+    while (root !== null) {
+        if (root.val === target) return root;
+        root = target < root.val ? root.left : root.right;
+    }
+    return null;
+};
+
+// BST Insert — O(log n)
+const insert = (root, val) => {
+    if (root === null) return new TreeNode(val);
+    if (val < root.val) root.left = insert(root.left, val);
+    else root.right = insert(root.right, val);
+    return root;
+};
+
+// Validate BST — O(n)
+const isValidBST = (root) => {
+    const validate = (node, min, max) => {
+        if (node === null) return true;
+        if (node.val <= min || node.val >= max) return false;
+        return validate(node.left, min, node.val)
+            && validate(node.right, node.val, max);
+    };
+    return validate(root, -Infinity, Infinity);
+};`,
+          cpp: `#include <climits>
+
+// BST Search — O(log n) average
+TreeNode* search(TreeNode* root, int target) {
+    while (root != nullptr) {
+        if (root->val == target) return root;
+        root = target < root->val ? root->left : root->right;
+    }
+    return nullptr;
+}
+
+// BST Insert — O(log n)
+TreeNode* insert(TreeNode* root, int val) {
+    if (root == nullptr) return new TreeNode(val);
+    if (val < root->val) root->left = insert(root->left, val);
+    else root->right = insert(root->right, val);
+    return root;
+}
+
+// Validate BST — O(n)
+bool isValidBST(TreeNode* root) {
+    return validate(root, LONG_MIN, LONG_MAX);
+}
+
+bool validate(TreeNode* node, long min, long max) {
+    if (node == nullptr) return true;
+    if (node->val <= min || node->val >= max) return false;
+    return validate(node->left, min, node->val)
+        && validate(node->right, node->val, max);
+}`,
+          },
         },
       ],
     },
@@ -130,7 +419,8 @@ Space: O(total characters across all words).`,
       codeExamples: [
         {
           title: 'Trie implementation',
-          code: `public class TrieNode {
+          code: {
+            csharp: `public class TrieNode {
     public Dictionary<char, TrieNode> children = new();
     public bool isEnd = false;
 }
@@ -166,38 +456,163 @@ public class Trie {
         return node;
     }
 }`,
-          language: 'csharp',
+            python: `class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.is_end = False
+
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+
+    def insert(self, word):
+        node = self.root
+        for c in word:
+            if c not in node.children:
+                node.children[c] = TrieNode()
+            node = node.children[c]
+        node.is_end = True
+
+    def search(self, word):
+        node = self._find(word)
+        return node is not None and node.is_end
+
+    def starts_with(self, prefix):
+        return self._find(prefix) is not None
+
+    def _find(self, s):
+        node = self.root
+        for c in s:
+            if c not in node.children:
+                return None
+            node = node.children[c]
+        return node`,
+            java: `import java.util.*;
+
+public class TrieNode {
+    public Map<Character, TrieNode> children = new HashMap<>();
+    public boolean isEnd = false;
+}
+
+public class Trie {
+    private final TrieNode root = new TrieNode();
+
+    public void insert(String word) {
+        TrieNode node = root;
+        for (char c : word.toCharArray()) {
+            if (!node.children.containsKey(c))
+                node.children.put(c, new TrieNode());
+            node = node.children.get(c);
+        }
+        node.isEnd = true;
+    }
+
+    public boolean search(String word) {
+        TrieNode node = find(word);
+        return node != null && node.isEnd;
+    }
+
+    public boolean startsWith(String prefix) {
+        return find(prefix) != null;
+    }
+
+    private TrieNode find(String s) {
+        TrieNode node = root;
+        for (char c : s.toCharArray()) {
+            if (!node.children.containsKey(c))
+                return null;
+            node = node.children.get(c);
+        }
+        return node;
+    }
+}`,
+            javascript: `class TrieNode {
+    constructor() {
+        this.children = new Map();
+        this.isEnd = false;
+    }
+}
+
+class Trie {
+    constructor() {
+        this.root = new TrieNode();
+    }
+
+    insert(word) {
+        let node = this.root;
+        for (const c of word) {
+            if (!node.children.has(c))
+                node.children.set(c, new TrieNode());
+            node = node.children.get(c);
+        }
+        node.isEnd = true;
+    }
+
+    search(word) {
+        const node = this._find(word);
+        return node !== null && node.isEnd;
+    }
+
+    startsWith(prefix) {
+        return this._find(prefix) !== null;
+    }
+
+    _find(s) {
+        let node = this.root;
+        for (const c of s) {
+            if (!node.children.has(c))
+                return null;
+            node = node.children.get(c);
+        }
+        return node;
+    }
+}`,
+          cpp: `#include <unordered_map>
+#include <string>
+
+struct TrieNode {
+    std::unordered_map<char, TrieNode*> children;
+    bool isEnd = false;
+};
+
+class Trie {
+private:
+    TrieNode* root = new TrieNode();
+
+public:
+    void insert(const std::string& word) {
+        TrieNode* node = root;
+        for (char c : word) {
+            if (!node->children.count(c))
+                node->children[c] = new TrieNode();
+            node = node->children[c];
+        }
+        node->isEnd = true;
+    }
+
+    bool search(const std::string& word) {
+        TrieNode* node = find(word);
+        return node != nullptr && node->isEnd;
+    }
+
+    bool startsWith(const std::string& prefix) {
+        return find(prefix) != nullptr;
+    }
+
+private:
+    TrieNode* find(const std::string& s) {
+        TrieNode* node = root;
+        for (char c : s) {
+            if (!node->children.count(c))
+                return nullptr;
+            node = node->children[c];
+        }
+        return node;
+    }
+};`,
+          },
         },
       ],
-    },
-    {
-      id: 'csharp-notes',
-      title: 'C# Specific Notes',
-      content: `**Recursion depth warning**
-Tree problems are naturally recursive, but a skewed tree of 10,000+ nodes will overflow the stack. Prefer **iterative** traversals using an explicit \`Stack<T>\` for production code.
-
-\`\`\`csharp
-// Iterative inorder traversal
-IList<int> InorderIterative(TreeNode root) {
-    var result = new List<int>();
-    var stack = new Stack<TreeNode>();
-    var curr = root;
-
-    while (curr != null || stack.Count > 0) {
-        while (curr != null) {
-            stack.Push(curr);
-            curr = curr.left;
-        }
-        curr = stack.Pop();
-        result.Add(curr.val);
-        curr = curr.right;
-    }
-    return result;
-}
-\`\`\`
-
-**Dictionary vs array for Trie children**
-\`TrieNode[] children = new TrieNode[26]\` is faster (no hashing) but only works for lowercase letters. Use \`Dictionary<char, TrieNode>\` for general-purpose.`,
     },
     {
       id: 'common-patterns',

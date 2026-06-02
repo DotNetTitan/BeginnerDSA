@@ -21,8 +21,7 @@ export interface TheorySection {
 
 export interface CodeExample {
   title: string;
-  code: string;
-  language: string;
+  code: Record<string, string>;
 }
 
 export interface TableData {
@@ -39,7 +38,7 @@ export interface Problem {
   examples: Example[];
   constraints: string[];
   hints: string[];
-  solution: string;
+  solution: Record<string, string>;
   timeComplexity: string;
   spaceComplexity: string;
 }

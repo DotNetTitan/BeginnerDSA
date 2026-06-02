@@ -15,7 +15,7 @@ export const questions: ExamQuestion[] = [
   },
   {
     id: 'big-o-2',
-    question: 'What is the time complexity of accessing an element by index in a C# List<T>?',
+    question: 'What is the time complexity of accessing an element by index in a dynamic array?',
     options: [
       'O(log n)',
       'O(n)',
@@ -23,7 +23,7 @@ export const questions: ExamQuestion[] = [
       'O(n log n)',
     ],
     correctIndex: 2,
-    explanation: 'List<T> is backed by an array, so index-based access is O(1) — direct memory addressing gives constant-time lookup.',
+    explanation: 'A dynamic array is backed by a static array, so index-based access is O(1) — direct memory addressing gives constant-time lookup.',
   },
   {
     id: 'big-o-3',
