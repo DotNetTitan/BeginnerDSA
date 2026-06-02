@@ -5,9 +5,9 @@ export default function HomePage() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold tracking-tight">Zero To DSA</h1>
+        <h1 className="text-2xl font-bold tracking-tight">DSA From Zero</h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Learn DSA from zero. Structured modules and coding challenges for absolute beginners.
+          DSA From Zero. Structured modules and coding challenges for absolute beginners.
         </p>
       </div>
 
