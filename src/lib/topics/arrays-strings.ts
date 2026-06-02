@@ -15,7 +15,7 @@ export const topic: Topic = {
       content: `Arrays store elements in **contiguous memory** with O(1) index-based access. Arrays are fixed-size. Use a dynamic array for dynamic sizing.
 
 | Operation | Array | Dynamic Array |
-|---|---|---|---|
+|---|---|---|
 | Access by index | O(1) | O(1) |
 | Search (unsorted) | O(n) | O(n) |
 | Insert at end | N/A (fixed) | O(1) amortized |
