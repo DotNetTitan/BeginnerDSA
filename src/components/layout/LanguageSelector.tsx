@@ -40,7 +40,7 @@ export default function LanguageSelector() {
             <button
               key={l.value}
               className={`w-full text-left px-3 py-1.5 text-sm flex items-center justify-between hover:bg-muted ${language === l.value ? 'font-medium' : ''}`}
-              onClick={() => { setLanguage(l.value); document.cookie = `dsa-language=${l.value};path=/;max-age=31536000`; setOpen(false); }}
+              onClick={() => { setLanguage(l.value); setOpen(false); }}
             >
               {l.label}
               {language === l.value && <Check className="h-3.5 w-3.5" />}

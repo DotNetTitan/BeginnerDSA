@@ -28,7 +28,10 @@ export function LanguageProvider({ children, serverLanguage }: { children: React
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
     localStorage.setItem(STORAGE_KEY, lang);
-    document.cookie = `dsa-language=${lang};path=/;max-age=31536000`;
+    const consented = document.cookie.split('; ').find(r => r.startsWith('dsa-consent=accepted'));
+    if (consented) {
+      document.cookie = `dsa-language=${lang};path=/;max-age=31536000`;
+    }
   };
 
   return (
