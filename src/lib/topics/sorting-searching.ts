@@ -469,12 +469,12 @@ int findMin(const std::vector<int>& arr) {
     {
       id: 'search-algorithms',
       title: 'Search Algorithms Comparison',
-      content: `| Algorithm | Time Complexity | Space | Requires Sorted? | Best For |
+      content: `| Algorithm | Time | Space | Sorted? | Best For |
 |---|---|---|---|---|
-| **Linear Search** | O(n) | O(1) | No | Small/unsorted arrays |
-| **Binary Search** | O(log n) | O(1) | Yes | Large sorted arrays |
-| **Binary Search on Answer** | O(log range) | O(1) | "Yes" on predicate | Optimization problems |
-| **DFS/BFS** | O(V + E) | O(V) | No | Graph/tree searches |
+| **Linear Search** | O(n) | O(1) | No | Small/unsorted |
+| **Binary Search** | O(log n) | O(1) | Yes | Large sorted |
+| **BS on Answer** | O(log range) | O(1) | Predicate | Optimization |
+| **DFS/BFS** | O(V + E) | O(V) | No | Graph/tree |
 
 **When to use what:**
 - **Unsorted & small** → Linear Search (no preprocessing cost)
