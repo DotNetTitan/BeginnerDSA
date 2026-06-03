@@ -9,12 +9,16 @@ export function getTopicStatus(
 ): TopicStatus {
   const tp = progress.topics[topic.id];
 
-  // Check prerequisites
+  // Check prerequisites: theory read AND all problems solved
   for (const prereqId of topic.prerequisites) {
     const prereqTopic = allTopics.find(t => t.id === prereqId);
     if (!prereqTopic) continue;
     const prereqProgress = progress.topics[prereqId];
     if (!prereqProgress || !prereqProgress.completed) {
+      return 'locked';
+    }
+    const solvedCount = prereqProgress.solvedProblems?.length ?? 0;
+    if (solvedCount < prereqTopic.problemIds.length) {
       return 'locked';
     }
   }
