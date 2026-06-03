@@ -1,5 +1,5 @@
 import TopicGrid from '@/components/home/TopicGrid';
-import { BookOpen, Code2, Signal } from 'lucide-react';
+import { BookOpen, Code2, Signal, Coffee } from 'lucide-react';
 
 export default function HomePage() {
   return (
@@ -30,6 +30,23 @@ export default function HomePage() {
       </div>
 
       <TopicGrid />
+
+      <div className="mt-10 border rounded-lg p-5 text-center">
+        <Coffee className="h-6 w-6 mx-auto mb-2 text-amber-500" />
+        <p className="font-semibold">Enjoying Zero To DSA?</p>
+        <p className="text-sm text-muted-foreground mt-1 mb-3">
+          If this helped you, consider supporting the project!
+        </p>
+        <a
+          href="https://ko-fi.com/zerotodsa"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 rounded-md bg-amber-500 px-4 py-2 text-sm font-medium text-white hover:bg-amber-600 hover:scale-105 hover:-translate-y-0.5 active:scale-[0.98] transition-all"
+        >
+          <Coffee className="h-4 w-4" />
+          Buy me a coffee
+        </a>
+      </div>
     </div>
   );
 }

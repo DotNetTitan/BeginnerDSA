@@ -15,7 +15,7 @@ export const topic: Topic = {
       content: `Arrays store elements in **contiguous memory** with O(1) index-based access. Arrays are fixed-size. Use a dynamic array for dynamic sizing.
 
 | Operation | Array | Dynamic Array |
-|---|---|---|---|
+|---|---|---|
 | Access by index | O(1) | O(1) |
 | Search (unsorted) | O(n) | O(n) |
 | Insert at end | N/A (fixed) | O(1) amortized |
@@ -32,8 +32,8 @@ int[] arr = new int[5] { 1, 2, 3, 4, 5 };
 // Dynamic list
 List<int> list = new List<int> { 1, 2, 3 };
 list.Add(4);                    // O(1) amortized
-list.Insert(0, 0);              // O(n) — shifts elements
-list.RemoveAt(1);               // O(n) — shifts elements
+list.Insert(0, 0);              // O(n) - shifts elements
+list.RemoveAt(1);               // O(n) - shifts elements
 
 // Array utilities
 Array.Sort(arr);                // O(n log n)
@@ -45,13 +45,13 @@ arr = [1, 2, 3, 4, 5]
 # Dynamic list
 lst = [1, 2, 3]
 lst.append(4)                    # O(1) amortized
-lst.insert(0, 0)                # O(n) — shifts elements
-lst.pop(1)                      # O(n) — shifts elements
+lst.insert(0, 0)                # O(n) - shifts elements
+lst.pop(1)                      # O(n) - shifts elements
 
 # List utilities
 arr.sort()                      # O(n log n)
 arr.reverse()                   # O(n)
-index = arr.index(3)            # O(n) — raises ValueError if not found`,
+index = arr.index(3)            # O(n) - raises ValueError if not found`,
             java: `import java.util.*;
 
 // Fixed-size array
@@ -60,21 +60,21 @@ int[] arr = {1, 2, 3, 4, 5};
 // Dynamic list
 List<Integer> list = new ArrayList<>(Arrays.asList(1, 2, 3));
 list.add(4);                        // O(1) amortized
-list.add(0, 0);                     // O(n) — shifts elements
-list.remove(1);                     // O(n) — shifts elements
+list.add(0, 0);                     // O(n) - shifts elements
+list.remove(1);                     // O(n) - shifts elements
 
 // Array utilities
 Arrays.sort(arr);                   // O(n log n)
 // Reverse: no built-in, manual swap
-int index = Arrays.binarySearch(arr, 3); // O(log n) — requires sorted`,
+int index = Arrays.binarySearch(arr, 3); // O(log n) - requires sorted`,
             javascript: `// Fixed-size array
 const arr = [1, 2, 3, 4, 5];
 
 // Dynamic array
 const list = [1, 2, 3];
 list.push(4);                      // O(1) amortized
-list.splice(0, 0, 0);             // O(n) — shifts elements
-list.splice(1, 1);                // O(n) — shifts elements
+list.splice(0, 0, 0);             // O(n) - shifts elements
+list.splice(1, 1);                // O(n) - shifts elements
 
 // Array utilities
 arr.sort((a, b) => a - b);        // O(n log n)
@@ -90,8 +90,8 @@ int arr[5] = {1, 2, 3, 4, 5};
 // Dynamic vector
 std::vector<int> vec = {1, 2, 3};
 vec.push_back(4);                    // O(1) amortized
-vec.insert(vec.begin(), 0);          // O(n) — shifts elements
-vec.erase(vec.begin() + 1);          // O(n) — shifts elements
+vec.insert(vec.begin(), 0);          // O(n) - shifts elements
+vec.erase(vec.begin() + 1);          // O(n) - shifts elements
 
 // Vector utilities
 std::sort(vec.begin(), vec.end());   // O(n log n)
@@ -108,14 +108,14 @@ int index = (int)(it - vec.begin());`,
       content: `Two pointers iterate from different positions toward each other (or in the same direction at different speeds). Useful for **sorted arrays**, **palindromes**, and **in-place reversal**.
 
 Common patterns:
-1. **Opposite ends** — one at start, one at end, move toward each other
-2. **Same direction** — slow and fast pointer (also used in linked lists)
-3. **Sliding window** — maintain a window that expands/contracts`,
+1. **Opposite ends** - one at start, one at end, move toward each other
+2. **Same direction** - slow and fast pointer (also used in linked lists)
+3. **Sliding window** - maintain a window that expands/contracts`,
       codeExamples: [
         {
           title: 'Two pointers from opposite ends',
           code: {
-            csharp: `// Reverse an array in-place — O(n), O(1) space
+            csharp: `// Reverse an array in-place - O(n), O(1) space
 void Reverse(int[] arr) {
     int left = 0, right = arr.Length - 1;
     while (left < right) {
@@ -125,7 +125,7 @@ void Reverse(int[] arr) {
     }
 }
 
-// Check if a string is a palindrome — O(n), O(1) space
+// Check if a string is a palindrome - O(n), O(1) space
 bool IsPalindrome(string s) {
     int i = 0, j = s.Length - 1;
     while (i < j) {
@@ -134,7 +134,7 @@ bool IsPalindrome(string s) {
     }
     return true;
 }`,
-            python: `# Reverse an array in-place — O(n), O(1) space
+            python: `# Reverse an array in-place - O(n), O(1) space
 def reverse(arr):
     left, right = 0, len(arr) - 1
     while left < right:
@@ -142,7 +142,7 @@ def reverse(arr):
         left += 1
         right -= 1
 
-# Check if a string is a palindrome — O(n), O(1) space
+# Check if a string is a palindrome - O(n), O(1) space
 def is_palindrome(s):
     i, j = 0, len(s) - 1
     while i < j:
@@ -151,7 +151,7 @@ def is_palindrome(s):
         i += 1
         j -= 1
     return True`,
-            java: `// Reverse an array in-place — O(n), O(1) space
+            java: `// Reverse an array in-place - O(n), O(1) space
 public void reverse(int[] arr) {
     int left = 0, right = arr.length - 1;
     while (left < right) {
@@ -163,7 +163,7 @@ public void reverse(int[] arr) {
     }
 }
 
-// Check if a string is a palindrome — O(n), O(1) space
+// Check if a string is a palindrome - O(n), O(1) space
 public boolean isPalindrome(String s) {
     int i = 0, j = s.length() - 1;
     while (i < j) {
@@ -172,7 +172,7 @@ public boolean isPalindrome(String s) {
     }
     return true;
 }`,
-            javascript: `// Reverse an array in-place — O(n), O(1) space
+            javascript: `// Reverse an array in-place - O(n), O(1) space
 const reverse = (arr) => {
     let left = 0, right = arr.length - 1;
     while (left < right) {
@@ -182,7 +182,7 @@ const reverse = (arr) => {
     }
 };
 
-// Check if a string is a palindrome — O(n), O(1) space
+// Check if a string is a palindrome - O(n), O(1) space
 const isPalindrome = (s) => {
     let i = 0, j = s.length - 1;
     while (i < j) {
@@ -191,7 +191,7 @@ const isPalindrome = (s) => {
     }
     return true;
 };`,
-          cpp: `// Reverse an array in-place — O(n), O(1) space
+          cpp: `// Reverse an array in-place - O(n), O(1) space
 void reverse(std::vector<int>& arr) {
     int left = 0, right = arr.size() - 1;
     while (left < right) {
@@ -201,7 +201,7 @@ void reverse(std::vector<int>& arr) {
     }
 }
 
-// Check if a string is a palindrome — O(n), O(1) space
+// Check if a string is a palindrome - O(n), O(1) space
 bool isPalindrome(const std::string& s) {
     int i = 0, j = s.size() - 1;
     while (i < j) {
@@ -222,12 +222,12 @@ bool isPalindrome(const std::string& s) {
 **Fixed window**: Window size is constant.
 **Variable window**: Window expands and contracts based on a condition.
 
-Complexity: O(n) — each element enters and leaves the window at most once.`,
+Complexity: O(n) - each element enters and leaves the window at most once.`,
       codeExamples: [
         {
           title: 'Fixed-size sliding window',
           code: {
-            csharp: `// Max sum of any subarray of size k — O(n)
+            csharp: `// Max sum of any subarray of size k - O(n)
 int MaxSumSubarray(int[] arr, int k) {
     int windowSum = 0;
     for (int i = 0; i < k; i++)
@@ -240,7 +240,7 @@ int MaxSumSubarray(int[] arr, int k) {
     }
     return maxSum;
 }`,
-            python: `# Max sum of any subarray of size k — O(n)
+            python: `# Max sum of any subarray of size k - O(n)
 def max_sum_subarray(arr, k):
     window_sum = sum(arr[:k])
     max_sum = window_sum
@@ -248,7 +248,7 @@ def max_sum_subarray(arr, k):
         window_sum += arr[i] - arr[i - k]
         max_sum = max(max_sum, window_sum)
     return max_sum`,
-            java: `// Max sum of any subarray of size k — O(n)
+            java: `// Max sum of any subarray of size k - O(n)
 public int maxSumSubarray(int[] arr, int k) {
     int windowSum = 0;
     for (int i = 0; i < k; i++) windowSum += arr[i];
@@ -260,7 +260,7 @@ public int maxSumSubarray(int[] arr, int k) {
     }
     return maxSum;
 }`,
-            javascript: `// Max sum of any subarray of size k — O(n)
+            javascript: `// Max sum of any subarray of size k - O(n)
 const maxSumSubarray = (arr, k) => {
     let windowSum = 0;
     for (let i = 0; i < k; i++) windowSum += arr[i];
@@ -275,7 +275,7 @@ const maxSumSubarray = (arr, k) => {
           cpp: `#include <vector>
 #include <algorithm>
 
-// Max sum of any subarray of size k — O(n)
+// Max sum of any subarray of size k - O(n)
 int maxSumSubarray(const std::vector<int>& arr, int k) {
     int windowSum = 0;
     for (int i = 0; i < k; i++)
@@ -295,11 +295,11 @@ int maxSumSubarray(const std::vector<int>& arr, int k) {
     {
       id: 'common-patterns',
       title: 'Common Interview Patterns',
-      content: `1. **Two Sum variant** — use a hash map for O(n) lookup
-2. **In-place array manipulation** — maintain a "write index"
-3. **Prefix sum** — precompute cumulative sums for O(1) range sum queries
-4. **String builder** — anytime you need to build/modify a string in a loop
-5. **Character counting** — use int[26] for lowercase letters, Dictionary<char,int> for general`,
+      content: `1. **Two Sum variant** - use a hash map for O(n) lookup
+2. **In-place array manipulation** - maintain a "write index"
+3. **Prefix sum** - precompute cumulative sums for O(1) range sum queries
+4. **String builder** - anytime you need to build/modify a string in a loop
+5. **Character counting** - use int[26] for lowercase letters, Dictionary<char,int> for general`,
     },
   ],
   problemIds: ['two-sum-array', 'best-time-stock', 'product-except-self', 'longest-substring-no-repeat', 'valid-palindrome'],

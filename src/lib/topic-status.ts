@@ -9,7 +9,7 @@ export function getTopicStatus(
 ): TopicStatus {
   const tp = progress.topics[topic.id];
 
-  // Check prerequisites
+  // Check prerequisites: theory read AND all problems solved
   for (const prereqId of topic.prerequisites) {
     const prereqTopic = allTopics.find(t => t.id === prereqId);
     if (!prereqTopic) continue;
@@ -17,9 +17,13 @@ export function getTopicStatus(
     if (!prereqProgress || !prereqProgress.completed) {
       return 'locked';
     }
+    const solvedCount = prereqProgress.solvedProblems?.length ?? 0;
+    if (solvedCount < prereqTopic.problemIds.length) {
+      return 'locked';
+    }
   }
 
-  // All prerequisites done — topic is available
+  // All prerequisites done - topic is available
   const problemsSolved = tp?.solvedProblems?.length ?? 0;
   const theoryRead = tp?.completed ?? false;
   const examPassed = tp?.examPassed ?? false;
@@ -35,9 +39,9 @@ export function getTopicStatus(
   return 'available';
 }
 
-export function isPracticeReachable(topic: Topic, progress: AppProgress): boolean {
-  const tp = progress.topics[topic.id];
-  return tp?.completed ?? false;
+export function isPracticeReachable(topic: Topic, progress: AppProgress, allTopics: Topic[]): boolean {
+  const status = getTopicStatus(topic, progress, allTopics);
+  return status === 'in-progress' || status === 'completed';
 }
 
 export function isReadyForExam(topic: Topic, progress: AppProgress): boolean {
@@ -66,5 +70,5 @@ export function getNextRecommendedTopic(
       return topic;
     }
   }
-  return allTopics[allTopics.length - 1] ?? null;
+  return null;
 }

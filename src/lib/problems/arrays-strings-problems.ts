@@ -6,12 +6,12 @@ export const problems: Problem[] = [
     title: 'Two Sum (Brute Force)',
     topicId: 'arrays-strings',
     difficulty: 'easy',
-    description: `Given an array of integers \`nums\` and an integer \`target\`, return the indices of the two numbers that add up to \`target\`. Solve this without using a hash map (O(nÂ²) solution).`,
+    description: `Given an array of integers \`nums\` and an integer \`target\`, return the indices of the two numbers that add up to \`target\`. Solve this without using a hash map (O(n²) solution).`,
     examples: [
       { input: 'nums = [2,7,11,15], target = 9', output: '[0, 1]', explanation: 'nums[0] + nums[1] = 2 + 7 = 9' },
       { input: 'nums = [3,2,4], target = 6', output: '[1, 2]' },
     ],
-    constraints: ['2 <= nums.length <= 10Â³', 'Only one valid answer exists.'],
+    constraints: ['2 <= nums.length <= 10^3', 'Only one valid answer exists.'],
     hints: ['Use two nested loops.', 'Outer loop i from 0 to n-1, inner loop j from i+1 to n-1.'],
     solution: {
       csharp: `public int[] TwoSum(int[] nums, int target) {
@@ -60,7 +60,7 @@ std::vector<int> twoSum(const std::vector<int>& nums, int target) {
     return {};
 }`,
     },
-    timeComplexity: 'O(nÂ²)',
+    timeComplexity: 'O(n²)',
     spaceComplexity: 'O(1)',
   },
   {
@@ -73,7 +73,7 @@ std::vector<int> twoSum(const std::vector<int>& nums, int target) {
       { input: 'prices = [7,1,5,3,6,4]', output: '5', explanation: 'Buy at 1 (day 2), sell at 6 (day 5). Profit = 5.' },
       { input: 'prices = [7,6,4,3,1]', output: '0', explanation: 'No profit possible, return 0.' },
     ],
-    constraints: ['1 <= prices.length <= 10âµ', '0 <= prices[i] <= 10â´'],
+    constraints: ['1 <= prices.length <= 10^5', '0 <= prices[i] <= 10^4'],
     hints: ['Track the minimum price seen so far.', 'At each price, calculate profit = current - minPrice.'],
     solution: {
       csharp: `public int MaxProfit(int[] prices) {
@@ -149,7 +149,7 @@ int maxProfit(const std::vector<int>& prices) {
       { input: 'nums = [1,2,3,4]', output: '[24,12,8,6]' },
       { input: 'nums = [-1,1,0,-3,3]', output: '[0,0,9,0,0]' },
     ],
-    constraints: ['2 <= nums.length <= 10âµ', '-30 <= nums[i] <= 30'],
+    constraints: ['2 <= nums.length <= 10^5', '-30 <= nums[i] <= 30'],
     hints: ['Use prefix and suffix products.', 'First pass: compute prefix products. Second pass: multiply by suffix.'],
     solution: {
       csharp: `public int[] ProductExceptSelf(int[] nums) {
@@ -247,7 +247,7 @@ std::vector<int> productExceptSelf(const std::vector<int>& nums) {
       { input: 's = "bbbbb"', output: '1', explanation: '"b" has length 1.' },
       { input: 's = "pwwkew"', output: '3', explanation: '"wke" has length 3.' },
     ],
-    constraints: ['0 <= s.length <= 5 * 10â´'],
+    constraints: ['0 <= s.length <= 5 * 10^4'],
     hints: ['Use sliding window with a hash set.', 'When you see a duplicate, shrink the window from the left.'],
     solution: {
       csharp: `public int LengthOfLongestSubstring(string s) {
@@ -332,7 +332,7 @@ int lengthOfLongestSubstring(const std::string& s) {
       { input: 's = "A man, a plan, a canal: Panama"', output: 'true', explanation: '"amanaplanacanalpanama" is a palindrome.' },
       { input: 's = "race a car"', output: 'false' },
     ],
-    constraints: ['1 <= s.length <= 2 * 10âµ'],
+    constraints: ['1 <= s.length <= 2 * 10^5'],
     hints: ['Use two pointers from opposite ends.', 'Skip non-alphanumeric characters.'],
     solution: {
       csharp: `public bool IsPalindrome(string s) {

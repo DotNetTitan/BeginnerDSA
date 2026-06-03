@@ -7,7 +7,7 @@ export const questions: ExamQuestion[] = [
     options: [
       'a equals c and b equals d',
       'The intervals share no common points',
-      'The intervals share at least one common point — max(a, c) ≤ min(b, d)',
+      'The intervals share at least one common point - max(a, c) ≤ min(b, d)',
       'One interval is completely inside the other',
     ],
     correctIndex: 2,
@@ -35,7 +35,7 @@ export const questions: ExamQuestion[] = [
       'When the next interval is shorter than the current',
     ],
     correctIndex: 1,
-    explanation: 'If next.start ≤ current.end, they overlap — merge by setting current.end = max(current.end, next.end). If no overlap, add current to result and move to next.',
+    explanation: 'If next.start ≤ current.end, they overlap - merge by setting current.end = max(current.end, next.end). If no overlap, add current to result and move to next.',
   },
   {
     id: 'gi-4',
@@ -53,10 +53,10 @@ export const questions: ExamQuestion[] = [
     id: 'gi-5',
     question: 'What is the time complexity of merging overlapping intervals after sorting?',
     options: [
-      'O(n²) — nested loop to check all pairs',
-      'O(n log n) — sorting dominates, merging is O(n)',
-      'O(n) — both sorting and merging are linear',
-      'O(log n) — binary search for overlaps',
+      'O(n²) - nested loop to check all pairs',
+      'O(n log n) - sorting dominates, merging is O(n)',
+      'O(n) - both sorting and merging are linear',
+      'O(log n) - binary search for overlaps',
     ],
     correctIndex: 1,
     explanation: 'Sorting is O(n log n). The merge pass is a single O(n) scan: for each interval, either merge it with the last result or add it as a new interval.',

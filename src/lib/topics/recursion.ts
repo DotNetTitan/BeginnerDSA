@@ -15,60 +15,60 @@ export const topic: Topic = {
       content: `A recursive function calls itself with a **smaller or simpler input** until it reaches a **base case** (the simplest possible input).
 
 Every recursive function needs:
-1. **Base case** — the condition that stops the recursion
-2. **Recursive case** — the function calling itself with modified input
+1. **Base case** - the condition that stops the recursion
+2. **Recursive case** - the function calling itself with modified input
 
 The **call stack** tracks each recursive call. Too many recursive calls = **stack overflow**.`,
       codeExamples: [
         {
           title: 'Recursion vs iteration',
           code: {
-            csharp: `// Iterative factorial — O(n) time, O(1) space
+            csharp: `// Iterative factorial - O(n) time, O(1) space
 int FactorialIter(int n) {
     int result = 1;
     for (int i = 2; i <= n; i++) result *= i;
     return result;
 }
 
-// Recursive factorial — O(n) time, O(n) stack space
+// Recursive factorial - O(n) time, O(n) stack space
 int FactorialRec(int n) {
     if (n <= 1) return 1;          // base case
     return n * FactorialRec(n - 1); // recursive case
 }
 
-// Fibonacci — naive: O(2ⁿ) time, O(n) stack space
+// Fibonacci - naive: O(2ⁿ) time, O(n) stack space
 int FibNaive(int n) {
     if (n <= 1) return n;
     return FibNaive(n - 1) + FibNaive(n - 2); // exponential!
 }
 
-// Fibonacci — memoized: O(n) time, O(n) space
+// Fibonacci - memoized: O(n) time, O(n) space
 int FibMemo(int n, Dictionary<int, int> memo = null) {
     memo ??= new Dictionary<int, int>();
     if (n <= 1) return n;
     if (memo.ContainsKey(n)) return memo[n];
     return memo[n] = FibMemo(n - 1, memo) + FibMemo(n - 2, memo);
 }`,
-            python: `# Iterative factorial — O(n) time, O(1) space
+            python: `# Iterative factorial - O(n) time, O(1) space
 def factorial_iter(n):
     result = 1
     for i in range(2, n + 1):
         result *= i
     return result
 
-# Recursive factorial — O(n) time, O(n) stack space
+# Recursive factorial - O(n) time, O(n) stack space
 def factorial_rec(n):
     if n <= 1:          # base case
         return 1
     return n * factorial_rec(n - 1)  # recursive case
 
-# Fibonacci — naive: O(2ⁿ) time, O(n) stack space
+# Fibonacci - naive: O(2ⁿ) time, O(n) stack space
 def fib_naive(n):
     if n <= 1:
         return n
     return fib_naive(n - 1) + fib_naive(n - 2)  # exponential!
 
-# Fibonacci — memoized: O(n) time, O(n) space
+# Fibonacci - memoized: O(n) time, O(n) space
 from functools import lru_cache
 
 @lru_cache(maxsize=None)
@@ -78,26 +78,26 @@ def fib_memo(n):
     return fib_memo(n - 1) + fib_memo(n - 2)`,
             java: `import java.util.*;
 
-// Iterative factorial — O(n) time, O(1) space
+// Iterative factorial - O(n) time, O(1) space
 public int factorialIter(int n) {
     int result = 1;
     for (int i = 2; i <= n; i++) result *= i;
     return result;
 }
 
-// Recursive factorial — O(n) time, O(n) stack space
+// Recursive factorial - O(n) time, O(n) stack space
 public int factorialRec(int n) {
     if (n <= 1) return 1;          // base case
     return n * factorialRec(n - 1); // recursive case
 }
 
-// Fibonacci — naive: O(2ⁿ) time, O(n) stack space
+// Fibonacci - naive: O(2ⁿ) time, O(n) stack space
 public int fibNaive(int n) {
     if (n <= 1) return n;
     return fibNaive(n - 1) + fibNaive(n - 2); // exponential!
 }
 
-// Fibonacci — memoized: O(n) time, O(n) space
+// Fibonacci - memoized: O(n) time, O(n) space
 public int fibMemo(int n, Map<Integer, Integer> memo) {
     if (memo == null) memo = new HashMap<>();
     if (n <= 1) return n;
@@ -106,26 +106,26 @@ public int fibMemo(int n, Map<Integer, Integer> memo) {
     memo.put(n, result);
     return result;
 }`,
-            javascript: `// Iterative factorial — O(n) time, O(1) space
+            javascript: `// Iterative factorial - O(n) time, O(1) space
 const factorialIter = (n) => {
     let result = 1;
     for (let i = 2; i <= n; i++) result *= i;
     return result;
 };
 
-// Recursive factorial — O(n) time, O(n) stack space
+// Recursive factorial - O(n) time, O(n) stack space
 const factorialRec = (n) => {
     if (n <= 1) return 1;           // base case
     return n * factorialRec(n - 1); // recursive case
 };
 
-// Fibonacci — naive: O(2ⁿ) time, O(n) stack space
+// Fibonacci - naive: O(2ⁿ) time, O(n) stack space
 const fibNaive = (n) => {
     if (n <= 1) return n;
     return fibNaive(n - 1) + fibNaive(n - 2); // exponential!
 };
 
-// Fibonacci — memoized: O(n) time, O(n) space
+// Fibonacci - memoized: O(n) time, O(n) space
 const fibMemo = (n, memo = {}) => {
     if (n <= 1) return n;
     if (n in memo) return memo[n];
@@ -133,26 +133,26 @@ const fibMemo = (n, memo = {}) => {
 };`,
           cpp: `#include <unordered_map>
 
-// Iterative factorial — O(n) time, O(1) space
+// Iterative factorial - O(n) time, O(1) space
 int factorialIter(int n) {
     int result = 1;
     for (int i = 2; i <= n; i++) result *= i;
     return result;
 }
 
-// Recursive factorial — O(n) time, O(n) stack space
+// Recursive factorial - O(n) time, O(n) stack space
 int factorialRec(int n) {
     if (n <= 1) return 1;          // base case
     return n * factorialRec(n - 1); // recursive case
 }
 
-// Fibonacci — naive: O(2ⁿ) time, O(n) stack space
+// Fibonacci - naive: O(2ⁿ) time, O(n) stack space
 int fibNaive(int n) {
     if (n <= 1) return n;
     return fibNaive(n - 1) + fibNaive(n - 2); // exponential!
 }
 
-// Fibonacci — memoized: O(n) time, O(n) space
+// Fibonacci - memoized: O(n) time, O(n) space
 int fibMemo(int n, std::unordered_map<int, int>& memo) {
     if (n <= 1) return n;
     if (memo.count(n)) return memo[n];
@@ -185,7 +185,7 @@ Used for: permutations, subsets, combination sum, N-Queens, Sudoku solver.`,
         {
           title: 'Backtracking template',
           code: {
-            csharp: `// Generate all subsets (powerset) — O(2ⁿ)
+            csharp: `// Generate all subsets (powerset) - O(2ⁿ)
 IList<IList<int>> Subsets(int[] nums) {
     var result = new List<IList<int>>();
     var current = new List<int>();
@@ -203,7 +203,7 @@ IList<IList<int>> Subsets(int[] nums) {
     }
 }
 
-// Generate all permutations — O(n!)
+// Generate all permutations - O(n!)
 IList<IList<int>> Permute(int[] nums) {
     var result = new List<IList<int>>();
     var current = new List<int>();
@@ -226,7 +226,7 @@ IList<IList<int>> Permute(int[] nums) {
         }
     }
 }`,
-            python: `# Generate all subsets (powerset) — O(2ⁿ)
+            python: `# Generate all subsets (powerset) - O(2ⁿ)
 def subsets(nums):
     result = []
     current = []
@@ -242,7 +242,7 @@ def subsets(nums):
     backtrack(0)
     return result
 
-# Generate all permutations — O(n!)
+# Generate all permutations - O(n!)
 def permute(nums):
     result = []
     used = [False] * len(nums)
@@ -265,7 +265,7 @@ def permute(nums):
     return result`,
             java: `import java.util.*;
 
-// Generate all subsets (powerset) — O(2ⁿ)
+// Generate all subsets (powerset) - O(2ⁿ)
 public List<List<Integer>> subsets(int[] nums) {
     List<List<Integer>> result = new ArrayList<>();
     backtrackSubsets(nums, 0, new ArrayList<>(), result);
@@ -283,7 +283,7 @@ private void backtrackSubsets(int[] nums, int start,
     }
 }
 
-// Generate all permutations — O(n!)
+// Generate all permutations - O(n!)
 public List<List<Integer>> permute(int[] nums) {
     List<List<Integer>> result = new ArrayList<>();
     boolean[] used = new boolean[nums.length];
@@ -306,7 +306,7 @@ private void backtrackPermute(int[] nums, boolean[] used,
         used[i] = false;
     }
 }`,
-            javascript: `// Generate all subsets (powerset) — O(2ⁿ)
+            javascript: `// Generate all subsets (powerset) - O(2ⁿ)
 const subsets = (nums) => {
     const result = [];
     const current = [];
@@ -325,7 +325,7 @@ const subsets = (nums) => {
     return result;
 };
 
-// Generate all permutations — O(n!)
+// Generate all permutations - O(n!)
 const permute = (nums) => {
     const result = [];
     const used = new Array(nums.length).fill(false);
@@ -352,7 +352,7 @@ const permute = (nums) => {
           cpp: `#include <vector>
 #include <functional>
 
-// Generate all subsets (powerset) — O(2ⁿ)
+// Generate all subsets (powerset) - O(2ⁿ)
 std::vector<std::vector<int>> subsets(const std::vector<int>& nums) {
     std::vector<std::vector<int>> result;
     std::vector<int> current;
@@ -368,7 +368,7 @@ std::vector<std::vector<int>> subsets(const std::vector<int>& nums) {
     return result;
 }
 
-// Generate all permutations — O(n!)
+// Generate all permutations - O(n!)
 std::vector<std::vector<int>> permute(const std::vector<int>& nums) {
     std::vector<std::vector<int>> result;
     std::vector<int> current;
@@ -405,7 +405,7 @@ std::vector<std::vector<int>> permute(const std::vector<int>& nums) {
 Examples: Merge sort, quick sort, binary search, tree traversals.`,
       codeExamples: [
         {
-          title: 'Merge sort — classic divide & conquer',
+          title: 'Merge sort - classic divide & conquer',
           code: {
             csharp: `int[] MergeSort(int[] arr) {
     if (arr.Length <= 1) return arr;
@@ -535,12 +535,12 @@ std::vector<int> merge(const std::vector<int>& left, const std::vector<int>& rig
     {
       id: 'common-patterns',
       title: 'Common Interview Patterns',
-      content: `1. **Subsets (powerset)** — for each element, include or exclude
-2. **Permutations** — try each unused element at each position
-3. **Combination sum** — pick elements (with/without repetition) to reach target
-4. **Generate parentheses** — add open or close parenthesis, tracking counts
-5. **Tree traversal** — DFS is naturally recursive (preorder/inorder/postorder)
-6. **Divide & conquer** — merge sort, quick sort, maximum subarray`,
+      content: `1. **Subsets (powerset)** - for each element, include or exclude
+2. **Permutations** - try each unused element at each position
+3. **Combination sum** - pick elements (with/without repetition) to reach target
+4. **Generate parentheses** - add open or close parenthesis, tracking counts
+5. **Tree traversal** - DFS is naturally recursive (preorder/inorder/postorder)
+6. **Divide & conquer** - merge sort, quick sort, maximum subarray`,
     },
   ],
   problemIds: ['subsets', 'permutations', 'combination-sum', 'generate-parentheses', 'n-queens'],

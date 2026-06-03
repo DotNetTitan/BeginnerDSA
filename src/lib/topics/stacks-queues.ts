@@ -12,7 +12,7 @@ export const topic: Topic = {
     {
       id: 'stack-basics',
       title: 'Stack (LIFO)',
-      content: `A stack follows **Last In, First Out**. Think of a stack of plates — you add and remove from the top.
+      content: `A stack follows **Last In, First Out**. Think of a stack of plates - you add and remove from the top.
 
 | Operation | Stack |
 |---|---|
@@ -34,7 +34,7 @@ stack.Push(3);  // [1, 2, 3]
 int top = stack.Peek();  // 3 (no removal)
 int popped = stack.Pop(); // 3, stack is now [1, 2]
 
-// Monotonic stack pattern — maintain increasing/decreasing order
+// Monotonic stack pattern - maintain increasing/decreasing order
 int[] NextGreaterElement(int[] arr) {
     var result = new int[arr.Length];
     Array.Fill(result, -1);
@@ -59,7 +59,7 @@ stack.append(3)  # [1, 2, 3]
 top = stack[-1]     # 3 (no removal)
 popped = stack.pop()  # 3, stack is now [1, 2]
 
-# Monotonic stack pattern — maintain increasing/decreasing order
+# Monotonic stack pattern - maintain increasing/decreasing order
 def next_greater_element(arr):
     result = [-1] * len(arr)
     mono_stack = []  # stores indices
@@ -82,7 +82,7 @@ stack.push(3);  // [1, 2, 3]
 int top = stack.peek();   // 3 (no removal)
 int popped = stack.pop(); // 3, stack is now [1, 2]
 
-// Monotonic stack pattern — maintain increasing/decreasing order
+// Monotonic stack pattern - maintain increasing/decreasing order
 public int[] nextGreaterElement(int[] arr) {
     int[] result = new int[arr.length];
     Arrays.fill(result, -1);
@@ -107,7 +107,7 @@ stack.push(3);  // [1, 2, 3]
 const top = stack[stack.length - 1]; // 3 (no removal)
 const popped = stack.pop();          // 3, stack is now [1, 2]
 
-// Monotonic stack pattern — maintain increasing/decreasing order
+// Monotonic stack pattern - maintain increasing/decreasing order
 const nextGreaterElement = (arr) => {
     const result = new Array(arr.length).fill(-1);
     const monoStack = []; // stores indices
@@ -135,7 +135,7 @@ st.push(3);  // [1, 2, 3]
 int top = st.top();   // 3 (no removal)
 st.pop();             // removes top, stack is now [1, 2]
 
-// Monotonic stack pattern — maintain increasing/decreasing order
+// Monotonic stack pattern - maintain increasing/decreasing order
 std::vector<int> nextGreaterElement(const std::vector<int>& arr) {
     std::vector<int> result(arr.size(), -1);
     std::stack<int> monoStack; // stores indices
@@ -256,13 +256,14 @@ queue.push(3);  // [1, 2, 3]
 const front = queue[0];       // 1 (no removal)
 const dequeued = queue.shift(); // 1, queue is now [2, 3]
 
-// BFS template using array as queue
+// BFS template using array as queue (index pointer avoids O(n) shift)
 const bfs = (root) => {
     const q = [root];
-    while (q.length > 0) {
-        const levelSize = q.length;
+    let idx = 0;
+    while (idx < q.length) {
+        const levelSize = q.length - idx;
         for (let i = 0; i < levelSize; i++) {
-            const node = q.shift();
+            const node = q[idx++];
             console.log(node.val + " ");
             if (node.left !== null) q.push(node.left);
             if (node.right !== null) q.push(node.right);
@@ -284,6 +285,7 @@ q.pop();                // removes front, queue is now [2, 3]
 
 // BFS template using Queue
 void bfs(TreeNode* root) {
+    if (root == nullptr) return;
     std::queue<TreeNode*> q;
     q.push(root);
 
@@ -465,12 +467,12 @@ std::vector<int> topKFrequent(const std::vector<int>& nums, int k) {
     {
       id: 'common-patterns',
       title: 'Common Interview Patterns',
-      content: `1. **Monotonic stack** — next greater element, daily temperatures, largest rectangle in histogram
-2. **Valid parentheses** — classic stack problem with matching brackets
-3. **Queue with two stacks** — implement a queue using two stacks
-4. **Min stack** — stack that supports GetMin() in O(1)
-5. **Level-order traversal** — BFS using a queue (tree problems)
-6. **Top K elements** — use PriorityQueue to efficiently track K largest/smallest`,
+      content: `1. **Monotonic stack** - next greater element, daily temperatures, largest rectangle in histogram
+2. **Valid parentheses** - classic stack problem with matching brackets
+3. **Queue with two stacks** - implement a queue using two stacks
+4. **Min stack** - stack that supports GetMin() in O(1)
+5. **Level-order traversal** - BFS using a queue (tree problems)
+6. **Top K elements** - use PriorityQueue to efficiently track K largest/smallest`,
     },
   ],
   problemIds: ['valid-parentheses', 'min-stack', 'daily-temperatures', 'implement-queue-using-stacks', 'top-k-frequent-elements'],

@@ -220,7 +220,7 @@ export default function TopicGrid() {
                       <BookOpen className="h-4 w-4 mr-1" />
                       Learn
                     </Button>
-                    {isPracticeReachable(nextTopic, progress) && (
+                    {isPracticeReachable(nextTopic, progress, topics) && (
                       <Button size="sm" variant="outline" onClick={(e) => { e.stopPropagation(); router.push(`/practice/${nextTopic.id}`); }}>
                         <Code2 className="h-4 w-4 mr-1" />
                         Practice
@@ -332,7 +332,7 @@ export default function TopicGrid() {
                         <BookOpen className="h-4 w-4 mr-1" />
                         Learn
                       </Button>
-                      {isPracticeReachable(topic, progress) && (
+                      {isPracticeReachable(topic, progress, topics) && (
                         <Button size="sm" variant="outline" className="flex-1" onClick={() => { setSelectedTopic(null); router.push(`/practice/${topic.id}`); }}>
                           <Code2 className="h-4 w-4 mr-1" />
                           Practice

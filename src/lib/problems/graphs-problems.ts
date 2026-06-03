@@ -6,7 +6,7 @@ export const problems: Problem[] = [
     title: 'Number of Islands',
     topicId: 'graphs',
     difficulty: 'medium',
-    description: `Given an mÃ—n 2D binary grid '1' (land) and '0' (water), count the number of islands. An island is surrounded by water and formed by connecting adjacent lands horizontally or vertically.`,
+    description: `Given an m×n 2D binary grid '1' (land) and '0' (water), count the number of islands. An island is surrounded by water and formed by connecting adjacent lands horizontally or vertically.`,
     examples: [
       { input: 'grid = [["1","1","1","1","0"],["1","1","0","1","0"],["1","1","0","0","0"],["0","0","0","0","0"]]', output: '1' },
       { input: 'grid = [["1","1","0","0","0"],["1","1","0","0","0"],["0","0","1","0","0"],["0","0","0","1","1"]]', output: '3' },
@@ -360,7 +360,7 @@ bool canFinish(int n, std::vector<std::vector<int>>& prerequisites) {
     title: 'Rotting Oranges',
     topicId: 'graphs',
     difficulty: 'medium',
-    description: `You are given an mÃ—n grid where 0 = empty, 1 = fresh orange, 2 = rotten orange. Each minute, any fresh orange adjacent (4-directionally) to a rotten orange becomes rotten. Return the minimum minutes until no fresh orange remains, or -1 if impossible.`,
+    description: `You are given an m×n grid where 0 = empty, 1 = fresh orange, 2 = rotten orange. Each minute, any fresh orange adjacent (4-directionally) to a rotten orange becomes rotten. Return the minimum minutes until no fresh orange remains, or -1 if impossible.`,
     examples: [
       { input: 'grid = [[2,1,1],[1,1,0],[0,1,1]]', output: '4' },
       { input: 'grid = [[0,2]]', output: '0' },
@@ -532,7 +532,7 @@ int orangesRotting(std::vector<std::vector<int>>& grid) {
     difficulty: 'hard',
     description: `Given two words (beginWord and endWord) and a dictionary's word list, return the length of the shortest transformation sequence from beginWord to endWord. Each transformation can change only one letter.`,
     examples: [
-      { input: 'beginWord = "hit", endWord = "cog", wordList = ["hot","dot","dog","lot","log","cog"]', output: '5', explanation: '"hit" â†’ "hot" â†’ "dot" â†’ "dog" â†’ "cog"' },
+      { input: 'beginWord = "hit", endWord = "cog", wordList = ["hot","dot","dog","lot","log","cog"]', output: '5', explanation: '"hit" -> "hot" -> "dot" -> "dog" -> "cog"' },
     ],
     constraints: ['1 <= beginWord.length <= 10', 'All words have the same length.'],
     hints: ['BFS on an implicit graph where edges connect words differing by one letter.', 'Use a HashSet for O(1) word lookup.'],
@@ -685,7 +685,7 @@ int ladderLength(const std::string& beginWord, const std::string& endWord, const
     return 0;
 }`,
     },
-    timeComplexity: 'O(n * mÂ² * 26)',
+    timeComplexity: 'O(n * m * 26)',
     spaceComplexity: 'O(n)',
   },
 ];

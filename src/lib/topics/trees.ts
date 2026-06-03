@@ -253,12 +253,12 @@ void levelOrder(TreeNode* root) {
       title: 'BST Operations',
       content: `BST property: \`left.val < node.val < right.val\` for ALL nodes (not just immediate children).
 
-This property enables fast search — at each node you eliminate half the tree.`,
+This property enables fast search - at each node you eliminate half the tree.`,
       codeExamples: [
         {
           title: 'BST search, insert, validate',
           code: {
-            csharp: `// BST Search — O(log n) average
+            csharp: `// BST Search - O(log n) average
 TreeNode Search(TreeNode root, int target) {
     while (root != null) {
         if (root.val == target) return root;
@@ -267,7 +267,7 @@ TreeNode Search(TreeNode root, int target) {
     return null;
 }
 
-// BST Insert — O(log n)
+// BST Insert - O(log n)
 TreeNode Insert(TreeNode root, int val) {
     if (root == null) return new TreeNode(val);
     if (val < root.val) root.left = Insert(root.left, val);
@@ -275,7 +275,7 @@ TreeNode Insert(TreeNode root, int val) {
     return root;
 }
 
-// Validate BST — O(n)
+// Validate BST - O(n)
 bool IsValidBST(TreeNode root) {
     return Validate(root, long.MinValue, long.MaxValue);
 }
@@ -286,7 +286,7 @@ bool Validate(TreeNode node, long min, long max) {
     return Validate(node.left, min, node.val)
         && Validate(node.right, node.val, max);
 }`,
-            python: `# BST Search — O(log n) average
+            python: `# BST Search - O(log n) average
 def search(root, target):
     while root:
         if root.val == target:
@@ -294,7 +294,7 @@ def search(root, target):
         root = root.left if target < root.val else root.right
     return None
 
-# BST Insert — O(log n)
+# BST Insert - O(log n)
 def insert(root, val):
     if root is None:
         return TreeNode(val)
@@ -304,7 +304,7 @@ def insert(root, val):
         root.right = insert(root.right, val)
     return root
 
-# Validate BST — O(n)
+# Validate BST - O(n)
 def is_valid_bst(root):
     def validate(node, min_val, max_val):
         if node is None:
@@ -315,7 +315,7 @@ def is_valid_bst(root):
                 and validate(node.right, node.val, max_val))
 
     return validate(root, float('-inf'), float('inf'))`,
-            java: `// BST Search — O(log n) average
+            java: `// BST Search - O(log n) average
 public TreeNode search(TreeNode root, int target) {
     while (root != null) {
         if (root.val == target) return root;
@@ -324,7 +324,7 @@ public TreeNode search(TreeNode root, int target) {
     return null;
 }
 
-// BST Insert — O(log n)
+// BST Insert - O(log n)
 public TreeNode insert(TreeNode root, int val) {
     if (root == null) return new TreeNode(val);
     if (val < root.val) root.left = insert(root.left, val);
@@ -332,7 +332,7 @@ public TreeNode insert(TreeNode root, int val) {
     return root;
 }
 
-// Validate BST — O(n)
+// Validate BST - O(n)
 public boolean isValidBST(TreeNode root) {
     return validate(root, Long.MIN_VALUE, Long.MAX_VALUE);
 }
@@ -343,7 +343,7 @@ private boolean validate(TreeNode node, long min, long max) {
     return validate(node.left, min, node.val)
         && validate(node.right, node.val, max);
 }`,
-            javascript: `// BST Search — O(log n) average
+            javascript: `// BST Search - O(log n) average
 const search = (root, target) => {
     while (root !== null) {
         if (root.val === target) return root;
@@ -352,7 +352,7 @@ const search = (root, target) => {
     return null;
 };
 
-// BST Insert — O(log n)
+// BST Insert - O(log n)
 const insert = (root, val) => {
     if (root === null) return new TreeNode(val);
     if (val < root.val) root.left = insert(root.left, val);
@@ -360,7 +360,7 @@ const insert = (root, val) => {
     return root;
 };
 
-// Validate BST — O(n)
+// Validate BST - O(n)
 const isValidBST = (root) => {
     const validate = (node, min, max) => {
         if (node === null) return true;
@@ -372,7 +372,7 @@ const isValidBST = (root) => {
 };`,
           cpp: `#include <climits>
 
-// BST Search — O(log n) average
+// BST Search - O(log n) average
 TreeNode* search(TreeNode* root, int target) {
     while (root != nullptr) {
         if (root->val == target) return root;
@@ -381,7 +381,7 @@ TreeNode* search(TreeNode* root, int target) {
     return nullptr;
 }
 
-// BST Insert — O(log n)
+// BST Insert - O(log n)
 TreeNode* insert(TreeNode* root, int val) {
     if (root == nullptr) return new TreeNode(val);
     if (val < root->val) root->left = insert(root->left, val);
@@ -389,7 +389,7 @@ TreeNode* insert(TreeNode* root, int val) {
     return root;
 }
 
-// Validate BST — O(n)
+// Validate BST - O(n)
 bool isValidBST(TreeNode* root) {
     return validate(root, LONG_MIN, LONG_MAX);
 }
@@ -617,12 +617,12 @@ private:
     {
       id: 'common-patterns',
       title: 'Common Interview Patterns',
-      content: `1. **Tree traversal** — inorder (sorted BST), preorder (serialization), level order (BFS)
-2. **LCA (Lowest Common Ancestor)** — recursive or iterative for BST
-3. **Diameter / max path sum** — post-order traversal with global variable
-4. **Serialize / deserialize** — preorder with null markers
-5. **Trie problems** — autocomplete, word search, word break
-6. **Balanced tree check** — compute height and check balance at each node`,
+      content: `1. **Tree traversal** - inorder (sorted BST), preorder (serialization), level order (BFS)
+2. **LCA (Lowest Common Ancestor)** - recursive or iterative for BST
+3. **Diameter / max path sum** - post-order traversal with global variable
+4. **Serialize / deserialize** - preorder with null markers
+5. **Trie problems** - autocomplete, word search, word break
+6. **Balanced tree check** - compute height and check balance at each node`,
     },
   ],
   problemIds: ['max-depth-binary-tree', 'inorder-traversal', 'validate-bst', 'lca-bst', 'serialize-deserialize'],

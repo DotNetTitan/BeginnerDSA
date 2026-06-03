@@ -89,7 +89,7 @@ std::vector<std::vector<int>> subsets(const std::vector<int>& nums) {
     return result;
 }`,
     },
-    timeComplexity: 'O(n * 2â¿)',
+    timeComplexity: 'O(n * 2^n)',
     spaceComplexity: 'O(n)',
   },
   {
@@ -325,7 +325,7 @@ std::vector<std::vector<int>> combinationSum(const std::vector<int>& candidates,
     return result;
 }`,
     },
-    timeComplexity: 'O(2â¿)',
+    timeComplexity: 'O(2^n)',
     spaceComplexity: 'O(target / min(candidates))',
   },
   {
@@ -415,7 +415,7 @@ std::vector<std::string> generateParenthesis(int n) {
     return result;
 }`,
     },
-    timeComplexity: 'O(4â¿ / âˆšn)',
+    timeComplexity: 'O(4^n / sqrt(n))',
     spaceComplexity: 'O(n)',
   },
   {
@@ -423,7 +423,7 @@ std::vector<std::string> generateParenthesis(int n) {
     title: 'N-Queens',
     topicId: 'recursion',
     difficulty: 'hard',
-    description: `The n-queens puzzle: place n queens on an nÃ—n board such that no two queens attack each other. Return all distinct solutions.`,
+    description: `The n-queens puzzle: place n queens on an n×n board such that no two queens attack each other. Return all distinct solutions.`,
     examples: [
       { input: 'n = 4', output: '[[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]' },
       { input: 'n = 1', output: '[["Q"]]' },
@@ -573,6 +573,6 @@ std::vector<std::vector<std::string>> solveNQueens(int n) {
 }`,
     },
     timeComplexity: 'O(n!)',
-    spaceComplexity: 'O(nÂ²)',
+    spaceComplexity: 'O(n²)',
   },
 ];

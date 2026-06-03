@@ -11,7 +11,7 @@ export const problems: Problem[] = [
       { input: 'intervals = [[1,3],[2,6],[8,10],[15,18]]', output: '[[1,6],[8,10],[15,18]]', explanation: 'Intervals [1,3] and [2,6] overlap, merged to [1,6].' },
       { input: 'intervals = [[1,4],[4,5]]', output: '[[1,5]]' },
     ],
-    constraints: ['1 <= intervals.length <= 10â´'],
+    constraints: ['1 <= intervals.length <= 10^4'],
     hints: ['Sort by start time.', 'If current interval overlaps with the next, merge them.'],
     solution: {
       csharp: `public int[][] Merge(int[][] intervals) {
@@ -105,7 +105,7 @@ std::vector<std::vector<int>> merge(std::vector<std::vector<int>>& intervals) {
       { input: 'intervals = [[1,2],[2,3],[3,4],[1,3]]', output: '1', explanation: 'Remove [1,3] to make the rest non-overlapping.' },
       { input: 'intervals = [[1,2],[1,2],[1,2]]', output: '2' },
     ],
-    constraints: ['1 <= intervals.length <= 10âµ'],
+    constraints: ['1 <= intervals.length <= 10^5'],
     hints: ['Sort by end time (greedy choice).', 'Keep the interval with the earliest end time.'],
     solution: {
       csharp: `public int EraseOverlapIntervals(int[][] intervals) {
@@ -186,7 +186,7 @@ int eraseOverlapIntervals(std::vector<std::vector<int>>& intervals) {
       { input: 'nums = [2,3,1,1,4]', output: 'true', explanation: 'Jump 1 step from 0 to 1, then 3 steps to the end.' },
       { input: 'nums = [3,2,1,0,4]', output: 'false', explanation: 'You get stuck at index 3.' },
     ],
-    constraints: ['1 <= nums.length <= 10â´'],
+    constraints: ['1 <= nums.length <= 10^4'],
     hints: ['Track the furthest reachable index.', 'If you ever pass it, return false.'],
     solution: {
       csharp: `public bool CanJump(int[] nums) {
@@ -246,7 +246,7 @@ bool canJump(const std::vector<int>& nums) {
       { input: 'prices = [7,1,5,3,6,4]', output: '7', explanation: 'Buy at 1, sell at 5 (profit 4). Buy at 3, sell at 6 (profit 3). Total = 7.' },
       { input: 'prices = [1,2,3,4,5]', output: '4', explanation: 'Buy at 1, sell at 5.' },
     ],
-    constraints: ['1 <= prices.length <= 3 * 10â´'],
+    constraints: ['1 <= prices.length <= 3 * 10^4'],
     hints: ['Sum all positive differences between consecutive days.', 'Greedy: buy when price goes up, skip when it goes down.'],
     solution: {
       csharp: `public int MaxProfit(int[] prices) {
@@ -300,7 +300,7 @@ int maxProfitII(const std::vector<int>& prices) {
       { input: 'intervals = [[0,30],[5,10],[15,20]]', output: '2' },
       { input: 'intervals = [[7,10],[2,4]]', output: '1' },
     ],
-    constraints: ['0 <= intervals.length <= 10â´'],
+    constraints: ['0 <= intervals.length <= 10^4'],
     hints: ['Sort start times and end times separately.', 'Use two pointers: when a start < an end, you need a new room.'],
     solution: {
       csharp: `public int MinMeetingRooms(int[][] intervals) {

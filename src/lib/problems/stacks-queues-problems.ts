@@ -13,7 +13,7 @@ export const problems: Problem[] = [
       { input: 's = "(]"', output: 'false' },
       { input: 's = "([)]"', output: 'false' },
     ],
-    constraints: ['1 <= s.length <= 10â´'],
+    constraints: ['1 <= s.length <= 10^4'],
     hints: ['Use a stack.', 'Push opening brackets, pop and match for closing brackets.'],
     solution: {
       csharp: `public bool IsValid(string s) {
@@ -199,7 +199,7 @@ public:
       { input: 'temperatures = [73,74,75,71,69,72,76,73]', output: '[1,1,4,2,1,1,0,0]' },
       { input: 'temperatures = [30,40,50,60]', output: '[1,1,1,0]' },
     ],
-    constraints: ['1 <= temperatures.length <= 10âµ'],
+    constraints: ['1 <= temperatures.length <= 10^5'],
     hints: ['Use a monotonic decreasing stack (store indices).', 'When you find a warmer day, pop indices and calculate difference.'],
     solution: {
       csharp: `public int[] DailyTemperatures(int[] temperatures) {
@@ -412,7 +412,7 @@ public:
       { input: 'nums = [1,1,1,2,2,3], k = 2', output: '[1,2]' },
       { input: 'nums = [1], k = 1', output: '[1]' },
     ],
-    constraints: ['1 <= nums.length <= 10âµ'],
+    constraints: ['1 <= nums.length <= 10^5'],
     hints: ['Count frequencies, then use a min-heap of size k.', 'PriorityQueue<TElement, TPriority> is your friend.'],
     solution: {
       csharp: `public int[] TopKFrequent(int[] nums, int k) {

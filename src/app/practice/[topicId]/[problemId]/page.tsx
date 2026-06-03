@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { topicId, problemId } = await params;
   const problem = getProblem(topicId, problemId);
   if (!problem) return { title: 'Problem Not Found' };
-  return { title: `${problem.title} — Zero To DSA` };
+  return { title: `${problem.title} - Zero To DSA` };
 }
 
 export default async function ProblemPage({ params }: Props) {
@@ -88,10 +88,12 @@ export default async function ProblemPage({ params }: Props) {
             <MarkSolvedButton topicId={topicId} problemId={problemId} />
           </div>
         </div>
-        <div className="text-right text-xs text-muted-foreground">
-          <div>Time: <span className="font-mono font-medium">{problem.timeComplexity}</span></div>
-          <div>Space: <span className="font-mono font-medium">{problem.spaceComplexity}</span></div>
-        </div>
+        {topicId !== 'big-o' && (
+          <div className="text-right text-xs text-muted-foreground">
+            <div>Time: <span className="font-mono font-medium">{problem.timeComplexity}</span></div>
+            <div>Space: <span className="font-mono font-medium">{problem.spaceComplexity}</span></div>
+          </div>
+        )}
       </div>
 
       <div className="prose prose-sm dark:prose-invert max-w-none mb-6">

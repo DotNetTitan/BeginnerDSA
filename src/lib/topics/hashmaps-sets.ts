@@ -25,94 +25,94 @@ The worst case occurs when all keys collide (rare with a good hash function).`,
         {
           title: 'Dictionary and HashSet basics',
           code: {
-            csharp: `// Dictionary — key-value pairs
+            csharp: `// Dictionary - key-value pairs
 var dict = new Dictionary<string, int>();
 dict["apple"] = 5;
 dict["banana"] = 3;
 
-// SAFE lookup — TryGetValue (avoids double lookup)
+// SAFE lookup - TryGetValue (avoids double lookup)
 if (dict.TryGetValue("apple", out int count))
     Console.WriteLine(count); // 5
 
-// ContainsKey + [] is TWO lookups — avoid this:
+// ContainsKey + [] is TWO lookups - avoid this:
 if (dict.ContainsKey("apple"))          // lookup 1
     Console.WriteLine(dict["apple"]);   // lookup 2
 
-// HashSet — unique values
+// HashSet - unique values
 var set = new HashSet<int> { 1, 2, 3 };
-set.Add(3);  // false — already exists
-set.Contains(2); // true — O(1)`,
-            python: `# Dictionary — key-value pairs
+set.Add(3);  // false - already exists
+set.Contains(2); // true - O(1)`,
+            python: `# Dictionary - key-value pairs
 d = {}
 d["apple"] = 5
 d["banana"] = 3
 
-# SAFE lookup — get() (avoids KeyError)
+# SAFE lookup - get() (avoids KeyError)
 count = d.get("apple")
 print(count)  # 5
 
-# 'in' check + [] is TWO lookups — avoid this:
+# 'in' check + [] is TWO lookups - avoid this:
 # if "apple" in d:          # lookup 1
 #     print(d["apple"])     # lookup 2
 
-# Set — unique values
+# Set - unique values
 s = {1, 2, 3}
-s.add(3)    # no-op — already exists
-2 in s      # True — O(1)`,
+s.add(3)    # no-op - already exists
+2 in s      # True - O(1)`,
             java: `import java.util.*;
 
-// HashMap — key-value pairs
+// HashMap - key-value pairs
 Map<String, Integer> map = new HashMap<>();
 map.put("apple", 5);
 map.put("banana", 3);
 
-// SAFE lookup — get() (avoids double lookup)
+// SAFE lookup - get() (avoids double lookup)
 Integer count = map.get("apple"); // null if missing
 System.out.println(count); // 5
 
-// containsKey + get is TWO lookups — avoid this:
+// containsKey + get is TWO lookups - avoid this:
 
-// HashSet — unique values
+// HashSet - unique values
 Set<Integer> set = new HashSet<>(Arrays.asList(1, 2, 3));
-set.add(3);  // false — already exists
-set.contains(2); // true — O(1)`,
-            javascript: `// Map — key-value pairs
+set.add(3);  // false - already exists
+set.contains(2); // true - O(1)`,
+            javascript: `// Map - key-value pairs
 const map = new Map();
 map.set("apple", 5);
 map.set("banana", 3);
 
-// SAFE lookup — get() (avoids double lookup)
+// SAFE lookup - get() (avoids double lookup)
 const count = map.get("apple"); // undefined if missing
 console.log(count); // 5
 
-// has + get is TWO lookups — avoid this:
+// has + get is TWO lookups - avoid this:
 // if (map.has("apple")) console.log(map.get("apple"));
 
-// Set — unique values
+// Set - unique values
 const set = new Set([1, 2, 3]);
-set.add(3);  // no-op — already exists
-set.has(2); // true — O(1)`,
+set.add(3);  // no-op - already exists
+set.has(2); // true - O(1)`,
           cpp: `#include <unordered_map>
 #include <unordered_set>
 #include <iostream>
 
-// Unordered map — key-value pairs
+// Unordered map - key-value pairs
 std::unordered_map<std::string, int> map;
 map["apple"] = 5;
 map["banana"] = 3;
 
-// SAFE lookup — find (avoids double lookup)
+// SAFE lookup - find (avoids double lookup)
 auto it = map.find("apple");
 if (it != map.end())
     std::cout << it->second << "\n"; // 5
 
-// contains + [] is TWO lookups — avoid this:
+// contains + [] is TWO lookups - avoid this:
 // if (map.count("apple")) std::cout << map["apple"];
 
-// Unordered set — unique values
+// Unordered set - unique values
 std::unordered_set<int> set = {1, 2, 3};
-set.insert(3);  // no-op — already exists
-set.count(2); // 1 (true) — O(1)`,
+set.insert(3);  // no-op - already exists
+set.count(2); // 1 (true) - O(1)`,
           },
         },
       ],
@@ -149,7 +149,7 @@ foreach (var n in nums) {
 int[] duplicates = { 1, 2, 2, 3, 3, 3 };
 var unique = new HashSet<int>(duplicates); // { 1, 2, 3 }
 
-// 3. Two Sum pattern — complement lookup
+// 3. Two Sum pattern - complement lookup
 bool HasPairSum(int[] arr, int target) {
     var seen = new HashSet<int>();
     foreach (var n in arr) {
@@ -168,7 +168,7 @@ for n in nums:
 duplicates = [1, 2, 2, 3, 3, 3]
 unique = list(set(duplicates))  # [1, 2, 3] (order not guaranteed)
 
-# 3. Two Sum pattern — complement lookup
+# 3. Two Sum pattern - complement lookup
 def has_pair_sum(arr, target):
     seen = set()
     for n in arr:
@@ -189,7 +189,7 @@ int[] duplicates = {1, 2, 2, 3, 3, 3};
 Set<Integer> unique = new HashSet<>();
 for (int n : duplicates) unique.add(n); // {1, 2, 3}
 
-// 3. Two Sum pattern — complement lookup
+// 3. Two Sum pattern - complement lookup
 public boolean hasPairSum(int[] arr, int target) {
     Set<Integer> seen = new HashSet<>();
     for (int n : arr) {
@@ -209,7 +209,7 @@ for (const n of nums) {
 const duplicates = [1, 2, 2, 3, 3, 3];
 const unique = new Set(duplicates); // Set { 1, 2, 3 }
 
-// 3. Two Sum pattern — complement lookup
+// 3. Two Sum pattern - complement lookup
 const hasPairSum = (arr, target) => {
     const seen = new Set();
     for (const n of arr) {
@@ -232,7 +232,7 @@ for (int n : nums)
 std::vector<int> duplicates = {1, 2, 2, 3, 3, 3};
 std::unordered_set<int> unique(duplicates.begin(), duplicates.end()); // {1, 2, 3}
 
-// 3. Two Sum pattern — complement lookup
+// 3. Two Sum pattern - complement lookup
 bool hasPairSum(const std::vector<int>& arr, int target) {
     std::unordered_set<int> seen;
     for (int n : arr) {
@@ -248,11 +248,11 @@ bool hasPairSum(const std::vector<int>& arr, int target) {
     {
       id: 'common-patterns',
       title: 'Common Interview Patterns',
-      content: `1. **Frequency counter** — count occurrences of each element
-2. **Complement lookup** — store seen values and check for target - current
-3. **Deduplication** — remove duplicates via HashSet
-4. **Two-pass** — first pass builds map, second pass uses it
-5. **Sliding window with set** — track unique characters in window`,
+      content: `1. **Frequency counter** - count occurrences of each element
+2. **Complement lookup** - store seen values and check for target - current
+3. **Deduplication** - remove duplicates via HashSet
+4. **Two-pass** - first pass builds map, second pass uses it
+5. **Sliding window with set** - track unique characters in window`,
     },
   ],
   problemIds: ['two-sum', 'group-anagrams', 'longest-consecutive', 'top-k-frequent'],

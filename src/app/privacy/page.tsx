@@ -23,7 +23,7 @@ export default function PrivacyPage() {
           We set a single cookie (<code className="bg-muted px-1 rounded text-foreground">dsa-language</code>) only if you
           explicitly accept the cookie consent banner. This cookie remembers
           your preferred programming language across sessions. You can decline
-          cookies and still use the site fully — you will simply need to
+          cookies and still use the site fully - you will simply need to
           select your language each visit.
         </p>
       </section>

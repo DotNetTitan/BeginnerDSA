@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import "./globals.css";
 import { Providers } from "@/components/providers";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   title: "Zero To DSA",
@@ -44,9 +45,12 @@ export default async function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className="min-h-screen flex flex-col font-sans">
         <Providers language={language}>{children}</Providers>
-        <footer className="mt-auto py-4 text-center text-xs text-muted-foreground">
+        <footer className="mt-auto py-4 text-center text-xs text-muted-foreground space-x-3">
           <a href="/privacy" className="hover:underline">Privacy Policy</a>
+          <span>·</span>
+          <a href="https://ko-fi.com/zerotodsa" target="_blank" rel="noopener noreferrer" className="hover:underline">Support on Ko‑fi</a>
         </footer>
+        <Analytics />
       </body>
     </html>
   );

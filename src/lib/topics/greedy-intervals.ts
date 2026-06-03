@@ -46,7 +46,7 @@ int MaxActivities(int[][] intervals) {
         }
     }
     return count;
-} // O(n log n) — greedy choice (earliest end) is optimal
+} // O(n log n) - greedy choice (earliest end) is optimal
 
 // GREEDY FAILS: Coin change with denominations [1, 3, 4], target 6
 // Greedy: 4 + 1 + 1 = 3 coins
@@ -63,7 +63,7 @@ def max_activities(intervals):
             count += 1
             end = intervals[i][1]
     return count
-# O(n log n) — greedy choice (earliest end) is optimal
+# O(n log n) - greedy choice (earliest end) is optimal
 
 # GREEDY FAILS: Coin change with denominations [1, 3, 4], target 6
 # Greedy: 4 + 1 + 1 = 3 coins
@@ -84,7 +84,7 @@ public int maxActivities(int[][] intervals) {
         }
     }
     return count;
-} // O(n log n) — greedy choice (earliest end) is optimal
+} // O(n log n) - greedy choice (earliest end) is optimal
 
 // GREEDY FAILS: Coin change with denominations [1, 3, 4], target 6
 // Greedy: 4 + 1 + 1 = 3 coins
@@ -103,7 +103,7 @@ const maxActivities = (intervals) => {
         }
     }
     return count;
-}; // O(n log n) — greedy choice (earliest end) is optimal
+}; // O(n log n) - greedy choice (earliest end) is optimal
 
 // GREEDY FAILS: Coin change with denominations [1, 3, 4], target 6
 // Greedy: 4 + 1 + 1 = 3 coins
@@ -127,7 +127,7 @@ int maxActivities(std::vector<std::vector<int>>& intervals) {
         }
     }
     return count;
-} // O(n log n) — greedy choice (earliest end) is optimal
+} // O(n log n) - greedy choice (earliest end) is optimal
 
 // GREEDY FAILS: Coin change with denominations [1, 3, 4], target 6
 // Greedy: 4 + 1 + 1 = 3 coins
@@ -155,7 +155,7 @@ int maxActivities(std::vector<std::vector<int>>& intervals) {
         {
           title: 'Interval templates',
           code: {
-            csharp: `// Merge Intervals — O(n log n)
+            csharp: `// Merge Intervals - O(n log n)
 int[][] Merge(int[][] intervals) {
     Array.Sort(intervals, (a, b) => a[0].CompareTo(b[0]));
     var merged = new List<int[]>();
@@ -173,7 +173,7 @@ int[][] Merge(int[][] intervals) {
     return merged.ToArray();
 }
 
-// Non-overlapping intervals (remove min to make non-overlapping) — O(n log n)
+// Non-overlapping intervals (remove min to make non-overlapping) - O(n log n)
 int EraseOverlapIntervals(int[][] intervals) {
     Array.Sort(intervals, (a, b) => a[1].CompareTo(b[1]));
     int count = 0;
@@ -186,7 +186,7 @@ int EraseOverlapIntervals(int[][] intervals) {
     return count;
 }
 
-// Min meeting rooms (min platforms) — O(n log n)
+// Min meeting rooms (min platforms) - O(n log n)
 int MinMeetingRooms(int[][] intervals) {
     var starts = intervals.Select(i => i[0]).OrderBy(x => x).ToArray();
     var ends = intervals.Select(i => i[1]).OrderBy(x => x).ToArray();
@@ -198,7 +198,7 @@ int MinMeetingRooms(int[][] intervals) {
     }
     return rooms;
 }`,
-            python: `# Merge Intervals — O(n log n)
+            python: `# Merge Intervals - O(n log n)
 def merge(intervals):
     intervals.sort(key=lambda x: x[0])
     merged = []
@@ -213,7 +213,7 @@ def merge(intervals):
     merged.append(curr)
     return merged
 
-# Non-overlapping intervals (remove min to make non-overlapping) — O(n log n)
+# Non-overlapping intervals (remove min to make non-overlapping) - O(n log n)
 def erase_overlap_intervals(intervals):
     intervals.sort(key=lambda x: x[1])
     count = 0
@@ -226,7 +226,7 @@ def erase_overlap_intervals(intervals):
             end = intervals[i][1]
     return count
 
-# Min meeting rooms (min platforms) — O(n log n)
+# Min meeting rooms (min platforms) - O(n log n)
 def min_meeting_rooms(intervals):
     starts = sorted(i[0] for i in intervals)
     ends = sorted(i[1] for i in intervals)
@@ -241,7 +241,7 @@ def min_meeting_rooms(intervals):
     return rooms`,
             java: `import java.util.*;
 
-// Merge Intervals — O(n log n)
+// Merge Intervals - O(n log n)
 public int[][] merge(int[][] intervals) {
     Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
     List<int[]> merged = new ArrayList<>();
@@ -259,7 +259,7 @@ public int[][] merge(int[][] intervals) {
     return merged.toArray(new int[0][]);
 }
 
-// Non-overlapping intervals (remove min to make non-overlapping) — O(n log n)
+// Non-overlapping intervals (remove min to make non-overlapping) - O(n log n)
 public int eraseOverlapIntervals(int[][] intervals) {
     Arrays.sort(intervals, (a, b) -> Integer.compare(a[1], b[1]));
     int count = 0;
@@ -272,7 +272,7 @@ public int eraseOverlapIntervals(int[][] intervals) {
     return count;
 }
 
-// Min meeting rooms (min platforms) — O(n log n)
+// Min meeting rooms (min platforms) - O(n log n)
 public int minMeetingRooms(int[][] intervals) {
     int n = intervals.length;
     int[] starts = new int[n];
@@ -291,7 +291,7 @@ public int minMeetingRooms(int[][] intervals) {
     }
     return rooms;
 }`,
-            javascript: `// Merge Intervals — O(n log n)
+            javascript: `// Merge Intervals - O(n log n)
 const merge = (intervals) => {
     intervals.sort((a, b) => a[0] - b[0]);
     const merged = [];
@@ -309,7 +309,7 @@ const merge = (intervals) => {
     return merged;
 };
 
-// Non-overlapping intervals (remove min to make non-overlapping) — O(n log n)
+// Non-overlapping intervals (remove min to make non-overlapping) - O(n log n)
 const eraseOverlapIntervals = (intervals) => {
     intervals.sort((a, b) => a[1] - b[1]);
     let count = 0;
@@ -322,7 +322,7 @@ const eraseOverlapIntervals = (intervals) => {
     return count;
 };
 
-// Min meeting rooms (min platforms) — O(n log n)
+// Min meeting rooms (min platforms) - O(n log n)
 const minMeetingRooms = (intervals) => {
     const starts = intervals.map(i => i[0]).sort((a, b) => a - b);
     const ends = intervals.map(i => i[1]).sort((a, b) => a - b);
@@ -338,7 +338,7 @@ const minMeetingRooms = (intervals) => {
 #include <algorithm>
 #include <queue>
 
-// Merge Intervals — O(n log n)
+// Merge Intervals - O(n log n)
 std::vector<std::vector<int>> merge(std::vector<std::vector<int>>& intervals) {
     std::sort(intervals.begin(), intervals.end(),
         [](auto& a, auto& b) { return a[0] < b[0]; });
@@ -357,7 +357,7 @@ std::vector<std::vector<int>> merge(std::vector<std::vector<int>>& intervals) {
     return merged;
 }
 
-// Non-overlapping intervals (remove min to make non-overlapping) — O(n log n)
+// Non-overlapping intervals (remove min to make non-overlapping) - O(n log n)
 int eraseOverlapIntervals(std::vector<std::vector<int>>& intervals) {
     std::sort(intervals.begin(), intervals.end(),
         [](auto& a, auto& b) { return a[1] < b[1]; });
@@ -371,7 +371,7 @@ int eraseOverlapIntervals(std::vector<std::vector<int>>& intervals) {
     return count;
 }
 
-// Min meeting rooms (min platforms) — O(n log n)
+// Min meeting rooms (min platforms) - O(n log n)
 int minMeetingRooms(std::vector<std::vector<int>>& intervals) {
     std::vector<int> starts, ends;
     for (auto& i : intervals) {
@@ -410,7 +410,7 @@ Build digit by digit, maintaining constraints.`,
         {
           title: 'Jump Game and Best Time to Buy/Sell Stock',
           code: {
-            csharp: `// Jump Game — O(n)
+            csharp: `// Jump Game - O(n)
 bool CanJump(int[] nums) {
     int maxReach = 0;
     for (int i = 0; i < nums.Length; i++) {
@@ -420,7 +420,7 @@ bool CanJump(int[] nums) {
     return true;
 }
 
-// Best Time to Buy/Sell Stock (single transaction) — O(n)
+// Best Time to Buy/Sell Stock (single transaction) - O(n)
 int MaxProfit(int[] prices) {
     int minPrice = int.MaxValue;
     int maxProfit = 0;
@@ -431,7 +431,7 @@ int MaxProfit(int[] prices) {
     return maxProfit;
 }
 
-// Jump Game II (minimum jumps) — O(n)
+// Jump Game II (minimum jumps) - O(n)
 int Jump(int[] nums) {
     int jumps = 0, currEnd = 0, farthest = 0;
     for (int i = 0; i < nums.Length - 1; i++) {
@@ -443,7 +443,7 @@ int Jump(int[] nums) {
     }
     return jumps;
 }`,
-            python: `# Jump Game — O(n)
+            python: `# Jump Game - O(n)
 def can_jump(nums):
     max_reach = 0
     for i in range(len(nums)):
@@ -452,7 +452,7 @@ def can_jump(nums):
         max_reach = max(max_reach, i + nums[i])
     return True
 
-# Best Time to Buy/Sell Stock (single transaction) — O(n)
+# Best Time to Buy/Sell Stock (single transaction) - O(n)
 def max_profit(prices):
     min_price = float('inf')
     max_profit = 0
@@ -463,7 +463,7 @@ def max_profit(prices):
             max_profit = max(max_profit, price - min_price)
     return max_profit
 
-# Jump Game II (minimum jumps) — O(n)
+# Jump Game II (minimum jumps) - O(n)
 def jump(nums):
     jumps = 0
     curr_end = 0
@@ -474,7 +474,7 @@ def jump(nums):
             jumps += 1
             curr_end = farthest
     return jumps`,
-            java: `// Jump Game — O(n)
+            java: `// Jump Game - O(n)
 public boolean canJump(int[] nums) {
     int maxReach = 0;
     for (int i = 0; i < nums.length; i++) {
@@ -484,7 +484,7 @@ public boolean canJump(int[] nums) {
     return true;
 }
 
-// Best Time to Buy/Sell Stock (single transaction) — O(n)
+// Best Time to Buy/Sell Stock (single transaction) - O(n)
 public int maxProfit(int[] prices) {
     int minPrice = Integer.MAX_VALUE;
     int maxProfit = 0;
@@ -495,7 +495,7 @@ public int maxProfit(int[] prices) {
     return maxProfit;
 }
 
-// Jump Game II (minimum jumps) — O(n)
+// Jump Game II (minimum jumps) - O(n)
 public int jump(int[] nums) {
     int jumps = 0, currEnd = 0, farthest = 0;
     for (int i = 0; i < nums.length - 1; i++) {
@@ -507,7 +507,7 @@ public int jump(int[] nums) {
     }
     return jumps;
 }`,
-            javascript: `// Jump Game — O(n)
+            javascript: `// Jump Game - O(n)
 const canJump = (nums) => {
     let maxReach = 0;
     for (let i = 0; i < nums.length; i++) {
@@ -517,7 +517,7 @@ const canJump = (nums) => {
     return true;
 };
 
-// Best Time to Buy/Sell Stock (single transaction) — O(n)
+// Best Time to Buy/Sell Stock (single transaction) - O(n)
 const maxProfit = (prices) => {
     let minPrice = Infinity;
     let maxProfit = 0;
@@ -528,7 +528,7 @@ const maxProfit = (prices) => {
     return maxProfit;
 };
 
-// Jump Game II (minimum jumps) — O(n)
+// Jump Game II (minimum jumps) - O(n)
 const jump = (nums) => {
     let jumps = 0, currEnd = 0, farthest = 0;
     for (let i = 0; i < nums.length - 1; i++) {
@@ -544,7 +544,7 @@ const jump = (nums) => {
 #include <algorithm>
 #include <climits>
 
-// Jump Game — O(n)
+// Jump Game - O(n)
 bool canJump(const std::vector<int>& nums) {
     int maxReach = 0;
     for (int i = 0; i < nums.size(); i++) {
@@ -554,7 +554,7 @@ bool canJump(const std::vector<int>& nums) {
     return true;
 }
 
-// Best Time to Buy/Sell Stock (single transaction) — O(n)
+// Best Time to Buy/Sell Stock (single transaction) - O(n)
 int maxProfit(const std::vector<int>& prices) {
     int minPrice = INT_MAX;
     int maxProfit = 0;
@@ -565,7 +565,7 @@ int maxProfit(const std::vector<int>& prices) {
     return maxProfit;
 }
 
-// Jump Game II (minimum jumps) — O(n)
+// Jump Game II (minimum jumps) - O(n)
 int jump(const std::vector<int>& nums) {
     int jumps = 0, currEnd = 0, farthest = 0;
     for (int i = 0; i < nums.size() - 1; i++) {
@@ -584,12 +584,12 @@ int jump(const std::vector<int>& nums) {
     {
       id: 'common-patterns',
       title: 'Common Interview Patterns',
-      content: `1. **Interval scheduling** — sort by end, pick non-overlapping
-2. **Merge intervals** — sort by start, merge overlapping
-3. **Insert interval** — linear scan, merge where needed
-4. **Jump Game** — greedy reachability or minimum jumps
-5. **Stock trading** — max profit (one transaction = greedy, multiple = DP)
-6. **Minimum platforms / meeting rooms** — sweep line or two-pointer`,
+      content: `1. **Interval scheduling** - sort by end, pick non-overlapping
+2. **Merge intervals** - sort by start, merge overlapping
+3. **Insert interval** - linear scan, merge where needed
+4. **Jump Game** - greedy reachability or minimum jumps
+5. **Stock trading** - max profit (one transaction = greedy, multiple = DP)
+6. **Minimum platforms / meeting rooms** - sweep line or two-pointer`,
     },
   ],
   problemIds: ['merge-intervals', 'non-overlapping-intervals', 'jump-game', 'best-time-stock-ii', 'meeting-rooms-ii'],
