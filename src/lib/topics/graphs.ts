@@ -150,6 +150,7 @@ std::unordered_map<int, std::vector<std::pair<int, int>>> weighted;
     {
       id: 'bfs-dfs',
       title: 'BFS vs DFS',
+      component: 'graph-traversal-viz',
       content: `| | BFS (Queue) | DFS (Stack/Recursion) |
 |---|---|---|
 | Order | Level by level | Deep first |

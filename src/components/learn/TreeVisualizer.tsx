@@ -33,7 +33,7 @@ export default function TreeVisualizer() {
   const [steps, setSteps] = useState<TreeStep[]>(() => createInitialState('inorder'));
   const [currentStep, setCurrentStep] = useState(0);
   const [playing, setPlaying] = useState(false);
-  const [speed, setSpeed] = useState(1);
+  const [speed, setSpeed] = useState(2);
   const [completed, setCompleted] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);

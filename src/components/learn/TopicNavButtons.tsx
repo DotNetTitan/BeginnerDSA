@@ -3,10 +3,11 @@
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight, Lock } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { getProgress } from '@/lib/progress-store';
 import { getTopicStatus } from '@/lib/topic-status';
 import { topics } from '@/lib/topics';
+import type { AppProgress } from '@/lib/types';
 
 interface Props {
   prev: { id: string; title: string } | null;
@@ -15,9 +16,11 @@ interface Props {
 
 export default function TopicNavButtons({ prev, next }: Props) {
   const router = useRouter();
-  const progress = useMemo(() => getProgress(), []);
+  const [progress, setProgress] = useState<AppProgress | null>(null);
+  useEffect(() => { setProgress(getProgress()); }, []);
 
   const isLocked = (id: string) => {
+    if (!progress) return true;
     const topic = topics.find(t => t.id === id);
     if (!topic) return true;
     return getTopicStatus(topic, progress, topics) === 'locked';
