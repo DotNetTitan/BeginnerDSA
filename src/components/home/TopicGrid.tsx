@@ -192,7 +192,7 @@ export default function TopicGrid() {
                 </div>
                 <div>
                   <p className="text-xs text-muted-foreground uppercase tracking-wider font-medium">Welcome to Zero To DSA</p>
-                  <p className="font-semibold text-sm">Start with Big O. It's the foundation for everything else.</p>
+                  <p className="font-semibold text-sm">Start with Big O & Complexity</p>
                 </div>
               </div>
               <Button size="sm" onClick={(e) => { e.stopPropagation(); router.push('/learn/big-o'); }}>
