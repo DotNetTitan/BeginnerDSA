@@ -499,6 +499,61 @@ std::vector<int> topologicalSort(int n, std::vector<std::vector<int>>& edges) {
       ],
     },
     {
+      id: 'when-to-use-graphs',
+      title: 'When to Model as a Graph',
+      content: `**A graph is the right abstraction when:**
+- You have **entities** (nodes) and **relationships** (edges) between them
+- The relationships are **not hierarchical** (use a tree if they are)
+- You need to find **paths, connectivity, or shortest distances**
+
+**Graph vs other structures:**
+| Structure | Use when |
+|---|---|
+| Tree | Strict hierarchy (one parent per node) |
+| Graph | Arbitrary connections (many-to-many) |
+| Adjacency list | Most interview problems (space-efficient) |
+| Adjacency matrix | Dense graph, need O(1) edge check |
+
+**BFS vs DFS decision guide:**
+| Signal | Choice |
+|---|---|
+| "Shortest path in unweighted graph" | BFS (queue) |
+| "Does a path exist?" | Either |
+| "Topological order" | BFS (Kahn's) or DFS |
+| "Detect cycle" | DFS with recursion stack |
+| "Connected components" | Either (DFS is simpler) |
+| "All paths from A to B" | DFS (backtracking) |
+| "Level order / layers" | BFS |
+| "Maze shortest path" | BFS |
+| "Maze find any exit" | DFS (simpler) |
+
+**When NOT to use a graph:**
+- Only one entity type with no relationships (just use a list)
+- Relationships are simple and linear (use an array or tree)
+- Problem can be solved with a hash map and iteration`,
+    },
+    {
+      id: 'mistakes',
+      title: 'Common Mistakes / Gotchas',
+      content: `**Forgetting the visited set (infinite loop)**
+Without tracking visited nodes, BFS/DFS will revisit nodes and loop forever in a cyclic graph. Always initialize a visited set before traversal and check it before enqueuing/exploring.
+
+**Confusing directed and undirected graphs**
+In an undirected graph, add both directions: \`graph[u].Add(v)\` AND \`graph[v].Add(u)\`. In a directed graph, only add one direction. Missing this causes wrong answers.
+
+**"BFS always finds the shortest path"**
+Only for unweighted graphs. In weighted graphs, BFS does NOT find the shortest path - use Dijkstra's algorithm instead.
+
+**DFS recursion depth in large graphs**
+A DFS on a graph with 100,000 nodes might recurse 100,000 levels deep. Stack overflow! Use explicit stack (iterative DFS) for large graphs.
+
+**Confusing BFS and DFS approaches**
+BFS = queue (level by level). DFS = stack/recursion (depth first). Using the wrong one wastes time or gives wrong answers. For shortest path in an unweighted graph, always choose BFS.
+
+**Not handling disconnected components**
+Most graph problems assume a connected graph. If the graph has multiple components, make sure your traversal covers ALL nodes by looping over all vertices and starting a new traversal for any unvisited node.`,
+    },
+    {
       id: 'common-patterns',
       title: 'Common Interview Patterns',
       content: `1. **Number of islands / connected components** - DFS or BFS on grid

@@ -568,6 +568,27 @@ int knapsack(const std::vector<int>& weights, const std::vector<int>& values, in
       ],
     },
     {
+      id: 'mistakes',
+      title: 'Common Mistakes / Gotchas',
+      content: `**Wrong base case**
+A single off-by-one in the base case propagates to every computed value. Always test small inputs (n=0, n=1, n=2) before scaling up.
+
+**Wrong iteration order in bottom-up DP**
+If \`dp[i]\` depends on \`dp[i-1]\`, you iterate forward. If it depends on \`dp[i+1]\`, you iterate backward. Getting this wrong uses stale or uninitialized values.
+
+**Forgetting to pass the memo dictionary**
+In top-down DP, if you create a new memo on each recursive call, nothing is cached and you're back to exponential time. Pass the memo by reference.
+
+**"I can use DP for everything"**
+DP is only for problems with overlapping subproblems. If subproblems don't overlap (divide and conquer), DP adds unnecessary complexity. If greedy works, DP is overkill.
+
+**Confusing 0/1 knapsack with unbounded knapsack**
+In 0/1 knapsack, each item can be used at most once (iterate items outer loop, capacity inner loop). In unbounded knapsack, items can be reused (iterate capacity outer loop, coins inner loop). Swapping the loops gives wrong answers.
+
+**DP array size off-by-one**
+\`dp[n]\` for an n-element problem often needs size n+1 (dp[0] for empty/base case). Forgetting the extra slot causes index out of bounds.`,
+    },
+    {
       id: 'common-patterns',
       title: 'Common Interview Patterns',
       content: `1. **Fibonacci-style** - climbing stairs, house robber, decode ways

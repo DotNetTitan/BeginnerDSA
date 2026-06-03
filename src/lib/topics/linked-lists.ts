@@ -292,6 +292,50 @@ ListNode* findMiddle(ListNode* head) {
       ],
     },
     {
+      id: 'when-to-use-linked-lists',
+      title: 'When to Use Linked Lists',
+      content: `**Linked lists shine when:**
+- You frequently **insert or delete at the head** (O(1) vs O(n) for array)
+- The **total size is unknown** and grows/shrinks unpredictably
+- You're already iterating through all elements (no random access needed)
+- You need a **lock-free concurrent data structure** (CAS on pointers)
+
+**Linked lists are NOT the right choice when:**
+- You need **random access by index** (O(n) - use an array)
+- **Memory overhead matters** (each node has pointer overhead)
+- **Cache locality is important** (nodes are scattered in memory)
+- The list is **small** (array wins for simplicity)
+
+**Decision guide:**
+| Signal | Best choice |
+|---|---|
+| "Access element at index k" | Array |
+| "Insert at front repeatedly" | Linked list |
+| "Traverse all elements" | Either |
+| "Memory is tight" | Array (less overhead) |
+| "No idea how big it will get" | Dynamic array or linked list |
+
+**Singly vs Doubly:** Use doubly only if you need O(1) tail access or backward traversal. Otherwise singly is simpler and uses less memory.`,
+    },
+    {
+      id: 'mistakes',
+      title: 'Common Mistakes / Gotchas',
+      content: `**Losing reference to the head**
+If you move your head pointer without saving it first, you lose the entire list. Always keep a separate reference to head, or use a dummy node.
+
+**Null dereference on .next**
+Always check \`node?.next != null\` (or \`node != null && node.next != null\`) before accessing \`node.next.next\`. This is the most common linked list bug.
+
+**Forgetting the "save next" step in reversal**
+In iterative reversal: you must save \`curr.next\` before overwriting it. Without \`ListNode next = curr.next\`, you lose the rest of the list.
+
+**Assuming built-in linked list has O(1) index access**
+No - \`list[5]\` on a linked list is O(n). That's why array lists exist.
+
+**Cycle detection without correct initialization**
+Floyd's algorithm: start BOTH slow and fast at head. Starting fast at head.next can miss cycles in edge cases.`,
+    },
+    {
       id: 'common-patterns',
       title: 'Common Interview Patterns',
       content: `1. **Reverse** - full reversal, reverse between positions, reverse in k-groups

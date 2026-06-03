@@ -354,6 +354,47 @@ int factorial(int n) {
       ],
     },
     {
+      id: 'when-complexity-matters',
+      title: 'When Complexity Matters',
+      content: `**Complexity analysis tells you whether your code will actually finish.**
+
+**When to worry about Big O:**
+- **Large inputs** (n > 10,000) - O(n²) can become unusable
+- **Real-time systems** - response time matters
+- **Interview problems** - you will be asked to analyze and optimize
+- **APIs / production code** - users won't tolerate slowdowns
+
+**When NOT to worry:**
+- **Small, fixed-size inputs** (n < 100) - any algorithm is fine
+- **Prototypes / one-off scripts** - clarity > performance
+- **Premature optimization** - don't optimize before you measure
+
+**A practical guide:**
+| n | O(n) is fine | O(n log n) is fine | O(n²) is risky | O(2ⁿ) is unusable |
+|---|---|---|---|---|
+| 100 | Instant | Instant | Instant | Too slow |
+| 10,000 | Instant | Instant | Slow | Impossible |
+| 1,000,000 | Instant | ~20ms | Minutes | Impossible |`,
+    },
+    {
+      id: 'mistakes',
+      title: 'Common Mistakes / Gotchas',
+      content: `**"O(2n) is the same as O(2ⁿ)"**
+No - O(2n) drops the constant and becomes O(n). O(2ⁿ) is exponential and completely different.
+
+**"This is O(n) so it's fast"**
+O(n) with n = 10^12 is 10 trillion operations. Always check the actual input size.
+
+**"The best case is O(1), so the algorithm is fast"**
+Always analyze **worst case**. Best case is rarely relevant.
+
+**"I don't need to worry about stack space"**
+Recursive functions consume O(depth) stack space. Deep recursion (10,000+ calls) causes stack overflow.
+
+**"Drop constants means constants don't matter"**
+Constants still matter in practice. O(100n) is 100x slower than O(n), even though both are "O(n)".`,
+    },
+    {
       id: 'common-patterns',
       title: 'Common Interview Patterns',
       content: `**"What is the complexity of this function?"**

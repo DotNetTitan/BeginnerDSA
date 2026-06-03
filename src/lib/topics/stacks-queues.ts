@@ -465,6 +465,55 @@ std::vector<int> topKFrequent(const std::vector<int>& nums, int k) {
       ],
     },
     {
+      id: 'when-to-use-stacks-queues',
+      title: 'Stack vs Queue vs Priority Queue',
+      content: `**Stack (LIFO) is for:**
+- "Last thing first" - undo/redo, backtracking, parsing nested structures
+- DFS (implicitly via recursion or explicitly with a stack)
+- Problems where the **most recent** element is what matters (valid parentheses, next greater element)
+- **Signal keywords:** "nested", "backtrack", "most recent", "undo"
+
+**Queue (FIFO) is for:**
+- "First come, first served" - BFS, task scheduling, buffering
+- Level-order traversal of a tree
+- Problems where **order of arrival** determines priority
+- **Signal keywords:** "level order", "shortest path (unweighted)", "streaming", "buffer"
+
+**Priority Queue (Heap) is for:**
+- "Always process the most/least important item next"
+- K smallest/largest elements, Dijkstra, scheduling with priorities
+- When you need to **repeatedly extract the min or max**
+- **Signal keywords:** "top K", "K smallest/largest", "merge K sorted", "schedule"
+
+**Decision guide:**
+| Signal | Structure |
+|---|---|
+| "Process in reverse order" | Stack |
+| "First come, first served" | Queue |
+| "Always pick the smallest/largest" | Priority queue |
+| "Need BFS / level order" | Queue |
+| "Parse nested brackets" | Stack |
+| "Track K most frequent" | Priority queue |`,
+    },
+    {
+      id: 'mistakes',
+      title: 'Common Mistakes / Gotchas',
+      content: `**Popping from an empty stack**
+Always check \`stack.Count > 0\` / \`!stack.isEmpty()\` before popping. An empty pop is a runtime error in most languages.
+
+**Using a queue when a stack was needed (or vice versa)**
+LIFO vs FIFO: if you need "most recent first" it's a stack (undo, backtracking). If you need "first come, first served" it's a queue (BFS, buffering).
+
+**JavaScript array as queue: \`shift()\` is O(n)**
+Using \`arr.shift()\` in JS re-indexes the entire array. Use an index pointer or a proper queue implementation instead.
+
+**Priority queue comparator order confusion**
+In a min-heap, the smallest element is dequeued first. In a max-heap, the largest. Always check whether your language's default is min or max before using it.
+
+**Stack overflow with deep recursion**
+Each recursive call uses stack space. If your recursion depth could exceed ~1000, consider an iterative approach with an explicit stack.`,
+    },
+    {
       id: 'common-patterns',
       title: 'Common Interview Patterns',
       content: `1. **Monotonic stack** - next greater element, daily temperatures, largest rectangle in histogram

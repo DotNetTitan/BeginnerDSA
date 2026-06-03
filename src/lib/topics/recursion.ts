@@ -534,6 +534,57 @@ std::vector<int> merge(const std::vector<int>& left, const std::vector<int>& rig
       ],
     },
     {
+      id: 'when-to-use-recursion',
+      title: 'Recursion vs Iteration',
+      content: `**Recursion works best when:**
+- The problem has a **natural recursive structure** (trees, graphs, divide and conquer)
+- The input can be **defined recursively** (lists, trees, combinatorial search)
+- The **backtracking pattern** fits (try choice, recurse, undo)
+- Code **clarity and brevity** matter more than performance
+
+**Iteration is better when:**
+- Stack depth could be a problem (deep recursion = stack overflow)
+- The problem is **linear** (looping through an array)
+- **Performance is critical** (function calls have overhead)
+- The recursion would have **duplicate work** (use memoization or iteration)
+
+**Decision guide:**
+| Pattern | Use recursion? | Why |
+|---|---|---|
+| Tree traversal | Yes | Natural recursive structure |
+| Array iteration | No | Simple loop is faster |
+| Permutations / subsets | Yes | Backtracking is naturally recursive |
+| Factorial / Fibonacci | Memoized recursion or iteration | Naive recursion is wasteful |
+| Divide & conquer (merge sort) | Yes | Divide + combine is recursive |
+| BFS / level order | No | Queue iteration is simpler |
+
+**Warning signs for recursion:**
+- Depth could exceed 1000 (stack overflow)
+- Problem has no overlapping subproblems (simple iteration works)
+- You need to pass mutable state through many levels`,
+    },
+    {
+      id: 'mistakes',
+      title: 'Common Mistakes / Gotchas',
+      content: `**Missing base case (infinite recursion)**
+Without a base case, recursion never stops and you get stack overflow. Always write the base case first.
+
+**Not returning the recursive result**
+\`factorial(n) = n * factorial(n - 1)\` - if you forget the \`return\`, the function returns \`undefined\` / \`null\`. Always return the recursive result.
+
+**Naive Fibonacci is O(2ⁿ)**
+\`fib(n) = fib(n-1) + fib(n-2)\` without memoization recomputes the same values exponentially. Use memoization or iteration.
+
+**Stack overflow from deep recursion**
+Each call adds a stack frame. For depth > 1000 (Python), > 10000 (C#/Java/C++), you risk overflow. Consider iterative alternatives for linear problems.
+
+**Modifying shared state during recursion**
+If you pass a mutable list down recursive calls and mutate it, you need to undo (backtrack) or copy. Forgetting the undo step corrupts sibling branches.
+
+**Confusing recursion depth with problem size**
+A recursive function on a balanced tree of n nodes has O(log n) depth, not O(n). Depth depends on structure, not total elements.`,
+    },
+    {
       id: 'common-patterns',
       title: 'Common Interview Patterns',
       content: `1. **Subsets (powerset)** - for each element, include or exclude
