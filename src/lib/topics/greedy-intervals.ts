@@ -393,8 +393,8 @@ int minMeetingRooms(std::vector<std::vector<int>>& intervals) {
       ],
     },
     {
-      id: 'greedy-patterns',
-      title: 'Key Greedy Patterns',
+      id: 'greedy-techniques',
+      title: 'Greedy Techniques in Practice',
       content: `**Pattern 1: "Can you reach the end?" (Jump Game)**
 At each position, track the furthest you can reach. If you ever pass that point, fail.
 
