@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: "/progress",
       },
     ],
-    sitemap: "https://zerotodsa.online/sitemap.xml",
+    sitemap: "https://zerotodsa.com/sitemap.xml",
   };
 }
