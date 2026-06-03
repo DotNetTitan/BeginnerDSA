@@ -5,6 +5,7 @@ import { getGraphData, generateBfsSteps, generateDfsSteps, type GraphStep } from
 
 const COLORS = {
   unvisited: '#3b82f6',
+  frontier: '#a855f7',
   current: '#eab308',
   visited: '#22c55e',
   edge: '#94a3b8',
@@ -104,6 +105,7 @@ export default function GraphVisualizer() {
   function getNodeColor(id: number): string {
     if (id === current.current) return COLORS.current;
     if (current.visited.includes(id)) return COLORS.visited;
+    if (current.frontier.includes(id)) return COLORS.frontier;
     return COLORS.unvisited;
   }
 
@@ -173,23 +175,6 @@ export default function GraphVisualizer() {
         </svg>
       </div>
 
-      <div className="px-4 py-2 border-t bg-muted/30">
-        <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
-          <span className="font-medium">{current.frontLabel}:</span>
-        </div>
-        <div className="flex items-center gap-1 flex-wrap min-h-[1.5rem]">
-          {current.frontier.length === 0 ? (
-            <span className="text-xs text-muted-foreground italic">empty</span>
-          ) : (
-            current.frontier.map((v, i) => (
-              <span key={i} className="inline-flex items-center justify-center rounded text-xs font-bold h-6 px-2 bg-primary text-primary-foreground">
-                {v}
-              </span>
-            ))
-          )}
-        </div>
-      </div>
-
       <div className="px-4 py-2 text-center text-xs text-muted-foreground min-h-[1rem]">
         {current.description}
       </div>
@@ -244,13 +229,13 @@ export default function GraphVisualizer() {
           <span className="w-3 h-3 rounded-full" style={{ backgroundColor: COLORS.unvisited }} /> Unvisited
         </span>
         <span className="flex items-center gap-1">
+          <span className="w-3 h-3 rounded-full" style={{ backgroundColor: COLORS.frontier }} /> Next in line
+        </span>
+        <span className="flex items-center gap-1">
           <span className="w-3 h-3 rounded-full" style={{ backgroundColor: COLORS.current }} /> Current
         </span>
         <span className="flex items-center gap-1">
           <span className="w-3 h-3 rounded-full" style={{ backgroundColor: COLORS.visited }} /> Visited
-        </span>
-        <span className="flex items-center gap-1">
-          <span className="w-3 h-3 rounded-full" style={{ backgroundColor: COLORS.edgeHighlight }} /> Traversed edge
         </span>
       </div>
     </div>
