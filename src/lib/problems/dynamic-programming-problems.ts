@@ -140,7 +140,7 @@ int rob(const std::vector<int>& nums) {
       { input: 'coins = [1,2,5], amount = 11', output: '3', explanation: '5 + 5 + 1 = 11' },
       { input: 'coins = [2], amount = 3', output: '-1' },
     ],
-    constraints: ['1 <= coins.length <= 12', '1 <= amount <= 10â´'],
+    constraints: ['1 <= coins.length <= 12', '1 <= amount <= 10^4'],
     hints: ['dp[i] = min(dp[i], dp[i - coin] + 1) for each coin.', 'Initialize dp with amount+1 as a sentinel.'],
     solution: {
       csharp: `public int CoinChange(int[] coins, int amount) {

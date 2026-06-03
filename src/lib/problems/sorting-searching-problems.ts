@@ -11,7 +11,7 @@ export const problems: Problem[] = [
       { input: 'nums = [-1,0,3,5,9,12], target = 9', output: '4' },
       { input: 'nums = [-1,0,3,5,9,12], target = 2', output: '-1' },
     ],
-    constraints: ['1 <= nums.length <= 10â´', 'nums is sorted in ascending order.'],
+    constraints: ['1 <= nums.length <= 10^4', 'nums is sorted in ascending order.'],
     hints: ['Standard binary search with left and right pointers.', 'mid = left + (right - left) / 2 prevents overflow.'],
     solution: {
       csharp: `public int Search(int[] nums, int target) {
@@ -198,7 +198,7 @@ int searchRotated(const std::vector<int>& nums, int target) {
       { input: 'nums = [3,2,1,5,6,4], k = 2', output: '5' },
       { input: 'nums = [3,2,3,1,2,4,5,5,6], k = 4', output: '4' },
     ],
-    constraints: ['1 <= k <= nums.length <= 10âµ'],
+    constraints: ['1 <= k <= nums.length <= 10^5'],
     hints: ['Use a min-heap of size k.', 'Or use quickselect (Hoare\'s selection algorithm).'],
     solution: {
       csharp: `public int FindKthLargest(int[] nums, int k) {
@@ -331,7 +331,7 @@ int findMin(const std::vector<int>& nums) {
     title: 'Sort Colors (Dutch National Flag)',
     topicId: 'sorting-searching',
     difficulty: 'medium',
-    description: `Given an array with 0s, 1s, and 2s, sort them in-place. 0s â†’ red, 1s â†’ white, 2s â†’ blue.`,
+    description: `Given an array with 0s, 1s, and 2s, sort them in-place. 0s -> red, 1s -> white, 2s -> blue.`,
     examples: [
       { input: 'nums = [2,0,2,1,1,0]', output: '[0,0,1,1,2,2]' },
       { input: 'nums = [2,0,1]', output: '[0,1,2]' },

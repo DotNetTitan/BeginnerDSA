@@ -89,7 +89,7 @@ std::vector<std::vector<int>> subsets(const std::vector<int>& nums) {
     return result;
 }`,
     },
-    timeComplexity: 'O(n * 2â¿)',
+    timeComplexity: 'O(n * 2^n)',
     spaceComplexity: 'O(n)',
   },
   {
@@ -325,7 +325,7 @@ std::vector<std::vector<int>> combinationSum(const std::vector<int>& candidates,
     return result;
 }`,
     },
-    timeComplexity: 'O(2â¿)',
+    timeComplexity: 'O(2^n)',
     spaceComplexity: 'O(target / min(candidates))',
   },
   {
@@ -415,7 +415,7 @@ std::vector<std::string> generateParenthesis(int n) {
     return result;
 }`,
     },
-    timeComplexity: 'O(4â¿ / âˆšn)',
+    timeComplexity: 'O(4^n / sqrt(n))',
     spaceComplexity: 'O(n)',
   },
   {

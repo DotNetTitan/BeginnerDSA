@@ -12,8 +12,8 @@ export const problems: Problem[] = [
       { input: 'nums = [3,2,4], target = 6', output: '[1, 2]' },
       { input: 'nums = [3,3], target = 6', output: '[0, 1]' },
     ],
-    constraints: ['2 <= nums.length <= 10â´', 'Exactly one valid answer exists.'],
-    hints: ['Use Dictionary<int, int> to store value â†’ index.', 'For each element, check if target - nums[i] exists in the map.'],
+    constraints: ['2 <= nums.length <= 10^4', 'Exactly one valid answer exists.'],
+    hints: ['Use Dictionary<int, int> to store value -> index.', 'For each element, check if target - nums[i] exists in the map.'],
     solution: {
       csharp: `public int[] TwoSum(int[] nums, int target) {
     var map = new Dictionary<int, int>();
@@ -82,7 +82,7 @@ std::vector<int> twoSum(const std::vector<int>& nums, int target) {
       { input: 'strs = ["eat","tea","tan","ate","nat","bat"]', output: '[["bat"],["nat","tan"],["ate","eat","tea"]]' },
       { input: 'strs = [""]', output: '[[""]]' },
     ],
-    constraints: ['1 <= strs.length <= 10â´', '0 <= strs[i].length <= 100'],
+    constraints: ['1 <= strs.length <= 10^4', '0 <= strs[i].length <= 100'],
     hints: ['Sort each word to create a canonical form.', 'Use the sorted string as the dictionary key.'],
     solution: {
       csharp: `public IList<IList<string>> GroupAnagrams(string[] strs) {
@@ -160,7 +160,7 @@ std::vector<std::vector<std::string>> groupAnagrams(const std::vector<std::strin
       { input: 'nums = [100,4,200,1,3,2]', output: '4', explanation: 'Longest: [1, 2, 3, 4].' },
       { input: 'nums = [0,3,7,2,5,8,4,6,0,1]', output: '9' },
     ],
-    constraints: ['0 <= nums.length <= 10âµ', '-10â¹ <= nums[i] <= 10â¹'],
+    constraints: ['0 <= nums.length <= 10^5', '-10^9 <= nums[i] <= 10^9'],
     hints: ['Use a HashSet for O(1) lookups.', 'Only start counting from the smallest number in a sequence.'],
     solution: {
       csharp: `public int LongestConsecutive(int[] nums) {
@@ -260,7 +260,7 @@ int longestConsecutive(const std::vector<int>& nums) {
       { input: 'nums = [1,1,1,2,2,3], k = 2', output: '[1,2]' },
       { input: 'nums = [1], k = 1', output: '[1]' },
     ],
-    constraints: ['1 <= nums.length <= 10âµ', 'k is in the range [1, number of unique elements]'],
+    constraints: ['1 <= nums.length <= 10^5', 'k is in the range [1, number of unique elements]'],
     hints: ['Count frequencies with a Dictionary.', 'Use a bucket sort or heap approach.'],
     solution: {
       csharp: `public int[] TopKFrequent(int[] nums, int k) {

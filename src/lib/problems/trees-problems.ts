@@ -11,7 +11,7 @@ export const problems: Problem[] = [
       { input: 'root = [3,9,20,null,null,15,7]', output: '3' },
       { input: 'root = [1,null,2]', output: '2' },
     ],
-    constraints: ['The number of nodes is in the range [0, 10â´].'],
+    constraints: ['The number of nodes is in the range [0, 10^4].'],
     hints: ['Recursive: depth = 1 + max(depth of left, depth of right).', 'Base case: null node has depth 0.'],
     solution: {
       csharp: `public int MaxDepth(TreeNode root) {
@@ -152,7 +152,7 @@ std::vector<int> inorderTraversal(TreeNode* root) {
       { input: 'root = [2,1,3]', output: 'true' },
       { input: 'root = [5,1,4,null,null,3,6]', output: 'false', explanation: 'Root value 5 with right child 4 violates BST property.' },
     ],
-    constraints: ['The number of nodes is in the range [1, 10â´].'],
+    constraints: ['The number of nodes is in the range [1, 10^4].'],
     hints: ['Use min/max range for each node.', 'Pass down valid range (long.MinValue, long.MaxValue) initially.'],
     solution: {
       csharp: `public bool IsValidBST(TreeNode root) {
@@ -287,7 +287,7 @@ bool isValidBST(TreeNode* root) {
     examples: [
       { input: 'root = [1,2,3,null,null,4,5]', output: '[1,2,3,null,null,4,5]', explanation: 'Serialize then deserialize produces the same tree.' },
     ],
-    constraints: ['The number of nodes is in the range [0, 10â´].'],
+    constraints: ['The number of nodes is in the range [0, 10^4].'],
     hints: ['Use preorder traversal (root, left, right).', 'Mark null nodes with a sentinel like "#".'],
     solution: {
       csharp: `public class Codec {

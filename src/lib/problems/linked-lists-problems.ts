@@ -182,7 +182,7 @@ export const problems: Problem[] = [
       { input: 'head = [1,2], pos = 0', output: 'true' },
       { input: 'head = [1], pos = -1', output: 'false' },
     ],
-    constraints: ['The number of nodes is in the range [0, 10â´].'],
+    constraints: ['The number of nodes is in the range [0, 10^4].'],
     hints: ['Use Floyd\'s cycle detection (fast and slow pointer).', 'If fast catches up to slow, there is a cycle.'],
     solution: {
       csharp: `public bool HasCycle(ListNode head) {
@@ -327,7 +327,7 @@ export const problems: Problem[] = [
       { input: 'head = [1,2,2,1]', output: 'true' },
       { input: 'head = [1,2]', output: 'false' },
     ],
-    constraints: ['The number of nodes is in the range [1, 10âµ].'],
+    constraints: ['The number of nodes is in the range [1, 10^5].'],
     hints: ['Find the middle of the list.', 'Reverse the second half and compare.'],
     solution: {
       csharp: `public bool IsPalindrome(ListNode head) {
