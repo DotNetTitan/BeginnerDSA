@@ -59,7 +59,17 @@ export default function TheorySection({ section }: { section: TheorySectionType 
 
       {section.table && <ComplexityTable data={section.table} />}
 
-      {section.component && <div className="mb-6"><DynamicSectionComponent name={section.component} /></div>}
+      {section.component && (
+        <div className="mb-6">
+          {section.vizLabel && (
+            <div className="mb-3 px-1">
+              <h3 className="text-xl font-semibold mb-1">Problem</h3>
+              <p className="text-sm text-muted-foreground">{section.vizLabel}</p>
+            </div>
+          )}
+          <DynamicSectionComponent name={section.component} />
+        </div>
+      )}
 
       {section.codeExamples?.map((ex, i) => {
         const code = ex.code[language] ?? ex.code['csharp'];

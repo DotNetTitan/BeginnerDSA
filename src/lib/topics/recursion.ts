@@ -20,6 +20,7 @@ Every recursive function needs:
 2. **Recursive case** - the function calling itself with modified input
 
 The **call stack** tracks each recursive call. Too many recursive calls = **stack overflow**.`,
+      vizLabel: 'Compute 5! (5 factorial) by breaking it into smaller subproblems. Watch how the call stack grows and shrinks.',
       codeExamples: [
         {
           title: 'Recursion vs iteration',

@@ -24,6 +24,7 @@ export const topic: Topic = {
 | Insert | O(log n) | O(n) |
 | Delete | O(log n) | O(n) |
 | Traverse | O(n) | O(n) |`,
+      vizLabel: 'Visit every node of this binary search tree in a specific traversal order.',
       codeExamples: [
         {
           title: 'TreeNode class and traversals',

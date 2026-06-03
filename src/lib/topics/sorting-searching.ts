@@ -394,6 +394,7 @@ Most languages have a built-in sort that uses **introsort** (quick sort + heap s
       title: 'Interactive Demo',
       content: `Use the controls below to watch bubble sort in action. Each pass "bubbles" the largest unsorted element to its correct position.`,
       component: 'bubble-sort-viz',
+      vizLabel: 'Given an unsorted array, arrange the numbers in ascending order by repeatedly swapping adjacent elements that are out of order.',
     },
     {
       id: 'quick-sort',
@@ -508,6 +509,7 @@ int partition(std::vector<int>& arr, int left, int right) {
       title: 'Interactive Demo',
       content: `Watch quick sort in action. The **pivot** (purple) is selected, elements are partitioned around it, and the process repeats recursively on each side.`,
       component: 'quick-sort-viz',
+      vizLabel: 'Given an unsorted array, arrange the numbers in ascending order by selecting a pivot, partitioning around it, and recursing on both sides.',
     },
     {
       id: 'merge-sort',
@@ -643,6 +645,7 @@ std::vector<int> merge(const std::vector<int>& left, const std::vector<int>& rig
       title: 'Interactive Demo',
       content: `Watch merge sort in action. The array is recursively split into halves until single elements remain, then merged back together in sorted order.`,
       component: 'merge-sort-viz',
+      vizLabel: 'Given an unsorted array, arrange the numbers in ascending order by repeatedly splitting in half, sorting each half, then merging the sorted halves.',
     },
     {
       id: 'binary-search-rotated',

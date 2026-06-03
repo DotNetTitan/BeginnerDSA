@@ -18,6 +18,7 @@ export interface TheorySection {
   codeExamples?: CodeExample[];
   table?: TableData;
   component?: string;
+  vizLabel?: string;
 }
 
 export interface CodeExample {

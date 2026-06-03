@@ -12,7 +12,10 @@ export const topic: Topic = {
     {
       id: 'dp-basics',
       title: 'What is Dynamic Programming?',
-      content: `Dynamic Programming = **recursion + memoization**. Solve problems by breaking them into overlapping subproblems and caching results.
+      component: 'dp-viz',
+      content: `Dynamic Programming = **recursion + memoization**.
+
+Solve problems by breaking them into overlapping subproblems and caching results.
 
 **Two approaches:**
 1. **Top-down (memoization)** - recursive with cache
@@ -24,6 +27,7 @@ export const topic: Topic = {
 3. Subproblems **overlap** (not just divide & conquer)
 
 **DP is NOT needed when:** Subproblems don't overlap (use divide & conquer) or greedy works.`,
+      vizLabel: 'Climbing Stairs — how many distinct ways can you reach step n if you can climb 1 or 2 steps at a time?',
       codeExamples: [
         {
           title: 'Top-down vs bottom-up (Fibonacci)',
