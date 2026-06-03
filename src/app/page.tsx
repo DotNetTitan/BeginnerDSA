@@ -1,7 +1,16 @@
+import { topics } from '@/lib/topics';
+import { getProblems } from '@/lib/problems';
 import TopicGrid from '@/components/home/TopicGrid';
 import { BookOpen, Code2, Signal, Coffee } from 'lucide-react';
 
 export default function HomePage() {
+  const moduleCount = topics.length;
+  const allProblems = topics.flatMap(t => getProblems(t.id));
+  const problemCount = allProblems.length;
+  const easyCount = allProblems.filter(p => p.difficulty === 'easy').length;
+  const mediumCount = allProblems.filter(p => p.difficulty === 'medium').length;
+  const hardCount = allProblems.filter(p => p.difficulty === 'hard').length;
+
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
       <div className="mb-8">
@@ -14,17 +23,17 @@ export default function HomePage() {
       <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-8">
         <div className="border rounded-lg p-3 text-center">
           <BookOpen className="h-4 w-4 mx-auto mb-1 text-primary" />
-          <p className="text-lg font-bold leading-tight">11</p>
+          <p className="text-lg font-bold leading-tight">{moduleCount}</p>
           <p className="text-[11px] text-muted-foreground">Modules</p>
         </div>
         <div className="border rounded-lg p-3 text-center">
           <Code2 className="h-4 w-4 mx-auto mb-1 text-primary" />
-          <p className="text-lg font-bold leading-tight">52</p>
+          <p className="text-lg font-bold leading-tight">{problemCount}</p>
           <p className="text-[11px] text-muted-foreground">Problems</p>
         </div>
         <div className="border rounded-lg p-3 text-center">
           <Signal className="h-4 w-4 mx-auto mb-1 text-primary" />
-          <p className="text-lg font-bold leading-tight">15 / 34 / 3</p>
+          <p className="text-lg font-bold leading-tight">{easyCount} / {mediumCount} / {hardCount}</p>
           <p className="text-[11px] text-muted-foreground">Easy / Medium / Hard</p>
         </div>
       </div>

@@ -502,7 +502,7 @@ Most languages have a built-in sort that uses **introsort** (quick sort + heap s
     {
       id: 'when-to-sort',
       title: 'When to Use Which Sort',
-      content: `Not all sorting algorithms are equal — the right choice depends on data size, structure, and requirements.
+      content: `Not all sorting algorithms are equal. The right choice depends on data size, structure, and requirements.
 
 | Decision | Best Choice | Why |
 |---|---|---|
@@ -515,7 +515,7 @@ Most languages have a built-in sort that uses **introsort** (quick sort + heap s
 | **Mostly sorted, online (streaming)** | Insertion Sort | Efficiently adds one element at a time |
 | **Don't care, just want it sorted** | Built-in sort (introsort) | Combines quick + heap + insertion, optimized |
 
-**Key trade-off:** Quick sort is the interview favorite — learn it well. Merge sort is the "safe" choice. Heap sort wins on space. Insertion sort wins on tiny/nearly-sorted data.
+**Key trade-off:** Quick sort is the interview favorite; learn it well. Merge sort is the "safe" choice. Heap sort wins on space. Insertion sort wins on tiny/nearly-sorted data.
 
 **Interview tip:** Always ask about constraints before choosing. "Is the data nearly sorted? Do we need stability? What's the input size?"`,
     },
