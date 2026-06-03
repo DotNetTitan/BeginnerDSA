@@ -4,6 +4,7 @@ import type { TheorySection as TheorySectionType } from '@/lib/types';
 import { useLanguage } from '@/lib/language-context';
 import ComplexityTable from './ComplexityTable';
 import CodeRenderer from '@/components/editor/CodeRenderer';
+import DynamicSectionComponent from './DynamicSectionComponent';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
@@ -57,6 +58,8 @@ export default function TheorySection({ section }: { section: TheorySectionType 
       </div>
 
       {section.table && <ComplexityTable data={section.table} />}
+
+      {section.component && <div className="mb-6"><DynamicSectionComponent name={section.component} /></div>}
 
       {section.codeExamples?.map((ex, i) => {
         const code = ex.code[language] ?? ex.code['csharp'];
