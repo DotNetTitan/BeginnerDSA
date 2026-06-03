@@ -195,10 +195,12 @@ export default function TopicGrid() {
                   <p className="font-semibold text-sm">Start with Big O & Complexity</p>
                 </div>
               </div>
-              <Button size="sm" onClick={(e) => { e.stopPropagation(); router.push('/learn/big-o'); }}>
-                <BookOpen className="h-4 w-4 mr-1" />
-                Start Learning
-              </Button>
+              <div className="w-full sm:w-auto flex justify-center sm:justify-end">
+                <Button size="sm" onClick={(e) => { e.stopPropagation(); router.push('/learn/big-o'); }}>
+                  <BookOpen className="h-4 w-4 mr-1" />
+                  Start Learning
+                </Button>
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -232,7 +234,7 @@ export default function TopicGrid() {
                   <p className="font-semibold text-sm">{nextTopic.title}</p>
                 </div>
               </div>
-              <div className="flex gap-2">
+              <div className="w-full sm:w-auto flex justify-center sm:justify-end gap-2">
                 {isNextReadyForExam ? (
                   <Button size="sm" onClick={(e) => { e.stopPropagation(); router.push(`/exam/${nextTopic.id}`); }}>
                     <GraduationCap className="h-4 w-4 mr-1" />
