@@ -12,6 +12,7 @@ export const topic: Topic = {
     {
       id: 'tree-basics',
       title: 'Tree Basics',
+      component: 'tree-traversal-viz',
       content: `A tree is a hierarchical structure with a **root** node and **children** nodes. Each node has a **value** and pointers to its children.
 
 **Binary Tree:** Each node has at most 2 children (left and right).
