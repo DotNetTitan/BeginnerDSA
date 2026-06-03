@@ -12,7 +12,7 @@ export const topic: Topic = {
     {
       id: 'linear-search',
       title: 'Linear Search',
-      content: `Linear search checks every element one by one until the target is found. It's the simplest search — no preprocessing needed, works on **any** data.
+      content: `Linear search checks every element one by one until the target is found. It's the simplest search - no preprocessing needed, works on **any** data.
 
 | | Linear Search |
 |---|---|
@@ -101,7 +101,7 @@ std::vector<int> findAll(const std::vector<int>& arr, int target) {
       title: 'Binary Search',
       content: `Binary search finds an element in a **sorted** array by repeatedly dividing the search range in half. Each step eliminates half the remaining elements.
 
-**Key requirement:** The array must be sorted. If you need to search only once, sorting just to use binary search may not be worth it — linear search might be faster.
+**Key requirement:** The array must be sorted. If you need to search only once, sorting just to use binary search may not be worth it - linear search might be faster.
 
 **Binary search variants:**
 - Standard: find exact target
