@@ -7,7 +7,7 @@ import { Analytics } from "@vercel/analytics/next";
 export const metadata: Metadata = {
   title: "Zero To DSA",
   description: "Learn DSA from zero. Structured modules and coding challenges for absolute beginners.",
-  metadataBase: new URL("https://zerotodsa.online"),
+  metadataBase: new URL("https://zerotodsa.com"),
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "48x48" },
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Zero To DSA",
     description: "Structured modules and coding challenges with support for Python, Java, C++, JavaScript, and C#.",
-    url: "https://zerotodsa.online",
+    url: "https://zerotodsa.com",
     siteName: "Zero To DSA",
     type: "website",
     images: [{ url: "/logo.png", width: 512, height: 512 }],

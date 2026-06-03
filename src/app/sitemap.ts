@@ -3,7 +3,7 @@ import { topics } from "@/lib/topics";
 import { getAllProblems } from "@/lib/problems";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://zerotodsa.online";
+  const base = "https://zerotodsa.com";
 
   const staticPages: MetadataRoute.Sitemap = [
     { url: base, changeFrequency: "monthly", priority: 1 },
