@@ -12,6 +12,7 @@ export const topic: Topic = {
     {
       id: 'recursion-basics',
       title: 'Recursion Basics',
+      component: 'recursion-viz',
       content: `A recursive function calls itself with a **smaller or simpler input** until it reaches a **base case** (the simplest possible input).
 
 Every recursive function needs:
