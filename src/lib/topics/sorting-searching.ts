@@ -275,379 +275,6 @@ int upperBound(const std::vector<int>& arr, int target) {
       ],
     },
     {
-      id: 'search-algorithms',
-      title: 'Search Algorithms Comparison',
-      content: `| Algorithm | Time Complexity | Space | Requires Sorted? | Best For |
-|---|---|---|---|---|
-| **Linear Search** | O(n) | O(1) | No | Small/unsorted arrays |
-| **Binary Search** | O(log n) | O(1) | Yes | Large sorted arrays |
-| **Binary Search on Answer** | O(log range) | O(1) | "Yes" on predicate | Optimization problems |
-| **DFS/BFS** | O(V + E) | O(V) | No | Graph/tree searches |
-
-**When to use what:**
-- **Unsorted & small** → Linear Search (no preprocessing cost)
-- **Sorted & static** → Binary Search (fastest)
-- **Need O(1) lookup** → Hash Map (separate topic)
-- **Searching in a range of values** → Binary Search on Answer (e.g., "minimum capacity to ship within D days")
-- **Searching relationships** → DFS or BFS (graph module)
-
-Binary search is the most commonly tested in interviews, but knowing *when* linear search is actually the right choice (small n, unsorted data) is just as important.`,
-    },
-    {
-      id: 'sorting-algorithms',
-      title: 'Sorting Algorithms',
-      content: `| Algorithm | Average Time | Worst Time | Space | Stable |
-|---|---|---|---|---|
-| Bubble Sort | O(n²) | O(n²) | O(1) | Yes |
-| Selection Sort | O(n²) | O(n²) | O(1) | No |
-| Insertion Sort | O(n²) | O(n²) | O(1) | Yes |
-| Merge Sort | O(n log n) | O(n log n) | O(n) | Yes |
-| Quick Sort | O(n log n) | O(n²) | O(log n) | No |
-| Heap Sort | O(n log n) | O(n log n) | O(1) | No |
-
-Most languages have a built-in sort that uses **introsort** (quick sort + heap sort fallback) for primitive types and a stable sort for reference types. The sections below cover the key algorithms you need to know for interviews.`,
-    },
-    {
-      id: 'bubble-sort',
-      title: 'Bubble Sort',
-      content: `Bubble sort repeatedly steps through the array, **swapping adjacent elements** if they're in the wrong order. Larger elements "bubble up" to their correct position with each pass.
-
-**Why learn it:** It's the simplest sort to understand and teaches the concept of swapping. **Why NOT to use it:** O(n²) makes it impractical for real data. You'll rarely be asked to implement it, but it tests whether you understand basic sorting mechanics.
-
-| Operation | Count |
-|---|---|
-| Passes | n-1 |
-| Comparisons per pass | n-1, n-2, ..., 1 |
-| Total comparisons | n(n-1)/2 ≈ O(n²) |`,
-      codeExamples: [
-        {
-          title: 'Bubble sort implementation',
-          code: {
-            csharp: `void BubbleSort(int[] arr) {
-    int n = arr.Length;
-    for (int i = 0; i < n - 1; i++) {
-        bool swapped = false;
-        for (int j = 0; j < n - i - 1; j++) {
-            if (arr[j] > arr[j + 1]) {
-                (arr[j], arr[j + 1]) = (arr[j + 1], arr[j]);
-                swapped = true;
-            }
-        }
-        if (!swapped) break; // optimization: already sorted
-    }
-}`,
-            python: `def bubble_sort(arr):
-    n = len(arr)
-    for i in range(n - 1):
-        swapped = False
-        for j in range(n - i - 1):
-            if arr[j] > arr[j + 1]:
-                arr[j], arr[j + 1] = arr[j + 1], arr[j]
-                swapped = True
-        if not swapped:  # optimization: already sorted
-            break`,
-            java: `public void bubbleSort(int[] arr) {
-    int n = arr.length;
-    for (int i = 0; i < n - 1; i++) {
-        boolean swapped = false;
-        for (int j = 0; j < n - i - 1; j++) {
-            if (arr[j] > arr[j + 1]) {
-                int tmp = arr[j]; arr[j] = arr[j + 1]; arr[j + 1] = tmp;
-                swapped = true;
-            }
-        }
-        if (!swapped) break; // optimization: already sorted
-    }
-}`,
-            javascript: `function bubbleSort(arr) {
-    const n = arr.length;
-    for (let i = 0; i < n - 1; i++) {
-        let swapped = false;
-        for (let j = 0; j < n - i - 1; j++) {
-            if (arr[j] > arr[j + 1]) {
-                [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
-                swapped = true;
-            }
-        }
-        if (!swapped) break; // optimization: already sorted
-    }
-}`,
-            cpp: `void bubbleSort(std::vector<int>& arr) {
-    int n = arr.size();
-    for (int i = 0; i < n - 1; i++) {
-        bool swapped = false;
-        for (int j = 0; j < n - i - 1; j++) {
-            if (arr[j] > arr[j + 1]) {
-                std::swap(arr[j], arr[j + 1]);
-                swapped = true;
-            }
-        }
-        if (!swapped) break; // optimization: already sorted
-    }
-}`,
-          },
-        },
-      ],
-    },
-    {
-      id: 'bubble-sort-viz',
-      title: 'Interactive Demo',
-      content: `Use the controls below to watch bubble sort in action. Each pass "bubbles" the largest unsorted element to its correct position.`,
-      component: 'bubble-sort-viz',
-      vizLabel: 'Given an unsorted array, arrange the numbers in ascending order by repeatedly swapping adjacent elements that are out of order.',
-    },
-    {
-      id: 'quick-sort',
-      title: 'Quick Sort',
-      content: `Quick sort picks a **pivot**, partitions the array so all elements ≤ pivot come before it, then recursively sorts each side.
-
-Key advantage over merge sort: **in-place** sorting (O(log n) stack space vs O(n) space). Trade-off: worst-case O(n²) when pivot selection is poor (e.g., already sorted array with pivot at end).
-
-Quick sort is the most commonly asked sorting implementation in interviews.`,
-      codeExamples: [
-        {
-          title: 'Quick sort with Lomuto partition',
-          code: {
-            csharp: `void QuickSort(int[] arr, int left, int right) {
-    if (left >= right) return;
-    int pivot = Partition(arr, left, right);
-    QuickSort(arr, left, pivot - 1);
-    QuickSort(arr, pivot + 1, right);
-}
-
-int Partition(int[] arr, int left, int right) {
-    int pivot = arr[right];
-    int i = left - 1;
-    for (int j = left; j < right; j++) {
-        if (arr[j] <= pivot) {
-            i++;
-            (arr[i], arr[j]) = (arr[j], arr[i]);
-        }
-    }
-    (arr[i + 1], arr[right]) = (arr[right], arr[i + 1]);
-    return i + 1;
-}`,
-            python: `def quick_sort(arr, left, right):
-    if left >= right:
-        return
-    pivot = partition(arr, left, right)
-    quick_sort(arr, left, pivot - 1)
-    quick_sort(arr, pivot + 1, right)
-
-def partition(arr, left, right):
-    pivot = arr[right]
-    i = left - 1
-    for j in range(left, right):
-        if arr[j] <= pivot:
-            i += 1
-            arr[i], arr[j] = arr[j], arr[i]
-    arr[i + 1], arr[right] = arr[right], arr[i + 1]
-    return i + 1`,
-            java: `public void quickSort(int[] arr, int left, int right) {
-    if (left >= right) return;
-    int pivot = partition(arr, left, right);
-    quickSort(arr, left, pivot - 1);
-    quickSort(arr, pivot + 1, right);
-}
-
-public int partition(int[] arr, int left, int right) {
-    int pivot = arr[right];
-    int i = left - 1;
-    for (int j = left; j < right; j++) {
-        if (arr[j] <= pivot) {
-            i++;
-            int tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
-        }
-    }
-    int tmp = arr[i + 1]; arr[i + 1] = arr[right]; arr[right] = tmp;
-    return i + 1;
-}`,
-            javascript: `const quickSort = (arr, left = 0, right = arr.length - 1) => {
-    if (left >= right) return;
-    const pivot = partition(arr, left, right);
-    quickSort(arr, left, pivot - 1);
-    quickSort(arr, pivot + 1, right);
-};
-
-const partition = (arr, left, right) => {
-    const pivot = arr[right];
-    let i = left - 1;
-    for (let j = left; j < right; j++) {
-        if (arr[j] <= pivot) {
-            i++;
-            [arr[i], arr[j]] = [arr[j], arr[i]];
-        }
-    }
-    [arr[i + 1], arr[right]] = [arr[right], arr[i + 1]];
-    return i + 1;
-};`,
-            cpp: `void quickSort(std::vector<int>& arr, int left, int right) {
-    if (left >= right) return;
-    int pivot = partition(arr, left, right);
-    quickSort(arr, left, pivot - 1);
-    quickSort(arr, pivot + 1, right);
-}
-
-int partition(std::vector<int>& arr, int left, int right) {
-    int pivot = arr[right];
-    int i = left - 1;
-    for (int j = left; j < right; j++) {
-        if (arr[j] <= pivot) {
-            i++;
-            std::swap(arr[i], arr[j]);
-        }
-    }
-    std::swap(arr[i + 1], arr[right]);
-    return i + 1;
-}`,
-          },
-        },
-      ],
-    },
-    {
-      id: 'quick-sort-viz',
-      title: 'Interactive Demo',
-      content: `Watch quick sort in action. The **pivot** (purple) is selected, elements are partitioned around it, and the process repeats recursively on each side.`,
-      component: 'quick-sort-viz',
-      vizLabel: 'Given an unsorted array, arrange the numbers in ascending order by selecting a pivot, partitioning around it, and recursing on both sides.',
-    },
-    {
-      id: 'merge-sort',
-      title: 'Merge Sort',
-      content: `Merge sort is a **divide and conquer** algorithm that splits the array in half, recursively sorts each half, then merges the sorted halves. It's **stable** and guarantees O(n log n) in all cases.
-
-Key advantage over quick sort: predictable O(n log n) worst-case performance. Trade-off: requires O(n) extra space.`,
-      codeExamples: [
-        {
-          title: 'Merge sort implementation',
-          code: {
-            csharp: `// Merge sort - O(n log n) time, O(n) space
-int[] MergeSort(int[] arr) {
-    if (arr.Length <= 1) return arr;
-
-    int mid = arr.Length / 2;
-    var left = MergeSort(arr[..mid]);
-    var right = MergeSort(arr[mid..]);
-
-    return Merge(left, right);
-}
-
-int[] Merge(int[] left, int[] right) {
-    var result = new int[left.Length + right.Length];
-    int i = 0, j = 0, k = 0;
-
-    while (i < left.Length && j < right.Length)
-        result[k++] = left[i] <= right[j] ? left[i++] : right[j++];
-
-    while (i < left.Length) result[k++] = left[i++];
-    while (j < right.Length) result[k++] = right[j++];
-
-    return result;
-}`,
-            python: `# Merge sort - O(n log n) time, O(n) space
-def merge_sort(arr):
-    if len(arr) <= 1:
-        return arr
-
-    mid = len(arr) // 2
-    left = merge_sort(arr[:mid])
-    right = merge_sort(arr[mid:])
-
-    return merge(left, right)
-
-def merge(left, right):
-    result = []
-    i = j = 0
-
-    while i < len(left) and j < len(right):
-        if left[i] <= right[j]:
-            result.append(left[i])
-            i += 1
-        else:
-            result.append(right[j])
-            j += 1
-
-    result.extend(left[i:])
-    result.extend(right[j:])
-    return result`,
-            java: `public int[] mergeSort(int[] arr) {
-    if (arr.length <= 1) return arr;
-
-    int mid = arr.length / 2;
-    int[] left = mergeSort(Arrays.copyOfRange(arr, 0, mid));
-    int[] right = mergeSort(Arrays.copyOfRange(arr, mid, arr.length));
-
-    return merge(left, right);
-}
-
-public int[] merge(int[] left, int[] right) {
-    int[] result = new int[left.length + right.length];
-    int i = 0, j = 0, k = 0;
-
-    while (i < left.length && j < right.length)
-        result[k++] = left[i] <= right[j] ? left[i++] : right[j++];
-
-    while (i < left.length) result[k++] = left[i++];
-    while (j < right.length) result[k++] = right[j++];
-
-    return result;
-}`,
-            javascript: `const mergeSort = (arr) => {
-    if (arr.length <= 1) return arr;
-
-    const mid = Math.floor(arr.length / 2);
-    const left = mergeSort(arr.slice(0, mid));
-    const right = mergeSort(arr.slice(mid));
-
-    return merge(left, right);
-};
-
-const merge = (left, right) => {
-    const result = [];
-    let i = 0, j = 0;
-
-    while (i < left.length && j < right.length)
-        result.push(left[i] <= right[j] ? left[i++] : right[j++]);
-
-    result.push(...left.slice(i));
-    result.push(...right.slice(j));
-
-    return result;
-};`,
-            cpp: `std::vector<int> mergeSort(const std::vector<int>& arr) {
-    if (arr.size() <= 1) return arr;
-
-    int mid = arr.size() / 2;
-    auto left = mergeSort(std::vector<int>(arr.begin(), arr.begin() + mid));
-    auto right = mergeSort(std::vector<int>(arr.begin() + mid, arr.end()));
-
-    return merge(left, right);
-}
-
-std::vector<int> merge(const std::vector<int>& left, const std::vector<int>& right) {
-    std::vector<int> result;
-    int i = 0, j = 0;
-
-    while (i < left.size() && j < right.size())
-        result.push_back(left[i] <= right[j] ? left[i++] : right[j++]);
-
-    result.insert(result.end(), left.begin() + i, left.end());
-    result.insert(result.end(), right.begin() + j, right.end());
-
-    return result;
-}`,
-          },
-        },
-      ],
-    },
-    {
-      id: 'merge-sort-viz',
-      title: 'Interactive Demo',
-      content: `Watch merge sort in action. The array is recursively split into halves until single elements remain, then merged back together in sorted order.`,
-      component: 'merge-sort-viz',
-      vizLabel: 'Given an unsorted array, arrange the numbers in ascending order by repeatedly splitting in half, sorting each half, then merging the sorted halves.',
-    },
-    {
       id: 'binary-search-rotated',
       title: 'Binary Search on Rotated Array',
       content: `A **rotated sorted array** is a sorted array that has been shifted. Example: [4, 5, 6, 7, 0, 1, 2].
@@ -834,6 +461,370 @@ int findMin(const std::vector<int>& arr) {
             right = mid;     // min is in left half (including mid)
     }
     return arr[left];
+}`,
+          },
+        },
+      ],
+    },
+    {
+      id: 'search-algorithms',
+      title: 'Search Algorithms Comparison',
+      content: `| Algorithm | Time Complexity | Space | Requires Sorted? | Best For |
+|---|---|---|---|---|
+| **Linear Search** | O(n) | O(1) | No | Small/unsorted arrays |
+| **Binary Search** | O(log n) | O(1) | Yes | Large sorted arrays |
+| **Binary Search on Answer** | O(log range) | O(1) | "Yes" on predicate | Optimization problems |
+| **DFS/BFS** | O(V + E) | O(V) | No | Graph/tree searches |
+
+**When to use what:**
+- **Unsorted & small** → Linear Search (no preprocessing cost)
+- **Sorted & static** → Binary Search (fastest)
+- **Need O(1) lookup** → Hash Map (separate topic)
+- **Searching in a range of values** → Binary Search on Answer (e.g., "minimum capacity to ship within D days")
+- **Searching relationships** → DFS or BFS (graph module)
+
+Binary search is the most commonly tested in interviews, but knowing *when* linear search is actually the right choice (small n, unsorted data) is just as important.`,
+    },
+    {
+      id: 'sorting-algorithms',
+      title: 'Sorting Algorithms',
+      content: `| Algorithm | Average Time | Worst Time | Space | Stable |
+|---|---|---|---|---|
+| Bubble Sort | O(n²) | O(n²) | O(1) | Yes |
+| Selection Sort | O(n²) | O(n²) | O(1) | No |
+| Insertion Sort | O(n²) | O(n²) | O(1) | Yes |
+| Merge Sort | O(n log n) | O(n log n) | O(n) | Yes |
+| Quick Sort | O(n log n) | O(n²) | O(log n) | No |
+| Heap Sort | O(n log n) | O(n log n) | O(1) | No |
+
+Most languages have a built-in sort that uses **introsort** (quick sort + heap sort fallback) for primitive types and a stable sort for reference types. The sections below cover the key algorithms you need to know for interviews.`,
+    },
+    {
+      id: 'bubble-sort',
+      title: 'Bubble Sort',
+      content: `Bubble sort repeatedly steps through the array, **swapping adjacent elements** if they're in the wrong order. Larger elements "bubble up" to their correct position with each pass.
+
+**Why learn it:** It's the simplest sort to understand and teaches the concept of swapping. **Why NOT to use it:** O(n²) makes it impractical for real data. You'll rarely be asked to implement it, but it tests whether you understand basic sorting mechanics.
+
+| Operation | Count |
+|---|---|
+| Passes | n-1 |
+| Comparisons per pass | n-1, n-2, ..., 1 |
+| Total comparisons | n(n-1)/2 ≈ O(n²) |
+
+Use the interactive demo below to watch each pass bubble the largest unsorted element to its correct position.`,
+      component: 'bubble-sort-viz',
+      vizLabel: 'Given an unsorted array, arrange the numbers in ascending order by repeatedly swapping adjacent elements that are out of order.',
+      codeExamples: [
+        {
+          title: 'Bubble sort implementation',
+          code: {
+            csharp: `void BubbleSort(int[] arr) {
+    int n = arr.Length;
+    for (int i = 0; i < n - 1; i++) {
+        bool swapped = false;
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                (arr[j], arr[j + 1]) = (arr[j + 1], arr[j]);
+                swapped = true;
+            }
+        }
+        if (!swapped) break; // optimization: already sorted
+    }
+}`,
+            python: `def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n - 1):
+        swapped = False
+        for j in range(n - i - 1):
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+                swapped = True
+        if not swapped:  # optimization: already sorted
+            break`,
+            java: `public void bubbleSort(int[] arr) {
+    int n = arr.length;
+    for (int i = 0; i < n - 1; i++) {
+        boolean swapped = false;
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                int tmp = arr[j]; arr[j] = arr[j + 1]; arr[j + 1] = tmp;
+                swapped = true;
+            }
+        }
+        if (!swapped) break; // optimization: already sorted
+    }
+}`,
+            javascript: `function bubbleSort(arr) {
+    const n = arr.length;
+    for (let i = 0; i < n - 1; i++) {
+        let swapped = false;
+        for (let j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+                swapped = true;
+            }
+        }
+        if (!swapped) break; // optimization: already sorted
+    }
+}`,
+            cpp: `void bubbleSort(std::vector<int>& arr) {
+    int n = arr.size();
+    for (int i = 0; i < n - 1; i++) {
+        bool swapped = false;
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                std::swap(arr[j], arr[j + 1]);
+                swapped = true;
+            }
+        }
+        if (!swapped) break; // optimization: already sorted
+    }
+}`,
+          },
+        },
+      ],
+    },
+    {
+      id: 'quick-sort',
+      title: 'Quick Sort',
+      content: `Quick sort picks a **pivot**, partitions the array so all elements ≤ pivot come before it, then recursively sorts each side.
+
+Key advantage over merge sort: **in-place** sorting (O(log n) stack space vs O(n) space). Trade-off: worst-case O(n²) when pivot selection is poor (e.g., already sorted array with pivot at end).
+
+Quick sort is the most commonly asked sorting implementation in interviews.
+
+Use the interactive demo below to watch the pivot selection, partitioning, and recursive sorting.`,
+      component: 'quick-sort-viz',
+      vizLabel: 'Given an unsorted array, arrange the numbers in ascending order by selecting a pivot, partitioning around it, and recursing on both sides.',
+      codeExamples: [
+        {
+          title: 'Quick sort with Lomuto partition',
+          code: {
+            csharp: `void QuickSort(int[] arr, int left, int right) {
+    if (left >= right) return;
+    int pivot = Partition(arr, left, right);
+    QuickSort(arr, left, pivot - 1);
+    QuickSort(arr, pivot + 1, right);
+}
+
+int Partition(int[] arr, int left, int right) {
+    int pivot = arr[right];
+    int i = left - 1;
+    for (int j = left; j < right; j++) {
+        if (arr[j] <= pivot) {
+            i++;
+            (arr[i], arr[j]) = (arr[j], arr[i]);
+        }
+    }
+    (arr[i + 1], arr[right]) = (arr[right], arr[i + 1]);
+    return i + 1;
+}`,
+            python: `def quick_sort(arr, left, right):
+    if left >= right:
+        return
+    pivot = partition(arr, left, right)
+    quick_sort(arr, left, pivot - 1)
+    quick_sort(arr, pivot + 1, right)
+
+def partition(arr, left, right):
+    pivot = arr[right]
+    i = left - 1
+    for j in range(left, right):
+        if arr[j] <= pivot:
+            i += 1
+            arr[i], arr[j] = arr[j], arr[i]
+    arr[i + 1], arr[right] = arr[right], arr[i + 1]
+    return i + 1`,
+            java: `public void quickSort(int[] arr, int left, int right) {
+    if (left >= right) return;
+    int pivot = partition(arr, left, right);
+    quickSort(arr, left, pivot - 1);
+    quickSort(arr, pivot + 1, right);
+}
+
+public int partition(int[] arr, int left, int right) {
+    int pivot = arr[right];
+    int i = left - 1;
+    for (int j = left; j < right; j++) {
+        if (arr[j] <= pivot) {
+            i++;
+            int tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+        }
+    }
+    int tmp = arr[i + 1]; arr[i + 1] = arr[right]; arr[right] = tmp;
+    return i + 1;
+}`,
+            javascript: `const quickSort = (arr, left = 0, right = arr.length - 1) => {
+    if (left >= right) return;
+    const pivot = partition(arr, left, right);
+    quickSort(arr, left, pivot - 1);
+    quickSort(arr, pivot + 1, right);
+};
+
+const partition = (arr, left, right) => {
+    const pivot = arr[right];
+    let i = left - 1;
+    for (let j = left; j < right; j++) {
+        if (arr[j] <= pivot) {
+            i++;
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+    }
+    [arr[i + 1], arr[right]] = [arr[right], arr[i + 1]];
+    return i + 1;
+};`,
+            cpp: `void quickSort(std::vector<int>& arr, int left, int right) {
+    if (left >= right) return;
+    int pivot = partition(arr, left, right);
+    quickSort(arr, left, pivot - 1);
+    quickSort(arr, pivot + 1, right);
+}
+
+int partition(std::vector<int>& arr, int left, int right) {
+    int pivot = arr[right];
+    int i = left - 1;
+    for (int j = left; j < right; j++) {
+        if (arr[j] <= pivot) {
+            i++;
+            std::swap(arr[i], arr[j]);
+        }
+    }
+    std::swap(arr[i + 1], arr[right]);
+    return i + 1;
+}`,
+          },
+        },
+      ],
+    },
+    {
+      id: 'merge-sort',
+      title: 'Merge Sort',
+      content: `Merge sort is a **divide and conquer** algorithm that splits the array in half, recursively sorts each half, then merges the sorted halves. It's **stable** and guarantees O(n log n) in all cases.
+
+Key advantage over quick sort: predictable O(n log n) worst-case performance. Trade-off: requires O(n) extra space.
+
+Use the interactive demo below to watch the recursive splitting and merging in action.`,
+      component: 'merge-sort-viz',
+      vizLabel: 'Given an unsorted array, arrange the numbers in ascending order by repeatedly splitting in half, sorting each half, then merging the sorted halves.',
+      codeExamples: [
+        {
+          title: 'Merge sort implementation',
+          code: {
+            csharp: `// Merge sort - O(n log n) time, O(n) space
+int[] MergeSort(int[] arr) {
+    if (arr.Length <= 1) return arr;
+
+    int mid = arr.Length / 2;
+    var left = MergeSort(arr[..mid]);
+    var right = MergeSort(arr[mid..]);
+
+    return Merge(left, right);
+}
+
+int[] Merge(int[] left, int[] right) {
+    var result = new int[left.Length + right.Length];
+    int i = 0, j = 0, k = 0;
+
+    while (i < left.Length && j < right.Length)
+        result[k++] = left[i] <= right[j] ? left[i++] : right[j++];
+
+    while (i < left.Length) result[k++] = left[i++];
+    while (j < right.Length) result[k++] = right[j++];
+
+    return result;
+}`,
+            python: `# Merge sort - O(n log n) time, O(n) space
+def merge_sort(arr):
+    if len(arr) <= 1:
+        return arr
+
+    mid = len(arr) // 2
+    left = merge_sort(arr[:mid])
+    right = merge_sort(arr[mid:])
+
+    return merge(left, right)
+
+def merge(left, right):
+    result = []
+    i = j = 0
+
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+
+    result.extend(left[i:])
+    result.extend(right[j:])
+    return result`,
+            java: `public int[] mergeSort(int[] arr) {
+    if (arr.length <= 1) return arr;
+
+    int mid = arr.length / 2;
+    int[] left = mergeSort(Arrays.copyOfRange(arr, 0, mid));
+    int[] right = mergeSort(Arrays.copyOfRange(arr, mid, arr.length));
+
+    return merge(left, right);
+}
+
+public int[] merge(int[] left, int[] right) {
+    int[] result = new int[left.length + right.length];
+    int i = 0, j = 0, k = 0;
+
+    while (i < left.length && j < right.length)
+        result[k++] = left[i] <= right[j] ? left[i++] : right[j++];
+
+    while (i < left.length) result[k++] = left[i++];
+    while (j < right.length) result[k++] = right[j++];
+
+    return result;
+}`,
+            javascript: `const mergeSort = (arr) => {
+    if (arr.length <= 1) return arr;
+
+    const mid = Math.floor(arr.length / 2);
+    const left = mergeSort(arr.slice(0, mid));
+    const right = mergeSort(arr.slice(mid));
+
+    return merge(left, right);
+};
+
+const merge = (left, right) => {
+    const result = [];
+    let i = 0, j = 0;
+
+    while (i < left.length && j < right.length)
+        result.push(left[i] <= right[j] ? left[i++] : right[j++]);
+
+    result.push(...left.slice(i));
+    result.push(...right.slice(j));
+
+    return result;
+};`,
+            cpp: `std::vector<int> mergeSort(const std::vector<int>& arr) {
+    if (arr.size() <= 1) return arr;
+
+    int mid = arr.size() / 2;
+    auto left = mergeSort(std::vector<int>(arr.begin(), arr.begin() + mid));
+    auto right = mergeSort(std::vector<int>(arr.begin() + mid, arr.end()));
+
+    return merge(left, right);
+}
+
+std::vector<int> merge(const std::vector<int>& left, const std::vector<int>& right) {
+    std::vector<int> result;
+    int i = 0, j = 0;
+
+    while (i < left.size() && j < right.size())
+        result.push_back(left[i] <= right[j] ? left[i++] : right[j++]);
+
+    result.insert(result.end(), left.begin() + i, left.end());
+    result.insert(result.end(), right.begin() + j, right.end());
+
+    return result;
 }`,
           },
         },
