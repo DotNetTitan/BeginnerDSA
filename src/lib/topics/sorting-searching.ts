@@ -500,6 +500,26 @@ Binary search is the most commonly tested in interviews, but knowing *when* line
 Most languages have a built-in sort that uses **introsort** (quick sort + heap sort fallback) for primitive types and a stable sort for reference types. The sections below cover the key algorithms you need to know for interviews.`,
     },
     {
+      id: 'when-to-sort',
+      title: 'When to Use Which Sort',
+      content: `Not all sorting algorithms are equal — the right choice depends on data size, structure, and requirements.
+
+| Decision | Best Choice | Why |
+|---|---|---|
+| **Small input (< 50 items)** | Insertion Sort (or built-in) | Simple, fast on small data, stable |
+| **General purpose, need speed** | Quick Sort | In-place, fast average case, built-in default |
+| **Need guaranteed O(n log n)** | Merge Sort or Heap Sort | No O(n²) worst case |
+| **Limited memory (O(1) space)** | Heap Sort | O(n log n) time, O(1) space |
+| **Need stable sort** | Merge Sort (or Insertion) | Preserves relative order of equal elements |
+| **Nearly sorted data** | Insertion Sort or Bubble Sort | O(n) on nearly-sorted, minimal swaps |
+| **Mostly sorted, online (streaming)** | Insertion Sort | Efficiently adds one element at a time |
+| **Don't care, just want it sorted** | Built-in sort (introsort) | Combines quick + heap + insertion, optimized |
+
+**Key trade-off:** Quick sort is the interview favorite — learn it well. Merge sort is the "safe" choice. Heap sort wins on space. Insertion sort wins on tiny/nearly-sorted data.
+
+**Interview tip:** Always ask about constraints before choosing. "Is the data nearly sorted? Do we need stability? What's the input size?"`,
+    },
+    {
       id: 'bubble-sort',
       title: 'Bubble Sort',
       content: `Bubble sort repeatedly steps through the array, **swapping adjacent elements** if they're in the wrong order. Larger elements "bubble up" to their correct position with each pass.

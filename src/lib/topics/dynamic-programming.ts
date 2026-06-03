@@ -572,6 +572,30 @@ int knapsack(const std::vector<int>& weights, const std::vector<int>& values, in
       ],
     },
     {
+      id: 'when-to-use-dp',
+      title: 'When to Use Dynamic Programming',
+      content: `DP is powerful but often overused. Here's a decision framework:
+
+| Signal | Use DP | Don't Use DP |
+|---|---|---|
+| Problem asks for **count** of ways | ✓ Strong DP signal | ✗ If greedy always works |
+| Problem asks for **max/min** under constraints | ✓ Likely DP | ✗ If greedy choice property holds |
+| Problem asks **"is it possible?"** | ✓ DP or BFS | ✗ If simple rule works |
+| Subproblems **overlap** | ✓ DP needed | ✗ Divide & conquer suffices |
+| Can make **local optimal choice** | ✗ Greedy probably works | ✓ Use greedy instead |
+| Subproblems don't overlap | ✗ DP won't help | ✓ Use divide & conquer |
+
+**Rule of thumb:** If you can state "the answer for input X depends on the answer for smaller inputs X₁, X₂, ..." and those smaller inputs are reused, it's DP.
+
+**When NOT to use DP:**
+- Greedy works (activity selection, Dijkstra's)
+- Simple formula exists (sum 1..n = n(n+1)/2)
+- Input is tiny (brute force is simpler)
+- Subproblems don't overlap (pure divide & conquer)
+
+**Interview red flag:** If you start memoizing every recursive function "just in case", you're probably over-engineering. Ask: "Do subproblems actually repeat?"`,
+    },
+    {
       id: 'mistakes',
       title: 'Common Mistakes / Gotchas',
       content: `**Wrong base case**
