@@ -293,6 +293,47 @@ int maxSumSubarray(const std::vector<int>& arr, int k) {
       ],
     },
     {
+      id: 'when-to-use-arrays',
+      title: 'When to Use Arrays',
+      content: `**Arrays are the right choice when:**
+- You need **O(1) access by index** (random access)
+- You process elements in **sequential order** (iterating once)
+- The **size is known ahead of time** (or bounded)
+- You need **contiguous memory** for cache-friendly access
+
+**Arrays are NOT the right choice when:**
+- You frequently **insert or delete at the beginning** (use linked list)
+- The **size changes unpredictably** and you can't pre-allocate (use dynamic array, still fine)
+- You need **fast membership lookup** (use a hash set)
+
+**Decision guide:**
+| Signal | Best choice |
+|---|---|
+| "Find element by position" | Array (O(1) index) |
+| "Frequent insert/remove at front" | Linked list |
+| "Check if something exists" | Hash set |
+| "Process in order, one pass" | Array |
+| "Pair elements by key" | Hash map (from arrays) |`,
+    },
+    {
+      id: 'mistakes',
+      title: 'Common Mistakes / Gotchas',
+      content: `**Off-by-one: forgetting arrays are 0-indexed**
+\`for (int i = 0; i <= arr.Length; i++)\` accesses arr[arr.Length] which is out of bounds.
+
+**Mutating an array while iterating over it**
+Removing elements during iteration messes up indices. Either iterate backward or build a new list.
+
+**String immutability in loops**
+\`s = s + c\` in a loop creates a new string each time - O(n²). Use StringBuilder / join / list append instead.
+
+**Confusing "length" with "last index"**
+If arr has length n, the last valid index is n-1, not n.
+
+**"Two-pointer only works on sorted arrays"**
+Two-pointer can also work on unsorted arrays for problems like "move zeros" or "remove duplicates in-place" using slow/fast pointers.`,
+    },
+    {
       id: 'common-patterns',
       title: 'Common Interview Patterns',
       content: `1. **Two Sum variant** - use a hash map for O(n) lookup

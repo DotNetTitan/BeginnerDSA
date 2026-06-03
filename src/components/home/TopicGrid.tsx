@@ -33,6 +33,7 @@ export default function TopicGrid() {
   const nextTopic = useMemo(() => getNextRecommendedTopic(progress, topics), [progress]);
   const allDone = useMemo(() => topics.every(t => statuses[t.id] === 'completed'), [statuses]);
   const isNextReadyForExam = nextTopic ? isReadyForExam(nextTopic, progress) : false;
+  const isFirstVisit = !Object.values(progress.topics).some(tp => tp.completed || tp.solvedProblems.length > 0);
 
   const difficultyColor = (d: string) => {
     switch (d) {
@@ -178,7 +179,30 @@ export default function TopicGrid() {
 
   return (
     <div className="space-y-8">
-      {allDone ? (
+      {isFirstVisit ? (
+        <Card
+          className="border-emerald-500/30 bg-emerald-50/50 dark:bg-emerald-950/20 cursor-pointer transition-all hover:scale-[1.02] hover:-translate-y-0.5 hover:ring-emerald-500/40"
+          onClick={() => router.push('/learn/big-o')}
+        >
+          <CardContent className="py-4 px-5">
+            <div className="flex items-center justify-between flex-wrap gap-3">
+              <div className="flex items-center gap-3">
+                <div className="h-10 w-10 rounded-full bg-emerald-100 dark:bg-emerald-900 flex items-center justify-center">
+                  <BookOpen className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+                </div>
+                <div>
+                  <p className="text-xs text-muted-foreground uppercase tracking-wider font-medium">Welcome to Zero To DSA</p>
+                  <p className="font-semibold text-sm">Start with Big O. It's the foundation for everything else.</p>
+                </div>
+              </div>
+              <Button size="sm" onClick={(e) => { e.stopPropagation(); router.push('/learn/big-o'); }}>
+                <BookOpen className="h-4 w-4 mr-1" />
+                Start Learning
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      ) : allDone ? (
         <Card className="border-emerald-500/30 bg-emerald-50/50 dark:bg-emerald-950/20">
           <CardContent className="py-4 px-5">
             <div className="flex items-center gap-3">
@@ -187,7 +211,7 @@ export default function TopicGrid() {
               </div>
               <div>
                 <p className="text-xs text-emerald-600 dark:text-emerald-400 uppercase tracking-wider font-semibold">All Modules Completed</p>
-                <p className="text-sm text-muted-foreground">Great work! You&apos;ve finished all 11 modules.</p>
+                <p className="text-sm text-muted-foreground">Great work! You&apos;ve finished all {topics.length} modules.</p>
               </div>
             </div>
           </CardContent>

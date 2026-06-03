@@ -118,19 +118,9 @@ set.count(2); // 1 (true) - O(1)`,
       ],
     },
     {
-      id: 'when-to-use',
-      title: 'When to Use HashMaps vs Sets',
-      content: `**Use Dictionary when:**
-- You need to associate values with keys (counts, indices, cached results)
-- You need to quickly look up data by a key
-
-**Use HashSet when:**
-- You only need to track presence/absence (deduplication)
-- You need fast membership testing
-
-**Use neither when:**
-- Order matters (use List or SortedDictionary)
-- You need range queries (use tree-based structures)`,
+      id: 'key-patterns',
+      title: 'Key Patterns',
+      content: `These three patterns cover the majority of hash map / hash set interview problems.`,
       codeExamples: [
         {
           title: 'Common patterns',
@@ -244,6 +234,39 @@ bool hasPairSum(const std::vector<int>& arr, int target) {
           },
         },
       ],
+    },
+    {
+      id: 'when-to-use',
+      title: 'When to Use HashMaps vs Sets',
+      content: `**Use Dictionary when:**
+- You need to associate values with keys (counts, indices, cached results)
+- You need to quickly look up data by a key
+
+**Use HashSet when:**
+- You only need to track presence/absence (deduplication)
+- You need fast membership testing
+
+**Use neither when:**
+- Order matters (use List or SortedDictionary)
+- You need range queries (use tree-based structures)`,
+    },
+    {
+      id: 'mistakes',
+      title: 'Common Mistakes / Gotchas',
+      content: `**Using mutable objects as keys**
+If you modify a key after inserting it, you can never look it up again. Strings, numbers, and tuples are safe. Lists and objects are not.
+
+**"O(1) lookup means it's always instant"**
+O(1) is the average case. Worst case (hash collisions) degrades to O(n). With a good hash function this is extremely rare.
+
+**Double lookup anti-pattern**
+\`if (map.ContainsKey(key)) return map[key]\` is TWO hash lookups. Use \`TryGetValue\` / \`get()\` with a default instead.
+
+**HashSet vs HashMap confusion**
+Use HashSet when you only need membership checks. Use HashMap when you need to associate values with keys (counts, indices, etc.).
+
+**Order is NOT guaranteed**
+Hash maps and hash sets have no defined iteration order. If order matters, use a LinkedHashMap or TreeMap.`,
     },
     {
       id: 'common-patterns',

@@ -12,7 +12,10 @@ export const topic: Topic = {
     {
       id: 'dp-basics',
       title: 'What is Dynamic Programming?',
-      content: `Dynamic Programming = **recursion + memoization**. Solve problems by breaking them into overlapping subproblems and caching results.
+      component: 'dp-viz',
+      content: `Dynamic Programming = **recursion + memoization**.
+
+Solve problems by breaking them into overlapping subproblems and caching results.
 
 **Two approaches:**
 1. **Top-down (memoization)** - recursive with cache
@@ -24,6 +27,7 @@ export const topic: Topic = {
 3. Subproblems **overlap** (not just divide & conquer)
 
 **DP is NOT needed when:** Subproblems don't overlap (use divide & conquer) or greedy works.`,
+      vizLabel: 'Climbing Stairs: how many distinct ways can you reach step n if you can climb 1 or 2 steps at a time?',
       codeExamples: [
         {
           title: 'Top-down vs bottom-up (Fibonacci)',
@@ -566,6 +570,51 @@ int knapsack(const std::vector<int>& weights, const std::vector<int>& values, in
           },
         },
       ],
+    },
+    {
+      id: 'when-to-use-dp',
+      title: 'When to Use Dynamic Programming',
+      content: `DP is powerful but often overused. Here's a decision framework:
+
+| Signal | Use DP | Don't Use DP |
+|---|---|---|
+| Problem asks for **count** of ways | ✓ Strong DP signal | ✗ If greedy always works |
+| Problem asks for **max/min** under constraints | ✓ Likely DP | ✗ If greedy choice property holds |
+| Problem asks **"is it possible?"** | ✓ DP or BFS | ✗ If simple rule works |
+| Subproblems **overlap** | ✓ DP needed | ✗ Divide & conquer suffices |
+| Can make **local optimal choice** | ✗ Greedy probably works | ✓ Use greedy instead |
+| Subproblems don't overlap | ✗ DP won't help | ✓ Use divide & conquer |
+
+**Rule of thumb:** If you can state "the answer for input X depends on the answer for smaller inputs X₁, X₂, ..." and those smaller inputs are reused, it's DP.
+
+**When NOT to use DP:**
+- Greedy works (activity selection, Dijkstra's)
+- Simple formula exists (sum 1..n = n(n+1)/2)
+- Input is tiny (brute force is simpler)
+- Subproblems don't overlap (pure divide & conquer)
+
+**Interview red flag:** If you start memoizing every recursive function "just in case", you're probably over-engineering. Ask: "Do subproblems actually repeat?"`,
+    },
+    {
+      id: 'mistakes',
+      title: 'Common Mistakes / Gotchas',
+      content: `**Wrong base case**
+A single off-by-one in the base case propagates to every computed value. Always test small inputs (n=0, n=1, n=2) before scaling up.
+
+**Wrong iteration order in bottom-up DP**
+If \`dp[i]\` depends on \`dp[i-1]\`, you iterate forward. If it depends on \`dp[i+1]\`, you iterate backward. Getting this wrong uses stale or uninitialized values.
+
+**Forgetting to pass the memo dictionary**
+In top-down DP, if you create a new memo on each recursive call, nothing is cached and you're back to exponential time. Pass the memo by reference.
+
+**"I can use DP for everything"**
+DP is only for problems with overlapping subproblems. If subproblems don't overlap (divide and conquer), DP adds unnecessary complexity. If greedy works, DP is overkill.
+
+**Confusing 0/1 knapsack with unbounded knapsack**
+In 0/1 knapsack, each item can be used at most once (iterate items outer loop, capacity inner loop). In unbounded knapsack, items can be reused (iterate capacity outer loop, coins inner loop). Swapping the loops gives wrong answers.
+
+**DP array size off-by-one**
+\`dp[n]\` for an n-element problem often needs size n+1 (dp[0] for empty/base case). Forgetting the extra slot causes index out of bounds.`,
     },
     {
       id: 'common-patterns',

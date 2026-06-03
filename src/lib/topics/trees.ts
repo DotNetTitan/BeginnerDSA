@@ -12,6 +12,7 @@ export const topic: Topic = {
     {
       id: 'tree-basics',
       title: 'Tree Basics',
+      component: 'tree-traversal-viz',
       content: `A tree is a hierarchical structure with a **root** node and **children** nodes. Each node has a **value** and pointers to its children.
 
 **Binary Tree:** Each node has at most 2 children (left and right).
@@ -23,6 +24,7 @@ export const topic: Topic = {
 | Insert | O(log n) | O(n) |
 | Delete | O(log n) | O(n) |
 | Traverse | O(n) | O(n) |`,
+      vizLabel: 'Visit every node of this binary search tree in a specific traversal order.',
       codeExamples: [
         {
           title: 'TreeNode class and traversals',
@@ -613,6 +615,66 @@ private:
           },
         },
       ],
+    },
+    {
+      id: 'when-to-use-trees',
+      title: 'When to Use Trees & Tries',
+      content: `**Trees are the right choice when:**
+- Data has a **hierarchical structure** (filesystem, DOM, org chart)
+- You need **fast search with ordering** (BST: O(log n) average)
+- You need **range queries** (BST: find all values between x and y)
+- Data naturally branches (decision trees, game trees)
+
+**Trees vs other structures:**
+| Structure | Use when |
+|---|---|
+| Array / List | Flat, ordered data with index access |
+| Hash map | Key-value lookup (no ordering needed) |
+| Tree | Hierarchical OR needs sorted order OR range queries |
+| Graph | No hierarchy, arbitrary connections |
+
+**When NOT to use a tree:**
+- Data is flat (just use an array)
+- You only need exact membership lookup (use a hash set)
+- The tree would be unbalanced (use a balanced tree library)
+
+**Trie vs Hash Set for strings:**
+| Criterion | Trie | Hash Set |
+|---|---|---|
+| Prefix search | O(m) - fast | O(n * L) - must scan all |
+| Memory | More (node overhead) | Less |
+| Exact membership | O(m) | O(1) average |
+| Use case | Autocomplete, spell check | Simple word lookup |
+
+**Decision guide:**
+| Signal | Structure |
+|---|---|
+| "Sorted order of keys" | BST |
+| "Find all values in range" | BST |
+| "Hierarchy / parent-child" | Tree |
+| "Autocomplete / prefix search" | Trie |
+| "Fast lookup, no order needed" | Hash set/map |
+| "Relationships between items" | Graph |`,
+    },
+    {
+      id: 'mistakes',
+      title: 'Common Mistakes / Gotchas',
+      content: `**BST validation: checking only immediate children**
+A common mistake: \`left.val < node.val < right.val\`. This is WRONG. ALL nodes in the left subtree must be < node.val. Example: root=5, left=3, left.right=6 would pass the naive check but violates BST (6 > 5). Use the min/max range approach.
+
+**Forgetting null checks on tree nodes**
+\`node.left\` and \`node.right\` can be null. Always check \`if (node == null) return\` before accessing children.
+
+**Recursion depth in skewed trees**
+A tree with n nodes can be n levels deep if it's skewed (basically a linked list). Recursive traversal uses O(n) stack space and risks overflow. Consider iterative traversal for worst-case trees.
+
+**Confusing tree, BST, and trie**
+- **Tree**: generic hierarchical structure (any order)
+- **BST**: ordered binary tree (left < node < right)
+- **Trie**: prefix tree for strings (each node = one character)
+
+**Trie: forgetting the end-of-word marker**
+Without \`isEnd\` flag, \`search("app")\` returns true even if only "apple" was inserted. The flag distinguishes prefix from complete word.`,
     },
     {
       id: 'common-patterns',

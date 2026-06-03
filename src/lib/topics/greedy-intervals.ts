@@ -393,8 +393,8 @@ int minMeetingRooms(std::vector<std::vector<int>>& intervals) {
       ],
     },
     {
-      id: 'greedy-patterns',
-      title: 'Key Greedy Patterns',
+      id: 'greedy-techniques',
+      title: 'Greedy Techniques in Practice',
       content: `**Pattern 1: "Can you reach the end?" (Jump Game)**
 At each position, track the furthest you can reach. If you ever pass that point, fail.
 
@@ -580,6 +580,53 @@ int jump(const std::vector<int>& nums) {
           },
         },
       ],
+    },
+    {
+      id: 'greedy-vs-dp',
+      title: 'Greedy vs Dynamic Programming',
+      content: `**Greedy works when a local best choice is always the global best choice.**
+
+**Greedy is the right tool when:**
+- The problem has the **greedy choice property** (what's best now is best overall)
+- Making a choice **doesn't limit** future options in a harmful way
+- The obvious "pick the extreme" works (earliest deadline, smallest weight)
+
+**Greedy FAILS when:**
+- You need to **explore multiple possibilities** before deciding (use DP)
+- Skipping a good local choice now could lead to a better result later
+- The problem asks for "count all ways" or "minimum cost with constraints"
+
+**Decision guide:**
+| Signal | Likely greedy? | Why |
+|---|---|---|
+| "Earliest finish time" | Yes | Classic interval scheduling |
+| "Minimum number of coins" | No (with arbitrary denominations) | Need DP |
+| "Can you reach the end?" | Yes | Jump Game (greedy) |
+| "Maximum profit with unlimited trades" | Yes | Stock II (greedy) |
+| "Maximum profit with cooldown" | No | Need DP |
+| "Minimum path sum" | No | Dijkstra is greedy, general path is DP |
+| "Schedule to maximize meetings" | Yes | Earliest finish time |
+| "Knapsack (0/1)" | No | Must consider all combinations (DP) |
+
+**Rule of thumb:** If you can prove that the optimal solution always includes the locally optimal choice, go greedy. If unsure, start with DP and optimize later.`,
+    },
+    {
+      id: 'mistakes',
+      title: 'Common Mistakes / Gotchas',
+      content: `**"Greedy always works" - it doesn't**
+Greedy only works when the greedy choice property holds. Classic counterexample: coin change with denominations [1, 3, 4] for target 6. Greedy picks 4+1+1 (3 coins), but optimal is 3+3 (2 coins). This needs DP.
+
+**Not proving the greedy choice before coding**
+Before writing greedy code, ask: "Can I prove that the locally optimal choice is always part of the globally optimal solution?" If not, consider DP.
+
+**Sorting by the wrong property**
+For interval scheduling, sort by **end time**. For merge intervals, sort by **start time**. Sorting by the wrong key gives wrong intervals.
+
+**Using greedy when DP is required**
+Problem signals that greedy likely won't work: "minimum cost with constraints", "all possible ways", "with exactly k items", "with a budget". These usually need DP or backtracking.
+
+**Forgetting to update the tracked value in greedy algorithms**
+In interval scheduling: after picking an interval, update the current end time. In Jump Game: after reaching the current end, update the next jump boundary. Stale tracking values cause wrong results.`,
     },
     {
       id: 'common-patterns',

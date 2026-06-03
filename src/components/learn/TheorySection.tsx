@@ -4,6 +4,8 @@ import type { TheorySection as TheorySectionType } from '@/lib/types';
 import { useLanguage } from '@/lib/language-context';
 import ComplexityTable from './ComplexityTable';
 import CodeRenderer from '@/components/editor/CodeRenderer';
+import DynamicSectionComponent from './DynamicSectionComponent';
+import { CheckCircle2, XCircle } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
@@ -49,7 +51,16 @@ export default function TheorySection({ section }: { section: TheorySectionType 
             ),
             thead: ({ children }) => <thead className="bg-muted/50">{children}</thead>,
             th: ({ children }) => <th className="px-3 py-2 text-left font-semibold text-xs">{children}</th>,
-            td: ({ children }) => <td className="px-3 py-2 border-t font-mono text-xs">{children}</td>,
+            td: ({ children }) => {
+              const text = typeof children === 'string' ? children : undefined;
+              if (text?.startsWith('✓ ')) {
+                return <td className="px-3 py-2 border-t text-xs"><span className="inline-flex items-center gap-1"><CheckCircle2 className="w-3.5 h-3.5 text-green-600" /><span className="font-mono">{text.slice(2)}</span></span></td>;
+              }
+              if (text?.startsWith('✗ ')) {
+                return <td className="px-3 py-2 border-t text-xs"><span className="inline-flex items-center gap-1"><XCircle className="w-3.5 h-3.5 text-red-600" /><span className="font-mono">{text.slice(2)}</span></span></td>;
+              }
+              return <td className="px-3 py-2 border-t font-mono text-xs">{children}</td>;
+            },
           }}
         >
           {section.content}
@@ -57,6 +68,18 @@ export default function TheorySection({ section }: { section: TheorySectionType 
       </div>
 
       {section.table && <ComplexityTable data={section.table} />}
+
+      {section.component && (
+        <div className="mb-6">
+          {section.vizLabel && (
+            <div className="mb-3 px-1">
+              <h3 className="text-xl font-semibold mb-1">Problem</h3>
+              <p className="text-sm text-muted-foreground">{section.vizLabel}</p>
+            </div>
+          )}
+          <DynamicSectionComponent name={section.component} />
+        </div>
+      )}
 
       {section.codeExamples?.map((ex, i) => {
         const code = ex.code[language] ?? ex.code['csharp'];
