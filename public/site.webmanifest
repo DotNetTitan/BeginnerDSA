@@ -1,6 +1,6 @@
 {
   "name": "Zero To DSA",
-  "short_name": "ZeroToDSA",
+  "short_name": "Zero To DSA",
   "description": "Learn DSA from zero. Structured modules and practice problems for absolute beginners.",
   "start_url": "/",
   "display": "standalone",
