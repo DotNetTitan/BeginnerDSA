@@ -5,7 +5,7 @@ export const topic: Topic = {
   title: 'Recursion & Backtracking',
   icon: 'RefreshCw',
   order: 6,
-  description: 'Problems that solve themselves: functions that call themselves. Essential for trees, graphs, and combinatorial search.',
+  description: 'Problems that solve themselves: functions that call themselves. Essential for combinatorial search and divide-and-conquer algorithms.',
   difficulty: 'intermediate',
   prerequisites: ['big-o', 'arrays-strings', 'stacks-queues'],
   theory: [
@@ -404,132 +404,72 @@ std::vector<std::vector<int>> permute(const std::vector<int>& nums) {
 2. **Conquer** each subproblem recursively
 3. **Combine** the results
 
-Examples: Merge sort, quick sort, binary search, tree traversals.`,
+Examples: Finding the maximum in an array, binary search, merge sort (covered in the Sorting module).`,
       codeExamples: [
         {
-          title: 'Merge sort - classic divide & conquer',
+          title: 'Sum of array - divide & conquer',
           code: {
-            csharp: `int[] MergeSort(int[] arr) {
-    if (arr.Length <= 1) return arr;
+            csharp: `int Sum(int[] arr, int left, int right) {
+    if (left == right)
+        return arr[left];              // base case
 
-    int mid = arr.Length / 2;
-    var left = MergeSort(arr[..mid]);     // divide
-    var right = MergeSort(arr[mid..]);    // divide
+    int mid = left + (right - left) / 2;
+    int leftSum = Sum(arr, left, mid);     // divide
+    int rightSum = Sum(arr, mid + 1, right); // divide
 
-    return Merge(left, right);            // combine
+    return leftSum + rightSum;             // combine
 }
+// Sum(arr, 0, arr.Length - 1) to start
+// O(n) time, O(log n) stack space`,
+            python: `def sum_arr(arr, left, right):
+    if left == right:
+        return arr[left]          # base case
 
-int[] Merge(int[] left, int[] right) {
-    var result = new int[left.Length + right.Length];
-    int i = 0, j = 0, k = 0;
+    mid = (left + right) // 2
+    left_sum = sum_arr(arr, left, mid)      # divide
+    right_sum = sum_arr(arr, mid + 1, right) # divide
 
-    while (i < left.Length && j < right.Length)
-        result[k++] = left[i] <= right[j] ? left[i++] : right[j++];
+    return left_sum + right_sum             # combine
+# sum_arr(arr, 0, len(arr) - 1) to start
+# O(n) time, O(log n) stack space`,
+            java: `public int sum(int[] arr, int left, int right) {
+    if (left == right)
+        return arr[left];                  // base case
 
-    while (i < left.Length) result[k++] = left[i++];
-    while (j < right.Length) result[k++] = right[j++];
+    int mid = left + (right - left) / 2;
+    int leftSum = sum(arr, left, mid);         // divide
+    int rightSum = sum(arr, mid + 1, right);   // divide
 
-    return result;
+    return leftSum + rightSum;                 // combine
 }
-// O(n log n) time, O(n) space`,
-            python: `def merge_sort(arr):
-    if len(arr) <= 1:
-        return arr
+// sum(arr, 0, arr.length - 1) to start
+// O(n) time, O(log n) stack space`,
+            javascript: `const sum = (arr, left, right) => {
+    if (left === right)
+        return arr[left];                // base case
 
-    mid = len(arr) // 2
-    left = merge_sort(arr[:mid])   # divide
-    right = merge_sort(arr[mid:])  # divide
+    const mid = Math.floor((left + right) / 2);
+    const leftSum = sum(arr, left, mid);      // divide
+    const rightSum = sum(arr, mid + 1, right); // divide
 
-    return merge(left, right)      # combine
-
-def merge(left, right):
-    result = []
-    i = j = 0
-
-    while i < len(left) and j < len(right):
-        if left[i] <= right[j]:
-            result.append(left[i])
-            i += 1
-        else:
-            result.append(right[j])
-            j += 1
-
-    result.extend(left[i:])
-    result.extend(right[j:])
-
-    return result
-# O(n log n) time, O(n) space`,
-            java: `public int[] mergeSort(int[] arr) {
-    if (arr.length <= 1) return arr;
-
-    int mid = arr.length / 2;
-    int[] left = mergeSort(Arrays.copyOfRange(arr, 0, mid));   // divide
-    int[] right = mergeSort(Arrays.copyOfRange(arr, mid, arr.length)); // divide
-
-    return merge(left, right); // combine
-}
-
-public int[] merge(int[] left, int[] right) {
-    int[] result = new int[left.length + right.length];
-    int i = 0, j = 0, k = 0;
-
-    while (i < left.length && j < right.length)
-        result[k++] = left[i] <= right[j] ? left[i++] : right[j++];
-
-    while (i < left.length) result[k++] = left[i++];
-    while (j < right.length) result[k++] = right[j++];
-
-    return result;
-}
-// O(n log n) time, O(n) space`,
-            javascript: `const mergeSort = (arr) => {
-    if (arr.length <= 1) return arr;
-
-    const mid = Math.floor(arr.length / 2);
-    const left = mergeSort(arr.slice(0, mid));   // divide
-    const right = mergeSort(arr.slice(mid));     // divide
-
-    return merge(left, right);                   // combine
+    return leftSum + rightSum;                // combine
 };
-
-const merge = (left, right) => {
-    const result = [];
-    let i = 0, j = 0;
-
-    while (i < left.length && j < right.length)
-        result.push(left[i] <= right[j] ? left[i++] : right[j++]);
-
-    result.push(...left.slice(i));
-    result.push(...right.slice(j));
-
-    return result;
-};
-// O(n log n) time, O(n) space`,
+// sum(arr, 0, arr.length - 1) to start
+// O(n) time, O(log n) stack space`,
           cpp: `#include <vector>
 
-std::vector<int> mergeSort(const std::vector<int>& arr) {
-    if (arr.size() <= 1) return arr;
+int sum(const std::vector<int>& arr, int left, int right) {
+    if (left == right)
+        return arr[left];                  // base case
 
-    int mid = arr.size() / 2;
-    auto left = mergeSort(std::vector<int>(arr.begin(), arr.begin() + mid));
-    auto right = mergeSort(std::vector<int>(arr.begin() + mid, arr.end()));
+    int mid = left + (right - left) / 2;
+    int leftSum = sum(arr, left, mid);         // divide
+    int rightSum = sum(arr, mid + 1, right);   // divide
 
-    return merge(left, right);
+    return leftSum + rightSum;                 // combine
 }
-
-std::vector<int> merge(const std::vector<int>& left, const std::vector<int>& right) {
-    std::vector<int> result;
-    int i = 0, j = 0;
-
-    while (i < left.size() && j < right.size())
-        result.push_back(left[i] <= right[j] ? left[i++] : right[j++]);
-
-    result.insert(result.end(), left.begin() + i, left.end());
-    result.insert(result.end(), right.begin() + j, right.end());
-
-    return result;
-}
-// O(n log n) time, O(n) space`,
+// sum(arr, 0, arr.size() - 1) to start
+// O(n) time, O(log n) stack space`,
           },
         },
       ],
@@ -538,8 +478,8 @@ std::vector<int> merge(const std::vector<int>& left, const std::vector<int>& rig
       id: 'when-to-use-recursion',
       title: 'Recursion vs Iteration',
       content: `**Recursion works best when:**
-- The problem has a **natural recursive structure** (trees, graphs, divide and conquer)
-- The input can be **defined recursively** (lists, trees, combinatorial search)
+- The problem has a **natural recursive structure** (nested data, divide and conquer)
+- The input can be **defined recursively** (lists, nested structures, combinatorial search)
 - The **backtracking pattern** fits (try choice, recurse, undo)
 - Code **clarity and brevity** matter more than performance
 
@@ -552,12 +492,12 @@ std::vector<int> merge(const std::vector<int>& left, const std::vector<int>& rig
 **Decision guide:**
 | Pattern | Use recursion? | Why |
 |---|---|---|
-| Tree traversal | Yes | Natural recursive structure |
+| Tree traversal (Tree module) | Yes | Natural recursive structure |
 | Array iteration | No | Simple loop is faster |
 | Permutations / subsets | Yes | Backtracking is naturally recursive |
 | Factorial / Fibonacci | Memoized recursion or iteration | Naive recursion is wasteful |
-| Divide & conquer (merge sort) | Yes | Divide + combine is recursive |
-| BFS / level order | No | Queue iteration is simpler |
+| Divide & conquer | Yes | Divide + combine is recursive |
+| Level-order processing | No | Queue iteration is simpler |
 
 **Warning signs for recursion:**
 - Depth could exceed 1000 (stack overflow)
@@ -577,7 +517,7 @@ std::vector<int> merge(const std::vector<int>& left, const std::vector<int>& rig
 
 **Modifying shared state during recursion:** If you pass a mutable list down recursive calls and mutate it, you need to undo (backtrack) or copy. Forgetting the undo step corrupts sibling branches.
 
-**Confusing recursion depth with problem size:** A recursive function on a balanced tree of n nodes has O(log n) depth, not O(n). Depth depends on structure, not total elements.`,
+**Confusing recursion depth with problem size:** A recursive function on a balanced binary structure of n elements can have O(log n) depth, not O(n). Depth depends on structure, not total elements.`,
     },
     {
       id: 'common-patterns',
@@ -586,8 +526,8 @@ std::vector<int> merge(const std::vector<int>& left, const std::vector<int>& rig
 2. **Permutations** - try each unused element at each position
 3. **Combination sum** - pick elements (with/without repetition) to reach target
 4. **Generate parentheses** - add open or close parenthesis, tracking counts
-5. **Tree traversal** - DFS is naturally recursive (preorder/inorder/postorder)
-6. **Divide & conquer** - merge sort, quick sort, maximum subarray`,
+5. **DFS traversal** - naturally recursive (used in trees and graphs, covered in their modules)
+6. **Divide & conquer** - split, solve recursively, combine (e.g., merge sort from Sorting module)`,
     },
   ],
   problemIds: ['subsets', 'permutations', 'combination-sum', 'generate-parentheses', 'n-queens'],

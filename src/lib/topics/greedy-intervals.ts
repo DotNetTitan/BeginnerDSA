@@ -19,15 +19,13 @@ export const topic: Topic = {
 - The **greedy choice property** holds (a locally optimal choice leads to a globally optimal solution)
 
 **When greedy fails:**
-- Problems where you need to look ahead (use DP instead)
+- Problems where you need to explore multiple possibilities before deciding
 - Knapsack (0/1), coin change (with arbitrary denominations)
 
 **Classic greedy problems:**
 - Activity selection / interval scheduling
-- Minimum spanning tree (Prim's, Kruskal's)
-- Huffman coding
-- Dijkstra's algorithm
-- Jump game`,
+- Jump game
+- Stock trading (unlimited transactions)`,
       codeExamples: [
         {
           title: 'Greedy vs non-greedy',
@@ -50,7 +48,7 @@ int MaxActivities(int[][] intervals) {
 
 // GREEDY FAILS: Coin change with denominations [1, 3, 4], target 6
 // Greedy: 4 + 1 + 1 = 3 coins
-// Optimal: 3 + 3 = 2 coins (needs DP)`,
+// Optimal: 3 + 3 = 2 coins (greedy fails here)`,
             python: `# GREEDY WORKS: Activity selection
 # Choose the activity with the earliest end time
 def max_activities(intervals):
@@ -67,7 +65,7 @@ def max_activities(intervals):
 
 # GREEDY FAILS: Coin change with denominations [1, 3, 4], target 6
 # Greedy: 4 + 1 + 1 = 3 coins
-# Optimal: 3 + 3 = 2 coins (needs DP)`,
+# Optimal: 3 + 3 = 2 coins (greedy fails here)`,
             java: `import java.util.*;
 
 // GREEDY WORKS: Activity selection
@@ -88,7 +86,7 @@ public int maxActivities(int[][] intervals) {
 
 // GREEDY FAILS: Coin change with denominations [1, 3, 4], target 6
 // Greedy: 4 + 1 + 1 = 3 coins
-// Optimal: 3 + 3 = 2 coins (needs DP)`,
+// Optimal: 3 + 3 = 2 coins (greedy fails here)`,
             javascript: `// GREEDY WORKS: Activity selection
 // Choose the activity with the earliest end time
 const maxActivities = (intervals) => {
@@ -107,7 +105,7 @@ const maxActivities = (intervals) => {
 
 // GREEDY FAILS: Coin change with denominations [1, 3, 4], target 6
 // Greedy: 4 + 1 + 1 = 3 coins
-// Optimal: 3 + 3 = 2 coins (needs DP)`,
+// Optimal: 3 + 3 = 2 coins (greedy fails here)`,
           cpp: `#include <vector>
 #include <algorithm>
 #include <iostream>
@@ -131,7 +129,7 @@ int maxActivities(std::vector<std::vector<int>>& intervals) {
 
 // GREEDY FAILS: Coin change with denominations [1, 3, 4], target 6
 // Greedy: 4 + 1 + 1 = 3 coins
-// Optimal: 3 + 3 = 2 coins (needs DP)`,
+// Optimal: 3 + 3 = 2 coins (greedy fails here)`,
           },
         },
       ],
@@ -578,8 +576,8 @@ int jump(const std::vector<int>& nums) {
       ],
     },
     {
-      id: 'greedy-vs-dp',
-      title: 'Greedy vs Dynamic Programming',
+      id: 'greedy-vs-exploration',
+      title: 'Greedy vs Exploring All Possibilities',
       content: `**Greedy works when a local best choice is always the global best choice.**
 
 **Greedy is the right tool when:**
@@ -588,7 +586,7 @@ int jump(const std::vector<int>& nums) {
 - The obvious "pick the extreme" works (earliest deadline, smallest weight)
 
 **Greedy FAILS when:**
-- You need to **explore multiple possibilities** before deciding (use DP)
+- You need to **explore multiple possibilities** before deciding
 - Skipping a good local choice now could lead to a better result later
 - The problem asks for "count all ways" or "minimum cost with constraints"
 
@@ -596,26 +594,26 @@ int jump(const std::vector<int>& nums) {
 | Signal | Likely greedy? | Why |
 |---|---|---|
 | "Earliest finish time" | Yes | Classic interval scheduling |
-| "Minimum number of coins" | No (with arbitrary denominations) | Need DP |
+| "Minimum number of coins" | No (with arbitrary denominations) | Must explore combinations |
 | "Can you reach the end?" | Yes | Jump Game (greedy) |
 | "Maximum profit with unlimited trades" | Yes | Stock II (greedy) |
-| "Maximum profit with cooldown" | No | Need DP |
-| "Minimum path sum" | No | Dijkstra is greedy, general path is DP |
+| "Maximum profit with cooldown" | No | Need to explore rest combinations |
+| "Minimum path sum" | No | Must compare different paths |
 | "Schedule to maximize meetings" | Yes | Earliest finish time |
-| "Knapsack (0/1)" | No | Must consider all combinations (DP) |
+| "Knapsack (0/1)" | No | Must consider all combinations |
 
-**Rule of thumb:** If you can prove that the optimal solution always includes the locally optimal choice, go greedy. If unsure, start with DP and optimize later.`,
+**Rule of thumb:** If you can prove that the optimal solution always includes the locally optimal choice, go greedy. If unsure, start by exploring all possibilities and optimize later.`,
     },
     {
       id: 'mistakes',
       title: 'Common Mistakes / Gotchas',
-      content: `**"Greedy always works" - it doesn't:** Greedy only works when the greedy choice property holds. Classic counterexample: coin change with denominations [1, 3, 4] for target 6. Greedy picks 4+1+1 (3 coins), but optimal is 3+3 (2 coins). This needs DP.
+      content: `**"Greedy always works" - it doesn't:** Greedy only works when the greedy choice property holds. Classic counterexample: coin change with denominations [1, 3, 4] for target 6. Greedy picks 4+1+1 (3 coins), but optimal is 3+3 (2 coins).
 
-**Not proving the greedy choice before coding:** Before writing greedy code, ask: "Can I prove that the locally optimal choice is always part of the globally optimal solution?" If not, consider DP.
+**Not proving the greedy choice before coding:** Before writing greedy code, ask: "Can I prove that the locally optimal choice is always part of the globally optimal solution?" If not, consider exploring all possibilities instead.
 
 **Sorting by the wrong property:** For interval scheduling, sort by **end time**. For merge intervals, sort by **start time**. Sorting by the wrong key gives wrong intervals.
 
-**Using greedy when DP is required:** Problem signals that greedy likely won't work: "minimum cost with constraints", "all possible ways", "with exactly k items", "with a budget". These usually need DP or backtracking.
+**Using greedy when exploration is required:** Problem signals that greedy likely won't work: "minimum cost with constraints", "all possible ways", "with exactly k items", "with a budget". These usually need backtracking or exploring all combinations.
 
 **Forgetting to update the tracked value in greedy algorithms:** In interval scheduling: after picking an interval, update the current end time. In Jump Game: after reaching the current end, update the next jump boundary. Stale tracking values cause wrong results.`,
     },
@@ -626,7 +624,7 @@ int jump(const std::vector<int>& nums) {
 2. **Merge intervals** - sort by start, merge overlapping
 3. **Insert interval** - linear scan, merge where needed
 4. **Jump Game** - greedy reachability or minimum jumps
-5. **Stock trading** - max profit (one transaction = greedy, multiple = DP)
+5. **Stock trading** - max profit (buy low, sell high greedily)
 6. **Minimum platforms / meeting rooms** - sweep line or two-pointer`,
     },
   ],

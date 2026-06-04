@@ -631,7 +631,7 @@ private:
 | Array / List | Flat, ordered data with index access |
 | Hash map | Key-value lookup (no ordering needed) |
 | Tree | Hierarchical OR needs sorted order OR range queries |
-| Graph | No hierarchy, arbitrary connections |
+| Graph (Module 10) | No hierarchy, arbitrary connections |
 
 **When NOT to use a tree:**
 - Data is flat (just use an array)
@@ -654,7 +654,7 @@ private:
 | "Hierarchy / parent-child" | Tree |
 | "Autocomplete / prefix search" | Trie |
 | "Fast lookup, no order needed" | Hash set/map |
-| "Relationships between items" | Graph |`,
+| "Relationships between items" | Graph (Module 10) |`,
     },
     {
       id: 'mistakes',

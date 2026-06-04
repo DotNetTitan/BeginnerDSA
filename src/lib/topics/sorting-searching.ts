@@ -474,14 +474,14 @@ int findMin(const std::vector<int>& arr) {
 | **Linear Search** | O(n) | O(1) | No | Small/unsorted |
 | **Binary Search** | O(log n) | O(1) | Yes | Large sorted |
 | **BS on Answer** | O(log range) | O(1) | Predicate | Optimization |
-| **DFS/BFS** | O(V + E) | O(V) | No | Graph/tree |
+| **DFS/BFS** | O(V + E) | O(V) | No | Graph/tree (Modules 8, 10) |
 
 **When to use what:**
 - **Unsorted & small** → Linear Search (no preprocessing cost)
 - **Sorted & static** → Binary Search (fastest)
-- **Need O(1) lookup** → Hash Map (separate topic)
+- **Need O(1) lookup** → Hash Map (Module 3)
 - **Searching in a range of values** → Binary Search on Answer (e.g., "minimum capacity to ship within D days")
-- **Searching relationships** → DFS or BFS (graph module)
+- **Searching relationships** → DFS or BFS (covered in Trees & Graphs modules)
 
 Binary search is the most commonly tested in interviews, but knowing *when* linear search is actually the right choice (small n, unsorted data) is just as important.`,
     },
