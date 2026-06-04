@@ -4,7 +4,7 @@ export const topic: Topic = {
   id: 'greedy-intervals',
   title: 'Greedy & Intervals',
   icon: 'Zap',
-  order: 8,
+  order: 9,
   description: 'Make the locally optimal choice at each step. Works when local optimal choices lead to a global optimum.',
   difficulty: 'intermediate',
   prerequisites: ['big-o', 'arrays-strings', 'sorting-searching'],

@@ -4,9 +4,9 @@ export const topic: Topic = {
   id: 'trees',
   title: 'Trees & Tries',
   icon: 'GitBranch',
-  order: 9,
+  order: 8,
   description: 'Hierarchical data structures. Master recursion on trees and prefix-based search with tries.',
-  difficulty: 'advanced',
+  difficulty: 'intermediate',
   prerequisites: ['big-o', 'arrays-strings', 'recursion'],
   theory: [
     {
