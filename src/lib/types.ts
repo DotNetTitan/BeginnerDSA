@@ -47,7 +47,7 @@ export interface Problem {
 
 export interface Example {
   input: string;
-  output: string;
+  output?: string;
   explanation?: string;
 }
 

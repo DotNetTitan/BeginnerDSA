@@ -853,23 +853,17 @@ std::vector<int> merge(const std::vector<int>& left, const std::vector<int>& rig
     {
       id: 'mistakes',
       title: 'Common Mistakes / Gotchas',
-      content: `**Binary search off-by-one: \`left < right\` vs \`left <= right\`**
-Use \`left <= right\` when searching for an exact value (standard binary search). Use \`left < right\` when narrowing to a single position (lower bound, rotated array min). Getting this wrong causes infinite loops or missed elements.
+      content: `**Binary search off-by-one: \`left < right\` vs \`left <= right\`:** Use \`left <= right\` when searching for an exact value (standard binary search). Use \`left < right\` when narrowing to a single position (lower bound, rotated array min). Getting this wrong causes infinite loops or missed elements.
 
-**Forgetting to sort before binary search**
-Binary search requires a sorted array. Searching an unsorted array with binary search gives random results.
+**Forgetting to sort before binary search:** Binary search requires a sorted array. Searching an unsorted array with binary search gives random results.
 
-**Sorting without a custom comparator for non-default ordering**
-In JavaScript, \`.sort()\` defaults to lexicographic sort: \`[1, 2, 10].sort() = [1, 10, 2]\`. Always pass a comparator: \`.sort((a, b) => a - b)\`.
+**Sorting without a custom comparator for non-default ordering:** In JavaScript, \`.sort()\` defaults to lexicographic sort: \`[1, 2, 10].sort() = [1, 10, 2]\`. Always pass a comparator: \`.sort((a, b) => a - b)\`.
 
-**Confusing stable vs unstable sort**
-A stable sort preserves the relative order of equal elements. Merge sort is stable; quick sort is not. This matters when sorting by multiple criteria (e.g., sort by date, then by priority).
+**Confusing stable vs unstable sort:** A stable sort preserves the relative order of equal elements. Merge sort is stable; quick sort is not. This matters when sorting by multiple criteria (e.g., sort by date, then by priority).
 
-**"Quicksort is always O(n log n)"**
-Quicksort degrades to O(n²) on already sorted arrays if pivot selection is poor. Use random pivot selection or median-of-three to avoid this.
+**"Quicksort is always O(n log n)":** Quicksort degrades to O(n²) on already sorted arrays if pivot selection is poor. Use random pivot selection or median-of-three to avoid this.
 
-**In-place vs non-in-place confusion**
-Merge sort creates new arrays (O(n) space). Quick sort sorts in-place (O(log n) stack space). Don't claim "O(1) space" for merge sort.`,
+**In-place vs non-in-place confusion:** Merge sort creates new arrays (O(n) space). Quick sort sorts in-place (O(log n) stack space). Don't claim "O(1) space" for merge sort.`,
     },
     {
       id: 'common-patterns',

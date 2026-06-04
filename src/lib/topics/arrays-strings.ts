@@ -318,20 +318,15 @@ int maxSumSubarray(const std::vector<int>& arr, int k) {
     {
       id: 'mistakes',
       title: 'Common Mistakes / Gotchas',
-      content: `**Off-by-one: forgetting arrays are 0-indexed**
-\`for (int i = 0; i <= arr.Length; i++)\` accesses arr[arr.Length] which is out of bounds.
+      content: `**Off-by-one: forgetting arrays are 0-indexed:** \`for (int i = 0; i <= arr.Length; i++)\` accesses arr[arr.Length] which is out of bounds.
 
-**Mutating an array while iterating over it**
-Removing elements during iteration messes up indices. Either iterate backward or build a new list.
+**Mutating an array while iterating over it:** Removing elements during iteration messes up indices. Either iterate backward or build a new list.
 
-**String immutability in loops**
-\`s = s + c\` in a loop creates a new string each time - O(n²). Use StringBuilder / join / list append instead.
+**String immutability in loops:** \`s = s + c\` in a loop creates a new string each time - O(n²). Use StringBuilder / join / list append instead.
 
-**Confusing "length" with "last index"**
-If arr has length n, the last valid index is n-1, not n.
+**Confusing "length" with "last index":** If arr has length n, the last valid index is n-1, not n.
 
-**"Two-pointer only works on sorted arrays"**
-Two-pointer can also work on unsorted arrays for problems like "move zeros" or "remove duplicates in-place" using slow/fast pointers.`,
+**"Two-pointer only works on sorted arrays":** Two-pointer can also work on unsorted arrays for problems like "move zeros" or "remove duplicates in-place" using slow/fast pointers.`,
     },
     {
       id: 'common-patterns',

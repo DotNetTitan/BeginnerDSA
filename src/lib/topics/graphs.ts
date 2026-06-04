@@ -536,23 +536,17 @@ std::vector<int> topologicalSort(int n, std::vector<std::vector<int>>& edges) {
     {
       id: 'mistakes',
       title: 'Common Mistakes / Gotchas',
-      content: `**Forgetting the visited set (infinite loop)**
-Without tracking visited nodes, BFS/DFS will revisit nodes and loop forever in a cyclic graph. Always initialize a visited set before traversal and check it before enqueuing/exploring.
+      content: `**Forgetting the visited set (infinite loop):** Without tracking visited nodes, BFS/DFS will revisit nodes and loop forever in a cyclic graph. Always initialize a visited set before traversal and check it before enqueuing/exploring.
 
-**Confusing directed and undirected graphs**
-In an undirected graph, add both directions: \`graph[u].Add(v)\` AND \`graph[v].Add(u)\`. In a directed graph, only add one direction. Missing this causes wrong answers.
+**Confusing directed and undirected graphs:** In an undirected graph, add both directions: \`graph[u].Add(v)\` AND \`graph[v].Add(u)\`. In a directed graph, only add one direction. Missing this causes wrong answers.
 
-**"BFS always finds the shortest path"**
-Only for unweighted graphs. In weighted graphs, BFS does NOT find the shortest path - use Dijkstra's algorithm instead.
+**"BFS always finds the shortest path":** Only for unweighted graphs. In weighted graphs, BFS does NOT find the shortest path - use Dijkstra's algorithm instead.
 
-**DFS recursion depth in large graphs**
-A DFS on a graph with 100,000 nodes might recurse 100,000 levels deep. Stack overflow! Use explicit stack (iterative DFS) for large graphs.
+**DFS recursion depth in large graphs:** A DFS on a graph with 100,000 nodes might recurse 100,000 levels deep. Stack overflow! Use explicit stack (iterative DFS) for large graphs.
 
-**Confusing BFS and DFS approaches**
-BFS = queue (level by level). DFS = stack/recursion (depth first). Using the wrong one wastes time or gives wrong answers. For shortest path in an unweighted graph, always choose BFS.
+**Confusing BFS and DFS approaches:** BFS = queue (level by level). DFS = stack/recursion (depth first). Using the wrong one wastes time or gives wrong answers. For shortest path in an unweighted graph, always choose BFS.
 
-**Not handling disconnected components**
-Most graph problems assume a connected graph. If the graph has multiple components, make sure your traversal covers ALL nodes by looping over all vertices and starting a new traversal for any unvisited node.`,
+**Not handling disconnected components:** Most graph problems assume a connected graph. If the graph has multiple components, make sure your traversal covers ALL nodes by looping over all vertices and starting a new traversal for any unvisited node.`,
     },
     {
       id: 'common-patterns',

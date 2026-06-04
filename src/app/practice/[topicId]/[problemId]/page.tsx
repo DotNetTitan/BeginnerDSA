@@ -114,7 +114,9 @@ export default async function ProblemPage({ params }: Props) {
         {problem.examples.map((ex, i) => (
           <div key={i} className="border rounded-lg p-3 text-sm">
             <div><span className="font-semibold">Input:</span> <code className="text-xs bg-muted px-1 py-0.5 rounded">{ex.input}</code></div>
-            <div><span className="font-semibold">Output:</span> <code className="text-xs bg-muted px-1 py-0.5 rounded">{ex.output}</code></div>
+            {ex.output && (
+              <div><span className="font-semibold">Output:</span> <code className="text-xs bg-muted px-1 py-0.5 rounded">{ex.output}</code></div>
+            )}
             {ex.explanation && <div className="text-xs text-muted-foreground mt-1">{ex.explanation}</div>}
           </div>
         ))}

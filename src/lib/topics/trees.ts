@@ -659,22 +659,18 @@ private:
     {
       id: 'mistakes',
       title: 'Common Mistakes / Gotchas',
-      content: `**BST validation: checking only immediate children**
-A common mistake: \`left.val < node.val < right.val\`. This is WRONG. ALL nodes in the left subtree must be < node.val. Example: root=5, left=3, left.right=6 would pass the naive check but violates BST (6 > 5). Use the min/max range approach.
+      content: `**BST validation: checking only immediate children:** A common mistake: \`left.val < node.val < right.val\`. This is WRONG. ALL nodes in the left subtree must be < node.val. Example: root=5, left=3, left.right=6 would pass the naive check but violates BST (6 > 5). Use the min/max range approach.
 
-**Forgetting null checks on tree nodes**
-\`node.left\` and \`node.right\` can be null. Always check \`if (node == null) return\` before accessing children.
+**Forgetting null checks on tree nodes:** \`node.left\` and \`node.right\` can be null. Always check \`if (node == null) return\` before accessing children.
 
-**Recursion depth in skewed trees**
-A tree with n nodes can be n levels deep if it's skewed (basically a linked list). Recursive traversal uses O(n) stack space and risks overflow. Consider iterative traversal for worst-case trees.
+**Recursion depth in skewed trees:** A tree with n nodes can be n levels deep if it's skewed (basically a linked list). Recursive traversal uses O(n) stack space and risks overflow. Consider iterative traversal for worst-case trees.
 
-**Confusing tree, BST, and trie**
+**Confusing tree, BST, and trie:**
 - **Tree**: generic hierarchical structure (any order)
 - **BST**: ordered binary tree (left < node < right)
 - **Trie**: prefix tree for strings (each node = one character)
 
-**Trie: forgetting the end-of-word marker**
-Without \`isEnd\` flag, \`search("app")\` returns true even if only "apple" was inserted. The flag distinguishes prefix from complete word.`,
+**Trie: forgetting the end-of-word marker:** Without \`isEnd\` flag, \`search("app")\` returns true even if only "apple" was inserted. The flag distinguishes prefix from complete word.`,
     },
     {
       id: 'common-patterns',

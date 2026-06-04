@@ -320,20 +320,15 @@ ListNode* findMiddle(ListNode* head) {
     {
       id: 'mistakes',
       title: 'Common Mistakes / Gotchas',
-      content: `**Losing reference to the head**
-If you move your head pointer without saving it first, you lose the entire list. Always keep a separate reference to head, or use a dummy node.
+      content: `**Losing reference to the head:** If you move your head pointer without saving it first, you lose the entire list. Always keep a separate reference to head, or use a dummy node.
 
-**Null dereference on .next**
-Always check \`node?.next != null\` (or \`node != null && node.next != null\`) before accessing \`node.next.next\`. This is the most common linked list bug.
+**Null dereference on .next:** Always check \`node?.next != null\` (or \`node != null && node.next != null\`) before accessing \`node.next.next\`. This is the most common linked list bug.
 
-**Forgetting the "save next" step in reversal**
-In iterative reversal: you must save \`curr.next\` before overwriting it. Without \`ListNode next = curr.next\`, you lose the rest of the list.
+**Forgetting the "save next" step in reversal:** In iterative reversal: you must save \`curr.next\` before overwriting it. Without \`ListNode next = curr.next\`, you lose the rest of the list.
 
-**Assuming built-in linked list has O(1) index access**
-No - \`list[5]\` on a linked list is O(n). That's why array lists exist.
+**Assuming built-in linked list has O(1) index access:** No - \`list[5]\` on a linked list is O(n). That's why array lists exist.
 
-**Cycle detection without correct initialization**
-Floyd's algorithm: start BOTH slow and fast at head. Starting fast at head.next can miss cycles in edge cases.`,
+**Cycle detection without correct initialization:** Floyd's algorithm: start BOTH slow and fast at head. Starting fast at head.next can miss cycles in edge cases.`,
     },
     {
       id: 'common-patterns',

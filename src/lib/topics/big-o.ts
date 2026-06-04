@@ -121,17 +121,13 @@ void printPairs(const std::vector<int>& arr) {
     {
       id: 'rules',
       title: 'Rules of Big O',
-      content: `**1. Drop constants**
-An algorithm that does 2n + 3 operations is still O(n). We only care about the growth rate.
+      content: `**1. Drop constants:** An algorithm that does 2n + 3 operations is still O(n). We only care about the growth rate.
 
-**2. Drop non-dominant terms**
-If an algorithm is O(n + n²), it simplifies to O(n²). The n² term dominates.
+**2. Drop non-dominant terms:** If an algorithm is O(n + n²), it simplifies to O(n²). The n² term dominates.
 
-**3. Different inputs = different variables**
-If you have two arrays of different sizes, use different variables: O(a * b) not O(n²).
+**3. Different inputs = different variables:** If you have two arrays of different sizes, use different variables: O(a * b) not O(n²).
 
-**4. Worst case**
-Always analyze the worst-case scenario unless specified otherwise.`,
+**4. Worst case:** Always analyze the worst-case scenario unless specified otherwise.`,
       codeExamples: [
         {
           title: 'Applying the rules',
@@ -379,32 +375,24 @@ int factorial(int n) {
     {
       id: 'mistakes',
       title: 'Common Mistakes / Gotchas',
-      content: `**"O(2n) is the same as O(2ⁿ)"**
-No - O(2n) drops the constant and becomes O(n). O(2ⁿ) is exponential and completely different.
+      content: `**"O(2n) is the same as O(2ⁿ):** No - O(2n) drops the constant and becomes O(n). O(2ⁿ) is exponential and completely different.
 
-**"This is O(n) so it's fast"**
-O(n) with n = 10^12 is 10 trillion operations. Always check the actual input size.
+**"This is O(n) so it's fast:** O(n) with n = 10^12 is 10 trillion operations. Always check the actual input size.
 
-**"The best case is O(1), so the algorithm is fast"**
-Always analyze **worst case**. Best case is rarely relevant.
+**"The best case is O(1), so the algorithm is fast:** Always analyze **worst case**. Best case is rarely relevant.
 
-**"I don't need to worry about stack space"**
-Recursive functions consume O(depth) stack space. Deep recursion (10,000+ calls) causes stack overflow.
+**"I don't need to worry about stack space:** Recursive functions consume O(depth) stack space. Deep recursion (10,000+ calls) causes stack overflow.
 
-**"Drop constants means constants don't matter"**
-Constants still matter in practice. O(100n) is 100x slower than O(n), even though both are "O(n)".`,
+**"Drop constants means constants don't matter:** Constants still matter in practice. O(100n) is 100x slower than O(n), even though both are "O(n)".`,
     },
     {
       id: 'common-patterns',
       title: 'Common Interview Patterns',
-      content: `**"What is the complexity of this function?"**
-Walk through: count nested loops, recursive calls, and extra data structures.
+      content: `**"What is the complexity of this function?:** Walk through: count nested loops, recursive calls, and extra data structures.
 
-**"Can you optimize this?"**
-Common pattern: O(n²) → O(n) using a hash map, or O(n) → O(log n) using binary search.
+**"Can you optimize this?:** Common pattern: O(n²) → O(n) using a hash map, or O(n) → O(log n) using binary search.
 
-**"What if the input was 10x larger?"**
-Use your answer to predict feasibility. An O(n²) algorithm on 1M elements = impossible.
+**"What if the input was 10x larger?:** Use your answer to predict feasibility. An O(n²) algorithm on 1M elements = impossible.
 An O(n log n) algorithm on 1M elements = ~20M operations, fine.`,
     },
   ],

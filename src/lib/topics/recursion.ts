@@ -567,23 +567,17 @@ std::vector<int> merge(const std::vector<int>& left, const std::vector<int>& rig
     {
       id: 'mistakes',
       title: 'Common Mistakes / Gotchas',
-      content: `**Missing base case (infinite recursion)**
-Without a base case, recursion never stops and you get stack overflow. Always write the base case first.
+      content: `**Missing base case (infinite recursion):** Without a base case, recursion never stops and you get stack overflow. Always write the base case first.
 
-**Not returning the recursive result**
-\`factorial(n) = n * factorial(n - 1)\` - if you forget the \`return\`, the function returns \`undefined\` / \`null\`. Always return the recursive result.
+**Not returning the recursive result:** \`factorial(n) = n * factorial(n - 1)\` - if you forget the \`return\`, the function returns \`undefined\` / \`null\`. Always return the recursive result.
 
-**Naive Fibonacci is O(2ⁿ)**
-\`fib(n) = fib(n-1) + fib(n-2)\` without memoization recomputes the same values exponentially. Use memoization or iteration.
+**Naive Fibonacci is O(2ⁿ):** \`fib(n) = fib(n-1) + fib(n-2)\` without memoization recomputes the same values exponentially. Use memoization or iteration.
 
-**Stack overflow from deep recursion**
-Each call adds a stack frame. For depth > 1000 (Python), > 10000 (C#/Java/C++), you risk overflow. Consider iterative alternatives for linear problems.
+**Stack overflow from deep recursion:** Each call adds a stack frame. For depth > 1000 (Python), > 10000 (C#/Java/C++), you risk overflow. Consider iterative alternatives for linear problems.
 
-**Modifying shared state during recursion**
-If you pass a mutable list down recursive calls and mutate it, you need to undo (backtrack) or copy. Forgetting the undo step corrupts sibling branches.
+**Modifying shared state during recursion:** If you pass a mutable list down recursive calls and mutate it, you need to undo (backtrack) or copy. Forgetting the undo step corrupts sibling branches.
 
-**Confusing recursion depth with problem size**
-A recursive function on a balanced tree of n nodes has O(log n) depth, not O(n). Depth depends on structure, not total elements.`,
+**Confusing recursion depth with problem size:** A recursive function on a balanced tree of n nodes has O(log n) depth, not O(n). Depth depends on structure, not total elements.`,
     },
     {
       id: 'common-patterns',

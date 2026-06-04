@@ -8,20 +8,17 @@ import { useState, useEffect } from 'react';
 
 export default function TakeExamButton({ topicId, totalProblems }: { topicId: string; totalProblems: number }) {
   const router = useRouter();
-  const [, forceUpdate] = useState(0);
+  const [ready, setReady] = useState(false);
   useEffect(() => {
-    const handler = () => forceUpdate(n => n + 1);
+    const tp = getTopicProgress(topicId);
+    setReady(tp.completed && tp.solvedProblems.length >= totalProblems && !tp.examPassed);
+    const handler = () => {
+      const tp2 = getTopicProgress(topicId);
+      setReady(tp2.completed && tp2.solvedProblems.length >= totalProblems && !tp2.examPassed);
+    };
     window.addEventListener('dsa-progress-changed', handler);
     return () => window.removeEventListener('dsa-progress-changed', handler);
-  }, []);
-
-  const topicProgress = getTopicProgress(topicId);
-  const theoryRead = topicProgress.completed;
-  const solvedProblems = topicProgress.solvedProblems.length;
-  const examPassed = topicProgress.examPassed;
-  const allSolved = solvedProblems >= totalProblems;
-  const ready = theoryRead && allSolved && !examPassed;
-
+  }, [topicId, totalProblems]);
   if (!ready) return null;
 
   return (

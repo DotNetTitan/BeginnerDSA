@@ -8,7 +8,7 @@ export const problems: Problem[] = [
     difficulty: 'easy',
     description: `What is the time complexity of finding the maximum element in an unsorted array of size n?`,
     examples: [
-      { input: 'arr = [5, 2, 8, 1, 9]', output: 'O(n)', explanation: 'You must examine every element to find the maximum.' },
+      { input: 'arr = [5, 2, 8, 1, 9]' },
     ],
     constraints: ['Write your answer in Big O notation.'],
     hints: ['Think about what happens when the array gets larger.', 'Do you need to look at every element?'],
@@ -70,7 +70,7 @@ int findMax(const std::vector<int>& arr) {
     difficulty: 'easy',
     description: `Given an array of n integers, you compare every pair of elements. What is the time complexity?`,
     examples: [
-      { input: 'n = 5', output: 'O(n²)', explanation: 'Number of pairs = n*(n-1)/2 ≈ n²/2, which simplifies to O(n²).' },
+      { input: 'n = 5' },
     ],
     constraints: [],
     hints: ['How many pairs exist for n elements?', 'Remember we drop constants.'],
@@ -121,7 +121,7 @@ void compareAllPairs(const std::vector<int>& arr) {
     difficulty: 'medium',
     description: `What is the space complexity (excluding input) of this function?`,
     examples: [
-      { input: 'n = 5', output: 'O(n)', explanation: 'A new array of size n is allocated.' },
+      { input: 'n = 5' },
     ],
     constraints: [],
     hints: ['Count any new data structures created.', 'The input array itself does NOT count toward space complexity.'],

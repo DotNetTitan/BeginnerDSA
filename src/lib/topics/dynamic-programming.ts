@@ -187,17 +187,13 @@ int fibTable(int n) {
     {
       id: '1d-dp',
       title: '1D DP Patterns',
-      content: `**Pattern 1: Climbing stairs / Fibonacci-like**
-\`dp[i] = dp[i-1] + dp[i-2]\`
+      content: `**Pattern 1: Climbing stairs / Fibonacci-like:** \`dp[i] = dp[i-1] + dp[i-2]\`
 
-**Pattern 2: House robber (adjacent skip)**
-\`dp[i] = max(dp[i-1], dp[i-2] + nums[i])\`
+**Pattern 2: House robber (adjacent skip):** \`dp[i] = max(dp[i-1], dp[i-2] + nums[i])\`
 
-**Pattern 3: Longest Increasing Subsequence (LIS)**
-\`dp[i] = 1 + max(dp[j]) for j < i and nums[j] < nums[i]\`
+**Pattern 3: Longest Increasing Subsequence (LIS):** \`dp[i] = 1 + max(dp[j]) for j < i and nums[j] < nums[i]\`
 
-**Pattern 4: Partition (subset sum / coin change)**
-\`dp[i] = dp[i] OR dp[i - coin]\` (for boolean)
+**Pattern 4: Partition (subset sum / coin change):** \`dp[i] = dp[i] OR dp[i - coin]\` (for boolean)
 \`dp[i] = min(dp[i], dp[i - coin] + 1)\` (for minimum coins)`,
       codeExamples: [
         {
@@ -384,17 +380,13 @@ int coinChange(const std::vector<int>& coins, int amount) {
     {
       id: '2d-dp',
       title: '2D DP Patterns',
-      content: `**Pattern 1: Grid paths (Unique Paths)**
-\`dp[i][j] = dp[i-1][j] + dp[i][j-1]\`
+      content: `**Pattern 1: Grid paths (Unique Paths):** \`dp[i][j] = dp[i-1][j] + dp[i][j-1]\`
 
-**Pattern 2: Longest Common Subsequence (LCS)**
-\`dp[i][j] = dp[i-1][j-1] + 1 if match, else max(dp[i-1][j], dp[i][j-1])\`
+**Pattern 2: Longest Common Subsequence (LCS):** \`dp[i][j] = dp[i-1][j-1] + 1 if match, else max(dp[i-1][j], dp[i][j-1])\`
 
-**Pattern 3: Edit Distance**
-\`dp[i][j] = min(insert, delete, replace)\`
+**Pattern 3: Edit Distance:** \`dp[i][j] = min(insert, delete, replace)\`
 
-**Pattern 4: 0/1 Knapsack**
-\`dp[i][w] = max(dp[i-1][w], dp[i-1][w-wi] + vi)\``,
+**Pattern 4: 0/1 Knapsack:** \`dp[i][w] = max(dp[i-1][w], dp[i-1][w-wi] + vi)\``,
       codeExamples: [
         {
           title: '2D DP templates',
@@ -598,23 +590,17 @@ int knapsack(const std::vector<int>& weights, const std::vector<int>& values, in
     {
       id: 'mistakes',
       title: 'Common Mistakes / Gotchas',
-      content: `**Wrong base case**
-A single off-by-one in the base case propagates to every computed value. Always test small inputs (n=0, n=1, n=2) before scaling up.
+      content: `**Wrong base case:** A single off-by-one in the base case propagates to every computed value. Always test small inputs (n=0, n=1, n=2) before scaling up.
 
-**Wrong iteration order in bottom-up DP**
-If \`dp[i]\` depends on \`dp[i-1]\`, you iterate forward. If it depends on \`dp[i+1]\`, you iterate backward. Getting this wrong uses stale or uninitialized values.
+**Wrong iteration order in bottom-up DP:** If \`dp[i]\` depends on \`dp[i-1]\`, you iterate forward. If it depends on \`dp[i+1]\`, you iterate backward. Getting this wrong uses stale or uninitialized values.
 
-**Forgetting to pass the memo dictionary**
-In top-down DP, if you create a new memo on each recursive call, nothing is cached and you're back to exponential time. Pass the memo by reference.
+**Forgetting to pass the memo dictionary:** In top-down DP, if you create a new memo on each recursive call, nothing is cached and you're back to exponential time. Pass the memo by reference.
 
-**"I can use DP for everything"**
-DP is only for problems with overlapping subproblems. If subproblems don't overlap (divide and conquer), DP adds unnecessary complexity. If greedy works, DP is overkill.
+**"I can use DP for everything":** DP is only for problems with overlapping subproblems. If subproblems don't overlap (divide and conquer), DP adds unnecessary complexity. If greedy works, DP is overkill.
 
-**Confusing 0/1 knapsack with unbounded knapsack**
-In 0/1 knapsack, each item can be used at most once (iterate items outer loop, capacity inner loop). In unbounded knapsack, items can be reused (iterate capacity outer loop, coins inner loop). Swapping the loops gives wrong answers.
+**Confusing 0/1 knapsack with unbounded knapsack:** In 0/1 knapsack, each item can be used at most once (iterate items outer loop, capacity inner loop). In unbounded knapsack, items can be reused (iterate capacity outer loop, coins inner loop). Swapping the loops gives wrong answers.
 
-**DP array size off-by-one**
-\`dp[n]\` for an n-element problem often needs size n+1 (dp[0] for empty/base case). Forgetting the extra slot causes index out of bounds.`,
+**DP array size off-by-one:** \`dp[n]\` for an n-element problem often needs size n+1 (dp[0] for empty/base case). Forgetting the extra slot causes index out of bounds.`,
     },
     {
       id: 'common-patterns',
