@@ -57,17 +57,17 @@ function MutedText({ x, y, children, className = '', ...rest }: { x: number; y: 
 
 function Container({ title, children, footer }: { title: string; children: React.ReactNode; footer?: string[] }) {
   return (
-    <div className="border rounded-lg bg-card overflow-hidden my-6">
-      <div className="px-4 py-2 border-b bg-muted/30">
-        <h3 className="text-xs font-semibold tracking-wide">{title}</h3>
+    <div className="border border-gray-800 rounded-lg bg-[#0d1117] overflow-hidden my-6">
+      <div className="px-4 py-2 border-b border-gray-800">
+        <h3 className="text-xs font-semibold tracking-wide text-gray-300">{title}</h3>
       </div>
       <div className="p-4 flex items-center justify-center">
         {children}
       </div>
       {footer && footer.length > 0 && (
-        <div className="px-4 py-2 border-t bg-muted/30">
+        <div className="px-4 py-2 border-t border-gray-800">
           {footer.map((line, i) => (
-            <p key={i} className="text-xs text-muted-foreground leading-relaxed">{line}</p>
+            <p key={i} className="text-xs text-gray-400 leading-relaxed">{line}</p>
           ))}
         </div>
       )}

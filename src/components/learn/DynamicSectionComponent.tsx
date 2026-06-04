@@ -6,6 +6,7 @@ import GraphVisualizer from './GraphVisualizer';
 import RecursionVisualizer from './RecursionVisualizer';
 import DPVisualizer from './DPVisualizer';
 import { SinglyLinkedList, DoublyLinkedList, ReversalDiagram, FastSlowDiagram, CycleDiagram } from './LinkedListDiagram';
+import { StackDiagram, QueueDiagram } from './StackQueueDiagram';
 const COMPONENT_MAP: Record<string, React.ReactNode> = {
   'bubble-sort-viz': <SortingVisualizer algorithm="bubble" />,
   'quick-sort-viz': <SortingVisualizer algorithm="quick" />,
@@ -19,6 +20,8 @@ const COMPONENT_MAP: Record<string, React.ReactNode> = {
   'reversal-diagram': <ReversalDiagram />,
   'fast-slow-diagram': <FastSlowDiagram />,
   'cycle-diagram': <CycleDiagram />,
+  'stack-diagram': <StackDiagram />,
+  'queue-diagram': <QueueDiagram />,
 };
 
 export default function DynamicSectionComponent({ name }: { name: string }) {

@@ -12,6 +12,7 @@ export const topic: Topic = {
     {
       id: 'stack-basics',
       title: 'Stack (LIFO)',
+      component: 'stack-diagram',
       content: `A stack follows **Last In, First Out**. Think of a stack of plates - you add and remove from the top.
 
 | Operation | Stack |
@@ -158,6 +159,7 @@ std::vector<int> nextGreaterElement(const std::vector<int>& arr) {
     {
       id: 'queue-basics',
       title: 'Queue (FIFO)',
+      component: 'queue-diagram',
       content: `A queue follows **First In, First Out**. Think of a line at a store.
 
 | Operation | Queue |
