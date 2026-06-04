@@ -498,20 +498,15 @@ std::vector<int> topKFrequent(const std::vector<int>& nums, int k) {
     {
       id: 'mistakes',
       title: 'Common Mistakes / Gotchas',
-      content: `**Popping from an empty stack**
-Always check \`stack.Count > 0\` / \`!stack.isEmpty()\` before popping. An empty pop is a runtime error in most languages.
+      content: `**Popping from an empty stack:** Always check \`stack.Count > 0\` / \`!stack.isEmpty()\` before popping. An empty pop is a runtime error in most languages.
 
-**Using a queue when a stack was needed (or vice versa)**
-LIFO vs FIFO: if you need "most recent first" it's a stack (undo, backtracking). If you need "first come, first served" it's a queue (BFS, buffering).
+**Using a queue when a stack was needed (or vice versa):** LIFO vs FIFO: if you need "most recent first" it's a stack (undo, backtracking). If you need "first come, first served" it's a queue (BFS, buffering).
 
-**JavaScript array as queue: \`shift()\` is O(n)**
-Using \`arr.shift()\` in JS re-indexes the entire array. Use an index pointer or a proper queue implementation instead.
+**JavaScript array as queue: \`shift()\` is O(n):** Using \`arr.shift()\` in JS re-indexes the entire array. Use an index pointer or a proper queue implementation instead.
 
-**Priority queue comparator order confusion**
-In a min-heap, the smallest element is dequeued first. In a max-heap, the largest. Always check whether your language's default is min or max before using it.
+**Priority queue comparator order confusion:** In a min-heap, the smallest element is dequeued first. In a max-heap, the largest. Always check whether your language's default is min or max before using it.
 
-**Stack overflow with deep recursion**
-Each recursive call uses stack space. If your recursion depth could exceed ~1000, consider an iterative approach with an explicit stack.`,
+**Stack overflow with deep recursion:** Each recursive call uses stack space. If your recursion depth could exceed ~1000, consider an iterative approach with an explicit stack.`,
     },
     {
       id: 'common-patterns',

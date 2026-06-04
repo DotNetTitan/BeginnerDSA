@@ -16,19 +16,22 @@ interface Props {
 
 export default function ProblemList({ problems, topicId }: Props) {
   const router = useRouter();
-  const [, forceUpdate] = useState(0);
+  const [solved, setSolved] = useState<Record<string, boolean>>({});
   useEffect(() => {
-    const handler = () => forceUpdate(n => n + 1);
-    window.addEventListener('dsa-progress-changed', handler);
-    return () => window.removeEventListener('dsa-progress-changed', handler);
-  }, []);
-
-  const solved = useMemo(() => {
     const s: Record<string, boolean> = {};
     for (const p of problems) {
       s[p.id] = isProblemSolved(topicId, p.id);
     }
-    return s;
+    setSolved(s);
+    const handler = () => {
+      const updated: Record<string, boolean> = {};
+      for (const p of problems) {
+        updated[p.id] = isProblemSolved(topicId, p.id);
+      }
+      setSolved(updated);
+    };
+    window.addEventListener('dsa-progress-changed', handler);
+    return () => window.removeEventListener('dsa-progress-changed', handler);
   }, [problems, topicId]);
 
   const progress = getTopicProgress(topicId);

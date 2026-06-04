@@ -253,20 +253,15 @@ bool hasPairSum(const std::vector<int>& arr, int target) {
     {
       id: 'mistakes',
       title: 'Common Mistakes / Gotchas',
-      content: `**Using mutable objects as keys**
-If you modify a key after inserting it, you can never look it up again. Strings, numbers, and tuples are safe. Lists and objects are not.
+      content: `**Using mutable objects as keys:** If you modify a key after inserting it, you can never look it up again. Strings, numbers, and tuples are safe. Lists and objects are not.
 
-**"O(1) lookup means it's always instant"**
-O(1) is the average case. Worst case (hash collisions) degrades to O(n). With a good hash function this is extremely rare.
+**"O(1) lookup means it's always instant":** O(1) is the average case. Worst case (hash collisions) degrades to O(n). With a good hash function this is extremely rare.
 
-**Double lookup anti-pattern**
-\`if (map.ContainsKey(key)) return map[key]\` is TWO hash lookups. Use \`TryGetValue\` / \`get()\` with a default instead.
+**Double lookup anti-pattern:** \`if (map.ContainsKey(key)) return map[key]\` is TWO hash lookups. Use \`TryGetValue\` / \`get()\` with a default instead.
 
-**HashSet vs HashMap confusion**
-Use HashSet when you only need membership checks. Use HashMap when you need to associate values with keys (counts, indices, etc.).
+**HashSet vs HashMap confusion:** Use HashSet when you only need membership checks. Use HashMap when you need to associate values with keys (counts, indices, etc.).
 
-**Order is NOT guaranteed**
-Hash maps and hash sets have no defined iteration order. If order matters, use a LinkedHashMap or TreeMap.`,
+**Order is NOT guaranteed:** Hash maps and hash sets have no defined iteration order. If order matters, use a LinkedHashMap or TreeMap.`,
     },
     {
       id: 'common-patterns',

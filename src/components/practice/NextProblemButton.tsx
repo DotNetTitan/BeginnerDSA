@@ -17,14 +17,13 @@ export default function NextProblemButton({
   nextProblemId: string;
   nextProblemTitle: string;
 }) {
-  const [, forceUpdate] = useState(0);
+  const [solved, setSolved] = useState(false);
   useEffect(() => {
-    const handler = () => forceUpdate(n => n + 1);
+    setSolved(isProblemSolved(topicId, problemId));
+    const handler = () => setSolved(isProblemSolved(topicId, problemId));
     window.addEventListener('dsa-progress-changed', handler);
     return () => window.removeEventListener('dsa-progress-changed', handler);
-  }, []);
-
-  const solved = isProblemSolved(topicId, problemId);
+  }, [topicId, problemId]);
 
   if (!solved) {
     return (
