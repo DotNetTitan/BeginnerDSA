@@ -8,10 +8,11 @@ import { useState, useEffect } from 'react';
 
 export default function TakeExamButton({ topicId, totalProblems }: { topicId: string; totalProblems: number }) {
   const router = useRouter();
-  const [ready, setReady] = useState(false);
-  useEffect(() => {
+  const [ready, setReady] = useState(() => {
     const tp = getTopicProgress(topicId);
-    setReady(tp.completed && tp.solvedProblems.length >= totalProblems && !tp.examPassed);
+    return tp.completed && tp.solvedProblems.length >= totalProblems && !tp.examPassed;
+  });
+  useEffect(() => {
     const handler = () => {
       const tp2 = getTopicProgress(topicId);
       setReady(tp2.completed && tp2.solvedProblems.length >= totalProblems && !tp2.examPassed);

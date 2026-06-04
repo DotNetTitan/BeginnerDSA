@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState, useSyncExternalStore } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Button, buttonVariants } from '@/components/ui/button';
@@ -11,10 +11,9 @@ import { getStats, getRecentActivity, resetProgress, getProgress } from '@/lib/p
 import { BookOpen, Code2, RotateCcw, Trophy, GraduationCap, CheckCircle2 } from 'lucide-react';
 
 export default function ProgressContent() {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(() => () => {}, () => true, () => false);
   const [refresh, setRefresh] = useState(0);
   const [resetOpen, setResetOpen] = useState(false);
-  useEffect(() => { setMounted(true); }, []);
   const stats = useMemo(() => { void refresh; return getStats(); }, [refresh]);
   const activity = useMemo(() => { void refresh; return getRecentActivity(10); }, [refresh]);
   const topicProgress = useMemo(() => {

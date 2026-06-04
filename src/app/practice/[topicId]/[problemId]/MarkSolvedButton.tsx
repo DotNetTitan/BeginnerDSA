@@ -3,13 +3,10 @@
 import { Button } from '@/components/ui/button';
 import { CheckCircle2 } from 'lucide-react';
 import { markProblemSolved, isProblemSolved } from '@/lib/progress-store';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export default function MarkSolvedButton({ topicId, problemId }: { topicId: string; problemId: string }) {
-  const [solved, setSolved] = useState(false);
-  useEffect(() => {
-    setSolved(isProblemSolved(topicId, problemId));
-  }, [topicId, problemId]);
+  const [solved, setSolved] = useState(() => isProblemSolved(topicId, problemId));
 
   const handleClick = () => {
     markProblemSolved(topicId, problemId);

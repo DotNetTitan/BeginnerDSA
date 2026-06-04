@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { isProblemSolved, getTopicProgress } from '@/lib/progress-store';
 import { GraduationCap, Lock } from 'lucide-react';
 
@@ -16,13 +16,14 @@ interface Props {
 
 export default function ProblemList({ problems, topicId }: Props) {
   const router = useRouter();
-  const [solved, setSolved] = useState<Record<string, boolean>>({});
-  useEffect(() => {
+  const [solved, setSolved] = useState<Record<string, boolean>>(() => {
     const s: Record<string, boolean> = {};
     for (const p of problems) {
       s[p.id] = isProblemSolved(topicId, p.id);
     }
-    setSolved(s);
+    return s;
+  });
+  useEffect(() => {
     const handler = () => {
       const updated: Record<string, boolean> = {};
       for (const p of problems) {
