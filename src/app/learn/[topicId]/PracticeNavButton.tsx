@@ -8,14 +8,13 @@ import { useState, useEffect } from 'react';
 
 export default function PracticeNavButton({ topicId }: { topicId: string }) {
   const router = useRouter();
-  const [, forceUpdate] = useState(0);
+  const [theoryRead, setTheoryRead] = useState(false);
   useEffect(() => {
-    const handler = () => forceUpdate(n => n + 1);
+    setTheoryRead(getTopicProgress(topicId).completed);
+    const handler = () => setTheoryRead(getTopicProgress(topicId).completed);
     window.addEventListener('dsa-progress-changed', handler);
     return () => window.removeEventListener('dsa-progress-changed', handler);
-  }, []);
-
-  const theoryRead = getTopicProgress(topicId).completed;
+  }, [topicId]);
   if (!theoryRead) return null;
 
   return (

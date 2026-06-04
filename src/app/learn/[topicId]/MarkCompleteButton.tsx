@@ -6,14 +6,13 @@ import { markTopicCompleted, getTopicProgress } from '@/lib/progress-store';
 import { useState, useEffect } from 'react';
 
 export default function MarkCompleteButton({ topicId }: { topicId: string }) {
-  const [, forceUpdate] = useState(0);
+  const [completed, setCompleted] = useState(false);
   useEffect(() => {
-    const handler = () => forceUpdate(n => n + 1);
+    setCompleted(getTopicProgress(topicId).completed);
+    const handler = () => setCompleted(getTopicProgress(topicId).completed);
     window.addEventListener('dsa-progress-changed', handler);
     return () => window.removeEventListener('dsa-progress-changed', handler);
-  }, []);
-
-  const completed = getTopicProgress(topicId).completed;
+  }, [topicId]);
 
   const handleClick = () => {
     markTopicCompleted(topicId);
