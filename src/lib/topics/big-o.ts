@@ -110,11 +110,11 @@ void printPairs(const std::vector<int>& arr) {
         headers: ['Notation', 'Name', 'Example', 'Feasibility at n=1,000,000'],
         rows: [
           ['O(1)', 'Constant', 'Array lookup by index', 'Instant'],
-          ['O(log n)', 'Logarithmic', 'Binary search', '~20 operations'],
+          ['O(log n)', 'Logarithmic', 'Binary search (Module 7)', '~20 operations'],
           ['O(n)', 'Linear', 'Iterating an array', '1M operations'],
-          ['O(n log n)', 'Linearithmic', 'Merge sort / Heap sort', '~20M operations'],
+          ['O(n log n)', 'Linearithmic', 'Merge sort / Heap sort (Module 7)', '~20M operations'],
           ['O(n²)', 'Quadratic', 'Nested loops', '1 trillion - too slow'],
-          ['O(2ⁿ)', 'Exponential', 'Recursive Fibonacci', 'Impossible'],
+          ['O(2ⁿ)', 'Exponential', 'Recursive Fibonacci (Module 6)', 'Impossible'],
         ],
       },
     },
@@ -390,7 +390,7 @@ int factorial(int n) {
       title: 'Common Interview Patterns',
       content: `**"What is the complexity of this function?:** Walk through: count nested loops, recursive calls, and extra data structures.
 
-**"Can you optimize this?:** Common pattern: O(n²) → O(n) using a hash map, or O(n) → O(log n) using binary search.
+**"Can you optimize this?:** Common pattern: O(n²) → O(n) using a hash map (Module 3), or O(n) → O(log n) using binary search (Module 7).
 
 **"What if the input was 10x larger?:** Use your answer to predict feasibility. An O(n²) algorithm on 1M elements = impossible.
 An O(n log n) algorithm on 1M elements = ~20M operations, fine.`,

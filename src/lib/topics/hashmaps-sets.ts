@@ -12,7 +12,7 @@ export const topic: Topic = {
     {
       id: 'how-hashing-works',
       title: 'How Hashing Works',
-      content: `A hash map (dictionary) stores key-value pairs. The key is hashed to compute an index into an internal array (buckets). **Collisions** (two keys hashing to the same index) are handled via separate chaining (linked list per bucket) or open addressing.
+      content: `A hash map (dictionary) stores key-value pairs. The key is hashed to compute an index into an internal array (buckets). **Collisions** (two keys hashing to the same index) are handled via separate chaining (linked list per bucket - see Module 4) or open addressing.
 
 | Operation | Average | Worst Case |
 |---|---|---|
@@ -248,7 +248,7 @@ bool hasPairSum(const std::vector<int>& arr, int target) {
 
 **Use neither when:**
 - Order matters (use List or SortedDictionary)
-- You need range queries (use tree-based structures)`,
+- You need range queries (use tree-based structures - see Module 8)`,
     },
     {
       id: 'mistakes',

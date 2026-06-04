@@ -302,18 +302,18 @@ int maxSumSubarray(const std::vector<int>& arr, int k) {
 - You need **contiguous memory** for cache-friendly access
 
 **Arrays are NOT the right choice when:**
-- You frequently **insert or delete at the beginning** (use linked list)
+- You frequently **insert or delete at the beginning** (use linked list - Module 4)
 - The **size changes unpredictably** and you can't pre-allocate (use dynamic array, still fine)
-- You need **fast membership lookup** (use a hash set)
+- You need **fast membership lookup** (use a hash set - Module 3)
 
 **Decision guide:**
 | Signal | Best choice |
 |---|---|
 | "Find element by position" | Array (O(1) index) |
-| "Frequent insert/remove at front" | Linked list |
-| "Check if something exists" | Hash set |
+| "Frequent insert/remove at front" | Linked list (Module 4) |
+| "Check if something exists" | Hash set (Module 3) |
 | "Process in order, one pass" | Array |
-| "Pair elements by key" | Hash map (from arrays) |`,
+| "Pair elements by key" | Hash map (Module 3) |`,
     },
     {
       id: 'mistakes',
@@ -331,7 +331,7 @@ int maxSumSubarray(const std::vector<int>& arr, int k) {
     {
       id: 'common-patterns',
       title: 'Common Interview Patterns',
-      content: `1. **Two Sum variant** - use a hash map for O(n) lookup
+      content: `1. **Two Sum variant** - use a hash map for O(n) lookup (see Module 3)
 2. **In-place array manipulation** - maintain a "write index"
 3. **Prefix sum** - precompute cumulative sums for O(1) range sum queries
 4. **String builder** - anytime you need to build/modify a string in a loop

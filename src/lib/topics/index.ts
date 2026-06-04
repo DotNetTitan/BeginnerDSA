@@ -13,7 +13,7 @@ import { topic as greedyIntervals } from './greedy-intervals';
 
 export const topics: Topic[] = [
   bigO, arraysStrings, hashmapsSets, linkedLists, stacksQueues,
-  recursion, sortingSearching, greedyIntervals, trees, graphs, dynamicProgramming,
+  recursion, sortingSearching, trees, greedyIntervals, graphs, dynamicProgramming,
 ];
 
 export function getTopic(id: string): Topic | undefined {

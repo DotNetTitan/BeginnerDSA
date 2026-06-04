@@ -5,7 +5,7 @@ export const topic: Topic = {
   title: 'Stacks & Queues',
   icon: 'Layers',
   order: 5,
-  description: 'LIFO and FIFO structures fundamental to parsing, BFS/DFS, and monotonic patterns.',
+  description: 'LIFO and FIFO structures fundamental to parsing and monotonic patterns.',
   difficulty: 'intermediate',
   prerequisites: ['big-o', 'arrays-strings', 'linked-lists'],
   theory: [
@@ -20,7 +20,7 @@ export const topic: Topic = {
 | Pop | O(1) |
 | Peek | O(1) |
 
-**Uses:** Undo/redo, backtracking, expression evaluation, DFS (implicitly via recursion).`,
+**Uses:** Undo/redo, backtracking, expression evaluation, nested structure parsing.`,
       codeExamples: [
         {
           title: 'Stack usage',
@@ -166,7 +166,7 @@ std::vector<int> nextGreaterElement(const std::vector<int>& arr) {
 | Dequeue | O(1) |
 | Peek | O(1) |
 
-**Uses:** BFS, task scheduling, buffering, sliding window.`,
+**Uses:** Task scheduling, buffering, sliding window.`,
       codeExamples: [
         {
           title: 'Queue usage',
@@ -180,22 +180,17 @@ queue.Enqueue(3);  // [1, 2, 3]
 int front = queue.Peek();  // 1 (no removal)
 int dequeued = queue.Dequeue(); // 1, queue is now [2, 3]
 
-// BFS template using Queue
-void Bfs(TreeNode root) {
-    var q = new Queue<TreeNode>();
-    q.Enqueue(root);
+// Processing items in FIFO order
+var q = new Queue<int>();
+q.Enqueue(1);
+q.Enqueue(2);
+q.Enqueue(3);
 
-    while (q.Count > 0) {
-        int levelSize = q.Count;
-        for (int i = 0; i < levelSize; i++) {
-            var node = q.Dequeue();
-            Console.Write(node.val + " ");
-            if (node.left != null) q.Enqueue(node.left);
-            if (node.right != null) q.Enqueue(node.right);
-        }
-        Console.WriteLine(); // new level
-    }
-}`,
+while (q.Count > 0) {
+    int item = q.Dequeue();
+    Console.Write(item + " ");
+}
+// Output: 1 2 3`,
             python: `from collections import deque
 
 queue = deque()
@@ -207,19 +202,11 @@ queue.append(3)   # [1, 2, 3]
 front = queue[0]      # 1 (no removal)
 dequeued = queue.popleft()  # 1, queue is now [2, 3]
 
-# BFS template using deque
-def bfs(root):
-    q = deque([root])
-    while q:
-        level_size = len(q)
-        for _ in range(level_size):
-            node = q.popleft()
-            print(node.val, end=" ")
-            if node.left:
-                q.append(node.left)
-            if node.right:
-                q.append(node.right)
-        print()  # new level`,
+# Processing items in FIFO order
+q = deque([1, 2, 3])
+while q:
+    print(q.popleft(), end=" ")
+# Output: 1 2 3`,
             java: `import java.util.*;
 
 Queue<Integer> queue = new LinkedList<>();
@@ -231,22 +218,16 @@ queue.offer(3);  // [1, 2, 3]
 int front = queue.peek();  // 1 (no removal)
 int dequeued = queue.poll(); // 1, queue is now [2, 3]
 
-// BFS template using Queue
-public void bfs(TreeNode root) {
-    Queue<TreeNode> q = new LinkedList<>();
-    q.offer(root);
+// Processing items in FIFO order
+Queue<Integer> q = new LinkedList<>();
+q.offer(1);
+q.offer(2);
+q.offer(3);
 
-    while (!q.isEmpty()) {
-        int levelSize = q.size();
-        for (int i = 0; i < levelSize; i++) {
-            TreeNode node = q.poll();
-            System.out.print(node.val + " ");
-            if (node.left != null) q.offer(node.left);
-            if (node.right != null) q.offer(node.right);
-        }
-        System.out.println(); // new level
-    }
-}`,
+while (!q.isEmpty()) {
+    System.out.print(q.poll() + " ");
+}
+// Output: 1 2 3`,
             javascript: `const queue = [];
 
 queue.push(1);  // [1]
@@ -256,21 +237,12 @@ queue.push(3);  // [1, 2, 3]
 const front = queue[0];       // 1 (no removal)
 const dequeued = queue.shift(); // 1, queue is now [2, 3]
 
-// BFS template using array as queue (index pointer avoids O(n) shift)
-const bfs = (root) => {
-    const q = [root];
-    let idx = 0;
-    while (idx < q.length) {
-        const levelSize = q.length - idx;
-        for (let i = 0; i < levelSize; i++) {
-            const node = q[idx++];
-            console.log(node.val + " ");
-            if (node.left !== null) q.push(node.left);
-            if (node.right !== null) q.push(node.right);
-        }
-        console.log(); // new level
-    }
-};`,
+// Processing items in FIFO order
+const q = [1, 2, 3];
+while (q.length > 0) {
+    console.log(q.shift() + " ");
+}
+// Output: 1 2 3`,
           cpp: `#include <queue>
 #include <iostream>
 
@@ -283,24 +255,17 @@ q.push(3);  // [1, 2, 3]
 int front = q.front();  // 1 (no removal)
 q.pop();                // removes front, queue is now [2, 3]
 
-// BFS template using Queue
-void bfs(TreeNode* root) {
-    if (root == nullptr) return;
-    std::queue<TreeNode*> q;
-    q.push(root);
+// Processing items in FIFO order
+std::queue<int> q2;
+q2.push(1);
+q2.push(2);
+q2.push(3);
 
-    while (!q.empty()) {
-        int levelSize = q.size();
-        for (int i = 0; i < levelSize; i++) {
-            TreeNode* node = q.front();
-            q.pop();
-            std::cout << node->val << " ";
-            if (node->left != nullptr) q.push(node->left);
-            if (node->right != nullptr) q.push(node->right);
-        }
-        std::cout << "\n"; // new level
-    }
-}`,
+while (!q2.empty()) {
+    std::cout << q2.front() << " ";
+    q2.pop();
+}
+// Output: 1 2 3`,
           },
         },
       ],
@@ -316,7 +281,7 @@ void bfs(TreeNode* root) {
 | Dequeue | O(log n) |
 | Peek | O(1) |
 
-**Uses:** Dijkstra's algorithm, Huffman coding, K smallest/largest elements.`,
+**Uses:** K smallest/largest elements, task scheduling with priorities.`,
       codeExamples: [
         {
           title: 'PriorityQueue usage',
@@ -469,19 +434,18 @@ std::vector<int> topKFrequent(const std::vector<int>& nums, int k) {
       title: 'Stack vs Queue vs Priority Queue',
       content: `**Stack (LIFO) is for:**
 - "Last thing first" - undo/redo, backtracking, parsing nested structures
-- DFS (implicitly via recursion or explicitly with a stack)
 - Problems where the **most recent** element is what matters (valid parentheses, next greater element)
 - **Signal keywords:** "nested", "backtrack", "most recent", "undo"
 
 **Queue (FIFO) is for:**
-- "First come, first served" - BFS, task scheduling, buffering
-- Level-order traversal of a tree
+- "First come, first served" - task scheduling, buffering
+- Processing items in order of arrival
 - Problems where **order of arrival** determines priority
-- **Signal keywords:** "level order", "shortest path (unweighted)", "streaming", "buffer"
+- **Signal keywords:** "streaming", "buffer", "order of arrival"
 
 **Priority Queue (Heap) is for:**
 - "Always process the most/least important item next"
-- K smallest/largest elements, Dijkstra, scheduling with priorities
+- K smallest/largest elements, scheduling with priorities
 - When you need to **repeatedly extract the min or max**
 - **Signal keywords:** "top K", "K smallest/largest", "merge K sorted", "schedule"
 
@@ -491,7 +455,6 @@ std::vector<int> topKFrequent(const std::vector<int>& nums, int k) {
 | "Process in reverse order" | Stack |
 | "First come, first served" | Queue |
 | "Always pick the smallest/largest" | Priority queue |
-| "Need BFS / level order" | Queue |
 | "Parse nested brackets" | Stack |
 | "Track K most frequent" | Priority queue |`,
     },
@@ -515,7 +478,7 @@ std::vector<int> topKFrequent(const std::vector<int>& nums, int k) {
 2. **Valid parentheses** - classic stack problem with matching brackets
 3. **Queue with two stacks** - implement a queue using two stacks
 4. **Min stack** - stack that supports GetMin() in O(1)
-5. **Level-order traversal** - BFS using a queue (tree problems)
+5. **Queue-based processing** - processing items in arrival order
 6. **Top K elements** - use PriorityQueue to efficiently track K largest/smallest`,
     },
   ],
