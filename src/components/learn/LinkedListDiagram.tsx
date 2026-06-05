@@ -204,6 +204,7 @@ export function FastSlowDiagram() {
       footer={[
         'slow moves 1 node per iteration, fast moves 2 nodes',
         'when fast reaches the end, slow is at the middle node',
+        'green outline = fast pointer, orange outline = slow pointer',
       ]}
     >
       <svg viewBox="0 0 520 236" className="w-full max-w-lg">
@@ -218,7 +219,7 @@ export function FastSlowDiagram() {
                 const num = ni + 1;
                 const isSlow = num === r.slow;
                 const isFast = num === r.fast;
-                const color = isFast ? '#22c55e' : isSlow ? '#06b6d4' : '#4f46e5';
+                const color = isFast ? '#22c55e' : isSlow ? '#f97316' : '#4f46e5';
                 return (
                   <g key={ni}>
                     <rect x={x} y={y + 22} width={nodeW} height={28} rx={4} fill="#1e1b4b" stroke={color} strokeWidth={1.5} />

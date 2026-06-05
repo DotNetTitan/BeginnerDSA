@@ -80,6 +80,7 @@ export function StackDiagram() {
       footer={[
         'push = new element added to the top; stack grows upward',
         'pop = top element removed; stack shrinks from the top',
+        'cyan arrow = top pointer, green = push, red = pop',
         'LIFO: the last element pushed is the first one popped',
       ]}
     >
@@ -154,6 +155,8 @@ export function QueueDiagram() {
       footer={[
         'enqueue = new element added at the rear; queue extends',
         'dequeue = front element removed; queue shifts forward',
+        'green arrow = front pointer, cyan arrow = rear pointer',
+        'green = enqueue, red = dequeue',
         'FIFO: the first element enqueued is the first one dequeued',
       ]}
     >
