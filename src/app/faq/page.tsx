@@ -3,11 +3,11 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/
 const faqs = [
   {
     q: "What is Zero To DSA?",
-    a: "Zero To DSA is a structured learning platform that teaches you Data Structures & Algorithms from scratch. It is designed for absolute beginners who want to build a strong foundation before tackling problems on LeetCode, NeetCode, HackerRank, or similar platforms.",
+    a: "Zero To DSA is a structured learning platform for Data Structures & Algorithms. If you are learning from scratch, it builds up one topic at a time in a logical order. If you learned DSA years ago and need a refresher, it gives you the same structured path without assuming you remember anything (most of us don't).",
   },
   {
     q: "How is this different from LeetCode or NeetCode?",
-    a: "LeetCode and NeetCode are problem-solving platforms where you practice coding challenges. Zero To DSA is the step before that. We teach you the concepts, theory, and patterns first. Think of us as a textbook with interactive visualizations. Once you understand the material here, you will be much better prepared for those platforms.",
+    a: "LeetCode and NeetCode are problem-solving platforms. They assume you already know the concepts and just need practice. Zero To DSA teaches the concepts first. You learn, then practice, then move on. Whether you are learning DSA for the first time or coming back after years of real-world engineering, jumping straight into LeetCode with no structure is overwhelming. Think of us as the structured foundation that makes those platforms actually useful.",
   },
   {
     q: "Do I need to know programming before starting?",
@@ -23,7 +23,7 @@ const faqs = [
   },
   {
     q: "How does progress tracking work?",
-    a: "Your progress is saved automatically in your browser's localStorage. Topics are unlocked sequentially. Passing the exam is optional but marks the topic as completed. You can view your overall progress on the Progress page. Clearing your browser data will reset your progress.",
+    a: "Your progress is saved automatically in your browser's localStorage. Topics are locked until you finish the previous one, so you build in order, no jumping around. Passing the exam is optional but marks the topic as completed. You can view your overall progress on the Progress page. Clearing your browser data will reset your progress.",
   },
   {
     q: "How do exams work?",
