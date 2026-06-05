@@ -53,7 +53,7 @@ export function generateClimbingStairsSteps(n: number = 6): DPStep[] {
     computingIndex: n,
     referencedIndices: [],
     formula: `There are ${dp[n]} ways to climb ${n} steps.`,
-    description: `Done! Each step's value was built from previously computed results — that's dynamic programming.`,
+    description: `Done! Each step's value was built from previously computed results. That is dynamic programming.`,
   });
 
   return steps;

@@ -80,11 +80,12 @@ export function SinglyLinkedList() {
     <Container
       title="SINGLY LINKED LIST STRUCTURE"
       footer={[
-        'head — entry point to the list',
-        'node — contains a value and a pointer (nxt)',
-        'nxt — stores the memory address of the next node',
-        'arrow — shows which node nxt points to',
-        'null — marks the end of the list',
+        'head = entry point to the list',
+        'tail = last node in the list',
+        'node = contains a value and a pointer (nxt)',
+        'nxt = stores the memory address of the next node',
+        'arrow = shows which node nxt points to',
+        'null = marks the end of the list',
       ]}
     >
       <svg viewBox="0 0 520 150" className="w-full max-w-lg">
@@ -112,8 +113,8 @@ export function DoublyLinkedList() {
     <Container
       title="DOUBLY LINKED LIST STRUCTURE"
       footer={[
-        'prv — pointer to the previous node',
-        'nxt — pointer to the next node',
+        'prv = pointer to the previous node',
+        'nxt = pointer to the next node',
         'head.prv → null, tail.nxt → null',
         'doubly linked: can traverse in both directions',
       ]}
@@ -248,7 +249,7 @@ export function CycleDiagram() {
       title="FAST & SLOW POINTER: CYCLE DETECTION"
       footer={[
         'Floyd\'s algorithm: slow and fast pointers start at head',
-        'if slow and fast meet, a cycle exists — no null terminator',
+        'if slow and fast meet, a cycle exists (no null terminator)',
       ]}
     >
       <svg viewBox="0 0 480 200" className="w-full max-w-md">
