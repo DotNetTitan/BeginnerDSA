@@ -48,6 +48,8 @@ export default async function RootLayout({
         <footer className="mt-auto py-4 text-center text-xs text-muted-foreground space-x-3">
           <a href="/privacy" className="hover:underline">Privacy Policy</a>
           <span>·</span>
+          <a href="/faq" className="hover:underline">FAQ</a>
+          <span>·</span>
           <a href="https://ko-fi.com/zerotodsa" target="_blank" rel="noopener noreferrer" className="hover:underline">Support on Ko‑fi</a>
         </footer>
         <Analytics />
