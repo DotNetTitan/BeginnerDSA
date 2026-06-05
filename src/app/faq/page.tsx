@@ -7,11 +7,11 @@ const faqs = [
   },
   {
     q: "How is this different from LeetCode or NeetCode?",
-    a: "LeetCode and NeetCode are problem-solving platforms where you practice coding challenges. Zero To DSA is the step before that — we teach you the concepts, theory, and patterns first. Think of us as a textbook with interactive visualizations. Once you understand the material here, you'll be much better prepared for those platforms.",
+    a: "LeetCode and NeetCode are problem-solving platforms where you practice coding challenges. Zero To DSA is the step before that. We teach you the concepts, theory, and patterns first. Think of us as a textbook with interactive visualizations. Once you understand the material here, you will be much better prepared for those platforms.",
   },
   {
     q: "Do I need to know programming before starting?",
-    a: "You should know the basics of at least one programming language (variables, loops, functions, conditionals). We don't teach syntax — we teach DSA concepts. Code examples are provided in Python, Java, C++, JavaScript, and C#.",
+    a: "You should know the basics of at least one programming language (variables, loops, functions, conditionals). We do not teach syntax. We teach DSA concepts. Code examples are provided in Python, Java, C++, JavaScript, and C#.",
   },
   {
     q: "What languages are supported?",
@@ -19,15 +19,15 @@ const faqs = [
   },
   {
     q: "Is this free?",
-    a: "Yes, Zero To DSA is completely free. If you find it helpful, you can support the project on Ko‑fi (link in the footer), but there is no paywall — all content is accessible to everyone.",
+    a: "Yes, Zero To DSA is completely free. If you find it helpful, you can <a href=\"https://ko-fi.com/zerotodsa\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline underline-offset-2 hover:text-foreground\">support the project on Ko‑fi</a>, but there is no paywall. All content is accessible to everyone.",
   },
   {
     q: "How does progress tracking work?",
-    a: "Your progress is saved automatically in your browser's localStorage. Topics are unlocked sequentially — you must complete a topic (pass its exam) before the next one becomes available. You can view your overall progress on the Progress page. Clearing your browser data will reset your progress.",
+    a: "Your progress is saved automatically in your browser's localStorage. Topics are unlocked sequentially. Passing the exam is optional but marks the topic as completed. You can view your overall progress on the Progress page. Clearing your browser data will reset your progress.",
   },
   {
     q: "How do exams work?",
-    a: "Each topic has a multiple-choice exam to test your understanding. You must score 100% to pass. If you get a question wrong, you can review the topic material and retry. Exams are only available after you have studied the topic.",
+    a: "Each topic has a multiple-choice exam to test your understanding. You must score 100% to pass. If you get a question wrong, you can review the topic material and retry. Exams are unlocked after you have read the theory and solved all practice problems for that topic.",
   },
   {
     q: "How are the problems structured?",
@@ -50,7 +50,7 @@ export default function FAQPage() {
           <AccordionItem key={i}>
             <AccordionTrigger>{faq.q}</AccordionTrigger>
             <AccordionContent>
-              <p className="text-muted-foreground">{faq.a}</p>
+              <p className="text-muted-foreground" dangerouslySetInnerHTML={{ __html: faq.a }} />
             </AccordionContent>
           </AccordionItem>
         ))}
