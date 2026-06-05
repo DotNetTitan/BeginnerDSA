@@ -81,6 +81,7 @@ export function SinglyLinkedList() {
       title="SINGLY LINKED LIST STRUCTURE"
       footer={[
         'head = entry point to the list',
+        'tail = last node in the list',
         'node = contains a value and a pointer (nxt)',
         'nxt = stores the memory address of the next node',
         'arrow = shows which node nxt points to',
