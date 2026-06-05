@@ -195,6 +195,9 @@ export default function DPVisualizer() {
         <span className="flex items-center gap-1">
           <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: '#1e293b' }} /> Done
         </span>
+        <span className="flex items-center gap-1">
+          <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: '#e2e8f0' }} /> Not yet computed
+        </span>
       </div>
     </div>
   );
