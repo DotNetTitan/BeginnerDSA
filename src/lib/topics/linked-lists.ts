@@ -102,7 +102,7 @@ list.addFirst("b");
       id: 'doubly-linked-lists',
       title: 'Doubly Linked Lists',
       component: 'doubly-linked-list',
-      content: `A **doubly linked list** node stores two pointers — \`prv\` (previous) and \`nxt\` (next) — allowing traversal in both directions.
+      content: `A **doubly linked list** node stores two pointers: \`prv\` (previous) and \`nxt\` (next), allowing traversal in both directions.
 
 **Singly vs Doubly:**
 
@@ -110,9 +110,9 @@ list.addFirst("b");
 |---|---|---|
 | Pointers per node | 1 (\`nxt\`) | 2 (\`prv\` + \`nxt\`) |
 | Memory per node | Less | More |
-| Traverse backward | O(n) — must restart from head | O(1) — just follow \`prv\` |
-| Tail access / delete | O(n) — must traverse to find previous | O(1) — tail has \`prv\` pointer |
-| Insert before a node | O(n) — need to find previous | O(1) — node has \`prv\` |
+| Traverse backward | O(n) - must restart from head | O(1) - just follow \`prv\` |
+| Tail access / delete | O(n) - must traverse to find previous | O(1) - tail has \`prv\` pointer |
+| Insert before a node | O(n) - need to find previous | O(1) - node has \`prv\` |
 
 **When to use doubly:**
 - You need **O(1) tail operations** (delete last, add to end in a raw list)
@@ -120,9 +120,9 @@ list.addFirst("b");
 - You frequently **insert/delete before a known node**
 
 **When to stick with singly:**
-- **Memory is constrained** — every \`prv\` pointer adds overhead
+- **Memory is constrained** (every \`prv\` pointer adds overhead)
 - You only need **forward-only traversal**
-- The list is **small** — the O(n) cost of traversal is negligible`,
+- The list is **small** (the O(n) cost of traversal is negligible)`,
       codeExamples: [
         {
           title: 'Doubly linked list node',
@@ -293,7 +293,7 @@ ListNode* reverseList(ListNode* head) {
 
 **Find middle node:** When \`fast\` reaches the end, \`slow\` is at the middle. This works because fast moves twice as fast.
 
-**Find nth from end:** Move \`fast\` n steps ahead, then advance both until \`fast\` reaches the end — \`slow\` will be at the nth node from the end.`,
+**Find nth from end:** Move \`fast\` n steps ahead, then advance both until \`fast\` reaches the end. \`slow\` will be at the nth node from the end.`,
       codeExamples: [
         {
           title: 'Find middle node',
@@ -352,7 +352,7 @@ ListNode* findMiddle(ListNode* head) {
       component: 'cycle-diagram',
       content: `A **cycle** occurs when a node's \`nxt\` pointer points back to an earlier node instead of \`null\`, creating an infinite loop.
 
-**Floyd's algorithm (tortoise & hare):** Use two pointers — \`slow\` moves 1 step, \`fast\` moves 2 steps. If they meet, a cycle exists.
+**Floyd's algorithm (tortoise & hare):** Use two pointers. \`slow\` moves 1 step, \`fast\` moves 2 steps. If they meet, a cycle exists.
 
 **Key insight:** In the diagram above, node \`4\` points back to node \`2\` instead of \`null\`. This means \`fast\` will eventually lap around and meet \`slow\` from behind.`,
       codeExamples: [

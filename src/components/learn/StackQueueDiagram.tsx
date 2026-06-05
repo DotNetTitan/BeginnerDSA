@@ -78,8 +78,8 @@ export function StackDiagram() {
     <Container
       title="STACK (LIFO)"
       footer={[
-        'push — new element added to the top; stack grows upward',
-        'pop — top element removed; stack shrinks from the top',
+        'push = new element added to the top; stack grows upward',
+        'pop = top element removed; stack shrinks from the top',
         'LIFO: the last element pushed is the first one popped',
       ]}
     >
@@ -152,8 +152,8 @@ export function QueueDiagram() {
     <Container
       title="QUEUE (FIFO)"
       footer={[
-        'enqueue — new element added at the rear; queue extends',
-        'dequeue — front element removed; queue shifts forward',
+        'enqueue = new element added at the rear; queue extends',
+        'dequeue = front element removed; queue shifts forward',
         'FIFO: the first element enqueued is the first one dequeued',
       ]}
     >
