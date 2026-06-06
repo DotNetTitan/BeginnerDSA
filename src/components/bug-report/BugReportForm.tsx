@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { Turnstile } from '@marsidev/react-turnstile';
+import { Button } from '@/components/ui/button';
 import { topics } from '@/lib/topics';
 import { getProblems } from '@/lib/problems';
 
@@ -14,6 +16,7 @@ export default function BugReportForm() {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<Status>('idle');
   const [problems, setProblems] = useState<{ id: string; title: string }[]>([]);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
   useEffect(() => {
     queueMicrotask(() => {
@@ -37,7 +40,7 @@ export default function BugReportForm() {
     const res = await fetch('/api/bug-report', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type, module, problem, description, email }),
+      body: JSON.stringify({ type, module, problem, description, email, turnstileToken }),
     });
 
     if (res.ok) {
@@ -134,13 +137,19 @@ export default function BugReportForm() {
         />
       </div>
 
-      <button
-        type="submit"
-        disabled={status === 'submitting'}
-        className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground disabled:opacity-50"
-      >
-        {status === 'submitting' ? 'Submitting...' : 'Submit Report'}
-      </button>
+      <div>
+        <Turnstile
+          siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+          onSuccess={setTurnstileToken}
+          options={{ theme: 'auto' }}
+        />
+      </div>
+
+      {turnstileToken && (
+        <Button type="submit" disabled={status === 'submitting'}>
+          {status === 'submitting' ? 'Submitting...' : 'Submit Report'}
+        </Button>
+      )}
 
       {status === 'error' && (
         <p className="text-sm text-red-600">Something went wrong. Please try again later.</p>

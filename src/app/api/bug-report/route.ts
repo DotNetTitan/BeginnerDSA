@@ -6,15 +6,32 @@ interface BugReportBody {
   problem: string;
   description: string;
   email: string;
+  turnstileToken: string;
 }
 
 export async function POST(request: Request) {
+  const body: BugReportBody = await request.json();
+
+  const secret = process.env.TURNSTILE_SECRET_KEY;
+  if (!secret) {
+    return NextResponse.json({ error: 'Server not configured for bug reports' }, { status: 500 });
+  }
+
+  const verify = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({ secret, response: body.turnstileToken }),
+  });
+  const verifyData = await verify.json();
+
+  if (!verifyData.success) {
+    return NextResponse.json({ error: 'Verification failed' }, { status: 403 });
+  }
+
   const token = process.env.GITHUB_TOKEN;
   if (!token) {
     return NextResponse.json({ error: 'Server not configured for bug reports' }, { status: 500 });
   }
-
-  const body: BugReportBody = await request.json();
 
   const labels = [body.type || 'bug'];
   if (body.module) labels.push(`module: ${body.module}`);
