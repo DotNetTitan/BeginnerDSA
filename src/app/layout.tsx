@@ -50,6 +50,8 @@ export default async function RootLayout({
           <span>·</span>
           <a href="/faq" className="hover:underline">FAQ</a>
           <span>·</span>
+          <a href="/report-bug" className="hover:underline">Report a Bug</a>
+          <span>·</span>
           <a href="https://ko-fi.com/zerotodsa" target="_blank" rel="noopener noreferrer" className="hover:underline">Support on Ko‑fi</a>
         </footer>
         <Analytics />

@@ -11,7 +11,7 @@ import { getProgress } from '@/lib/progress-store';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Menu, BookOpen, BarChart3, Lock, PlayCircle, CheckCircle2 } from 'lucide-react';
+import { Menu, BookOpen, BarChart3, Lock, PlayCircle, CheckCircle2, Bug } from 'lucide-react';
 import { useEffect, useMemo, useState, useSyncExternalStore } from 'react';
 
 export default function MobileNav() {
@@ -65,6 +65,11 @@ export default function MobileNav() {
           <Link href="/progress" onClick={close}>
             <Button variant="ghost" size="sm" className="gap-1.5">
               <BarChart3 className="h-4 w-4" /> Progress
+            </Button>
+          </Link>
+          <Link href="/report-bug" onClick={close}>
+            <Button variant="ghost" size="sm" className="gap-1.5">
+              <Bug className="h-4 w-4" /> Report a Bug
             </Button>
           </Link>
         </div>

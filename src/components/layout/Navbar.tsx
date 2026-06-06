@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import { Button } from '@/components/ui/button';
-import { Moon, Sun, BarChart3 } from 'lucide-react';
+import { Moon, Sun, BarChart3, Bug } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import MobileNav from './MobileNav';
 import LanguageSelector from './LanguageSelector';
@@ -28,6 +28,12 @@ export default function Navbar() {
             <Button variant="ghost" size="sm" className="gap-1.5">
               <BarChart3 className="h-4 w-4" />
               <span className="hidden sm:inline">Progress</span>
+            </Button>
+          </Link>
+          <Link href="/report-bug">
+            <Button variant="ghost" size="sm" className="gap-1.5">
+              <Bug className="h-4 w-4" />
+              <span className="hidden sm:inline">Report a Bug</span>
             </Button>
           </Link>
         </div>
