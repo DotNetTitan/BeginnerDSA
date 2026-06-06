@@ -13,6 +13,8 @@ import NextProblemButton from '@/components/practice/NextProblemButton';
 import ExamOfferModal from '@/components/exam/ExamOfferModal';
 import KeyboardNav from '@/components/layout/KeyboardNav';
 import SolutionDisplay from '@/components/practice/SolutionDisplay';
+import ProblemDescription from '@/components/practice/ProblemDescription';
+import ComplexityAnswer from '@/components/practice/ComplexityAnswer';
 
 interface Props {
   params: Promise<{ topicId: string; problemId: string }>;
@@ -104,8 +106,8 @@ export default async function ProblemPage({ params }: Props) {
         )}
       </div>
 
-      <div className="prose prose-sm dark:prose-invert max-w-none mb-6">
-        <p className="text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: problem.description.replace(/`([^`]+)`/g, '<code>$1</code>') }} />
+      <div className="mb-6">
+        <ProblemDescription description={problem.description} code={problem.code} />
       </div>
 
       {problem.constraints.length > 0 && (
@@ -145,7 +147,11 @@ export default async function ProblemPage({ params }: Props) {
         </div>
       )}
 
-      <SolutionDisplay solution={problem.solution} />
+      {topicId === 'big-o' ? (
+        <ComplexityAnswer timeComplexity={problem.timeComplexity} spaceComplexity={problem.spaceComplexity} />
+      ) : (
+        <SolutionDisplay solution={problem.solution} />
+      )}
 
       {!nextProblem && <ExamOfferModal topicId={topicId} />}
       <KeyboardNav
