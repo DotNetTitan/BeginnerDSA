@@ -40,6 +40,7 @@ export interface Problem {
   examples: Example[];
   constraints: string[];
   hints: string[];
+  code?: Record<string, string>;
   solution: Record<string, string>;
   timeComplexity: string;
   spaceComplexity: string;

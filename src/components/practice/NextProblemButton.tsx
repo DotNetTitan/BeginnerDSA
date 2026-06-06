@@ -17,8 +17,9 @@ export default function NextProblemButton({
   nextProblemId: string;
   nextProblemTitle: string;
 }) {
-  const [solved, setSolved] = useState(() => isProblemSolved(topicId, problemId));
+  const [solved, setSolved] = useState(false);
   useEffect(() => {
+    setSolved(isProblemSolved(topicId, problemId));
     const handler = () => setSolved(isProblemSolved(topicId, problemId));
     window.addEventListener('dsa-progress-changed', handler);
     return () => window.removeEventListener('dsa-progress-changed', handler);
