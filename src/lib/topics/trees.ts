@@ -41,21 +41,21 @@ export const topic: Topic = {
 }
 
 // DFS Traversals (recursive)
-void Inorder(TreeNode node) {      // left → root → right
+void Inorder(TreeNode node) {      // left -> root -> right
     if (node == null) return;
     Inorder(node.left);
     Console.Write(node.val + " ");
     Inorder(node.right);
 }
 
-void Preorder(TreeNode node) {     // root → left → right
+void Preorder(TreeNode node) {     // root -> left -> right
     if (node == null) return;
     Console.Write(node.val + " ");
     Preorder(node.left);
     Preorder(node.right);
 }
 
-void Postorder(TreeNode node) {    // left → right → root
+void Postorder(TreeNode node) {    // left -> right -> root
     if (node == null) return;
     Postorder(node.left);
     Postorder(node.right);
@@ -80,21 +80,21 @@ void LevelOrder(TreeNode root) {
         self.right = right
 
 # DFS Traversals (recursive)
-def inorder(node):       # left → root → right
+def inorder(node):       # left -> root -> right
     if node is None:
         return
     inorder(node.left)
     print(node.val, end=" ")
     inorder(node.right)
 
-def preorder(node):      # root → left → right
+def preorder(node):      # root -> left -> right
     if node is None:
         return
     print(node.val, end=" ")
     preorder(node.left)
     preorder(node.right)
 
-def postorder(node):     # left → right → root
+def postorder(node):     # left -> right -> root
     if node is None:
         return
     postorder(node.left)
@@ -129,21 +129,21 @@ public class TreeNode {
 }
 
 // DFS Traversals (recursive)
-public void inorder(TreeNode node) {      // left → root → right
+public void inorder(TreeNode node) {      // left -> root -> right
     if (node == null) return;
     inorder(node.left);
     System.out.print(node.val + " ");
     inorder(node.right);
 }
 
-public void preorder(TreeNode node) {     // root → left → right
+public void preorder(TreeNode node) {     // root -> left -> right
     if (node == null) return;
     System.out.print(node.val + " ");
     preorder(node.left);
     preorder(node.right);
 }
 
-public void postorder(TreeNode node) {    // left → right → root
+public void postorder(TreeNode node) {    // left -> right -> root
     if (node == null) return;
     postorder(node.left);
     postorder(node.right);
@@ -170,21 +170,21 @@ public void levelOrder(TreeNode root) {
 }
 
 // DFS Traversals (recursive)
-const inorder = (node) => {        // left → root → right
+const inorder = (node) => {        // left -> root -> right
     if (node === null) return;
     inorder(node.left);
     console.log(node.val + " ");
     inorder(node.right);
 };
 
-const preorder = (node) => {       // root → left → right
+const preorder = (node) => {       // root -> left -> right
     if (node === null) return;
     console.log(node.val + " ");
     preorder(node.left);
     preorder(node.right);
 };
 
-const postorder = (node) => {      // left → right → root
+const postorder = (node) => {      // left -> right -> root
     if (node === null) return;
     postorder(node.left);
     postorder(node.right);
@@ -407,9 +407,51 @@ bool validate(TreeNode* node, long min, long max) {
       ],
     },
     {
+      id: 'when-to-use-trees',
+      title: 'When to Use Trees',
+      content: `**Trees are the right choice when:**
+- Data has a **hierarchical structure** (filesystem, DOM, org chart)
+- You need **fast search with ordering** (BST: O(log n) average)
+- You need **range queries** (BST: find all values between x and y)
+- Data naturally branches (decision trees, game trees)
+
+**Trees vs other structures:**
+| Structure | Use when |
+|---|---|
+| Array / List | Flat, ordered data with index access |
+| Hash map | Key-value lookup (no ordering needed) |
+| Tree | Hierarchical OR needs sorted order OR range queries |
+| Graph (Module 10) | No hierarchy, arbitrary connections |
+
+**When NOT to use a tree:**
+- Data is flat (just use an array)
+- You only need exact membership lookup (use a hash set)
+- The tree would be unbalanced (use a balanced tree library)
+
+**Decision guide:**
+| Signal | Structure |
+|---|---|
+| "Sorted order of keys" | BST |
+| "Find all values in range" | BST |
+| "Hierarchy / parent-child" | Tree |
+| "Fast lookup, no order needed" | Hash set/map |
+| "Relationships between items" | Graph (Module 10) |`,
+    },
+    {
+      id: 'mistakes',
+      title: 'Common Mistakes / Gotchas',
+      content: `**BST validation: checking only immediate children:** A common mistake: \`left.val < node.val < right.val\`. This is WRONG. ALL nodes in the left subtree must be < node.val. Example: root=5, left=3, left.right=6 would pass the naive check but violates BST (6 > 5). Use the min/max range approach.
+
+**Forgetting null checks on tree nodes:** \`node.left\` and \`node.right\` can be null. Always check \`if (node == null) return\` before accessing children.
+
+**Recursion depth in skewed trees:** A tree with n nodes can be n levels deep if it's skewed (basically a linked list). Recursive traversal uses O(n) stack space and risks overflow. Consider iterative traversal for worst-case trees.`,
+    },
+    {
       id: 'trie',
       title: 'Trie (Prefix Tree)',
-      content: `A trie (prefix tree) stores strings in a tree where each node represents a character. Used for **autocomplete**, **spell check**, and **IP routing**.
+      content: `A trie (prefix tree) stores strings in a tree where each node represents a character. This is a more advanced topic. Make sure you are comfortable with trees and hash maps first.
+
+Used for **autocomplete**, **spell check**, and **IP routing**.
 
 | Operation | Trie |
 |---|---|
@@ -617,70 +659,13 @@ private:
       ],
     },
     {
-      id: 'when-to-use-trees',
-      title: 'When to Use Trees & Tries',
-      content: `**Trees are the right choice when:**
-- Data has a **hierarchical structure** (filesystem, DOM, org chart)
-- You need **fast search with ordering** (BST: O(log n) average)
-- You need **range queries** (BST: find all values between x and y)
-- Data naturally branches (decision trees, game trees)
-
-**Trees vs other structures:**
-| Structure | Use when |
-|---|---|
-| Array / List | Flat, ordered data with index access |
-| Hash map | Key-value lookup (no ordering needed) |
-| Tree | Hierarchical OR needs sorted order OR range queries |
-| Graph (Module 10) | No hierarchy, arbitrary connections |
-
-**When NOT to use a tree:**
-- Data is flat (just use an array)
-- You only need exact membership lookup (use a hash set)
-- The tree would be unbalanced (use a balanced tree library)
-
-**Trie vs Hash Set for strings:**
-| Criterion | Trie | Hash Set |
-|---|---|---|
-| Prefix search | O(m) - fast | O(n * L) - must scan all |
-| Memory | More (node overhead) | Less |
-| Exact membership | O(m) | O(1) average |
-| Use case | Autocomplete, spell check | Simple word lookup |
-
-**Decision guide:**
-| Signal | Structure |
-|---|---|
-| "Sorted order of keys" | BST |
-| "Find all values in range" | BST |
-| "Hierarchy / parent-child" | Tree |
-| "Autocomplete / prefix search" | Trie |
-| "Fast lookup, no order needed" | Hash set/map |
-| "Relationships between items" | Graph (Module 10) |`,
-    },
-    {
-      id: 'mistakes',
-      title: 'Common Mistakes / Gotchas',
-      content: `**BST validation: checking only immediate children:** A common mistake: \`left.val < node.val < right.val\`. This is WRONG. ALL nodes in the left subtree must be < node.val. Example: root=5, left=3, left.right=6 would pass the naive check but violates BST (6 > 5). Use the min/max range approach.
-
-**Forgetting null checks on tree nodes:** \`node.left\` and \`node.right\` can be null. Always check \`if (node == null) return\` before accessing children.
-
-**Recursion depth in skewed trees:** A tree with n nodes can be n levels deep if it's skewed (basically a linked list). Recursive traversal uses O(n) stack space and risks overflow. Consider iterative traversal for worst-case trees.
-
-**Confusing tree, BST, and trie:**
-- **Tree**: generic hierarchical structure (any order)
-- **BST**: ordered binary tree (left < node < right)
-- **Trie**: prefix tree for strings (each node = one character)
-
-**Trie: forgetting the end-of-word marker:** Without \`isEnd\` flag, \`search("app")\` returns true even if only "apple" was inserted. The flag distinguishes prefix from complete word.`,
-    },
-    {
       id: 'common-patterns',
       title: 'Common Interview Patterns',
       content: `1. **Tree traversal** - inorder (sorted BST), preorder (serialization), level order (BFS)
 2. **LCA (Lowest Common Ancestor)** - recursive or iterative for BST
 3. **Diameter / max path sum** - post-order traversal with global variable
 4. **Serialize / deserialize** - preorder with null markers
-5. **Trie problems** - autocomplete, word search, word break
-6. **Balanced tree check** - compute height and check balance at each node`,
+5. **Balanced tree check** - compute height and check balance at each node`,
     },
   ],
   problemIds: ['max-depth-binary-tree', 'inorder-traversal', 'validate-bst', 'lca-bst', 'serialize-deserialize'],

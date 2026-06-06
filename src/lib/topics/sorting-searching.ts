@@ -107,7 +107,6 @@ std::vector<int> findAll(const std::vector<int>& arr, int target) {
 - Standard: find exact target
 - Lower bound: first index ≥ target
 - Upper bound: first index > target
-- Rotated array search
 - Search in a range`,
       codeExamples: [
         {
@@ -274,198 +273,7 @@ int upperBound(const std::vector<int>& arr, int target) {
         },
       ],
     },
-    {
-      id: 'binary-search-rotated',
-      title: 'Binary Search on Rotated Array',
-      content: `A **rotated sorted array** is a sorted array that has been shifted. Example: [4, 5, 6, 7, 0, 1, 2].
 
-Key insight: One half of the array is always normally sorted. Determine which half, then search accordingly.`,
-      codeExamples: [
-        {
-          title: 'Search in rotated sorted array',
-          code: {
-            csharp: `int SearchRotated(int[] arr, int target) {
-    int left = 0, right = arr.Length - 1;
-    while (left <= right) {
-        int mid = left + (right - left) / 2;
-        if (arr[mid] == target) return mid;
-
-        // Left half is sorted
-        if (arr[left] <= arr[mid]) {
-            if (target >= arr[left] && target < arr[mid])
-                right = mid - 1;
-            else
-                left = mid + 1;
-        }
-        // Right half is sorted
-        else {
-            if (target > arr[mid] && target <= arr[right])
-                left = mid + 1;
-            else
-                right = mid - 1;
-        }
-    }
-    return -1;
-}
-
-// Find minimum in rotated array
-int FindMin(int[] arr) {
-    int left = 0, right = arr.Length - 1;
-    while (left < right) {
-        int mid = left + (right - left) / 2;
-        if (arr[mid] > arr[right])
-            left = mid + 1;  // min is in right half
-        else
-            right = mid;     // min is in left half (including mid)
-    }
-    return arr[left];
-}`,
-            python: `def search_rotated(arr, target):
-    left, right = 0, len(arr) - 1
-    while left <= right:
-        mid = left + (right - left) // 2
-        if arr[mid] == target:
-            return mid
-
-        # Left half is sorted
-        if arr[left] <= arr[mid]:
-            if arr[left] <= target < arr[mid]:
-                right = mid - 1
-            else:
-                left = mid + 1
-        # Right half is sorted
-        else:
-            if arr[mid] < target <= arr[right]:
-                left = mid + 1
-            else:
-                right = mid - 1
-    return -1
-
-# Find minimum in rotated array
-def find_min(arr):
-    left, right = 0, len(arr) - 1
-    while left < right:
-        mid = left + (right - left) // 2
-        if arr[mid] > arr[right]:
-            left = mid + 1  # min is in right half
-        else:
-            right = mid     # min is in left half (including mid)
-    return arr[left]`,
-            java: `public int searchRotated(int[] arr, int target) {
-    int left = 0, right = arr.length - 1;
-    while (left <= right) {
-        int mid = left + (right - left) / 2;
-        if (arr[mid] == target) return mid;
-
-        // Left half is sorted
-        if (arr[left] <= arr[mid]) {
-            if (target >= arr[left] && target < arr[mid])
-                right = mid - 1;
-            else
-                left = mid + 1;
-        }
-        // Right half is sorted
-        else {
-            if (target > arr[mid] && target <= arr[right])
-                left = mid + 1;
-            else
-                right = mid - 1;
-        }
-    }
-    return -1;
-}
-
-// Find minimum in rotated array
-public int findMin(int[] arr) {
-    int left = 0, right = arr.length - 1;
-    while (left < right) {
-        int mid = left + (right - left) / 2;
-        if (arr[mid] > arr[right])
-            left = mid + 1;  // min is in right half
-        else
-            right = mid;     // min is in left half (including mid)
-    }
-    return arr[left];
-}`,
-            javascript: `const searchRotated = (arr, target) => {
-    let left = 0, right = arr.length - 1;
-    while (left <= right) {
-        const mid = left + Math.floor((right - left) / 2);
-        if (arr[mid] === target) return mid;
-
-        // Left half is sorted
-        if (arr[left] <= arr[mid]) {
-            if (target >= arr[left] && target < arr[mid])
-                right = mid - 1;
-            else
-                left = mid + 1;
-        }
-        // Right half is sorted
-        else {
-            if (target > arr[mid] && target <= arr[right])
-                left = mid + 1;
-            else
-                right = mid - 1;
-        }
-    }
-    return -1;
-};
-
-// Find minimum in rotated array
-const findMin = (arr) => {
-    let left = 0, right = arr.length - 1;
-    while (left < right) {
-        const mid = left + Math.floor((right - left) / 2);
-        if (arr[mid] > arr[right])
-            left = mid + 1;  // min is in right half
-        else
-            right = mid;     // min is in left half (including mid)
-    }
-    return arr[left];
-};`,
-          cpp: `#include <vector>
-#include <algorithm>
-
-int searchRotated(const std::vector<int>& arr, int target) {
-    int left = 0, right = arr.size() - 1;
-    while (left <= right) {
-        int mid = left + (right - left) / 2;
-        if (arr[mid] == target) return mid;
-
-        // Left half is sorted
-        if (arr[left] <= arr[mid]) {
-            if (target >= arr[left] && target < arr[mid])
-                right = mid - 1;
-            else
-                left = mid + 1;
-        }
-        // Right half is sorted
-        else {
-            if (target > arr[mid] && target <= arr[right])
-                left = mid + 1;
-            else
-                right = mid - 1;
-        }
-    }
-    return -1;
-}
-
-// Find minimum in rotated array
-int findMin(const std::vector<int>& arr) {
-    int left = 0, right = arr.size() - 1;
-    while (left < right) {
-        int mid = left + (right - left) / 2;
-        if (arr[mid] > arr[right])
-            left = mid + 1;  // min is in right half
-        else
-            right = mid;     // min is in left half (including mid)
-    }
-    return arr[left];
-}`,
-          },
-        },
-      ],
-    },
     {
       id: 'search-algorithms',
       title: 'Search Algorithms Comparison',
@@ -864,6 +672,200 @@ std::vector<int> merge(const std::vector<int>& left, const std::vector<int>& rig
 **"Quicksort is always O(n log n)":** Quicksort degrades to O(n²) on already sorted arrays if pivot selection is poor. Use random pivot selection or median-of-three to avoid this.
 
 **In-place vs non-in-place confusion:** Merge sort creates new arrays (O(n) space). Quick sort sorts in-place (O(log n) stack space). Don't claim "O(1) space" for merge sort.`,
+    },
+    {
+      id: 'binary-search-rotated',
+      title: 'Advanced: Binary Search on Rotated Array',
+      content: `A **rotated sorted array** is a sorted array that has been shifted. Example: [4, 5, 6, 7, 0, 1, 2].
+
+This is a common interview challenge, not a core topic. Make sure you're comfortable with standard binary search before attempting this.
+
+Key insight: One half of the array is always normally sorted. Determine which half, then search accordingly.`,
+      codeExamples: [
+        {
+          title: 'Search in rotated sorted array',
+          code: {
+            csharp: `int SearchRotated(int[] arr, int target) {
+    int left = 0, right = arr.Length - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] == target) return mid;
+
+        // Left half is sorted
+        if (arr[left] <= arr[mid]) {
+            if (target >= arr[left] && target < arr[mid])
+                right = mid - 1;
+            else
+                left = mid + 1;
+        }
+        // Right half is sorted
+        else {
+            if (target > arr[mid] && target <= arr[right])
+                left = mid + 1;
+            else
+                right = mid - 1;
+        }
+    }
+    return -1;
+}
+
+// Find minimum in rotated array
+int FindMin(int[] arr) {
+    int left = 0, right = arr.Length - 1;
+    while (left < right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] > arr[right])
+            left = mid + 1;  // min is in right half
+        else
+            right = mid;     // min is in left half (including mid)
+    }
+    return arr[left];
+}`,
+            python: `def search_rotated(arr, target):
+    left, right = 0, len(arr) - 1
+    while left <= right:
+        mid = left + (right - left) // 2
+        if arr[mid] == target:
+            return mid
+
+        # Left half is sorted
+        if arr[left] <= arr[mid]:
+            if arr[left] <= target < arr[mid]:
+                right = mid - 1
+            else:
+                left = mid + 1
+        # Right half is sorted
+        else:
+            if arr[mid] < target <= arr[right]:
+                left = mid + 1
+            else:
+                right = mid - 1
+    return -1
+
+# Find minimum in rotated array
+def find_min(arr):
+    left, right = 0, len(arr) - 1
+    while left < right:
+        mid = left + (right - left) // 2
+        if arr[mid] > arr[right]:
+            left = mid + 1  # min is in right half
+        else:
+            right = mid     # min is in left half (including mid)
+    return arr[left]`,
+            java: `public int searchRotated(int[] arr, int target) {
+    int left = 0, right = arr.length - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] == target) return mid;
+
+        // Left half is sorted
+        if (arr[left] <= arr[mid]) {
+            if (target >= arr[left] && target < arr[mid])
+                right = mid - 1;
+            else
+                left = mid + 1;
+        }
+        // Right half is sorted
+        else {
+            if (target > arr[mid] && target <= arr[right])
+                left = mid + 1;
+            else
+                right = mid - 1;
+        }
+    }
+    return -1;
+}
+
+// Find minimum in rotated array
+public int findMin(int[] arr) {
+    int left = 0, right = arr.length - 1;
+    while (left < right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] > arr[right])
+            left = mid + 1;  // min is in right half
+        else
+            right = mid;     // min is in left half (including mid)
+    }
+    return arr[left];
+}`,
+            javascript: `const searchRotated = (arr, target) => {
+    let left = 0, right = arr.length - 1;
+    while (left <= right) {
+        const mid = left + Math.floor((right - left) / 2);
+        if (arr[mid] === target) return mid;
+
+        // Left half is sorted
+        if (arr[left] <= arr[mid]) {
+            if (target >= arr[left] && target < arr[mid])
+                right = mid - 1;
+            else
+                left = mid + 1;
+        }
+        // Right half is sorted
+        else {
+            if (target > arr[mid] && target <= arr[right])
+                left = mid + 1;
+            else
+                right = mid - 1;
+        }
+    }
+    return -1;
+};
+
+// Find minimum in rotated array
+const findMin = (arr) => {
+    let left = 0, right = arr.length - 1;
+    while (left < right) {
+        const mid = left + Math.floor((right - left) / 2);
+        if (arr[mid] > arr[right])
+            left = mid + 1;  // min is in right half
+        else
+            right = mid;     // min is in left half (including mid)
+    }
+    return arr[left];
+};`,
+          cpp: `#include <vector>
+#include <algorithm>
+
+int searchRotated(const std::vector<int>& arr, int target) {
+    int left = 0, right = arr.size() - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] == target) return mid;
+
+        // Left half is sorted
+        if (arr[left] <= arr[mid]) {
+            if (target >= arr[left] && target < arr[mid])
+                right = mid - 1;
+            else
+                left = mid + 1;
+        }
+        // Right half is sorted
+        else {
+            if (target > arr[mid] && target <= arr[right])
+                left = mid + 1;
+            else
+                right = mid - 1;
+        }
+    }
+    return -1;
+}
+
+// Find minimum in rotated array
+int findMin(const std::vector<int>& arr) {
+    int left = 0, right = arr.size() - 1;
+    while (left < right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] > arr[right])
+            left = mid + 1;  // min is in right half
+        else
+            right = mid;     // min is in left half (including mid)
+    }
+    return arr[left];
+}`,
+          },
+        },
+      ],
     },
     {
       id: 'common-patterns',

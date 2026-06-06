@@ -354,7 +354,7 @@ ListNode* findMiddle(ListNode* head) {
 
 **Floyd's algorithm (tortoise & hare):** Use two pointers. \`slow\` moves 1 step, \`fast\` moves 2 steps. If they meet, a cycle exists.
 
-**Key insight:** In the diagram above, node \`4\` points back to node \`2\` instead of \`null\`. This means \`fast\` will eventually lap around and meet \`slow\` from behind.`,
+**Key insight:** In the diagram below, node \`4\` points back to node \`2\` instead of \`null\`. This means \`fast\` will eventually lap around and meet \`slow\` from behind.`,
       codeExamples: [
         {
           title: 'Detect cycle (Floyd\'s algorithm)',
