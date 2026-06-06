@@ -14,7 +14,12 @@ export default function ProblemDescription({
 
   return (
     <div>
-      <p className="text-sm leading-relaxed">{description}</p>
+      <p
+        className="text-sm leading-relaxed"
+        dangerouslySetInnerHTML={{
+          __html: description.replace(/`([^`]+)`/g, '<code class="text-xs bg-muted px-1 py-0.5 rounded font-mono">$1</code>'),
+        }}
+      />
       {code && (
         <CodeRenderer code={code[language] ?? code['javascript'] ?? ''} language={language} />
       )}
