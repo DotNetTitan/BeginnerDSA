@@ -65,6 +65,7 @@ std::vector<int> twoSum(const std::vector<int>& nums, int target) {
   },
   {
     id: 'best-time-stock',
+    leetcodeUrl: 'https://leetcode.com/problems/best-time-to-buy-and-sell-stock/',
     title: 'Best Time to Buy and Sell Stock',
     topicId: 'arrays-strings',
     difficulty: 'easy',
@@ -141,6 +142,7 @@ int maxProfit(const std::vector<int>& prices) {
   },
   {
     id: 'product-except-self',
+    leetcodeUrl: 'https://leetcode.com/problems/product-of-array-except-self/',
     title: 'Product of Array Except Self',
     topicId: 'arrays-strings',
     difficulty: 'medium',
@@ -238,6 +240,7 @@ std::vector<int> productExceptSelf(const std::vector<int>& nums) {
   },
   {
     id: 'longest-substring-no-repeat',
+    leetcodeUrl: 'https://leetcode.com/problems/longest-substring-without-repeating-characters/',
     title: 'Longest Substring Without Repeating Characters',
     topicId: 'arrays-strings',
     difficulty: 'medium',
@@ -401,5 +404,6 @@ bool isPalindrome(const std::string& s) {
     },
     timeComplexity: 'O(n)',
     spaceComplexity: 'O(1)',
+    leetcodeUrl: 'https://leetcode.com/problems/valid-palindrome/',
   },
 ];

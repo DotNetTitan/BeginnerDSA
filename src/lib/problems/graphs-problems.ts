@@ -118,6 +118,7 @@ int numIslands(std::vector<std::vector<char>>& grid) {
     },
     timeComplexity: 'O(m * n)',
     spaceComplexity: 'O(m * n)',
+    leetcodeUrl: 'https://leetcode.com/problems/number-of-islands/',
   },
   {
     id: 'clone-graph',
@@ -229,6 +230,7 @@ Node* cloneGraph(Node* node) {
     },
     timeComplexity: 'O(V + E)',
     spaceComplexity: 'O(V)',
+    leetcodeUrl: 'https://leetcode.com/problems/clone-graph/',
   },
   {
     id: 'course-schedule',
@@ -354,6 +356,7 @@ bool canFinish(int n, std::vector<std::vector<int>>& prerequisites) {
     },
     timeComplexity: 'O(V + E)',
     spaceComplexity: 'O(V + E)',
+    leetcodeUrl: 'https://leetcode.com/problems/course-schedule/',
   },
   {
     id: 'rotting-oranges',
@@ -524,6 +527,7 @@ int orangesRotting(std::vector<std::vector<int>>& grid) {
     },
     timeComplexity: 'O(m * n)',
     spaceComplexity: 'O(m * n)',
+    leetcodeUrl: 'https://leetcode.com/problems/rotting-oranges/',
   },
   {
     id: 'word-ladder',
@@ -687,5 +691,6 @@ int ladderLength(const std::string& beginWord, const std::string& endWord, const
     },
     timeComplexity: 'O(n * m * 26)',
     spaceComplexity: 'O(n)',
+    leetcodeUrl: 'https://leetcode.com/problems/word-ladder/',
   },
 ];

@@ -43,6 +43,7 @@ export interface Problem {
   solution: Record<string, string>;
   timeComplexity: string;
   spaceComplexity: string;
+  leetcodeUrl?: string;
 }
 
 export interface Example {

@@ -73,6 +73,7 @@ export const problems: Problem[] = [
     },
     timeComplexity: 'O(n)',
     spaceComplexity: 'O(1)',
+    leetcodeUrl: 'https://leetcode.com/problems/reverse-linked-list/',
   },
   {
     id: 'merge-two-sorted-lists',
@@ -170,6 +171,7 @@ export const problems: Problem[] = [
     },
     timeComplexity: 'O(n + m)',
     spaceComplexity: 'O(1)',
+    leetcodeUrl: 'https://leetcode.com/problems/merge-two-sorted-lists/',
   },
   {
     id: 'linked-list-cycle',
@@ -236,6 +238,7 @@ export const problems: Problem[] = [
     },
     timeComplexity: 'O(n)',
     spaceComplexity: 'O(1)',
+    leetcodeUrl: 'https://leetcode.com/problems/linked-list-cycle/',
   },
   {
     id: 'remove-nth-from-end',
@@ -316,12 +319,13 @@ export const problems: Problem[] = [
     },
     timeComplexity: 'O(n)',
     spaceComplexity: 'O(1)',
+    leetcodeUrl: 'https://leetcode.com/problems/remove-nth-node-from-end-of-list/',
   },
   {
     id: 'palindrome-linked-list',
     title: 'Palindrome Linked List',
     topicId: 'linked-lists',
-    difficulty: 'medium',
+    difficulty: 'easy',
     description: `Given the head of a singly linked list, return true if it is a palindrome.`,
     examples: [
       { input: 'head = [1,2,2,1]', output: 'true' },
@@ -467,5 +471,6 @@ ListNode* reverseList(ListNode* head) {
     },
     timeComplexity: 'O(n)',
     spaceComplexity: 'O(1)',
+    leetcodeUrl: 'https://leetcode.com/problems/palindrome-linked-list/',
   },
 ];

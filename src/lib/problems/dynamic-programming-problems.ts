@@ -65,6 +65,7 @@ export const problems: Problem[] = [
     },
     timeComplexity: 'O(n)',
     spaceComplexity: 'O(1)',
+    leetcodeUrl: 'https://leetcode.com/problems/climbing-stairs/',
   },
   {
     id: 'house-robber',
@@ -129,6 +130,7 @@ int rob(const std::vector<int>& nums) {
     },
     timeComplexity: 'O(n)',
     spaceComplexity: 'O(1)',
+    leetcodeUrl: 'https://leetcode.com/problems/house-robber/',
   },
   {
     id: 'coin-change',
@@ -198,6 +200,7 @@ int coinChange(const std::vector<int>& coins, int amount) {
     },
     timeComplexity: 'O(amount * coins)',
     spaceComplexity: 'O(amount)',
+    leetcodeUrl: 'https://leetcode.com/problems/coin-change/',
   },
   {
     id: 'longest-increasing-subsequence',
@@ -282,6 +285,7 @@ int lengthOfLIS(const std::vector<int>& nums) {
     },
     timeComplexity: 'O(n log n)',
     spaceComplexity: 'O(n)',
+    leetcodeUrl: 'https://leetcode.com/problems/longest-increasing-subsequence/',
   },
   {
     id: 'longest-common-subsequence',
@@ -367,5 +371,6 @@ int longestCommonSubsequence(const std::string& text1, const std::string& text2)
     },
     timeComplexity: 'O(m * n)',
     spaceComplexity: 'O(m * n)',
+    leetcodeUrl: 'https://leetcode.com/problems/longest-common-subsequence/',
   },
 ];

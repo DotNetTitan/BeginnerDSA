@@ -97,6 +97,7 @@ bool isValid(const std::string& s) {
     },
     timeComplexity: 'O(n)',
     spaceComplexity: 'O(n)',
+    leetcodeUrl: 'https://leetcode.com/problems/valid-parentheses/',
   },
   {
     id: 'min-stack',
@@ -188,6 +189,7 @@ public:
     },
     timeComplexity: 'O(1)',
     spaceComplexity: 'O(n)',
+    leetcodeUrl: 'https://leetcode.com/problems/min-stack/',
   },
   {
     id: 'daily-temperatures',
@@ -269,6 +271,7 @@ std::vector<int> dailyTemperatures(const std::vector<int>& temperatures) {
     },
     timeComplexity: 'O(n)',
     spaceComplexity: 'O(n)',
+    leetcodeUrl: 'https://leetcode.com/problems/daily-temperatures/',
   },
   {
     id: 'implement-queue-using-stacks',
@@ -401,6 +404,7 @@ public:
     },
     timeComplexity: 'O(1) amortized',
     spaceComplexity: 'O(n)',
+    leetcodeUrl: 'https://leetcode.com/problems/implement-queue-using-stacks/',
   },
   {
     id: 'top-k-frequent-elements',
@@ -499,5 +503,6 @@ std::vector<int> topKFrequentHeap(const std::vector<int>& nums, int k) {
     },
     timeComplexity: 'O(n log k)',
     spaceComplexity: 'O(n + k)',
+    leetcodeUrl: 'https://leetcode.com/problems/top-k-frequent-elements/',
   },
 ];

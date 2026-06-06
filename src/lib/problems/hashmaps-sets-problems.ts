@@ -71,6 +71,7 @@ std::vector<int> twoSum(const std::vector<int>& nums, int target) {
     },
     timeComplexity: 'O(n)',
     spaceComplexity: 'O(n)',
+    leetcodeUrl: 'https://leetcode.com/problems/two-sum/',
   },
   {
     id: 'group-anagrams',
@@ -149,6 +150,7 @@ std::vector<std::vector<std::string>> groupAnagrams(const std::vector<std::strin
     },
     timeComplexity: 'O(n * k log k)',
     spaceComplexity: 'O(n * k)',
+    leetcodeUrl: 'https://leetcode.com/problems/group-anagrams/',
   },
   {
     id: 'longest-consecutive',
@@ -249,6 +251,7 @@ int longestConsecutive(const std::vector<int>& nums) {
     },
     timeComplexity: 'O(n)',
     spaceComplexity: 'O(n)',
+    leetcodeUrl: 'https://leetcode.com/problems/longest-consecutive-sequence/',
   },
   {
     id: 'top-k-frequent',
@@ -351,5 +354,6 @@ std::vector<int> topKFrequent(const std::vector<int>& nums, int k) {
     },
     timeComplexity: 'O(n)',
     spaceComplexity: 'O(n)',
+    leetcodeUrl: 'https://leetcode.com/problems/top-k-frequent-elements/',
   },
 ];

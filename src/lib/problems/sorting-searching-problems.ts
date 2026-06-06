@@ -72,6 +72,7 @@ int search(const std::vector<int>& nums, int target) {
     },
     timeComplexity: 'O(log n)',
     spaceComplexity: 'O(1)',
+    leetcodeUrl: 'https://leetcode.com/problems/binary-search/',
   },
   {
     id: 'search-rotated-array',
@@ -187,6 +188,7 @@ int searchRotated(const std::vector<int>& nums, int target) {
     },
     timeComplexity: 'O(log n)',
     spaceComplexity: 'O(1)',
+    leetcodeUrl: 'https://leetcode.com/problems/search-in-rotated-sorted-array/',
   },
   {
     id: 'kth-largest',
@@ -250,6 +252,7 @@ int findKthLargest(const std::vector<int>& nums, int k) {
     },
     timeComplexity: 'O(n log k)',
     spaceComplexity: 'O(k)',
+    leetcodeUrl: 'https://leetcode.com/problems/kth-largest-element-in-an-array/',
   },
   {
     id: 'find-min-rotated',
@@ -325,6 +328,7 @@ int findMin(const std::vector<int>& nums) {
     },
     timeComplexity: 'O(log n)',
     spaceComplexity: 'O(1)',
+    leetcodeUrl: 'https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/',
   },
   {
     id: 'sort-colors',
@@ -416,5 +420,6 @@ void sortColors(std::vector<int>& nums) {
     },
     timeComplexity: 'O(n)',
     spaceComplexity: 'O(1)',
+    leetcodeUrl: 'https://leetcode.com/problems/sort-colors/',
   },
 ];
