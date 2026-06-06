@@ -5,7 +5,7 @@
 [![Built with Next.js](https://img.shields.io/badge/Built%20with-Next.js%2016-000000?logo=next.js&logoColor=white)](https://nextjs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-v4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
-[![License](https://img.shields.io/badge/License-All%20Rights%20Reserved-red.svg)](https://github.com/emath21/zerotodsa.com)
+[![License](https://img.shields.io/badge/License-All%20Rights%20Reserved-red.svg)](https://github.com/DotNetTitan/BeginnerDSA)
 
 **A structured, interactive platform for mastering Data Structures & Algorithms - from Big O to Dynamic Programming.**
 
@@ -76,8 +76,8 @@ Zero To DSA guides learners through 11 fundamental DSA topics with:
 
 ```bash
 # Clone the repository
-git clone https://github.com/emath21/zerotodsa.com.git
-cd zerotodsa.com
+git clone https://github.com/DotNetTitan/BeginnerDSA.git
+cd BeginnerDSA
 
 # Install dependencies
 npm install
