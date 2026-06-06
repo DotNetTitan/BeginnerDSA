@@ -105,7 +105,7 @@ export default async function ProblemPage({ params }: Props) {
       </div>
 
       <div className="prose prose-sm dark:prose-invert max-w-none mb-6">
-        <p className="text-sm leading-relaxed">{problem.description}</p>
+        <p className="text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: problem.description.replace(/`([^`]+)`/g, '<code>$1</code>') }} />
       </div>
 
       {problem.constraints.length > 0 && (
