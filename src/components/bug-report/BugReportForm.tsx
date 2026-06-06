@@ -122,7 +122,7 @@ export default function BugReportForm() {
 
       <div>
         <label htmlFor="email" className="text-sm font-medium">
-          Email <span className="text-muted-foreground font-normal">(optional &mdash; if you&apos;d like a follow-up)</span>
+          Email <span className="text-muted-foreground font-normal">(optional - if you&apos;d like a follow-up)</span>
         </label>
         <input
           id="email"
