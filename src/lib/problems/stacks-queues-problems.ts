@@ -6,7 +6,7 @@ export const problems: Problem[] = [
     title: 'Valid Parentheses',
     topicId: 'stacks-queues',
     difficulty: 'easy',
-    description: `Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid. A string is valid if brackets close in the correct order.`,
+    description: `Given a string s containing just the characters \`'('\`, \`')'\`, \`'{'\`, \`'}'\`, \`'['\` and \`']'\`, determine if the input string is valid. A string is valid if brackets close in the correct order.`,
     examples: [
       { input: 's = "()"', output: 'true' },
       { input: 's = "()[]{}"', output: 'true' },
