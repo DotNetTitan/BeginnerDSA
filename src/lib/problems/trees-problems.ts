@@ -47,6 +47,7 @@ int maxDepth(TreeNode* root) {
     },
     timeComplexity: 'O(n)',
     spaceComplexity: 'O(h)',
+    leetcodeUrl: 'https://leetcode.com/problems/maximum-depth-of-binary-tree/',
   },
   {
     id: 'inorder-traversal',
@@ -141,6 +142,7 @@ std::vector<int> inorderTraversal(TreeNode* root) {
     },
     timeComplexity: 'O(n)',
     spaceComplexity: 'O(h)',
+    leetcodeUrl: 'https://leetcode.com/problems/binary-tree-inorder-traversal/',
   },
   {
     id: 'validate-bst',
@@ -206,6 +208,7 @@ bool isValidBST(TreeNode* root) {
     },
     timeComplexity: 'O(n)',
     spaceComplexity: 'O(h)',
+    leetcodeUrl: 'https://leetcode.com/problems/validate-binary-search-tree/',
   },
   {
     id: 'lca-bst',
@@ -277,6 +280,7 @@ bool isValidBST(TreeNode* root) {
     },
     timeComplexity: 'O(h)',
     spaceComplexity: 'O(1)',
+    leetcodeUrl: 'https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/',
   },
   {
     id: 'serialize-deserialize',
@@ -427,5 +431,6 @@ private:
     },
     timeComplexity: 'O(n)',
     spaceComplexity: 'O(n)',
+    leetcodeUrl: 'https://leetcode.com/problems/serialize-and-deserialize-binary-tree/',
   },
 ];

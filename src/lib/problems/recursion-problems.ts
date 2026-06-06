@@ -91,6 +91,7 @@ std::vector<std::vector<int>> subsets(const std::vector<int>& nums) {
     },
     timeComplexity: 'O(n * 2^n)',
     spaceComplexity: 'O(n)',
+    leetcodeUrl: 'https://leetcode.com/problems/subsets/',
   },
   {
     id: 'permutations',
@@ -216,6 +217,7 @@ std::vector<std::vector<int>> permute(const std::vector<int>& nums) {
     },
     timeComplexity: 'O(n * n!)',
     spaceComplexity: 'O(n)',
+    leetcodeUrl: 'https://leetcode.com/problems/permutations/',
   },
   {
     id: 'combination-sum',
@@ -327,6 +329,7 @@ std::vector<std::vector<int>> combinationSum(const std::vector<int>& candidates,
     },
     timeComplexity: 'O(2^n)',
     spaceComplexity: 'O(target / min(candidates))',
+    leetcodeUrl: 'https://leetcode.com/problems/combination-sum/',
   },
   {
     id: 'generate-parentheses',
@@ -417,6 +420,7 @@ std::vector<std::string> generateParenthesis(int n) {
     },
     timeComplexity: 'O(4^n / sqrt(n))',
     spaceComplexity: 'O(n)',
+    leetcodeUrl: 'https://leetcode.com/problems/generate-parentheses/',
   },
   {
     id: 'n-queens',
@@ -574,5 +578,6 @@ std::vector<std::vector<std::string>> solveNQueens(int n) {
     },
     timeComplexity: 'O(n!)',
     spaceComplexity: 'O(n²)',
+    leetcodeUrl: 'https://leetcode.com/problems/n-queens/',
   },
 ];

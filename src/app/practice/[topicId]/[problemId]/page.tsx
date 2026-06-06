@@ -5,7 +5,7 @@ import TopicIcon from '@/components/ui/TopicIcon';
 import { getProblem, getProblems } from '@/lib/problems';
 import Link from 'next/link';
 import { Button, buttonVariants } from '@/components/ui/button';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, ExternalLink } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import MarkSolvedButton from './MarkSolvedButton';
@@ -86,6 +86,14 @@ export default async function ProblemPage({ params }: Props) {
               {problem.difficulty}
             </Badge>
             <MarkSolvedButton topicId={topicId} problemId={problemId} />
+            {problem.leetcodeUrl && (
+              <a href={problem.leetcodeUrl} target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" size="sm" className="gap-1.5">
+                  <ExternalLink className="h-3.5 w-3.5" />
+                  Solve on LeetCode
+                </Button>
+              </a>
+            )}
           </div>
         </div>
         {topicId !== 'big-o' && (

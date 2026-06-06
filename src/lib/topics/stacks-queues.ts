@@ -35,22 +35,23 @@ stack.Push(3);  // [1, 2, 3]
 int top = stack.Peek();  // 3 (no removal)
 int popped = stack.Pop(); // 3, stack is now [1, 2]
 
-// Monotonic stack pattern - maintain increasing/decreasing order
-int[] NextGreaterElement(int[] arr) {
-    var result = new int[arr.Length];
-    Array.Fill(result, -1);
-    var monoStack = new Stack<int>(); // stores indices
+// Check balanced parentheses - O(n), O(n) space
+bool IsValid(string s) {
+    var stack = new Stack<char>();
+    var map = new Dictionary<char, char> {
+        [')'] = '(', [']'] = '[', ['}'] = '{'
+    };
 
-    for (int i = 0; i < arr.Length; i++) {
-        while (monoStack.Count > 0 && arr[i] > arr[monoStack.Peek()]) {
-            int idx = monoStack.Pop();
-            result[idx] = arr[i];
+    foreach (char c in s) {
+        if (map.ContainsKey(c)) {
+            if (stack.Count == 0 || stack.Pop() != map[c]) return false;
+        } else {
+            stack.Push(c);
         }
-        monoStack.Push(i);
     }
-    return result;
+    return stack.Count == 0;
 }
-// For [2, 1, 3], returns [3, 3, -1]`,
+// "()[]{}" → true,  "(]" → false`,
             python: `stack = []
 
 stack.append(1)  # [1]
@@ -60,45 +61,44 @@ stack.append(3)  # [1, 2, 3]
 top = stack[-1]     # 3 (no removal)
 popped = stack.pop()  # 3, stack is now [1, 2]
 
-# Monotonic stack pattern - maintain increasing/decreasing order
-def next_greater_element(arr):
-    result = [-1] * len(arr)
-    mono_stack = []  # stores indices
+# Check balanced parentheses - O(n), O(n) space
+def is_valid(s: str) -> bool:
+    stack = []
+    pairs = {')': '(', ']': '[', '}': '{'}
 
-    for i in range(len(arr)):
-        while mono_stack and arr[i] > arr[mono_stack[-1]]:
-            idx = mono_stack.pop()
-            result[idx] = arr[i]
-        mono_stack.append(i)
-    return result
-# For [2, 1, 3], returns [3, 3, -1]`,
+    for c in s:
+        if c in pairs:
+            if not stack or stack.pop() != pairs[c]:
+                return False
+        else:
+            stack.append(c)
+    return not stack
+# "()[]{}" → True,  "(]" → False`,
             java: `import java.util.*;
 
-Deque<Integer> stack = new ArrayDeque<>();
+Deque<Character> stack = new ArrayDeque<>();
 
-stack.push(1);  // [1]
-stack.push(2);  // [1, 2]
-stack.push(3);  // [1, 2, 3]
+stack.push('a');
+stack.push('b');
+stack.pop();  // removes 'b'
 
-int top = stack.peek();   // 3 (no removal)
-int popped = stack.pop(); // 3, stack is now [1, 2]
+// Check balanced parentheses - O(n), O(n) space
+public boolean isValid(String s) {
+    Deque<Character> stack = new ArrayDeque<>();
+    Map<Character, Character> map = Map.of(
+        ')', '(', ']', '[', '}', '{'
+    );
 
-// Monotonic stack pattern - maintain increasing/decreasing order
-public int[] nextGreaterElement(int[] arr) {
-    int[] result = new int[arr.length];
-    Arrays.fill(result, -1);
-    Deque<Integer> monoStack = new ArrayDeque<>(); // stores indices
-
-    for (int i = 0; i < arr.length; i++) {
-        while (!monoStack.isEmpty() && arr[i] > arr[monoStack.peek()]) {
-            int idx = monoStack.pop();
-            result[idx] = arr[i];
+    for (char c : s.toCharArray()) {
+        if (map.containsKey(c)) {
+            if (stack.isEmpty() || stack.pop() != map.get(c)) return false;
+        } else {
+            stack.push(c);
         }
-        monoStack.push(i);
     }
-    return result;
+    return stack.isEmpty();
 }
-// For [2, 1, 3], returns [3, 3, -1]`,
+// "()[]{}" → true,  "(]" → false`,
             javascript: `const stack = [];
 
 stack.push(1);  // [1]
@@ -108,21 +108,21 @@ stack.push(3);  // [1, 2, 3]
 const top = stack[stack.length - 1]; // 3 (no removal)
 const popped = stack.pop();          // 3, stack is now [1, 2]
 
-// Monotonic stack pattern - maintain increasing/decreasing order
-const nextGreaterElement = (arr) => {
-    const result = new Array(arr.length).fill(-1);
-    const monoStack = []; // stores indices
+// Check balanced parentheses - O(n), O(n) space
+const isValid = (s) => {
+    const stack = [];
+    const pairs = { ')': '(', ']': '[', '}': '{' };
 
-    for (let i = 0; i < arr.length; i++) {
-        while (monoStack.length > 0 && arr[i] > arr[monoStack[monoStack.length - 1]]) {
-            const idx = monoStack.pop();
-            result[idx] = arr[i];
+    for (const c of s) {
+        if (c in pairs) {
+            if (stack.length === 0 || stack.pop() !== pairs[c]) return false;
+        } else {
+            stack.push(c);
         }
-        monoStack.push(i);
     }
-    return result;
+    return stack.length === 0;
 };
-// For [2, 1, 3], returns [3, 3, -1]`,
+// "()[]{}" → true,  "(]" → false`,
           cpp: `#include <stack>
 #include <vector>
 #include <iostream>
@@ -136,22 +136,24 @@ st.push(3);  // [1, 2, 3]
 int top = st.top();   // 3 (no removal)
 st.pop();             // removes top, stack is now [1, 2]
 
-// Monotonic stack pattern - maintain increasing/decreasing order
-std::vector<int> nextGreaterElement(const std::vector<int>& arr) {
-    std::vector<int> result(arr.size(), -1);
-    std::stack<int> monoStack; // stores indices
+// Check balanced parentheses - O(n), O(n) space
+bool isValid(const std::string& s) {
+    std::stack<char> st;
+    std::unordered_map<char, char> pairs = {
+        {')', '('}, {']', '['}, {'}', '{'}
+    };
 
-    for (int i = 0; i < arr.size(); i++) {
-        while (!monoStack.empty() && arr[i] > arr[monoStack.top()]) {
-            int idx = monoStack.top();
-            monoStack.pop();
-            result[idx] = arr[i];
+    for (char c : s) {
+        if (pairs.count(c)) {
+            if (st.empty() || st.top() != pairs[c]) return false;
+            st.pop();
+        } else {
+            st.push(c);
         }
-        monoStack.push(i);
     }
-    return result;
+    return st.empty();
 }
-// For [2, 1, 3], returns [3, 3, -1]`,
+// "()[]{}" → true,  "(]" → false`,
           },
         },
       ],
@@ -297,26 +299,22 @@ pq.Enqueue("medium", 2);
 
 string next = pq.Dequeue(); // "high" (priority 1)
 
+// Process tasks by priority
+var tasks = new PriorityQueue<string, int>();
+tasks.Enqueue("Write report", 3);
+tasks.Enqueue("Fix critical bug", 1);
+tasks.Enqueue("Review PR", 2);
+
+while (tasks.Count > 0) {
+    string task = tasks.Dequeue();
+    Console.WriteLine($"Processing: {task}");
+}
+// Output: Fix critical bug, Review PR, Write report
+
 // For max-heap, negate priorities or use a custom comparer
 var maxHeap = new PriorityQueue<int, int>(
     Comparer<int>.Create((a, b) => b.CompareTo(a))
-);
-
-// Top K frequent elements pattern
-int[] TopKFrequent(int[] nums, int k) {
-    var counts = new Dictionary<int, int>();
-    foreach (var n in nums) counts[n] = counts.GetValueOrDefault(n) + 1;
-
-    var heap = new PriorityQueue<int, int>();
-    foreach (var kvp in counts) {
-        heap.Enqueue(kvp.Key, kvp.Value);
-        if (heap.Count > k) heap.Dequeue(); // keep only top K
-    }
-
-    var result = new int[k];
-    for (int i = 0; i < k; i++) result[i] = heap.Dequeue();
-    return result;
-}`,
+);`,
             python: `import heapq
 
 # Min-heap by default (lower value = popped first)
@@ -327,25 +325,19 @@ heapq.heappush(pq, (2, "medium"))
 
 next_item = heapq.heappop(pq)[1]  # "high" (priority 1)
 
+# Process tasks by priority
+tasks = []
+heapq.heappush(tasks, (3, "Write report"))
+heapq.heappush(tasks, (1, "Fix critical bug"))
+heapq.heappush(tasks, (2, "Review PR"))
+
+while tasks:
+    task = heapq.heappop(tasks)[1]
+    print(f"Processing: {task}")
+# Output: Fix critical bug, Review PR, Write report
+
 # For max-heap, negate priorities
-max_heap = []
-
-# Top K frequent elements pattern
-def top_k_frequent(nums, k):
-    counts = {}
-    for n in nums:
-        counts[n] = counts.get(n, 0) + 1
-
-    heap = []
-    for num, freq in counts.items():
-        heapq.heappush(heap, (freq, num))
-        if len(heap) > k:
-            heapq.heappop(heap)  # keep only top K
-
-    result = []
-    for _ in range(k):
-        result.append(heapq.heappop(heap)[1])
-    return result`,
+max_heap = []`,
             java: `import java.util.*;
 
 // Min-heap by default (lower priority = dequeued first)
@@ -356,42 +348,44 @@ pq.offer(new int[]{2, 0});
 
 int[] next = pq.poll(); // {1, 0} (priority 1)
 
+// Process tasks by priority
+PriorityQueue<String> tasks = new PriorityQueue<>(
+    (a, b) -> Integer.compare(getPriority(a), getPriority(b))
+);
+// For a simpler approach, store priority with task:
+PriorityQueue<int[]> taskQueue = new PriorityQueue<>((a, b) -> a[0] - b[0]);
+taskQueue.offer(new int[]{3, 0}); // (priority, taskId)
+taskQueue.offer(new int[]{1, 0});
+taskQueue.offer(new int[]{2, 0});
+
+while (!taskQueue.isEmpty()) {
+    int[] task = taskQueue.poll();
+    System.out.println("Processing task with priority: " + task[0]);
+}
+
 // For max-heap, reverse comparator
-PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a, b) -> b - a);
+PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a, b) -> b - a);`,
+            javascript: `// Priority queue can be implemented with a binary heap.
+// Many JS runtimes now include a built-in PriorityQueue:
 
-// Top K frequent elements pattern
-public int[] topKFrequent(int[] nums, int k) {
-    Map<Integer, Integer> counts = new HashMap<>();
-    for (int n : nums) counts.put(n, counts.getOrDefault(n, 0) + 1);
+// Process tasks by priority
+const tasks = [];
+tasks.push({ priority: 3, name: "Write report" });
+tasks.push({ priority: 1, name: "Fix critical bug" });
+tasks.push({ priority: 2, name: "Review PR" });
 
-    PriorityQueue<int[]> heap = new PriorityQueue<>((a, b) -> a[0] - b[0]);
-    for (Map.Entry<Integer, Integer> e : counts.entrySet()) {
-        heap.offer(new int[]{e.getValue(), e.getKey()});
-        if (heap.size() > k) heap.poll(); // keep only top K
-    }
+tasks.sort((a, b) => a.priority - b.priority);
+while (tasks.length > 0) {
+    const task = tasks.shift();
+    console.log("Processing: " + task.name);
+}
+// Output: Fix critical bug, Review PR, Write report
 
-    int[] result = new int[k];
-    for (int i = 0; i < k; i++) result[i] = heap.poll()[1];
-    return result;
-}`,
-            javascript: `// Min-heap: use a library like \`@datastructures-js/priority-queue\`
-// or implement a simple binary heap.
-// Here we show the pattern using a min-heap array approach.
-
-// Top K frequent elements pattern (simple array + sort fallback)
-const topKFrequent = (nums, k) => {
-    const counts = new Map();
-    for (const n of nums) counts.set(n, (counts.get(n) || 0) + 1);
-
-    // Sort entries by frequency descending, take top k
-    return [...counts.entries()]
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, k)
-        .map(([num]) => num);
-};`,
+// For many items, use a proper heap to avoid O(n log n) sort each time`,
           cpp: `#include <queue>
 #include <vector>
-#include <unordered_map>
+#include <string>
+#include <iostream>
 
 // Min-heap: priority queue using greater comparator
 std::priority_queue<std::pair<int, std::string>,
@@ -404,29 +398,23 @@ pq.push({2, "medium"});
 auto next = pq.top(); // "high" (priority 1)
 pq.pop();
 
+// Process tasks by priority
+std::priority_queue<std::pair<int, std::string>,
+    std::vector<std::pair<int, std::string>>,
+    std::greater<>> tasks;
+tasks.push({3, "Write report"});
+tasks.push({1, "Fix critical bug"});
+tasks.push({2, "Review PR"});
+
+while (!tasks.empty()) {
+    auto task = tasks.top();
+    tasks.pop();
+    std::cout << "Processing: " << task.second << std::endl;
+}
+// Output: Fix critical bug, Review PR, Write report
+
 // For max-heap, use default (largest is top)
-std::priority_queue<int> maxHeap;
-
-// Top K frequent elements pattern
-std::vector<int> topKFrequent(const std::vector<int>& nums, int k) {
-    std::unordered_map<int, int> counts;
-    for (int n : nums) counts[n]++;
-
-    std::priority_queue<std::pair<int, int>,
-        std::vector<std::pair<int, int>>,
-        std::greater<>> heap;
-    for (auto& [num, freq] : counts) {
-        heap.push({freq, num});
-        if (heap.size() > k) heap.pop(); // keep only top K
-    }
-
-    std::vector<int> result;
-    while (!heap.empty()) {
-        result.push_back(heap.top().second);
-        heap.pop();
-    }
-    return result;
-}`,
+std::priority_queue<int> maxHeap;`,
           },
         },
       ],
@@ -476,7 +464,7 @@ std::vector<int> topKFrequent(const std::vector<int>& nums, int k) {
     {
       id: 'common-patterns',
       title: 'Common Interview Patterns',
-      content: `1. **Monotonic stack** - next greater element, daily temperatures, largest rectangle in histogram
+      content: `1. **Monotonic stack** - next greater element, daily temperatures
 2. **Valid parentheses** - classic stack problem with matching brackets
 3. **Queue with two stacks** - implement a queue using two stacks
 4. **Min stack** - stack that supports GetMin() in O(1)

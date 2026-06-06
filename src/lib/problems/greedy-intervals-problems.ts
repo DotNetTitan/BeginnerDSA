@@ -94,6 +94,7 @@ std::vector<std::vector<int>> merge(std::vector<std::vector<int>>& intervals) {
     },
     timeComplexity: 'O(n log n)',
     spaceComplexity: 'O(n)',
+    leetcodeUrl: 'https://leetcode.com/problems/merge-intervals/',
   },
   {
     id: 'non-overlapping-intervals',
@@ -175,6 +176,7 @@ int eraseOverlapIntervals(std::vector<std::vector<int>>& intervals) {
     },
     timeComplexity: 'O(n log n)',
     spaceComplexity: 'O(1)',
+    leetcodeUrl: 'https://leetcode.com/problems/non-overlapping-intervals/',
   },
   {
     id: 'jump-game',
@@ -235,6 +237,7 @@ bool canJump(const std::vector<int>& nums) {
     },
     timeComplexity: 'O(n)',
     spaceComplexity: 'O(1)',
+    leetcodeUrl: 'https://leetcode.com/problems/jump-game/',
   },
   {
     id: 'best-time-stock-ii',
@@ -289,6 +292,7 @@ int maxProfitII(const std::vector<int>& prices) {
     },
     timeComplexity: 'O(n)',
     spaceComplexity: 'O(1)',
+    leetcodeUrl: 'https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/',
   },
   {
     id: 'meeting-rooms-ii',
@@ -388,5 +392,6 @@ int minMeetingRooms(std::vector<std::vector<int>>& intervals) {
     },
     timeComplexity: 'O(n log n)',
     spaceComplexity: 'O(n)',
+    leetcodeUrl: 'https://leetcode.com/problems/meeting-rooms-ii/',
   },
 ];
