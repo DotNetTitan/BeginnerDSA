@@ -19,7 +19,7 @@ export default function NextProblemButton({
 }) {
   const [solved, setSolved] = useState(false);
   useEffect(() => {
-    setSolved(isProblemSolved(topicId, problemId));
+    queueMicrotask(() => setSolved(isProblemSolved(topicId, problemId)));
     const handler = () => setSolved(isProblemSolved(topicId, problemId));
     window.addEventListener('dsa-progress-changed', handler);
     return () => window.removeEventListener('dsa-progress-changed', handler);
