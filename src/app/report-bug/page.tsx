@@ -1,4 +1,9 @@
+import type { Metadata } from 'next';
 import BugReportForm from '@/components/bug-report/BugReportForm';
+
+export const metadata: Metadata = {
+  title: 'Report a Bug - Zero To DSA',
+};
 
 export default function ReportBugPage() {
   return (

@@ -1,4 +1,9 @@
+import type { Metadata } from "next";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+
+export const metadata: Metadata = {
+  title: "FAQ - Zero To DSA",
+};
 
 const faqs = [
   {
