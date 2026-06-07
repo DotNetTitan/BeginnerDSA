@@ -61,7 +61,7 @@ export default function TopicSidebar() {
               className={`w-full inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium transition-all hover:scale-105 hover:-translate-y-0.5 active:scale-[0.98] ${
                 allUnlocked
                   ? 'bg-amber-500 text-white hover:bg-amber-600'
-                  : 'bg-primary text-primary-foreground hover:bg-primary/90'
+                  : 'bg-primary text-primary-foreground hover:brightness-110'
               }`}
             >
               {allUnlocked ? <Unlock className="h-3.5 w-3.5" /> : <Lock className="h-3.5 w-3.5" />}

@@ -277,7 +277,7 @@ export default function TopicGrid() {
           className={`inline-flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all hover:scale-105 hover:-translate-y-0.5 active:scale-[0.98] ${
             allUnlocked
               ? 'bg-amber-500 text-white hover:bg-amber-600'
-              : 'bg-primary text-primary-foreground hover:bg-primary/90'
+              : 'bg-primary text-primary-foreground hover:brightness-110'
           }`}
         >
           {allUnlocked ? <Unlock className="h-4 w-4" /> : <Lock className="h-4 w-4" />}
