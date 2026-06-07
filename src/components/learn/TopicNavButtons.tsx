@@ -17,8 +17,12 @@ interface Props {
 export default function TopicNavButtons({ prev, next }: Props) {
   const router = useRouter();
   const [progress, setProgress] = useState<AppProgress | null>(null);
-  // eslint-disable-next-line react-hooks/set-state-in-effect
-  useEffect(() => { setProgress(getProgress()); }, []);
+  useEffect(() => {
+    const handler = () => setProgress(getProgress());
+    setProgress(getProgress()); // eslint-disable-line react-hooks/set-state-in-effect
+    window.addEventListener('dsa-progress-changed', handler);
+    return () => window.removeEventListener('dsa-progress-changed', handler);
+  }, []);
 
   const isLocked = (id: string) => {
     if (!progress) return true;
