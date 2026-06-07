@@ -56,6 +56,16 @@ export function markTopicCompleted(topicId: string): void {
   saveProgress(progress);
 }
 
+export function unmarkTopicCompleted(topicId: string): void {
+  const progress = getProgress();
+  const tp = progress.topics[topicId];
+  if (tp) {
+    tp.completed = false;
+    tp.lastAccessed = new Date().toISOString();
+    saveProgress(progress);
+  }
+}
+
 export function getTopicProgress(topicId: string): TopicProgress {
   const progress = getProgress();
   return ensureTopicProgress(progress, topicId);
@@ -75,6 +85,16 @@ export function markProblemSolved(topicId: string, problemId: string): void {
     timestamp: new Date().toISOString(),
   });
   saveProgress(progress);
+}
+
+export function unmarkProblemSolved(topicId: string, problemId: string): void {
+  const progress = getProgress();
+  const tp = progress.topics[topicId];
+  if (tp) {
+    tp.solvedProblems = tp.solvedProblems.filter(id => id !== problemId);
+    tp.lastAccessed = new Date().toISOString();
+    saveProgress(progress);
+  }
 }
 
 export function isProblemSolved(topicId: string, problemId: string): boolean {
@@ -139,6 +159,7 @@ export function resetProgress(): void {
   if (typeof window === 'undefined') return;
   try {
     localStorage.removeItem(STORAGE_KEY);
+    window.dispatchEvent(new CustomEvent('dsa-progress-changed'));
   } catch {
     // silently degrade
   }
@@ -159,6 +180,23 @@ const PROBLEM_COUNTS: Record<string, number> = {
 };
 
 const TOPIC_IDS = Object.keys(PROBLEM_COUNTS);
+
+const UNLOCK_KEY = 'dsa-all-unlocked';
+
+export function isAllUnlocked(): boolean {
+  if (typeof window === 'undefined') return false;
+  return localStorage.getItem(UNLOCK_KEY) === 'true';
+}
+
+export function toggleAllUnlocked(): boolean {
+  const current = isAllUnlocked();
+  const next = !current;
+  if (typeof window !== 'undefined') {
+    localStorage.setItem(UNLOCK_KEY, String(next));
+    window.dispatchEvent(new CustomEvent('dsa-progress-changed'));
+  }
+  return next;
+}
 
 export function getStats(): {
   totalTopics: number;

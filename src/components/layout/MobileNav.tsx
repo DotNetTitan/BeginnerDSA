@@ -7,20 +7,22 @@ import { cn } from '@/lib/utils';
 import { topics } from '@/lib/topics';
 import TopicIcon from '@/components/ui/TopicIcon';
 import { getTopicStatus, type TopicStatus } from '@/lib/topic-status';
-import { getProgress } from '@/lib/progress-store';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Menu, BookOpen, BarChart3, Lock, PlayCircle, CheckCircle2, Bug } from 'lucide-react';
+import { Menu, BookOpen, BarChart3, Lock, PlayCircle, CheckCircle2, Bug, Unlock } from 'lucide-react';
 import { useEffect, useMemo, useState, useSyncExternalStore } from 'react';
+import { getProgress, isAllUnlocked, toggleAllUnlocked } from '@/lib/progress-store';
 
 export default function MobileNav() {
   const pathname = usePathname();
   const mounted = useSyncExternalStore(() => () => {}, () => true, () => false);
   const [open, setOpen] = useState(false);
   const [revision, setRevision] = useState(0);
+  const [allUnlocked, setAllUnlocked] = useState(false);
   useEffect(() => {
-    const handler = () => setRevision(v => v + 1);
+    const handler = () => { setRevision(v => v + 1); setAllUnlocked(isAllUnlocked()); };
+    setAllUnlocked(isAllUnlocked()); // eslint-disable-line react-hooks/set-state-in-effect
     window.addEventListener('dsa-progress-changed', handler);
     return () => window.removeEventListener('dsa-progress-changed', handler);
   }, []);
@@ -61,21 +63,34 @@ export default function MobileNav() {
           <span className="font-bold text-lg">Zero To DSA</span>
         </div>
 
-        <div className="flex items-center gap-1 p-4 border-b">
-          <Link href="/progress" onClick={close}>
-            <Button variant="ghost" size="sm" className="gap-1.5">
-              <BarChart3 className="h-4 w-4" /> Progress
-            </Button>
-          </Link>
+        <div className="flex items-center justify-between p-4 border-b">
           <Link href="/report-bug" onClick={close}>
             <Button variant="ghost" size="sm" className="gap-1.5">
               <Bug className="h-4 w-4" /> Report a Bug
+            </Button>
+          </Link>
+          <Link href="/progress" onClick={close}>
+            <Button variant="ghost" size="sm" className="gap-1.5">
+              <BarChart3 className="h-4 w-4" /> Progress
             </Button>
           </Link>
         </div>
 
         <ScrollArea className="flex-1">
           <div className="py-2 px-3 space-y-1">
+            <div className="px-2 pb-2">
+              <button
+                onClick={() => { const next = !allUnlocked; toggleAllUnlocked(); setAllUnlocked(next); }}
+                className={`w-full inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium transition-all hover:scale-105 hover:-translate-y-0.5 active:scale-[0.98] ${
+                  allUnlocked
+                    ? 'bg-amber-500 text-white hover:bg-amber-600'
+                    : 'bg-primary text-primary-foreground hover:bg-primary/90'
+                }`}
+              >
+                <Unlock className="h-3.5 w-3.5" />
+                {allUnlocked ? 'All Unlocked' : 'Unlock All'}
+              </button>
+            </div>
             <div className="px-2 py-1 text-xs font-medium text-muted-foreground uppercase tracking-wider">
               Learning Path
             </div>

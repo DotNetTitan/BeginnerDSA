@@ -28,7 +28,7 @@ const faqs = [
   },
   {
     q: "How does progress tracking work?",
-    a: "Your progress is saved automatically in your browser's localStorage. Topics are locked until you finish the previous one, so you build in order, no jumping around. Passing the exam is optional but marks the topic as completed. You can view your overall progress on the Progress page. Clearing your browser data will reset your progress.",
+    a: "Your progress is saved automatically in your browser's localStorage. Topics are locked by default so you build in order, but you can unlock all modules at any time from the sidebar or home page if you want to jump around. Passing the exam is optional but marks the topic as completed. You can view your overall progress on the Progress page. Clearing your browser data will reset your progress.",
   },
   {
     q: "How do exams work?",

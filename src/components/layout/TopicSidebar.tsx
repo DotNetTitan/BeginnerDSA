@@ -7,8 +7,8 @@ import { topics } from '@/lib/topics';
 import TopicIcon from '@/components/ui/TopicIcon';
 import { getTopicStatus, type TopicStatus } from '@/lib/topic-status';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Lock, PlayCircle, CheckCircle2, BookOpen } from 'lucide-react';
-import { getProgress } from '@/lib/progress-store';
+import { Lock, PlayCircle, CheckCircle2, BookOpen, Unlock } from 'lucide-react';
+import { getProgress, isAllUnlocked, toggleAllUnlocked } from '@/lib/progress-store';
 import { useEffect, useMemo, useState } from 'react';
 
 export default function TopicSidebar() {
@@ -16,9 +16,11 @@ export default function TopicSidebar() {
   const currentTopicId = pathname.split('/')[2];
   const [mounted, setMounted] = useState(false);
   const [revision, setRevision] = useState(0);
+  const [allUnlocked, setAllUnlocked] = useState(false);
   useEffect(() => { setMounted(true); }, []); // eslint-disable-line react-hooks/set-state-in-effect
   useEffect(() => {
-    const handler = () => setRevision(v => v + 1);
+    const handler = () => { setRevision(v => v + 1); setAllUnlocked(isAllUnlocked()); };
+    setAllUnlocked(isAllUnlocked()); // eslint-disable-line react-hooks/set-state-in-effect
     window.addEventListener('dsa-progress-changed', handler);
     return () => window.removeEventListener('dsa-progress-changed', handler);
   }, []);
@@ -51,6 +53,19 @@ export default function TopicSidebar() {
     <aside className="hidden md:block w-60 shrink-0 border-r">
       <ScrollArea className="h-[calc(100vh-3.5rem)]">
         <div className="py-4 px-3 space-y-1">
+          <div className="px-2 pb-2">
+            <button
+              onClick={() => { const next = !allUnlocked; toggleAllUnlocked(); setAllUnlocked(next); }}
+              className={`w-full inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium transition-all hover:scale-105 hover:-translate-y-0.5 active:scale-[0.98] ${
+                allUnlocked
+                  ? 'bg-amber-500 text-white hover:bg-amber-600'
+                  : 'bg-primary text-primary-foreground hover:bg-primary/90'
+              }`}
+            >
+              <Unlock className="h-3.5 w-3.5" />
+              {allUnlocked ? 'All Unlocked' : 'Unlock All'}
+            </button>
+          </div>
           <div className="px-2 py-1 text-xs font-medium text-muted-foreground uppercase tracking-wider">
             Learning Path
           </div>
