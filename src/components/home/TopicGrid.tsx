@@ -11,7 +11,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import { getProgress, isAllUnlocked, toggleAllUnlocked } from '@/lib/progress-store';
-import { Lock, CheckCircle2, BookOpen, Code2, ArrowRight, ListTodo, GitBranch, GraduationCap, Unlock } from 'lucide-react';
+import { CheckCircle2, BookOpen, Code2, ArrowRight, ListTodo, GitBranch, GraduationCap, Lock, Unlock } from 'lucide-react';
 import UnlockConfirmDialog from '@/components/layout/UnlockConfirmDialog';
 
 function emptyProgress() {
@@ -280,7 +280,7 @@ export default function TopicGrid() {
               : 'bg-primary text-primary-foreground hover:bg-primary/90'
           }`}
         >
-          <Unlock className="h-4 w-4" />
+          {allUnlocked ? <Unlock className="h-4 w-4" /> : <Lock className="h-4 w-4" />}
           {allUnlocked ? 'All Modules Unlocked' : 'Unlock All Modules'}
         </button>
         <UnlockConfirmDialog

@@ -64,7 +64,7 @@ export default function TopicSidebar() {
                   : 'bg-primary text-primary-foreground hover:bg-primary/90'
               }`}
             >
-              <Unlock className="h-3.5 w-3.5" />
+              {allUnlocked ? <Unlock className="h-3.5 w-3.5" /> : <Lock className="h-3.5 w-3.5" />}
               {allUnlocked ? 'All Unlocked' : 'Unlock All'}
             </button>
             <UnlockConfirmDialog
