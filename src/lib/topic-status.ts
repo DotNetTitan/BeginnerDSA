@@ -5,21 +5,25 @@ export type TopicStatus = 'locked' | 'available' | 'in-progress' | 'completed';
 export function getTopicStatus(
   topic: Topic,
   progress: AppProgress,
-  allTopics: Topic[]
+  allTopics: Topic[],
+  forceUnlocked?: boolean
 ): TopicStatus {
   const tp = progress.topics[topic.id];
+  const unlocked = forceUnlocked ?? (typeof window !== 'undefined' ? localStorage.getItem('dsa-all-unlocked') === 'true' : false);
 
-  // Check prerequisites: theory read AND all problems solved
-  for (const prereqId of topic.prerequisites) {
-    const prereqTopic = allTopics.find(t => t.id === prereqId);
-    if (!prereqTopic) continue;
-    const prereqProgress = progress.topics[prereqId];
-    if (!prereqProgress || !prereqProgress.completed) {
-      return 'locked';
-    }
-    const solvedCount = prereqProgress.solvedProblems?.length ?? 0;
-    if (solvedCount < prereqTopic.problemIds.length) {
-      return 'locked';
+  if (!unlocked) {
+    // Check prerequisites: theory read AND all problems solved
+    for (const prereqId of topic.prerequisites) {
+      const prereqTopic = allTopics.find(t => t.id === prereqId);
+      if (!prereqTopic) continue;
+      const prereqProgress = progress.topics[prereqId];
+      if (!prereqProgress || !prereqProgress.completed) {
+        return 'locked';
+      }
+      const solvedCount = prereqProgress.solvedProblems?.length ?? 0;
+      if (solvedCount < prereqTopic.problemIds.length) {
+        return 'locked';
+      }
     }
   }
 

@@ -10,8 +10,8 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
-import { getProgress } from '@/lib/progress-store';
-import { Lock, CheckCircle2, BookOpen, Code2, ArrowRight, ListTodo, GitBranch, GraduationCap } from 'lucide-react';
+import { getProgress, isAllUnlocked, toggleAllUnlocked } from '@/lib/progress-store';
+import { Lock, CheckCircle2, BookOpen, Code2, ArrowRight, ListTodo, GitBranch, GraduationCap, Unlock } from 'lucide-react';
 
 function emptyProgress() {
   return { topics: {} as Record<string, never>, activityLog: [] };
@@ -20,16 +20,25 @@ function emptyProgress() {
 export default function TopicGrid() {
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
+  const [revision, setRevision] = useState(0);
   useEffect(() => { setMounted(true); }, []); // eslint-disable-line react-hooks/set-state-in-effect
   const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
-  const progress = mounted ? getProgress() : emptyProgress();
+  const [allUnlocked, setAllUnlocked] = useState(false);
+  useEffect(() => {
+    const handler = () => { setRevision(v => v + 1); setAllUnlocked(isAllUnlocked()); };
+    setAllUnlocked(isAllUnlocked()); // eslint-disable-line react-hooks/set-state-in-effect
+    window.addEventListener('dsa-progress-changed', handler);
+    return () => window.removeEventListener('dsa-progress-changed', handler);
+  }, []);
+  const progress = useMemo(() => mounted ? getProgress() : emptyProgress(), [mounted, revision]); // eslint-disable-line react-hooks/exhaustive-deps
   const statuses = useMemo(() => {
     const s: Record<string, TopicStatus> = {};
     for (const t of topics) {
       s[t.id] = getTopicStatus(t, progress, topics);
     }
     return s;
-  }, [progress]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [progress, allUnlocked]);
   const nextTopic = useMemo(() => getNextRecommendedTopic(progress, topics), [progress]);
   const allDone = useMemo(() => topics.every(t => statuses[t.id] === 'completed'), [statuses]);
   const isNextReadyForExam = nextTopic ? isReadyForExam(nextTopic, progress) : false;
@@ -259,6 +268,20 @@ export default function TopicGrid() {
           </CardContent>
         </Card>
       )}
+
+      <div className="flex justify-center">
+        <button
+          onClick={() => { const next = !allUnlocked; toggleAllUnlocked(); setAllUnlocked(next); }}
+          className={`inline-flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all hover:scale-105 hover:-translate-y-0.5 active:scale-[0.98] ${
+            allUnlocked
+              ? 'bg-amber-500 text-white hover:bg-amber-600'
+              : 'bg-primary text-primary-foreground hover:bg-primary/90'
+          }`}
+        >
+          <Unlock className="h-4 w-4" />
+          {allUnlocked ? 'All Modules Unlocked' : 'Unlock All Modules'}
+        </button>
+      </div>
 
       <div className="space-y-3">
         {groups.map((group, gi) => (

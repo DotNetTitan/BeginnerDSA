@@ -24,16 +24,16 @@ export default function Navbar() {
         </Link>
 
         <div className="hidden md:flex items-center gap-1 text-sm">
-          <Link href="/progress">
-            <Button variant="ghost" size="sm" className="gap-1.5">
-              <BarChart3 className="h-4 w-4" />
-              <span className="hidden sm:inline">Progress</span>
-            </Button>
-          </Link>
           <Link href="/report-bug">
             <Button variant="ghost" size="sm" className="gap-1.5">
               <Bug className="h-4 w-4" />
               <span className="hidden sm:inline">Report a Bug</span>
+            </Button>
+          </Link>
+          <Link href="/progress">
+            <Button variant="ghost" size="sm" className="gap-1.5">
+              <BarChart3 className="h-4 w-4" />
+              <span className="hidden sm:inline">Progress</span>
             </Button>
           </Link>
         </div>
