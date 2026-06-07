@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import { getProgress, isAllUnlocked, toggleAllUnlocked } from '@/lib/progress-store';
 import { Lock, CheckCircle2, BookOpen, Code2, ArrowRight, ListTodo, GitBranch, GraduationCap, Unlock } from 'lucide-react';
+import UnlockConfirmDialog from '@/components/layout/UnlockConfirmDialog';
 
 function emptyProgress() {
   return { topics: {} as Record<string, never>, activityLog: [] };
@@ -24,6 +25,7 @@ export default function TopicGrid() {
   useEffect(() => { setMounted(true); }, []); // eslint-disable-line react-hooks/set-state-in-effect
   const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
   const [allUnlocked, setAllUnlocked] = useState(false);
+  const [showUnlockConfirm, setShowUnlockConfirm] = useState(false);
   useEffect(() => {
     const handler = () => { setRevision(v => v + 1); setAllUnlocked(isAllUnlocked()); };
     setAllUnlocked(isAllUnlocked()); // eslint-disable-line react-hooks/set-state-in-effect
@@ -271,7 +273,7 @@ export default function TopicGrid() {
 
       <div className="flex justify-center">
         <button
-          onClick={() => { const next = !allUnlocked; toggleAllUnlocked(); setAllUnlocked(next); }}
+          onClick={() => { if (allUnlocked) { toggleAllUnlocked(); setAllUnlocked(false); } else { setShowUnlockConfirm(true); } }}
           className={`inline-flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all hover:scale-105 hover:-translate-y-0.5 active:scale-[0.98] ${
             allUnlocked
               ? 'bg-amber-500 text-white hover:bg-amber-600'
@@ -281,6 +283,11 @@ export default function TopicGrid() {
           <Unlock className="h-4 w-4" />
           {allUnlocked ? 'All Modules Unlocked' : 'Unlock All Modules'}
         </button>
+        <UnlockConfirmDialog
+          open={showUnlockConfirm}
+          onOpenChange={setShowUnlockConfirm}
+          onConfirm={() => { toggleAllUnlocked(); setAllUnlocked(true); }}
+        />
       </div>
 
       <div className="space-y-3">

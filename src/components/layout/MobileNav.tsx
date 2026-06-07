@@ -11,6 +11,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Menu, BookOpen, BarChart3, Lock, PlayCircle, CheckCircle2, Bug, Unlock } from 'lucide-react';
+import UnlockConfirmDialog from '@/components/layout/UnlockConfirmDialog';
 import { useEffect, useMemo, useState, useSyncExternalStore } from 'react';
 import { getProgress, isAllUnlocked, toggleAllUnlocked } from '@/lib/progress-store';
 
@@ -20,6 +21,7 @@ export default function MobileNav() {
   const [open, setOpen] = useState(false);
   const [revision, setRevision] = useState(0);
   const [allUnlocked, setAllUnlocked] = useState(false);
+  const [showUnlockConfirm, setShowUnlockConfirm] = useState(false);
   useEffect(() => {
     const handler = () => { setRevision(v => v + 1); setAllUnlocked(isAllUnlocked()); };
     setAllUnlocked(isAllUnlocked()); // eslint-disable-line react-hooks/set-state-in-effect
@@ -78,9 +80,9 @@ export default function MobileNav() {
 
         <ScrollArea className="flex-1">
           <div className="py-2 px-3 space-y-1">
-            <div className="px-2 pb-2">
+            <div className="px-2 pb-3 mb-1 border-b border-border/50">
               <button
-                onClick={() => { const next = !allUnlocked; toggleAllUnlocked(); setAllUnlocked(next); }}
+                onClick={() => { if (allUnlocked) { toggleAllUnlocked(); setAllUnlocked(false); } else { setShowUnlockConfirm(true); } }}
                 className={`w-full inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium transition-all hover:scale-105 hover:-translate-y-0.5 active:scale-[0.98] ${
                   allUnlocked
                     ? 'bg-amber-500 text-white hover:bg-amber-600'
@@ -90,6 +92,11 @@ export default function MobileNav() {
                 <Unlock className="h-3.5 w-3.5" />
                 {allUnlocked ? 'All Unlocked' : 'Unlock All'}
               </button>
+              <UnlockConfirmDialog
+                open={showUnlockConfirm}
+                onOpenChange={setShowUnlockConfirm}
+                onConfirm={() => { toggleAllUnlocked(); setAllUnlocked(true); }}
+              />
             </div>
             <div className="px-2 py-1 text-xs font-medium text-muted-foreground uppercase tracking-wider">
               Learning Path
