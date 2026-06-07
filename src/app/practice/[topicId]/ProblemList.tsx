@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { isProblemSolved, getTopicProgress } from '@/lib/progress-store';
+import { isProblemSolved, getTopicProgress, isAllUnlocked } from '@/lib/progress-store';
 import { GraduationCap, Lock } from 'lucide-react';
 
 interface Props {
@@ -16,6 +16,7 @@ interface Props {
 
 export default function ProblemList({ problems, topicId }: Props) {
   const router = useRouter();
+  const [allUnlocked, setAllUnlocked] = useState(false);
   const [solved, setSolved] = useState<Record<string, boolean>>(() => {
     const s: Record<string, boolean> = {};
     for (const p of problems) {
@@ -25,12 +26,14 @@ export default function ProblemList({ problems, topicId }: Props) {
   });
   useEffect(() => {
     const handler = () => {
+      setAllUnlocked(isAllUnlocked());
       const updated: Record<string, boolean> = {};
       for (const p of problems) {
         updated[p.id] = isProblemSolved(topicId, p.id);
       }
       setSolved(updated);
     };
+    setAllUnlocked(isAllUnlocked()); // eslint-disable-line react-hooks/set-state-in-effect
     window.addEventListener('dsa-progress-changed', handler);
     return () => window.removeEventListener('dsa-progress-changed', handler);
   }, [problems, topicId]);
@@ -77,7 +80,7 @@ export default function ProblemList({ problems, topicId }: Props) {
 
       {problems.map((p, idx) => {
         const done = solved[p.id];
-        const locked = idx > 0 && !solved[problems[idx - 1].id];
+        const locked = !allUnlocked && idx > 0 && !solved[problems[idx - 1].id];
         return (
           <Card
             key={p.id}

@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { BookOpen, Code2, CheckCircle2, GraduationCap, Lock } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { getTopicProgress } from '@/lib/progress-store';
+import { getTopicProgress, isAllUnlocked } from '@/lib/progress-store';
 import { getTopic } from '@/lib/topics';
 import { useState, useEffect, useSyncExternalStore } from 'react';
 
@@ -21,8 +21,10 @@ const steps = [
 export default function ModuleFlow({ topicId }: Props) {
   const mounted = useSyncExternalStore(() => () => {}, () => true, () => false);
   const [, forceUpdate] = useState(0);
+  const [allUnlocked, setAllUnlocked] = useState(false);
   useEffect(() => {
-    const handler = () => forceUpdate(n => n + 1);
+    const handler = () => { forceUpdate(n => n + 1); setAllUnlocked(isAllUnlocked()); };
+    setAllUnlocked(isAllUnlocked()); // eslint-disable-line react-hooks/set-state-in-effect
     window.addEventListener('dsa-progress-changed', handler);
     return () => window.removeEventListener('dsa-progress-changed', handler);
   }, []);
@@ -48,6 +50,7 @@ export default function ModuleFlow({ topicId }: Props) {
   };
 
   const isReachable = (stepId: string) => {
+    if (allUnlocked) return true;
     if (stepId === 'learn') return true;
     if (stepId === 'practice') return theoryRead;
     if (stepId === 'exam') return theoryRead && problemsSolved >= totalProblems && totalProblems > 0;

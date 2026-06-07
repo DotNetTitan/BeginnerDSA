@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { buttonVariants } from '@/components/ui/button';
 import { ChevronRight, Lock } from 'lucide-react';
-import { isProblemSolved } from '@/lib/progress-store';
+import { isProblemSolved, isAllUnlocked } from '@/lib/progress-store';
 import { useState, useEffect } from 'react';
 
 export default function NextProblemButton({
@@ -18,14 +18,16 @@ export default function NextProblemButton({
   nextProblemTitle: string;
 }) {
   const [solved, setSolved] = useState(false);
+  const [allUnlocked, setAllUnlocked] = useState(false);
   useEffect(() => {
-    queueMicrotask(() => setSolved(isProblemSolved(topicId, problemId)));
-    const handler = () => setSolved(isProblemSolved(topicId, problemId));
+    const handler = () => { setSolved(isProblemSolved(topicId, problemId)); setAllUnlocked(isAllUnlocked()); };
+    setSolved(isProblemSolved(topicId, problemId)); // eslint-disable-line react-hooks/set-state-in-effect
+    setAllUnlocked(isAllUnlocked());
     window.addEventListener('dsa-progress-changed', handler);
     return () => window.removeEventListener('dsa-progress-changed', handler);
   }, [topicId, problemId]);
 
-  if (!solved) {
+  if (!solved && !allUnlocked) {
     return (
       <span
         className={buttonVariants({ variant: 'outline', size: 'sm' })}
