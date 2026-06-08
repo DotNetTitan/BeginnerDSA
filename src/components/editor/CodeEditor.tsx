@@ -262,30 +262,30 @@ export default function CodeEditor({ starterCode, solutionCode, examples }: Code
 
       {expanded && (
         <div className="p-4 space-y-3">
-          <div className="relative rounded-lg border bg-[#0d1117]">
-            <div style={{ display: 'grid', minHeight: '16rem' }}>
-              <pre
-                ref={preRef}
-                style={{ gridArea: '1/1', pointerEvents: 'none', overflow: 'auto', margin: 0, whiteSpace: 'pre-wrap', overflowWrap: 'break-word', wordBreak: 'break-word' }}
-                className="p-4 text-sm font-mono leading-relaxed tab-size-4 [scrollbar-width:none] [-ms-overflow-style:none]"
-                aria-hidden="true"
-                dangerouslySetInnerHTML={{ __html: highlightedHtml }}
-              />
-              <textarea
-                ref={textareaRef}
-                value={code}
-                onChange={(e) => { setCode(e.target.value); setRunPassed(false); }}
-                onKeyDown={handleKeyDown}
-                onScroll={syncScroll}
-                style={{ gridArea: '1/1', background: 'transparent', color: 'transparent', caretColor: '#d1d5db', resize: 'vertical' }}
-                className="w-full p-4 text-sm font-mono leading-relaxed tab-size-4 focus:outline-none focus:ring-1 focus:ring-primary overflow-auto"
-                spellCheck={false}
-                placeholder="Write your code here..."
-              />
-            </div>
-            <div className="absolute top-1.5 right-1.5 z-10">
-              <CopyButtonClient code={code} />
-            </div>
+            <div className="relative rounded-lg border bg-[#0d1117]">
+              <div className="absolute top-1.5 right-1.5 z-10">
+                <CopyButtonClient code={code} />
+              </div>
+              <div style={{ display: 'grid', minHeight: '16rem' }}>
+                <pre
+                  ref={preRef}
+                  style={{ gridArea: '1/1', pointerEvents: 'none', overflow: 'auto', margin: 0, whiteSpace: 'pre-wrap', overflowWrap: 'break-word', wordBreak: 'break-word' }}
+                  className="p-4 pt-7 text-sm font-mono leading-relaxed tab-size-4 [scrollbar-width:none] [-ms-overflow-style:none]"
+                  aria-hidden="true"
+                  dangerouslySetInnerHTML={{ __html: highlightedHtml }}
+                />
+                <textarea
+                  ref={textareaRef}
+                  value={code}
+                  onChange={(e) => { setCode(e.target.value); setRunPassed(false); }}
+                  onKeyDown={handleKeyDown}
+                  onScroll={syncScroll}
+                  style={{ gridArea: '1/1', background: 'transparent', color: 'transparent', caretColor: '#d1d5db', resize: 'vertical' }}
+                  className="w-full p-4 pt-7 text-sm font-mono leading-relaxed tab-size-4 focus:outline-none focus:ring-1 focus:ring-primary overflow-auto"
+                  spellCheck={false}
+                  placeholder="Write your code here..."
+                />
+              </div>
           </div>
 
           <div className="flex items-center justify-between gap-2">
