@@ -6,7 +6,7 @@ export const problems: Problem[] = [
     title: 'Merge Intervals',
     topicId: 'greedy-intervals',
     difficulty: 'medium',
-    description: `Given an array of intervals where each interval is [start, end], merge all overlapping intervals.`,
+    description: `Given an array of intervals where each interval is \`[start, end]\`, merge all overlapping intervals.`,
     examples: [
       { input: 'intervals = [[1,3],[2,6],[8,10],[15,18]]', output: '[[1,6],[8,10],[15,18]]', explanation: 'Intervals [1,3] and [2,6] overlap, merged to [1,6].' },
       { input: 'intervals = [[1,4],[4,5]]', output: '[[1,5]]' },
@@ -183,7 +183,7 @@ int eraseOverlapIntervals(std::vector<std::vector<int>>& intervals) {
     title: 'Jump Game',
     topicId: 'greedy-intervals',
     difficulty: 'medium',
-    description: `You are given an integer array nums where each element represents your maximum jump length from that position. Return true if you can reach the last index.`,
+    description: `You are given an integer array \`nums\` where each element represents your maximum jump length from that position. Return true if you can reach the last index.`,
     examples: [
       { input: 'nums = [2,3,1,1,4]', output: 'true', explanation: 'Jump 1 step from 0 to 1, then 3 steps to the end.' },
       { input: 'nums = [3,2,1,0,4]', output: 'false', explanation: 'You get stuck at index 3.' },
@@ -244,7 +244,7 @@ bool canJump(const std::vector<int>& nums) {
     title: 'Best Time to Buy and Sell Stock II',
     topicId: 'greedy-intervals',
     difficulty: 'medium',
-    description: `You are given an array prices where prices[i] is the price on day i. You may complete as many transactions as you like (buy one and sell one share multiple times). Return the maximum profit.`,
+    description: `You are given an array \`prices\` where \`prices[i]\` is the price on day i. You may complete as many transactions as you like (buy one and sell one share multiple times). Return the maximum profit.`,
     examples: [
       { input: 'prices = [7,1,5,3,6,4]', output: '7', explanation: 'Buy at 1, sell at 5 (profit 4). Buy at 3, sell at 6 (profit 3). Total = 7.' },
       { input: 'prices = [1,2,3,4,5]', output: '4', explanation: 'Buy at 1, sell at 5.' },
@@ -299,7 +299,7 @@ int maxProfitII(const std::vector<int>& prices) {
     title: 'Meeting Rooms II',
     topicId: 'greedy-intervals',
     difficulty: 'medium',
-    description: `Given an array of meeting time intervals where each interval is [start, end], return the minimum number of conference rooms required.`,
+    description: `Given an array of meeting time intervals where each interval is \`[start, end]\`, return the minimum number of conference rooms required.`,
     examples: [
       { input: 'intervals = [[0,30],[5,10],[15,20]]', output: '2' },
       { input: 'intervals = [[7,10],[2,4]]', output: '1' },

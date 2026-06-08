@@ -336,7 +336,7 @@ std::vector<std::vector<int>> combinationSum(const std::vector<int>& candidates,
     title: 'Generate Parentheses',
     topicId: 'recursion',
     difficulty: 'medium',
-    description: `Given n pairs of parentheses, generate all combinations of well-formed parentheses.`,
+    description: `Given \`n\` pairs of parentheses, generate all combinations of well-formed parentheses.`,
     examples: [
       { input: 'n = 3', output: '["((()))","(()())","(())()","()(())","()()()"]' },
       { input: 'n = 1', output: '["()"]' },
@@ -427,7 +427,7 @@ std::vector<std::string> generateParenthesis(int n) {
     title: 'N-Queens',
     topicId: 'recursion',
     difficulty: 'hard',
-    description: `The n-queens puzzle: place n queens on an n×n board such that no two queens attack each other. Return all distinct solutions.`,
+    description: `The n-queens puzzle: place \`n\` queens on an \`n×n\` board such that no two queens attack each other. Return all distinct solutions.`,
     examples: [
       { input: 'n = 4', output: '[[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]' },
       { input: 'n = 1', output: '[["Q"]]' },
