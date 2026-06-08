@@ -58,9 +58,11 @@ function parseSignature(code: string): MethodSignature | null {
     }
   }
 
-  const sigMatch = [...code.matchAll(
+  const allMatches = [...code.matchAll(
     /(?:public\s+|private\s+|protected\s+)?([^\s;(:{]+(?:\s*<[^>]+>)?(?:\[\])?)\s+(\w+)\s*\(([^)]*)\)(?!\s*;)/g
-  )].pop();
+  )];
+  const filteredMatches = allMatches.filter(m => !/^\s*(private|protected)\s/.test(m[0]));
+  const sigMatch = (filteredMatches.length > 0 ? filteredMatches : allMatches).pop();
   if (!sigMatch) return null;
 
   const returnType = sigMatch[1].trim();
@@ -234,6 +236,7 @@ function cppArgExpr(value: string, rawType: string): string {
 function generateCSharpWrapper(userCode: string, testCases: TestCase[]): string {
   const sig = parseSignature(userCode);
   const methodName = sig?.methodName ?? 'Solve';
+  const usesGraph = testCases.length > 0 && needsGraphCode(userCode);
   const isVoid = sig ? (() => {
     const m = userCode.match(
       /(?:public\s+|private\s+|protected\s+)?void\s+\w+\s*\(/
@@ -244,10 +247,15 @@ function generateCSharpWrapper(userCode: string, testCases: TestCase[]): string 
   const lines: string[] = [];
   for (let i = 0; i < testCases.length; i++) {
     const tc = testCases[i];
-    const args = tc.args.map((v, j) => {
-      const t = sig?.params[j]?.type ?? 'int';
-      return csharpArgExpr(v, t);
-    }).join(', ');
+    let args: string;
+    if (usesGraph) {
+      args = tc.args.map(v => `BuildGraph(${JSON.stringify(v)})`).join(', ');
+    } else {
+      args = tc.args.map((v, j) => {
+        const t = sig?.params[j]?.type ?? 'int';
+        return csharpArgExpr(v, t);
+      }).join(', ');
+    }
     const exp = tc.expected;
     const n = i + 1;
 
@@ -259,6 +267,12 @@ function generateCSharpWrapper(userCode: string, testCases: TestCase[]): string 
     if (isVoid) {
       lines.push('            s.' + methodName + '(' + args + ');');
       addLine('true', '"(void)"');
+    } else if (usesGraph) {
+      lines.push('            var r' + i + ' = s.' + methodName + '(' + args + ');');
+      lines.push('            var g' + i + ' = GraphToJson(r' + i + ');');
+      lines.push('            var p' + i + ' = g' + i + ' == "' + exp + '";');
+      addLine('p' + i + '.ToString().ToLower()', 'g' + i);
+      lines.push('            if (!p' + i + ') failed++;');
     } else {
       lines.push('            var r' + i + ' = s.' + methodName + '(' + args + ');');
       lines.push('            var g' + i + ' = Fmt(r' + i + ');');
@@ -273,9 +287,10 @@ function generateCSharpWrapper(userCode: string, testCases: TestCase[]): string 
   }
 
   const indentedCode = userCode.trimEnd().split('\n').map(line => '    ' + line).join('\n');
+  const helpers = usesGraph ? '\n' + CSHARP_GRAPH_HELPERS.trimEnd() + '\n' : '';
 
   return 'using System;\nusing System.Linq;\nusing System.Collections.Generic;\n\npublic class Solution {\n' +
-    indentedCode + '\n\n' +
+    indentedCode + '\n' + helpers + '\n' +
     '    static string Fmt(object o) {\n' +
     '        if (o == null) return "null";\n' +
     '        if (o is int[] a) return "[" + string.Join(", ", a) + "]";\n' +
@@ -367,26 +382,38 @@ if __name__ == '__main__':
 function generateJavaWrapper(userCode: string, testCases: TestCase[]): string {
   const sig = parseSignature(userCode);
   const methodName = sig?.methodName ?? 'solve';
+  const usesGraph = testCases.length > 0 && needsGraphCode(userCode);
 
   const testCode: string[] = [];
   for (let i = 0; i < testCases.length; i++) {
     const tc = testCases[i];
-    const args = tc.args.map((v, j) => {
-      const t = sig?.params[j]?.type ?? 'int';
-      return javaArgExpr(v, t);
-    }).join(', ');
     const escapedExpected = tc.expected.replace(/"/g, '\\"');
+
+    let args: string;
+    if (usesGraph) {
+      args = tc.args.map(v => `buildGraph(${JSON.stringify(v)})`).join(', ');
+    } else {
+      args = tc.args.map((v, j) => {
+        const t = sig?.params[j]?.type ?? 'int';
+        return javaArgExpr(v, t);
+      }).join(', ');
+    }
 
     testCode.push(`            // Test ${i + 1}`);
     testCode.push(`            try {`);
-    if (args) {
+    if (usesGraph) {
       testCode.push(`                var result${i} = s.${methodName}(${args});`);
+      testCode.push(`                String actual${i}Str = graphToJson(result${i});`);
+    } else if (args) {
+      testCode.push(`                var result${i} = s.${methodName}(${args});`);
+      testCode.push(`                String actual${i}Str = Objects.toString(result${i});`);
     } else {
       testCode.push(`                s.${methodName}();`);
+      testCode.push(`                String actual${i}Str = "(void)";`);
     }
-    testCode.push(`                String actual${i}Str = Objects.toString(result${i});`);
-    testCode.push(`                boolean pass${i} = actual${i}Str.equals("${escapedExpected}");`);
-    testCode.push(`                json.add("{\\"index\\":" + ${i + 1} + ",\\"passed\\":" + pass${i} + ",\\"expected\\":\\"${escapedExpected}\\",\\"actual\\":\\"" + actual${i}Str + "\\"}");`);
+    testCode.push(`                String expected${i}Str = "${escapedExpected}";`);
+    testCode.push(`                boolean pass${i} = actual${i}Str.equals(expected${i}Str);`);
+    testCode.push(`                json.add("{\\"index\\":" + ${i + 1} + ",\\"passed\\":" + pass${i} + ",\\"expected\\":\\"" + expected${i}Str + "\\",\\"actual\\":\\"" + actual${i}Str + "\\"}");`);
     testCode.push(`                if (!pass${i}) allPassed = false;`);
     testCode.push(`            } catch (Exception e) {`);
     testCode.push(`                json.add("{\\"index\\":" + ${i + 1} + ",\\"passed\\":false,\\"expected\\":\\"${escapedExpected}\\",\\"actual\\":\\"" + e.getMessage() + "\\"}");`);
@@ -394,10 +421,12 @@ function generateJavaWrapper(userCode: string, testCases: TestCase[]): string {
     testCode.push(`            }`);
   }
 
+  const helpers = usesGraph ? '\n' + JAVA_GRAPH_HELPERS.trimEnd() + '\n' : '';
+
   return `import java.util.*;
 
 public class Solution {
-${userCode.trimEnd().split('\n').map(line => '    ' + line).join('\n')}
+${userCode.trimEnd().split('\n').map(line => '    ' + line).join('\n')}${helpers}
 
     public static void main(String[] args) {
         try {
@@ -506,20 +535,26 @@ function runtimeArgExpr(language: string, value: string, type: string): string {
 function generateRunCSharp(userCode: string, runArgs: string[]): string {
   const sig = parseSignature(userCode);
   const methodName = sig?.methodName ?? 'Solve';
+  const usesGraph = runArgs.length > 0 && needsGraphCode(userCode);
 
-  const argExprs = sig
-    ? sig.params.map((p, i) => {
-        const val = i < runArgs.length ? runArgs[i] : '0';
-        return runtimeArgExpr('csharp', val, p.type);
-      }).join(', ')
-    : runArgs.join(', ');
+  let argExprs: string;
+  if (sig) {
+    argExprs = sig.params.map((p, i) => {
+      const val = i < runArgs.length ? runArgs[i] : '0';
+      return usesGraph ? `BuildGraph(${JSON.stringify(val)})` : runtimeArgExpr('csharp', val, p.type);
+    }).join(', ');
+  } else {
+    argExprs = runArgs.join(', ');
+  }
+
+  const helpers = usesGraph ? '\n' + CSHARP_GRAPH_HELPERS.trimEnd() + '\n' : '';
 
   return `using System;
 using System.Linq;
 using System.Collections.Generic;
 
 public class Solution {
-${userCode.trimEnd().split('\n').map(line => '    ' + line).join('\n')}
+${userCode.trimEnd().split('\n').map(line => '    ' + line).join('\n')}${helpers}
 
     public static void Main(string[] args) {
         try {
@@ -572,18 +607,24 @@ if __name__ == '__main__':
 function generateRunJava(userCode: string, runArgs: string[]): string {
   const sig = parseSignature(userCode);
   const methodName = sig?.methodName ?? 'solve';
+  const usesGraph = runArgs.length > 0 && needsGraphCode(userCode);
 
-  const argExprs = sig
-    ? sig.params.map((p, i) => {
-        const val = i < runArgs.length ? runArgs[i] : '0';
-        return runtimeArgExpr('java', val, p.type);
-      }).join(', ')
-    : runArgs.join(', ');
+  let argExprs: string;
+  if (sig) {
+    argExprs = sig.params.map((p, i) => {
+      const val = i < runArgs.length ? runArgs[i] : '0';
+      return usesGraph ? `buildGraph(${JSON.stringify(val)})` : runtimeArgExpr('java', val, p.type);
+    }).join(', ');
+  } else {
+    argExprs = runArgs.join(', ');
+  }
+
+  const helpers = usesGraph ? '\n' + JAVA_GRAPH_HELPERS.trimEnd() + '\n' : '';
 
   return `import java.util.*;
 
 public class Solution {
-${userCode.trimEnd().split('\n').map(line => '    ' + line).join('\n')}
+${userCode.trimEnd().split('\n').map(line => '    ' + line).join('\n')}${helpers}
 
     public static void main(String[] args) {
         try {
@@ -806,8 +847,138 @@ def graph_to_json(node):
     return json.dumps(result, separators=(",", ":"))
 `;
 
+const JAVA_GRAPH_HELPERS = `
+    static Node buildGraph(String json) {
+        if (json.equals("[]") || json.length() < 2) return null;
+        String inner = json.substring(1, json.length() - 1);
+        java.util.List<java.util.List<Integer>> adj = new java.util.ArrayList<>();
+        for (int _i = 0; _i < inner.length(); _i++) {
+            if (inner.charAt(_i) == '[') {
+                int _end = inner.indexOf(']', _i);
+                String _arr = inner.substring(_i + 1, _end);
+                java.util.List<Integer> _nbs = new java.util.ArrayList<>();
+                if (!_arr.isEmpty()) {
+                    for (String s : _arr.split(","))
+                        _nbs.add(Integer.parseInt(s.trim()));
+                }
+                adj.add(_nbs);
+                _i = _end;
+            }
+        }
+        if (adj.isEmpty()) return null;
+        java.util.List<Node> _nodes = new java.util.ArrayList<>();
+        for (int _i = 0; _i < adj.size(); _i++)
+            _nodes.add(new Node(_i + 1));
+        for (int _i = 0; _i < adj.size(); _i++)
+            for (int _nb : adj.get(_i))
+                if (_nb >= 1 && _nb <= _nodes.size())
+                    _nodes.get(_i).neighbors.add(_nodes.get(_nb - 1));
+        return _nodes.isEmpty() ? null : _nodes.get(0);
+    }
+
+    static String graphToJson(Node node) {
+        if (node == null) return "[]";
+        java.util.Set<Node> _seen = new java.util.HashSet<>();
+        java.util.Queue<Node> _q = new java.util.LinkedList<>();
+        _q.add(node);
+        _seen.add(node);
+        java.util.List<Node> _allNodes = new java.util.ArrayList<>();
+        while (!_q.isEmpty()) {
+            Node _cur = _q.poll();
+            _allNodes.add(_cur);
+            for (Node _nb : _cur.neighbors) {
+                if (!_seen.contains(_nb)) {
+                    _seen.add(_nb);
+                    _q.add(_nb);
+                }
+            }
+        }
+        _allNodes.sort((a, b) -> Integer.compare(a.val, b.val));
+        StringBuilder _res = new StringBuilder("[");
+        for (int _i = 0; _i < _allNodes.size(); _i++) {
+            if (_i > 0) _res.append(",");
+            _res.append("[");
+            java.util.List<Integer> _nbVals = new java.util.ArrayList<>();
+            for (Node _nb : _allNodes.get(_i).neighbors) _nbVals.add(_nb.val);
+            _nbVals.sort(Integer::compare);
+            for (int _j = 0; _j < _nbVals.size(); _j++) {
+                if (_j > 0) _res.append(",");
+                _res.append(_nbVals.get(_j));
+            }
+            _res.append("]");
+        }
+        _res.append("]");
+        return _res.toString();
+    }
+`;
+
+const CSHARP_GRAPH_HELPERS = `
+    static Node BuildGraph(string json) {
+        if (json == "[]" || json.Length < 2) return null;
+        string inner = json.Substring(1, json.Length - 2);
+        var adj = new System.Collections.Generic.List<System.Collections.Generic.List<int>>();
+        for (int _i = 0; _i < inner.Length; _i++) {
+            if (inner[_i] == '[') {
+                int _end = inner.IndexOf(']', _i);
+                string _arr = inner.Substring(_i + 1, _end - _i - 1);
+                var _nbs = new System.Collections.Generic.List<int>();
+                if (_arr.Length > 0) {
+                    foreach (var s in _arr.Split(','))
+                        _nbs.Add(int.Parse(s.Trim()));
+                }
+                adj.Add(_nbs);
+                _i = _end;
+            }
+        }
+        if (adj.Count == 0) return null;
+        var _nodes = new System.Collections.Generic.List<Node>();
+        for (int _i = 0; _i < adj.Count; _i++)
+            _nodes.Add(new Node(_i + 1));
+        for (int _i = 0; _i < adj.Count; _i++)
+            foreach (int _nb in adj[_i])
+                if (_nb >= 1 && _nb <= _nodes.Count)
+                    _nodes[_i].neighbors.Add(_nodes[_nb - 1]);
+        return _nodes.Count == 0 ? null : _nodes[0];
+    }
+
+    static string GraphToJson(Node node) {
+        if (node == null) return "[]";
+        var _seen = new System.Collections.Generic.HashSet<Node>();
+        var _q = new System.Collections.Generic.Queue<Node>();
+        _q.Enqueue(node);
+        _seen.Add(node);
+        var _allNodes = new System.Collections.Generic.List<Node>();
+        while (_q.Count > 0) {
+            Node _cur = _q.Dequeue();
+            _allNodes.Add(_cur);
+            foreach (Node _nb in _cur.neighbors) {
+                if (!_seen.Contains(_nb)) {
+                    _seen.Add(_nb);
+                    _q.Enqueue(_nb);
+                }
+            }
+        }
+        _allNodes = _allNodes.OrderBy(n => n.val).ToList();
+        var _res = new System.Text.StringBuilder("[");
+        for (int _i = 0; _i < _allNodes.Count; _i++) {
+            if (_i > 0) _res.Append(",");
+            _res.Append("[");
+            var _nbVals = new System.Collections.Generic.List<int>();
+            foreach (Node _nb in _allNodes[_i].neighbors) _nbVals.Add(_nb.val);
+            _nbVals.Sort();
+            for (int _j = 0; _j < _nbVals.Count; _j++) {
+                if (_j > 0) _res.Append(",");
+                _res.Append(_nbVals[_j]);
+            }
+            _res.Append("]");
+        }
+        _res.Append("]");
+        return _res.ToString();
+    }
+`;
+
 function needsGraphCode(code: string): boolean {
-  return code.includes('class Node') && /def \w+/.test(code);
+  return code.includes('class Node') && code.includes('neighbors');
 }
 
 function isPointerType(type: string): boolean {
