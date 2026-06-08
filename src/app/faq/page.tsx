@@ -35,6 +35,10 @@ const faqs = [
     a: "Each topic has a multiple-choice exam to test your understanding. You must score 100% to pass. If you get a question wrong, you can review the topic material and retry. Exams are unlocked after you have read the theory and solved all practice problems for that topic.",
   },
   {
+    q: "Is there a built-in code editor?",
+    a: "Yes. Each practice problem includes a code editor where you can write, run, and test your solution directly in the browser. You can switch between supported languages, write your code, and see the output without leaving the page.",
+  },
+  {
     q: "How are the problems structured?",
     a: "Each topic includes curated practice problems labeled Easy, Medium, or Hard. You can view the problem description, study the solution in your chosen language, and mark problems as complete. We recommend attempting to solve each problem on your own before looking at the solution.",
   },
