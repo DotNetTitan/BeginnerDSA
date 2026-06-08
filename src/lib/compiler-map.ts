@@ -19,6 +19,7 @@ export function getCompilerId(language: Language): string {
 
 interface MethodSignature {
   methodName: string;
+  returnType: string;
   params: { type: string; name: string }[];
 }
 
@@ -37,7 +38,7 @@ function parseSignature(code: string): MethodSignature | null {
         if (name) params.push({ type: 'object', name });
       }
     }
-    return { methodName, params };
+    return { methodName, returnType: 'object', params };
   }
 
   const sigMatch = code.match(
@@ -45,6 +46,7 @@ function parseSignature(code: string): MethodSignature | null {
   );
   if (!sigMatch) return null;
 
+  const returnType = sigMatch[1].trim();
   const methodName = sigMatch[2];
   const paramsStr = sigMatch[3].trim();
 
@@ -60,7 +62,7 @@ function parseSignature(code: string): MethodSignature | null {
     }
   }
 
-  return { methodName, params };
+  return { methodName, returnType, params };
 }
 
 function csharpArgExpr(value: string, type: string): string {
@@ -87,15 +89,75 @@ function javaArgExpr(value: string, type: string): string {
   return value;
 }
 
-function cppArgExpr(value: string, type: string): string {
+function splitTopLevel(s: string): string[] {
+  const result: string[] = [];
+  let depth = 0, current = '';
+  for (const ch of s) {
+    if (ch === '[' || ch === '{') { depth++; current += ch; }
+    else if (ch === ']' || ch === '}') { depth--; current += ch; }
+    else if (ch === ',' && depth === 0) { result.push(current.trim()); current = ''; }
+    else { current += ch; }
+  }
+  if (current.trim()) result.push(current.trim());
+  return result;
+}
+
+function jsonToCppValue(value: string, rawInnerType: string): string {
+  const innerType = rawInnerType.replace(/^std::/, '');
+  // innerType is e.g. 'char', 'int', 'string', 'vector<char>', 'vector<int>'
+  if (!value.startsWith('[')) {
+    // Scalar value
+    if (innerType === 'char') {
+      const v = value.replace(/^"|"$/g, '');
+      return `'${v}'`;
+    }
+    if (innerType === 'string' || innerType === 'std::string') return value;
+    return value;
+  }
+
+  const inner = value.slice(1, -1);
+  const items = splitTopLevel(inner);
+
+  // Determine element type for nested vectors
+  const nestedMatch = innerType.match(/^vector<(.+)>$/);
+  const elementType = nestedMatch ? nestedMatch[1] : innerType;
+
+  if (nestedMatch) {
+    const nested = items.map(item => jsonToCppValue(item, elementType));
+    return `vector<${elementType}>{${nested.join(', ')}}`;
+  }
+
+  // Flat array
+  if (elementType === 'char') {
+    return '{' + items.map(v => `'${v.replace(/^"|"$/g, '')}'`).join(', ') + '}';
+  }
+  if (elementType === 'string' || elementType === 'std::string') {
+    return '{' + items.join(', ') + '}';
+  }
+  return '{' + items.join(', ') + '}';
+}
+
+function normalizedType(raw: string): string {
+  return raw
+    .replace(/^(const\s+)?/, '')
+    .replace(/[&*]$/, '')
+    .replace(/^std::/, '')
+    .trim();
+}
+
+function cppArgExpr(value: string, rawType: string): string {
+  const type = normalizedType(rawType);
+
   if (type === 'int') return value;
   if (type === 'string' || type === 'std::string') return `"${value}"`;
   if (type === 'bool') return value.toLowerCase();
-  if (type === 'int[]' || type.includes('vector<int>')) {
-    if (value === '[]' || value === '') return 'vector<int>()';
-    const nums = value.replace(/^\[|\]$/g, '').split(',').map(s => s.trim()).join(', ');
-    return `vector<int>{${nums}}`;
+
+  // vector<T> or nested vector<vector<T>>
+  if (type.startsWith('vector<')) {
+    if (value === '[]') return `${type}()`;
+    return jsonToCppValue(value, type);
   }
+
   return value;
 }
 
@@ -319,19 +381,40 @@ await main();
 function generateCppWrapper(userCode: string, testCases: TestCase[]): string {
   const sig = parseSignature(userCode);
   const methodName = sig?.methodName ?? 'solve';
+  const isVoid = sig?.returnType === 'void';
 
   const testCode: string[] = [];
   for (let i = 0; i < testCases.length; i++) {
     const tc = testCases[i];
-    const args = tc.args.map((v, j) => {
-      const t = sig?.params[j]?.type ?? 'int';
-      return cppArgExpr(v, t);
-    }).join(', ');
+
+    const varDecls: string[] = [];
+    const callArgs: string[] = [];
+    if (sig) {
+      sig.params.forEach((p, j) => {
+        const val = j < tc.args.length ? tc.args[j] : '0';
+        const expr = cppArgExpr(val, p.type);
+        const norm = normalizedType(p.type);
+        if (norm.startsWith('vector<') || norm === 'string' || norm === 'std::string') {
+          const vn = `_arg${i}_${j}`;
+          varDecls.push(`        auto ${vn} = ${expr};`);
+          callArgs.push(vn);
+        } else {
+          callArgs.push(expr);
+        }
+      });
+    } else {
+      tc.args.forEach(a => callArgs.push(a));
+    }
+
+    const args = callArgs.join(', ');
     const escapedExpected = tc.expected.replace(/"/g, '\\"');
 
     testCode.push('    // Test ' + (i + 1));
     testCode.push('    try {');
-    if (args) {
+    if (varDecls.length) testCode.push(varDecls.join('\n'));
+    if (isVoid) {
+      testCode.push('        ' + methodName + '(' + args + ');');
+    } else if (args) {
       testCode.push('        auto result' + i + ' = ' + methodName + '(' + args + ');');
     } else {
       testCode.push('        ' + methodName + '();');
@@ -501,12 +584,25 @@ function generateRunCpp(userCode: string, runArgs: string[]): string {
   const sig = parseSignature(userCode);
   const methodName = sig?.methodName ?? 'solve';
 
-  const argExprs = sig
-    ? sig.params.map((p, i) => {
-        const val = i < runArgs.length ? runArgs[i] : '0';
-        return runtimeArgExpr('cpp', val, p.type);
-      }).join(', ')
-    : runArgs.join(', ');
+  const varDecls: string[] = [];
+  const callArgs: string[] = [];
+  if (sig) {
+    sig.params.forEach((p, i) => {
+      const val = i < runArgs.length ? runArgs[i] : '0';
+      const expr = runtimeArgExpr('cpp', val, p.type);
+      const norm = normalizedType(p.type);
+      // Create named variables for complex types so they are lvalues
+      if (norm.startsWith('vector<') || norm === 'string' || norm === 'std::string') {
+        const vn = `_arg${i}`;
+        varDecls.push(`        auto ${vn} = ${expr};`);
+        callArgs.push(vn);
+      } else {
+        callArgs.push(expr);
+      }
+    });
+  } else {
+    runArgs.forEach(a => callArgs.push(a));
+  }
 
   return `#include <iostream>
 #include <string>
@@ -519,7 +615,8 @@ ${userCode.trimEnd()}
 
 int main() {
     try {
-        ${methodName}(${argExprs});
+${varDecls.join('\n')}
+        ${methodName}(${callArgs.join(', ')});
     } catch (exception &ex) {
         cout << "Error: " << ex.what() << endl;
     } catch (...) {
