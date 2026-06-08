@@ -15,6 +15,7 @@ import KeyboardNav from '@/components/layout/KeyboardNav';
 import SolutionDisplay from '@/components/practice/SolutionDisplay';
 import ProblemDescription from '@/components/practice/ProblemDescription';
 import ComplexityAnswer from '@/components/practice/ComplexityAnswer';
+import CodeEditor from '@/components/editor/CodeEditor';
 
 interface Props {
   params: Promise<{ topicId: string; problemId: string }>;
@@ -131,6 +132,16 @@ export default async function ProblemPage({ params }: Props) {
           </div>
         ))}
       </div>
+
+      {topicId !== 'big-o' && (
+        <CodeEditor
+          starterCode={problem.code}
+          solutionCode={problem.solution}
+          examples={problem.examples}
+          problemId={problemId}
+          topicId={topicId}
+        />
+      )}
 
       {problem.hints.length > 0 && (
         <div className="mb-6">
