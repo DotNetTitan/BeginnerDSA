@@ -9,7 +9,7 @@ const LANGUAGES: { value: Language; label: string }[] = [
   { value: 'python', label: 'Python' },
   { value: 'java', label: 'Java' },
   { value: 'cpp', label: 'C++' },
-  { value: 'javascript', label: 'JavaScript' },
+  { value: 'typescript', label: 'TypeScript' },
   { value: 'csharp', label: 'C#' },
 ];
 

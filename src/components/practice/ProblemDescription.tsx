@@ -21,7 +21,7 @@ export default function ProblemDescription({
         }}
       />
       {code && (
-        <CodeRenderer code={code[language] ?? code['javascript'] ?? ''} language={language} />
+        <CodeRenderer code={code[language] ?? code['typescript'] ?? ''} language={language} />
       )}
     </div>
   );

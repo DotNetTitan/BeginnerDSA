@@ -95,7 +95,7 @@ list.addLast("d");
 list.addFirst("b");
 
 // But for interviews, you'll usually implement the node class`,
-            javascript: `class ListNode {
+            typescript: `class ListNode {
     constructor(val = 0, next = null) {
         this.val = val;
         this.next = next;
@@ -195,7 +195,7 @@ public ListNode insertAtHead(ListNode head, int val) {
     if (head != null) head.prv = newNode;
     return newNode;
 }`,
-            javascript: `class ListNode {
+            typescript: `class ListNode {
     constructor(val = 0, prv = null, nxt = null) {
         this.val = val;
         this.prv = prv;
@@ -278,7 +278,7 @@ public ListNode reverseList(ListNode head) {
 
     return prev; // new head
 }`,
-            javascript: `// Reverse a singly linked list - O(n), O(1) space
+            typescript: `// Reverse a singly linked list - O(n), O(1) space
 const reverseList = (head) => {
     let prev = null;
     let curr = head;
@@ -352,7 +352,7 @@ public ListNode findMiddle(ListNode head) {
     }
     return slow;
 }`,
-            javascript: `// Find middle node - O(n), O(1) space
+            typescript: `// Find middle node - O(n), O(1) space
 const findMiddle = (head) => {
     let slow = head, fast = head;
     while (fast !== null && fast.next !== null) {
@@ -417,7 +417,7 @@ public boolean hasCycle(ListNode head) {
     }
     return false;
 }`,
-            javascript: `// Detect cycle - O(n), O(1) space
+            typescript: `// Detect cycle - O(n), O(1) space
 const hasCycle = (head) => {
     let slow = head, fast = head;
     while (fast !== null && fast.next !== null) {

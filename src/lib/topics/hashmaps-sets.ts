@@ -97,7 +97,7 @@ System.out.println(count); // 5
 Set<Integer> set = new HashSet<>(Arrays.asList(1, 2, 3));
 set.add(3);  // false - already exists
 set.contains(2); // true - O(1)`,
-            javascript: `// Map - key-value pairs
+            typescript: `// Map - key-value pairs
 const map = new Map();
 map.set("apple", 5);
 map.set("banana", 3);
@@ -209,7 +209,7 @@ public boolean hasPairSum(int[] arr, int target) {
     }
     return false;
 }`,
-            javascript: `// 1. Counting frequencies
+            typescript: `// 1. Counting frequencies
 const nums = [1, 2, 2, 3, 3, 3];
 const counts = new Map();
 for (const n of nums) {

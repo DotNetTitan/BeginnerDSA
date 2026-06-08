@@ -1,12 +1,43 @@
 'use client';
 
-import { useState, useCallback, useRef, useEffect, type KeyboardEvent } from 'react';
+import { useState, useCallback, useEffect, useRef, type KeyboardEvent } from 'react';
 import { useLanguage } from '@/lib/language-context';
-import { generateWrapper, isLanguageSupported, parseExampleInput } from '@/lib/compiler-map';
-import { Loader2, Play, Terminal, AlertCircle, Clock, MemoryStick as Memory, ChevronDown, ChevronRight, Check, X, FileCheck } from 'lucide-react';
+import { generateWrapper, parseExampleInput } from '@/lib/compiler-map';
+import { Loader2, Play, Terminal, Clock, MemoryStick as Memory, ChevronDown, ChevronRight, Check, X, FileCheck } from 'lucide-react';
+import CopyButtonClient from './CopyButtonClient';
 import { Button } from '@/components/ui/button';
 import type { Example } from '@/lib/types';
-import { createHighlighter, type Highlighter } from 'shiki';
+import { createHighlighter, createJavaScriptRegexEngine, type Highlighter, type BundledLanguage } from 'shiki';
+
+const LANG_MAP: Record<string, string> = {
+  typescript: 'typescript',
+  python: 'python',
+  java: 'java',
+  csharp: 'csharp',
+  cpp: 'cpp',
+};
+
+let highlighterInstance: Highlighter | null = null;
+let highlighterPromise: Promise<Highlighter> | null = null;
+
+async function getHighlighter(): Promise<Highlighter> {
+  if (highlighterInstance) return highlighterInstance;
+  if (!highlighterPromise) {
+    highlighterPromise = createHighlighter({
+      langs: ['typescript', 'python', 'java', 'csharp', 'cpp'],
+      themes: ['github-dark'],
+      engine: createJavaScriptRegexEngine(),
+    }).then(h => {
+      highlighterInstance = h;
+      return h;
+    });
+  }
+  return highlighterPromise;
+}
+
+function escapeHtml(str: string): string {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
 
 interface CodeEditorProps {
   starterCode?: Record<string, string>;
@@ -60,12 +91,12 @@ function extractStarter(code: string, language: string): string {
     switch (language) {
       case 'csharp': return `public ${returnType} ${methodName}(${params})`;
       case 'java': return `public ${returnType} ${methodName}(${params})`;
-      case 'javascript': {
+      case 'typescript': {
         const pnames = params.split(',').map(p => p.trim().split(/\s+/).pop()).join(', ');
-        return `function ${methodName}(${pnames}) {`;
+        return `function ${methodName}(${pnames})`;
       }
-      case 'cpp': return `${returnType} ${methodName}(${params}) {`;
-      default: return `${returnType} ${methodName}(${params}) {`;
+      case 'cpp': return `${returnType} ${methodName}(${params})`;
+      default: return `${returnType} ${methodName}(${params})`;
     }
   })();
 
@@ -73,26 +104,6 @@ function extractStarter(code: string, language: string): string {
     // TODO: implement your solution here${retLine}
 }`;
 }
-
-let highlighterPromise: Promise<Highlighter> | null = null;
-
-function getHighlighter() {
-  if (!highlighterPromise) {
-    highlighterPromise = createHighlighter({
-      themes: ['github-dark'],
-      langs: ['csharp', 'python', 'java', 'javascript', 'cpp'],
-    });
-  }
-  return highlighterPromise;
-}
-
-const LANG_MAP: Record<string, string> = {
-  csharp: 'csharp',
-  python: 'python',
-  java: 'java',
-  javascript: 'javascript',
-  cpp: 'cpp',
-};
 
 export default function CodeEditor({ starterCode, solutionCode, examples }: CodeEditorProps) {
   const { language } = useLanguage();
@@ -108,6 +119,7 @@ export default function CodeEditor({ starterCode, solutionCode, examples }: Code
     else { setCode(''); }
     setRunPassed(false);
   }, [language, starterCode, solutionCode]);
+
   const [runningMode, setRunningMode] = useState<'run' | 'tests' | null>(null);
   const [rawOutput, setRawOutput] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -117,33 +129,45 @@ export default function CodeEditor({ starterCode, solutionCode, examples }: Code
   const [expanded, setExpanded] = useState(true);
   const [testResults, setTestResults] = useState<{ index: number; passed: boolean; expected: string; actual: string }[] | null>(null);
   const [runPassed, setRunPassed] = useState(false);
-  const [highlighted, setHighlighted] = useState('');
+
+  const [highlightedHtml, setHighlightedHtml] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const highlightRef = useRef<HTMLDivElement>(null);
+  const preRef = useRef<HTMLPreElement>(null);
+
+  const testableExamples = examples.filter(e => e.output != null);
 
   useEffect(() => {
-    const lang = LANG_MAP[language];
-    if (!lang) return;
     const timer = setTimeout(async () => {
-      if (!code.trim()) { setHighlighted(''); return; }
-      const highlighter = await getHighlighter();
-      const html = highlighter.codeToHtml(code, { lang, theme: 'github-dark' });
-      setHighlighted(html);
-    }, 80);
+      if (!code.trim()) {
+        setHighlightedHtml('');
+        return;
+      }
+      try {
+        const hl = await getHighlighter();
+        const shikiLang = (LANG_MAP[language] ?? 'typescript') as BundledLanguage;
+        const tokens = hl.codeToTokensBase(code, { lang: shikiLang, theme: 'github-dark' });
+        const html = tokens.map(line =>
+          `<span class="line">${line.map(t => {
+            const color = t.color || '#e6edf3';
+            const style = `color:${color}`;
+            return `<span style="${style}">${escapeHtml(t.content)}</span>`;
+          }).join('')}</span>`
+        ).join('\n');
+        setHighlightedHtml(html);
+      } catch {
+        setHighlightedHtml('');
+      }
+    }, 120);
+
     return () => clearTimeout(timer);
   }, [code, language]);
 
   const syncScroll = () => {
-    if (highlightRef.current && textareaRef.current) {
-      highlightRef.current.scrollTop = textareaRef.current.scrollTop;
-      highlightRef.current.scrollLeft = textareaRef.current.scrollLeft;
+    if (textareaRef.current && preRef.current) {
+      preRef.current.scrollTop = textareaRef.current.scrollTop;
+      preRef.current.scrollLeft = textareaRef.current.scrollLeft;
     }
   };
-
-  const langCheck = isLanguageSupported(language);
-  const langWarning = typeof langCheck === 'string' ? langCheck : null;
-
-  const testableExamples = examples.filter(e => e.output != null);
 
   const executeCode = useCallback(async (runTests: boolean) => {
     const mode = runTests ? 'tests' : 'run';
@@ -164,7 +188,8 @@ export default function CodeEditor({ starterCode, solutionCode, examples }: Code
         }));
         wrappedCode = generateWrapper(language, code, testCases);
       } else {
-        wrappedCode = generateWrapper(language, code);
+        const runArgs = testableExamples.length > 0 ? parseExampleInput(testableExamples[0].input) : [];
+        wrappedCode = generateWrapper(language, code, undefined, runArgs);
       }
 
       const res = await fetch('/api/run-code', {
@@ -180,7 +205,7 @@ export default function CodeEditor({ starterCode, solutionCode, examples }: Code
         return;
       }
 
-      setRawOutput(data.output || '(no output)');
+      setRawOutput(data.output || '');
       setExecTime(data.time);
       setExecMemory(data.memory);
       setExitCode(data.exitCode);
@@ -196,7 +221,7 @@ export default function CodeEditor({ starterCode, solutionCode, examples }: Code
       if (data.error && data.exitCode !== 0) {
         setError(data.error);
       }
-    } catch (err) {
+    } catch {
       setError('Network error: could not reach the execution service');
     } finally {
       setRunningMode(null);
@@ -236,30 +261,30 @@ export default function CodeEditor({ starterCode, solutionCode, examples }: Code
 
       {expanded && (
         <div className="p-4 space-y-3">
-          {langWarning && (
-            <div className="flex items-start gap-2 text-xs text-amber-600 bg-amber-50 dark:text-amber-400 dark:bg-amber-950/50 p-2 rounded">
-              <AlertCircle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
-              <span>{langWarning}</span>
+          <div className="relative rounded-lg border bg-[#0d1117]">
+            <div style={{ display: 'grid', minHeight: '16rem' }}>
+              <pre
+                ref={preRef}
+                style={{ gridArea: '1/1', pointerEvents: 'none', overflow: 'auto', margin: 0, whiteSpace: 'pre-wrap', overflowWrap: 'break-word', wordBreak: 'break-word' }}
+                className="p-4 text-sm font-mono leading-relaxed tab-size-4 [scrollbar-width:none] [-ms-overflow-style:none]"
+                aria-hidden="true"
+                dangerouslySetInnerHTML={{ __html: highlightedHtml }}
+              />
+              <textarea
+                ref={textareaRef}
+                value={code}
+                onChange={(e) => { setCode(e.target.value); setRunPassed(false); }}
+                onKeyDown={handleKeyDown}
+                onScroll={syncScroll}
+                style={{ gridArea: '1/1', background: 'transparent', color: 'transparent', caretColor: '#d1d5db', resize: 'vertical' }}
+                className="w-full p-4 text-sm font-mono leading-relaxed tab-size-4 focus:outline-none focus:ring-1 focus:ring-primary overflow-auto"
+                spellCheck={false}
+                placeholder="Write your code here..."
+              />
             </div>
-          )}
-
-          <div className="grid rounded-lg border">
-            <div
-              ref={highlightRef}
-              className="col-start-1 row-start-1 p-4 text-sm font-mono leading-relaxed overflow-hidden pointer-events-none bg-[#0d1117] rounded-lg [&>pre]:!m-0 [&>pre]:!bg-transparent [&>pre]:!p-0"
-              style={{ whiteSpace: 'pre', tabSize: 4 }}
-              dangerouslySetInnerHTML={{ __html: highlighted || '<pre></pre>' }}
-            />
-            <textarea
-              ref={textareaRef}
-              value={code}
-              onChange={(e) => { setCode(e.target.value); setRunPassed(false); }}
-              onKeyDown={handleKeyDown}
-              onScroll={syncScroll}
-              className="col-start-1 row-start-1 w-full h-64 p-4 text-sm font-mono bg-transparent text-transparent caret-gray-200 resize-y focus:outline-none focus:ring-1 focus:ring-primary leading-relaxed tab-size-4 placeholder:text-gray-500"
-              spellCheck={false}
-              placeholder="Write your code here..."
-            />
+            <div className="absolute top-1.5 right-1.5 z-10">
+              <CopyButtonClient code={code} />
+            </div>
           </div>
 
           <div className="flex items-center justify-between gap-2">
@@ -301,7 +326,20 @@ export default function CodeEditor({ starterCode, solutionCode, examples }: Code
           {hasResult && (
             <div className="border rounded-lg overflow-hidden">
               <div className="px-3 py-2 text-xs font-medium text-muted-foreground bg-muted/50 flex items-center justify-between">
-                <span>{runningMode === 'tests' || (testResults && testResults.length > 0) ? 'Test Results' : 'Output'}</span>
+                <span className="flex items-center gap-1.5">
+                  {testResults && testResults.length > 0 ? (
+                    <>
+                      {passedCount === totalCount ? <Check className="h-3.5 w-3.5 text-emerald-500" /> : <X className="h-3.5 w-3.5 text-red-500" />}
+                      {passedCount === totalCount ? 'All Tests Passed' : `${totalCount - passedCount} Test${totalCount - passedCount > 1 ? 's' : ''} Failed`}
+                    </>
+                  ) : exitCode === 0 ? (
+                    <><Check className="h-3.5 w-3.5 text-emerald-500" /> Ran Successfully</>
+                  ) : exitCode !== null && exitCode !== 0 ? (
+                    <><X className="h-3.5 w-3.5 text-red-500" /> Execution Failed</>
+                  ) : (
+                    'Output'
+                  )}
+                </span>
                 {(execTime || execMemory) && (
                   <span className="flex items-center gap-3">
                     {execTime && (
@@ -348,6 +386,12 @@ export default function CodeEditor({ starterCode, solutionCode, examples }: Code
                     {passedCount} / {totalCount} tests passed
                   </div>
                 </div>
+              )}
+
+              {!testResults && rawOutput && !error && (
+                <pre className="p-3 text-sm font-mono leading-relaxed overflow-x-auto text-gray-300 max-h-40 overflow-y-auto whitespace-pre-wrap">
+                  {rawOutput}
+                </pre>
               )}
 
               {error && (

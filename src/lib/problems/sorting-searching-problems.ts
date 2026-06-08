@@ -47,7 +47,7 @@ export const problems: Problem[] = [
     }
     return -1;
 }`,
-      javascript: `function search(nums, target) {
+      typescript: `function search(nums, target) {
     let left = 0, right = nums.length - 1;
     while (left <= right) {
         const mid = left + Math.floor((right - left) / 2);
@@ -145,7 +145,7 @@ int search(const std::vector<int>& nums, int target) {
     }
     return -1;
 }`,
-      javascript: `function search(nums, target) {
+      typescript: `function search(nums, target) {
     let left = 0, right = nums.length - 1;
     while (left <= right) {
         const mid = left + Math.floor((right - left) / 2);
@@ -229,7 +229,7 @@ def find_kth_largest(nums, k):
     }
     return heap.peek();
 }`,
-      javascript: `function findKthLargest(nums, k) {
+      typescript: `function findKthLargest(nums, k) {
     const heap = [];
     for (const n of nums) {
         heap.push(n);
@@ -301,7 +301,7 @@ int findKthLargest(const std::vector<int>& nums, int k) {
     }
     return nums[left];
 }`,
-      javascript: `function findMin(nums) {
+      typescript: `function findMin(nums) {
     let left = 0, right = nums.length - 1;
     while (left < right) {
         const mid = left + Math.floor((right - left) / 2);
@@ -386,7 +386,7 @@ int findMin(const std::vector<int>& nums) {
         }
     }
 }`,
-      javascript: `function sortColors(nums) {
+      typescript: `function sortColors(nums) {
     let left = 0, mid = 0, right = nums.length - 1;
     while (mid <= right) {
         if (nums[mid] === 0) {

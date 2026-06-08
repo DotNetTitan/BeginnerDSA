@@ -77,7 +77,7 @@ describe('problems data', () => {
       expect(p.solution).toHaveProperty('csharp');
       expect(p.solution).toHaveProperty('python');
       expect(p.solution).toHaveProperty('java');
-      expect(p.solution).toHaveProperty('javascript');
+      expect(p.solution).toHaveProperty('typescript');
       expect(p.solution).toHaveProperty('cpp');
     }
   });

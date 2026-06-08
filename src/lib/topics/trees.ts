@@ -175,7 +175,7 @@ public void levelOrder(TreeNode root) {
         if (node.right != null) q.offer(node.right);
     }
 }`,
-            javascript: `class TreeNode {
+            typescript: `class TreeNode {
     constructor(val = 0, left = null, right = null) {
         this.val = val;
         this.left = left;
@@ -359,7 +359,7 @@ private boolean validate(TreeNode node, long min, long max) {
     return validate(node.left, min, node.val)
         && validate(node.right, node.val, max);
 }`,
-            javascript: `// BST Search - O(log n) average
+            typescript: `// BST Search - O(log n) average
 const search = (root, target) => {
     while (root !== null) {
         if (root.val === target) return root;
@@ -584,7 +584,7 @@ public class Trie {
         return node;
     }
 }`,
-            javascript: `class TrieNode {
+            typescript: `class TrieNode {
     constructor() {
         this.children = new Map();
         this.isEnd = false;

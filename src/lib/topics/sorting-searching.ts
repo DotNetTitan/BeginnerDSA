@@ -79,7 +79,7 @@ public List<Integer> findAll(int[] arr, int target) {
         if (arr[i] == target) result.add(i);
     return result;
 }`,
-            javascript: `// Linear search - O(n)
+            typescript: `// Linear search - O(n)
 const linearSearch = (arr, target) => {
     for (let i = 0; i < arr.length; i++)
         if (arr[i] === target) return i;
@@ -225,7 +225,7 @@ public int upperBound(int[] arr, int target) {
     }
     return left;
 }`,
-            javascript: `// Standard binary search - O(log n)
+            typescript: `// Standard binary search - O(log n)
 const binarySearch = (arr, target) => {
     let left = 0, right = arr.length - 1;
     while (left <= right) {
@@ -389,7 +389,7 @@ Most languages have a built-in sort that's highly optimized. But understanding h
         if (!swapped) break;
     }
 }`,
-            javascript: `function bubbleSort(arr) {
+            typescript: `function bubbleSort(arr) {
     const n = arr.length;
     for (let i = 0; i < n - 1; i++) {
         let swapped = false;
@@ -489,7 +489,7 @@ public int partition(int[] arr, int left, int right) {
     int tmp = arr[i + 1]; arr[i + 1] = arr[right]; arr[right] = tmp;
     return i + 1;
 }`,
-            javascript: `const quickSort = (arr, left = 0, right = arr.length - 1) => {
+            typescript: `const quickSort = (arr, left = 0, right = arr.length - 1) => {
     if (left >= right) return;
     const pivot = partition(arr, left, right);
     quickSort(arr, left, pivot - 1);
@@ -618,7 +618,7 @@ public int[] merge(int[] left, int[] right) {
 
     return result;
 }`,
-            javascript: `const mergeSort = (arr) => {
+            typescript: `const mergeSort = (arr) => {
     if (arr.length <= 1) return arr;
 
     const mid = Math.floor(arr.length / 2);
@@ -802,7 +802,7 @@ public int findMin(int[] arr) {
     }
     return arr[left];
 }`,
-            javascript: `const searchRotated = (arr, target) => {
+            typescript: `const searchRotated = (arr, target) => {
     let left = 0, right = arr.length - 1;
     while (left <= right) {
         const mid = left + Math.floor((right - left) / 2);

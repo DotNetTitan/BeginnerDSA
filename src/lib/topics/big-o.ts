@@ -87,7 +87,7 @@ public boolean findBinary(List<String> phoneBook, String target) {
     }
     return false;
 }`,
-            javascript: `// Strategy A: Linear scan - O(n) - check every entry
+            typescript: `// Strategy A: Linear scan - O(n) - check every entry
 const findLinear = (phoneBook, target) => {
     for (const name of phoneBook)
         if (name === target) return true;
@@ -195,7 +195,7 @@ public void printPairs(int[] arr) {
         for (int j = 0; j < arr.length; j++)
             System.out.println(arr[i] + "," + arr[j]);
 }`,
-            javascript: `// O(1) - Constant time: always 1 operation, no matter the input size
+            typescript: `// O(1) - Constant time: always 1 operation, no matter the input size
 const getFirst = (arr) => arr[0];
 
 // O(n) - Linear time: if array is 10x bigger, this is 10x slower
@@ -350,7 +350,7 @@ public void merge(int[] a, int[] b) {
     for (int x : a) System.out.println(x);
     for (int y : b) System.out.println(y);
 } // O(a + b), NOT O(n)`,
-            javascript: `// O(n) - drop the constant 2
+            typescript: `// O(n) - drop the constant 2
 const printTwice = (arr) => {
     for (const x of arr) console.log(x);  // n
     for (const x of arr) console.log(x);  // n
@@ -470,7 +470,7 @@ public int factorial(int n) {
     if (n <= 1) return 1;
     return n * factorial(n - 1);
 } // Call stack grows to n frames`,
-            javascript: `// O(1) space - in-place, no extra memory
+            typescript: `// O(1) space - in-place, no extra memory
 const reverseInPlace = (arr) => {
     let i = 0, j = arr.length - 1;
     while (i < j) {

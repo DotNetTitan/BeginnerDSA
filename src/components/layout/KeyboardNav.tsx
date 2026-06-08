@@ -16,7 +16,7 @@ export default function KeyboardNav({
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.repeat) return;
       const target = e.target as HTMLElement;
-      if (target.tagName === 'BUTTON' || target.tagName === 'A' || target.closest('button') || target.closest('a')) return;
+      if (target.tagName === 'BUTTON' || target.tagName === 'A' || target.tagName === 'TEXTAREA' || target.tagName === 'INPUT' || target.closest('button') || target.closest('a')) return;
 
       if (e.key === 'ArrowLeft' && prevHref) {
         e.preventDefault();

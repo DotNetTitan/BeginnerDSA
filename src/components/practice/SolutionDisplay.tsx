@@ -7,7 +7,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 export default function SolutionDisplay({ solution }: { solution: Record<string, string> }) {
   const { language } = useLanguage();
   const code = solution[language] ?? solution['csharp'] ?? '';
-  const langLabel = language === 'javascript' ? 'JavaScript' : language.toUpperCase();
+  const langLabel = ({ csharp: 'C#', python: 'Python', java: 'Java', typescript: 'TypeScript', cpp: 'C++' } as Record<string, string>)[language] ?? language.toUpperCase();
 
   return (
     <Accordion>

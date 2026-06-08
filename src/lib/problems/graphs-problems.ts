@@ -74,7 +74,7 @@ private void dfs(char[][] grid, int i, int j) {
     dfs(grid, i, j + 1);
     dfs(grid, i, j - 1);
 }`,
-      javascript: `function numIslands(grid) {
+      typescript: `function numIslands(grid) {
     function dfs(i, j) {
         if (i < 0 || i >= grid.length || j < 0 || j >= grid[0].length || grid[i][j] !== "1")
             return;
@@ -190,7 +190,7 @@ private Node clone(Node n, Map<Node, Node> map) {
         copy.neighbors.add(clone(neighbor, map));
     return copy;
 }`,
-      javascript: `function cloneGraph(node) {
+      typescript: `function cloneGraph(node) {
     if (node === null) return null;
     const map = new Map();
     function dfs(n) {
@@ -310,7 +310,7 @@ def can_finish(n, prerequisites):
     }
     return processed == n;
 }`,
-      javascript: `function canFinish(n, prerequisites) {
+      typescript: `function canFinish(n, prerequisites) {
     const graph = Array.from({ length: n }, () => []);
     const inDegree = new Array(n).fill(0);
     for (const [a, b] of prerequisites) {
@@ -462,7 +462,7 @@ def oranges_rotting(grid):
     }
     return fresh == 0 ? minutes : -1;
 }`,
-      javascript: `function orangesRotting(grid) {
+      typescript: `function orangesRotting(grid) {
     const m = grid.length, n = grid[0].length;
     const q = [];
     let fresh = 0;
@@ -628,7 +628,7 @@ def ladder_length(begin_word, end_word, word_list):
     }
     return 0;
 }`,
-      javascript: `function ladderLength(beginWord, endWord, wordList) {
+      typescript: `function ladderLength(beginWord, endWord, wordList) {
     const words = new Set(wordList);
     if (!words.has(endWord)) return 0;
     const q = [beginWord];

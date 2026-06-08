@@ -42,7 +42,7 @@ export const problems: Problem[] = [
     }
     return b;
 }`,
-      javascript: `function climbStairs(n) {
+      typescript: `function climbStairs(n) {
     if (n <= 2) return n;
     let a = 1, b = 2;
     for (let i = 3; i <= n; i++) {
@@ -106,7 +106,7 @@ export const problems: Problem[] = [
     }
     return prev1;
 }`,
-      javascript: `function rob(nums) {
+      typescript: `function rob(nums) {
     let prev2 = 0, prev1 = 0;
     for (const n of nums) {
         const curr = Math.max(prev1, prev2 + n);
@@ -176,7 +176,7 @@ int rob(const std::vector<int>& nums) {
                 dp[i] = Math.min(dp[i], dp[i - coin] + 1);
     return dp[amount] > amount ? -1 : dp[amount];
 }`,
-      javascript: `function coinChange(coins, amount) {
+      typescript: `function coinChange(coins, amount) {
     const dp = new Array(amount + 1).fill(amount + 1);
     dp[0] = 0;
     for (let i = 1; i <= amount; i++)
@@ -252,7 +252,7 @@ def length_of_lis(nums):
     }
     return tails.size();
 }`,
-      javascript: `function lengthOfLIS(nums) {
+      typescript: `function lengthOfLIS(nums) {
     const tails = [];
     for (const n of nums) {
         let left = 0, right = tails.length;
@@ -338,7 +338,7 @@ int lengthOfLIS(const std::vector<int>& nums) {
     }
     return dp[m][n];
 }`,
-      javascript: `function longestCommonSubsequence(text1, text2) {
+      typescript: `function longestCommonSubsequence(text1, text2) {
     const m = text1.length, n = text2.length;
     const dp = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));
     for (let i = 1; i <= m; i++) {

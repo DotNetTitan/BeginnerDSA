@@ -4,7 +4,7 @@ import { createContext, useContext, useState, type ReactNode } from 'react';
 
 const STORAGE_KEY = 'dsa-language';
 
-export type Language = 'csharp' | 'python' | 'java' | 'javascript' | 'cpp';
+export type Language = 'csharp' | 'python' | 'java' | 'typescript' | 'cpp';
 
 interface LanguageContextValue {
   language: Language;
@@ -15,11 +15,12 @@ const LanguageContext = createContext<LanguageContextValue | undefined>(undefine
 
 export function LanguageProvider({ children, serverLanguage }: { children: ReactNode; serverLanguage?: string }) {
   const [language, setLanguageState] = useState<Language>(() => {
-    if (serverLanguage && ['csharp', 'python', 'java', 'javascript', 'cpp'].includes(serverLanguage)) {
-      return serverLanguage as Language;
-    }
-    const stored = typeof window !== 'undefined' ? localStorage.getItem(STORAGE_KEY) : null;
-    if (stored && ['csharp', 'python', 'java', 'javascript', 'cpp'].includes(stored)) {
+if (serverLanguage && ['csharp', 'python', 'java', 'typescript', 'cpp'].includes(serverLanguage)) {
+    return serverLanguage as Language;
+  }
+
+  const stored = typeof window !== 'undefined' ? localStorage.getItem('language') : null;
+  if (stored && ['csharp', 'python', 'java', 'typescript', 'cpp'].includes(stored)) {
       return stored as Language;
     }
     return 'csharp';

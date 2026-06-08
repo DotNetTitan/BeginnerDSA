@@ -98,7 +98,7 @@ public int maxActivities(int[][] intervals) {
 // GREEDY FAILS: Coin change with denominations [1, 3, 4], target 6
 // Greedy: 4 + 1 + 1 = 3 coins
 // Optimal: 3 + 3 = 2 coins (greedy fails here)`,
-            javascript: `// GREEDY WORKS: Activity selection
+            typescript: `// GREEDY WORKS: Activity selection
 // Choose the activity with the earliest end time
 const maxActivities = (intervals) => {
     intervals.sort((a, b) => a[1] - b[1]);
@@ -300,7 +300,7 @@ public int minMeetingRooms(int[][] intervals) {
     }
     return rooms;
 }`,
-            javascript: `// Merge Intervals - O(n log n)
+            typescript: `// Merge Intervals - O(n log n)
 const merge = (intervals) => {
     intervals.sort((a, b) => a[0] - b[0]);
     const merged = [];
@@ -512,7 +512,7 @@ public int jump(int[] nums) {
     }
     return jumps;
 }`,
-            javascript: `// Jump Game - O(n)
+            typescript: `// Jump Game - O(n)
 const canJump = (nums) => {
     let maxReach = 0;
     for (let i = 0; i < nums.length; i++) {

@@ -1,4 +1,4 @@
-export type Language = 'csharp' | 'python' | 'java' | 'javascript' | 'cpp';
+export type Language = 'csharp' | 'python' | 'java' | 'typescript' | 'cpp';
 
 export interface TestCase {
   args: string[];
@@ -9,7 +9,7 @@ const COMPILER_IDS: Record<Language, string> = {
   csharp: 'dotnet-csharp-9',
   python: 'python-3.14',
   java: 'openjdk-25',
-  javascript: 'typescript-deno',
+  typescript: 'typescript-deno',
   cpp: 'g++-15',
 };
 
@@ -17,10 +17,7 @@ export function getCompilerId(language: Language): string {
   return COMPILER_IDS[language];
 }
 
-export function isLanguageSupported(language: Language): true | string {
-  if (language === 'javascript') {
-    return 'JavaScript is not directly supported. TypeScript (Deno) will be used instead — most JS code works without changes.';
-  }
+export function isLanguageSupported(_language: Language): true | string {
   return true;
 }
 
@@ -309,7 +306,7 @@ ${testCode.join('\n')}
 `;
 }
 
-function generateJavascriptWrapper(userCode: string, testCases: TestCase[]): string {
+function generateTypescriptWrapper(userCode: string, testCases: TestCase[]): string {
   const sig = parseSignature(userCode);
   const methodName = sig?.methodName ?? 'solve';
 
@@ -330,9 +327,11 @@ ${testCasesJson}
     for (let i = 0; i < testCases.length; i++) {
         const tc = testCases[i];
         try {
-            const actual = ${methodName}(...tc.args);
+            const parsed = tc.args.map(a => JSON.parse(a));
+            const actual = ${methodName}(...parsed);
             const actualStr = JSON.stringify(actual);
-            const passed = actualStr === tc.expected;
+            const expectedStr = JSON.stringify(JSON.parse(tc.expected));
+            const passed = actualStr === expectedStr;
             results.push({ index: i + 1, passed, expected: tc.expected, actual: actualStr });
             if (!passed) allPassed = false;
         } catch (e) {
@@ -418,9 +417,23 @@ export function extractTestResults(output: string): { testResults: RunResult['te
   }
 }
 
-function generateMinimalCSharp(userCode: string): string {
+function runtimeArgExpr(language: string, value: string, type: string): string {
+  if (language === 'csharp') return csharpArgExpr(value, type);
+  if (language === 'java') return javaArgExpr(value, type);
+  if (language === 'cpp') return cppArgExpr(value, type);
+  return value;
+}
+
+function generateRunCSharp(userCode: string, runArgs: string[]): string {
   const sig = parseSignature(userCode);
   const methodName = sig?.methodName ?? 'Solve';
+
+  const argExprs = sig
+    ? sig.params.map((p, i) => {
+        const val = i < runArgs.length ? runArgs[i] : '0';
+        return runtimeArgExpr('csharp', val, p.type);
+      }).join(', ')
+    : runArgs.join(', ');
 
   return `using System;
 using System.Linq;
@@ -432,8 +445,7 @@ ${userCode.trimEnd().split('\n').map(line => '    ' + line).join('\n')}
     public static void Main(string[] args) {
         try {
             var s = new Solution();
-            Console.WriteLine("Program executed successfully.");
-            Console.WriteLine("(no output from your function)");
+            s.${methodName}(${argExprs});
         } catch (Exception ex) {
             Console.WriteLine("Error: " + ex.Message);
         }
@@ -443,29 +455,14 @@ ${userCode.trimEnd().split('\n').map(line => '    ' + line).join('\n')}
 `;
 }
 
-function generateMinimalPython(userCode: string): string {
+function generateRunPython(userCode: string, runArgs: string[]): string {
   const sig = parseSignature(userCode);
   const methodName = sig?.methodName ?? 'solve';
   const hasClass = userCode.includes('class Solution');
 
-  if (hasClass) {
-    return `import sys
-
-${userCode.trimEnd()}
-
-def main():
-    try:
-        s = Solution()
-        print("Program executed successfully.")
-        print("(no output from your function)")
-    except Exception as e:
-        print("Error:", e)
-    sys.stdout.flush()
-
-if __name__ == '__main__':
-    main()
-`;
-  }
+  const argStr = runArgs.join(', ');
+  const setupLine = hasClass ? '        s = Solution()' : '';
+  const callExpr = hasClass ? `s.${methodName}(${argStr})` : `${methodName}(${argStr})`;
 
   return `import sys
 
@@ -473,8 +470,8 @@ ${userCode.trimEnd()}
 
 def main():
     try:
-        print("Program executed successfully.")
-        print("(no output from your function)")
+${setupLine}
+        ${callExpr}
     except Exception as e:
         print("Error:", e)
     sys.stdout.flush()
@@ -484,8 +481,16 @@ if __name__ == '__main__':
 `;
 }
 
-function generateMinimalJava(userCode: string): string {
-  const methodName = parseSignature(userCode)?.methodName ?? 'solve';
+function generateRunJava(userCode: string, runArgs: string[]): string {
+  const sig = parseSignature(userCode);
+  const methodName = sig?.methodName ?? 'solve';
+
+  const argExprs = sig
+    ? sig.params.map((p, i) => {
+        const val = i < runArgs.length ? runArgs[i] : '0';
+        return runtimeArgExpr('java', val, p.type);
+      }).join(', ')
+    : runArgs.join(', ');
 
   return `import java.util.*;
 
@@ -495,8 +500,7 @@ ${userCode.trimEnd().split('\n').map(line => '    ' + line).join('\n')}
     public static void main(String[] args) {
         try {
             var s = new Solution();
-            System.out.println("Program executed successfully.");
-            System.out.println("(no output from your function)");
+            s.${methodName}(${argExprs});
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
         }
@@ -506,15 +510,17 @@ ${userCode.trimEnd().split('\n').map(line => '    ' + line).join('\n')}
 `;
 }
 
-function generateMinimalJavascript(userCode: string): string {
-  const methodName = parseSignature(userCode)?.methodName ?? 'solve';
+function generateRunTypescript(userCode: string, runArgs: string[]): string {
+  const sig = parseSignature(userCode);
+  const methodName = sig?.methodName ?? 'solve';
 
-  return `${userCode.trimEnd()}
+  const argStr = runArgs.join(', ');
+
+  return `${userCode.trimEnd().replace(/\n$/, '')}
 
 async function main() {
     try {
-        console.log("Program executed successfully.");
-        console.log("(no output from your function)");
+        ${methodName}(${argStr});
     } catch (e) {
         console.log("Error:", e.message ?? String(e));
     }
@@ -524,10 +530,21 @@ await main();
 `;
 }
 
-function generateMinimalCpp(userCode: string): string {
+function generateRunCpp(userCode: string, runArgs: string[]): string {
+  const sig = parseSignature(userCode);
+  const methodName = sig?.methodName ?? 'solve';
+
+  const argExprs = sig
+    ? sig.params.map((p, i) => {
+        const val = i < runArgs.length ? runArgs[i] : '0';
+        return runtimeArgExpr('cpp', val, p.type);
+      }).join(', ')
+    : runArgs.join(', ');
+
   return `#include <iostream>
 #include <string>
 #include <vector>
+#include <sstream>
 #include <exception>
 using namespace std;
 
@@ -535,8 +552,7 @@ ${userCode.trimEnd()}
 
 int main() {
     try {
-        cout << "Program executed successfully." << endl;
-        cout << "(no output from your function)" << endl;
+        ${methodName}(${argExprs});
     } catch (exception &ex) {
         cout << "Error: " << ex.what() << endl;
     } catch (...) {
@@ -548,22 +564,31 @@ int main() {
 `;
 }
 
-export function generateWrapper(language: Language, userCode: string, testCases?: TestCase[]): string {
+export function generateWrapper(language: Language, userCode: string, testCases?: TestCase[], runArgs?: string[]): string {
+  if (runArgs && runArgs.length > 0) {
+    switch (language) {
+      case 'csharp': return generateRunCSharp(userCode, runArgs);
+      case 'python': return generateRunPython(userCode, runArgs);
+      case 'java': return generateRunJava(userCode, runArgs);
+      case 'typescript': return generateRunTypescript(userCode, runArgs);
+      case 'cpp': return generateRunCpp(userCode, runArgs);
+    }
+  }
   const cases = testCases ?? [];
   if (cases.length === 0) {
     switch (language) {
-      case 'csharp': return generateMinimalCSharp(userCode);
-      case 'python': return generateMinimalPython(userCode);
-      case 'java': return generateMinimalJava(userCode);
-      case 'javascript': return generateMinimalJavascript(userCode);
-      case 'cpp': return generateMinimalCpp(userCode);
+      case 'csharp': return generateRunCSharp(userCode, []);
+      case 'python': return generateRunPython(userCode, []);
+      case 'java': return generateRunJava(userCode, []);
+      case 'typescript': return generateRunTypescript(userCode, []);
+      case 'cpp': return generateRunCpp(userCode, []);
     }
   }
   switch (language) {
     case 'csharp': return generateCSharpWrapper(userCode, cases);
     case 'python': return generatePythonWrapper(userCode, cases);
     case 'java': return generateJavaWrapper(userCode, cases);
-    case 'javascript': return generateJavascriptWrapper(userCode, cases);
+    case 'typescript': return generateTypescriptWrapper(userCode, cases);
     case 'cpp': return generateCppWrapper(userCode, cases);
   }
 }

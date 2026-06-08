@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   manifest: "/site.webmanifest",
   openGraph: {
     title: "Zero To DSA",
-    description: "Structured modules and coding challenges with support for Python, Java, C++, JavaScript, and C#.",
+    description: "Structured modules and coding challenges with support for Python, Java, C++, TypeScript, and C#.",
     url: "https://zerotodsa.com",
     siteName: "Zero To DSA",
     type: "website",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary",
     title: "Zero To DSA",
-    description: "Structured modules and coding challenges with support for Python, Java, C++, JavaScript, and C#.",
+    description: "Structured modules and coding challenges with support for Python, Java, C++, TypeScript, and C#.",
     images: ["/logo.png"],
   },
 };
