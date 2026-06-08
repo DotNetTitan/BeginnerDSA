@@ -67,24 +67,75 @@ function parseSignature(code: string): MethodSignature | null {
 
 function csharpArgExpr(value: string, type: string): string {
   if (type === 'int') return value;
-  if (type === 'string') return `"${value}"`;
+  if (type === 'string') return `"${value.replace(/^"|"$/g, '')}"`;
   if (type === 'bool') return value.toLowerCase();
   if (type === 'int[]' || type === 'int []') {
     if (value === '[]' || value === '') return 'new int[0]';
     const nums = value.replace(/^\[|\]$/g, '').split(',').map(s => s.trim()).join(', ');
     return `new int[] { ${nums} }`;
   }
+  if (type === 'int[][]' || type === 'int [][]') {
+    const inner = value.slice(1, -1);
+    const items = splitTopLevel(inner);
+    const nested = items.map(item => csharpArgExpr(item, 'int[]'));
+    return `new int[][] { ${nested.join(', ')} }`;
+  }
+  if (type === 'char[][]' || type === 'char [][]') {
+    const inner = value.slice(1, -1);
+    const items = splitTopLevel(inner);
+    const nested = items.map(item => {
+      const row = item.replace(/^\[|\]$/g, '').split(',').map((s: string) => `'${s.trim().replace(/^"|"$/g, '')}'`).join(', ');
+      return `new char[] { ${row} }`;
+    });
+    return `new char[][] { ${nested.join(', ')} }`;
+  }
+  if (type === 'string[]' || type === 'string []') {
+    if (value === '[]' || value === '') return 'new string[0]';
+    const items = value.replace(/^\[|\]$/g, '').split(',').map((s: string) => s.trim());
+    return `new string[] { ${items.join(', ')} }`;
+  }
+  if (type.startsWith('IList<') || type.startsWith('List<')) {
+    const concreteType = type.startsWith('IList<') ? 'List<' + type.slice(6) : type;
+    if (value === '[]') return `new ${concreteType}()`;
+    const items = value.replace(/^\[|\]$/g, '').split(',').map((s: string) => s.trim());
+    return `new ${concreteType} { ${items.join(', ')} }`;
+  }
   return value;
 }
 
 function javaArgExpr(value: string, type: string): string {
   if (type === 'int') return value;
-  if (type === 'String' || type === 'string') return `"${value}"`;
+  if (type === 'String') return `"${value.replace(/^"|"$/g, '')}"`;
   if (type === 'boolean' || type === 'bool') return value.toLowerCase();
   if (type === 'int[]' || type === 'int []') {
     if (value === '[]' || value === '') return 'new int[0]';
     const nums = value.replace(/^\[|\]$/g, '').split(',').map(s => s.trim()).join(', ');
     return `new int[] { ${nums} }`;
+  }
+  if (type === 'int[][]' || type === 'int [][]') {
+    const inner = value.slice(1, -1);
+    const items = splitTopLevel(inner);
+    const nested = items.map(item => javaArgExpr(item, 'int[]'));
+    return `new int[][] { ${nested.join(', ')} }`;
+  }
+  if (type === 'char[][]' || type === 'char [][]') {
+    const inner = value.slice(1, -1);
+    const items = splitTopLevel(inner);
+    const nested = items.map(item => {
+      const row = item.replace(/^\[|\]$/g, '').split(',').map((s: string) => `'${s.trim().replace(/^"|"$/g, '')}'`).join(', ');
+      return `new char[] { ${row} }`;
+    });
+    return `new char[][] { ${nested.join(', ')} }`;
+  }
+  if (type === 'String[]' || type === 'String []') {
+    if (value === '[]' || value === '') return 'new String[0]';
+    const items = value.replace(/^\[|\]$/g, '').split(',').map((s: string) => s.trim());
+    return `new String[] { ${items.join(', ')} }`;
+  }
+  if (type.startsWith('List<')) {
+    if (value === '[]') return `new ${type}()`;
+    const items = value.replace(/^\[|\]$/g, '').split(',').map((s: string) => s.trim());
+    return `Arrays.asList(${items.join(', ')})`;
   }
   return value;
 }
