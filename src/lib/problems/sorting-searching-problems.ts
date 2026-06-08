@@ -335,7 +335,7 @@ int findMin(const std::vector<int>& nums) {
     title: 'Sort Colors (Dutch National Flag)',
     topicId: 'sorting-searching',
     difficulty: 'medium',
-    description: `Given an array with 0s, 1s, and 2s, sort them in-place. 0s -> red, 1s -> white, 2s -> blue.`,
+    description: `Given an array with \`0\`s, \`1\`s, and \`2\`s, sort them in-place. \`0\`s -> red, \`1\`s -> white, \`2\`s -> blue.`,
     examples: [
       { input: 'nums = [2,0,2,1,1,0]', output: '[0,0,1,1,2,2]' },
       { input: 'nums = [2,0,1]', output: '[0,1,2]' },

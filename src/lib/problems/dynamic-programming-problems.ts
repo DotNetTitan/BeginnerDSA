@@ -6,7 +6,7 @@ export const problems: Problem[] = [
     title: 'Climbing Stairs',
     topicId: 'dynamic-programming',
     difficulty: 'easy',
-    description: `You are climbing a staircase. It takes n steps to reach the top. Each time you can climb 1 or 2 steps. In how many distinct ways can you reach the top?`,
+    description: `You are climbing a staircase. It takes \`n\` steps to reach the top. Each time you can climb 1 or 2 steps. In how many distinct ways can you reach the top?`,
     examples: [
       { input: 'n = 2', output: '2', explanation: '1+1, 2' },
       { input: 'n = 3', output: '3', explanation: '1+1+1, 1+2, 2+1' },
