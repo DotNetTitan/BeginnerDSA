@@ -9,7 +9,7 @@ export function getTopicStatus(
   forceUnlocked?: boolean
 ): TopicStatus {
   const tp = progress.topics[topic.id];
-  const unlocked = forceUnlocked ?? (typeof window !== 'undefined' ? localStorage.getItem('dsa-all-unlocked') === 'true' : false);
+  const unlocked = forceUnlocked ?? false;
 
   if (!unlocked) {
     // Check prerequisites: theory read AND all problems solved

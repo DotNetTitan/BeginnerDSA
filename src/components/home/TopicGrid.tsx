@@ -36,7 +36,7 @@ export default function TopicGrid() {
   const statuses = useMemo(() => {
     const s: Record<string, TopicStatus> = {};
     for (const t of topics) {
-      s[t.id] = getTopicStatus(t, progress, topics);
+      s[t.id] = getTopicStatus(t, progress, topics, allUnlocked);
     }
     return s;
   // eslint-disable-next-line react-hooks/exhaustive-deps

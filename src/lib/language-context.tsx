@@ -19,7 +19,7 @@ if (serverLanguage && ['csharp', 'python', 'java', 'typescript', 'cpp'].includes
     return serverLanguage as Language;
   }
 
-  const stored = typeof window !== 'undefined' ? localStorage.getItem('language') : null;
+  const stored = typeof window !== 'undefined' ? localStorage.getItem(STORAGE_KEY) : null;
   if (stored && ['csharp', 'python', 'java', 'typescript', 'cpp'].includes(stored)) {
       return stored as Language;
     }
