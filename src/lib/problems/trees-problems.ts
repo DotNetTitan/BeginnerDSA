@@ -156,6 +156,12 @@ std::vector<int> inorderTraversal(TreeNode* root) {
     ],
     constraints: ['The number of nodes is in the range [1, 10^4].'],
     hints: ['Use min/max range for each node.', 'Pass down valid range (long.MinValue, long.MaxValue) initially.'],
+    code: {
+      cpp: `bool isValidBST(TreeNode* root) {
+    // TODO: implement your solution here
+    return false;
+}`,
+    },
     solution: {
       csharp: `public bool IsValidBST(TreeNode root) {
     return Validate(root, long.MinValue, long.MaxValue);
@@ -293,6 +299,61 @@ bool isValidBST(TreeNode* root) {
     ],
     constraints: ['The number of nodes is in the range [0, 10^4].'],
     hints: ['Use preorder traversal (root, left, right).', 'Mark null nodes with a sentinel like "#".'],
+    code: {
+      csharp: `public class Codec {
+    public string Serialize(TreeNode root) {
+        // TODO: implement your solution here
+        return "";
+    }
+
+    public TreeNode Deserialize(string data) {
+        // TODO: implement your solution here
+        return null;
+    }
+}`,
+      python: `class Codec:
+    def serialize(self, root):
+        # TODO: implement your solution here
+        return ""
+
+    def deserialize(self, data):
+        # TODO: implement your solution here
+        return None
+`,
+      java: `public class Codec {
+    public String serialize(TreeNode root) {
+        // TODO: implement your solution here
+        return "";
+    }
+
+    public TreeNode deserialize(String data) {
+        // TODO: implement your solution here
+        return null;
+    }
+}`,
+      typescript: `class Codec {
+    serialize(root) {
+        // TODO: implement your solution here
+        return "";
+    }
+    deserialize(data) {
+        // TODO: implement your solution here
+        return null;
+    }
+}`,
+      cpp: `class Codec {
+public:
+    std::string serialize(TreeNode* root) {
+        // TODO: implement your solution here
+        return "";
+    }
+
+    TreeNode* deserialize(const std::string& data) {
+        // TODO: implement your solution here
+        return nullptr;
+    }
+};`,
+    },
     solution: {
       csharp: `public class Codec {
     public string Serialize(TreeNode root) {

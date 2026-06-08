@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useCallback, useEffect, useRef, type KeyboardEvent } from 'react';
+import { useState, useCallback, useEffect, useRef, useMemo, type KeyboardEvent } from 'react';
 import { useLanguage } from '@/lib/language-context';
-import { generateWrapper, parseExampleInput } from '@/lib/compiler-map';
+import { generateWrapper, parseExampleInput, canAutoGenerateTests } from '@/lib/compiler-map';
 import { Loader2, Play, Terminal, Clock, MemoryStick as Memory, ChevronDown, ChevronRight, Check, X, FileCheck } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -49,7 +49,7 @@ interface CodeEditorProps {
 
 function extractStarter(code: string, language: string): string {
   const sigMatch = code.match(
-    /(?:public\s+|private\s+|protected\s+)?(\S+(?:\s*<[^>]+>)?(?:\[\])?)\s+(\w+)\s*\(([^)]*)\)/
+    /(?:public\s+|private\s+|protected\s+)?([^\s;(:{]+(?:\s*<[^>]+>)?(?:\[\])?)\s+(\w+)\s*\(([^)]*)\)/
   );
   const pyMatch = code.match(/^def\s+(\w+)\s*\(([^)]*)\)/);
 
@@ -128,6 +128,13 @@ export default function CodeEditor({ starterCode, solutionCode, examples }: Code
     else if (solutionCode[language]) { setCode(extractStarter(solutionCode[language], language)); }
     else { setCode(''); }
     setRunPassed(false);
+    setRawOutput(null);
+    setError(null);
+    setExitCode(null);
+    setExecTime(null);
+    setExecMemory(null);
+    setTestResults(null);
+    setRunningMode(null);
     /* eslint-enable react-hooks/set-state-in-effect */
   }, [language, starterCode, solutionCode]);
 
@@ -136,6 +143,7 @@ export default function CodeEditor({ starterCode, solutionCode, examples }: Code
   const preRef = useRef<HTMLPreElement>(null);
 
   const testableExamples = examples.filter(e => e.output != null);
+  const canTest = useMemo(() => canAutoGenerateTests(code, language), [code, language]);
 
   useEffect(() => {
     const timer = setTimeout(async () => {
@@ -302,7 +310,7 @@ export default function CodeEditor({ starterCode, solutionCode, examples }: Code
                 {runningMode === 'run' ? 'Running...' : 'Run'}
               </Button>
             </div>
-            {runPassed && (
+            {runPassed && canTest && (
               <div className="flex items-center gap-2">
                 <Button
                   onClick={() => executeCode(true)}

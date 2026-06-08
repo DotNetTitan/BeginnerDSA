@@ -137,6 +137,23 @@ int numIslands(std::vector<std::vector<char>>& grid) {
     ],
     constraints: ['The number of nodes is in the range [0, 100].'],
     hints: ['Use a Dictionary<Node, Node> to map original to clone.', 'Use DFS or BFS.'],
+    code: {
+      cpp: `class Node {
+public:
+    int val;
+    std::vector<Node*> neighbors;
+    Node(int _val) : val(_val) {}
+};
+
+Node* cloneGraph(Node* node) {
+    // TODO: implement your solution here
+    return nullptr;
+}`,
+      python: `def clone_graph(node):
+    # TODO: implement your solution here
+    pass
+`,
+    },
     solution: {
       csharp: `public class Node {
     public int val;

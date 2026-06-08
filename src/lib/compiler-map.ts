@@ -41,9 +41,26 @@ function parseSignature(code: string): MethodSignature | null {
     return { methodName, returnType: 'object', params };
   }
 
-  const sigMatch = code.match(
-    /(?:public\s+|private\s+|protected\s+)?(\S+(?:\s*<[^>]+>)?(?:\[\])?)\s+(\w+)\s*\(([^)]*)\)/
-  );
+  // Check for Python function definition on any top-level line (not indented)
+  for (let i = lines.length - 1; i >= 0; i--) {
+    const pyDefMatch = lines[i].match(/^def\s+(\w+)\s*\(([^)]*)\)\s*:/);
+    if (pyDefMatch) {
+      const methodName = pyDefMatch[1];
+      const paramsStr = pyDefMatch[2].trim();
+      const params: { type: string; name: string }[] = [];
+      if (paramsStr) {
+        for (const p of paramsStr.split(',')) {
+          const name = p.trim().split(/\s+/).pop() ?? '';
+          if (name) params.push({ type: 'object', name });
+        }
+      }
+      return { methodName, returnType: 'object', params };
+    }
+  }
+
+  const sigMatch = [...code.matchAll(
+    /(?:public\s+|private\s+|protected\s+)?([^\s;(:{]+(?:\s*<[^>]+>)?(?:\[\])?)\s+(\w+)\s*\(([^)]*)\)(?!\s*;)/g
+  )].pop();
   if (!sigMatch) return null;
 
   const returnType = sigMatch[1].trim();
@@ -69,6 +86,7 @@ function csharpArgExpr(value: string, type: string): string {
   if (type === 'int') return value;
   if (type === 'string') return `"${value.replace(/^"|"$/g, '')}"`;
   if (type === 'bool') return value.toLowerCase();
+  if (type.endsWith('*')) return 'null';
   if (type === 'int[]' || type === 'int []') {
     if (value === '[]' || value === '') return 'new int[0]';
     const nums = value.replace(/^\[|\]$/g, '').split(',').map(s => s.trim()).join(', ');
@@ -197,6 +215,7 @@ function normalizedType(raw: string): string {
 }
 
 function cppArgExpr(value: string, rawType: string): string {
+  if (rawType.endsWith('*')) return 'nullptr';
   const type = normalizedType(rawType);
 
   if (type === 'int') return value;
@@ -283,18 +302,37 @@ function generatePythonWrapper(userCode: string, testCases: TestCase[]): string 
   const sig = parseSignature(userCode);
   const methodName = sig?.methodName ?? 'solve';
   const hasClass = userCode.includes('class Solution');
+  const usesGraph = testCases.length > 0 && needsGraphCode(userCode);
 
   const testCasesJson = testCases.map(tc =>
     `        {"args": ${JSON.stringify(tc.args)}, "expected": ${JSON.stringify(tc.expected)}}`
   ).join(',\n');
 
-  const callExpr = hasClass ? `s.${methodName}(*parsed_args)` : `${methodName}(*parsed_args)`;
+  let callExpr: string;
+  let comparisonCode: string;
+  if (usesGraph) {
+    callExpr = hasClass
+      ? `s.${methodName}(*[build_graph(a) for a in tc["args"]])`
+      : `${methodName}(*[build_graph(a) for a in tc["args"]])`;
+    comparisonCode = `
+            actual_str = graph_to_json(actual)
+            expected_obj = json.loads(tc["expected"])
+            expected_str = json.dumps(expected_obj, separators=(",", ":"))
+            passed = actual_str == expected_str`;
+  } else {
+    callExpr = hasClass ? `s.${methodName}(*parsed_args)` : `${methodName}(*parsed_args)`;
+    comparisonCode = `
+            actual_str = json.dumps(actual) if not isinstance(actual, str) else actual
+            passed = actual_str == tc["expected"]`;
+  }
   const instanceLine = hasClass ? '    s = Solution()' : '';
+
+  const helpers = usesGraph ? '\n' + PYTHON_GRAPH_HELPERS.trimEnd() + '\n' : '';
 
   return `import sys
 import json
 
-${userCode.trimEnd()}
+${userCode.trimEnd()}${helpers}
 
 def main():
 ${instanceLine}
@@ -308,9 +346,7 @@ ${testCasesJson}
     for i, tc in enumerate(test_cases):
         try:
             parsed_args = [json.loads(a) for a in tc["args"]]
-            actual = ${callExpr}
-            actual_str = json.dumps(actual) if not isinstance(actual, str) else actual
-            passed = actual_str == tc["expected"]
+            actual = ${callExpr}${comparisonCode}
             results.append({"index": i + 1, "passed": passed, "expected": tc["expected"], "actual": actual_str})
             if not passed:
                 all_passed = False
@@ -429,64 +465,6 @@ await main();
 `;
 }
 
-function generateCppWrapper(userCode: string, testCases: TestCase[]): string {
-  const sig = parseSignature(userCode);
-  const methodName = sig?.methodName ?? 'solve';
-  const isVoid = sig?.returnType === 'void';
-
-  const testCode: string[] = [];
-  for (let i = 0; i < testCases.length; i++) {
-    const tc = testCases[i];
-
-    const varDecls: string[] = [];
-    const callArgs: string[] = [];
-    if (sig) {
-      sig.params.forEach((p, j) => {
-        const val = j < tc.args.length ? tc.args[j] : '0';
-        const expr = cppArgExpr(val, p.type);
-        const norm = normalizedType(p.type);
-        if (norm.startsWith('vector<') || norm === 'string' || norm === 'std::string') {
-          const vn = `_arg${i}_${j}`;
-          varDecls.push(`        auto ${vn} = ${expr};`);
-          callArgs.push(vn);
-        } else {
-          callArgs.push(expr);
-        }
-      });
-    } else {
-      tc.args.forEach(a => callArgs.push(a));
-    }
-
-    const args = callArgs.join(', ');
-    const escapedExpected = tc.expected.replace(/"/g, '\\"');
-
-    testCode.push('    // Test ' + (i + 1));
-    testCode.push('    try {');
-    if (varDecls.length) testCode.push(varDecls.join('\n'));
-    if (isVoid) {
-      testCode.push('        ' + methodName + '(' + args + ');');
-    } else if (args) {
-      testCode.push('        auto result' + i + ' = ' + methodName + '(' + args + ');');
-    } else {
-      testCode.push('        ' + methodName + '();');
-    }
-    testCode.push('        string actual' + i + 'Str = "[";');
-    testCode.push('        cout << "__TEST_RESULTS__" << endl;');
-    testCode.push('        cout << "[{\\"index\\":" << ' + (i + 1) + ' << ",\\"passed\\":true,\\"expected\\":\\"' + escapedExpected + '\\",\\"actual\\":\\"" << actual' + i + 'Str << "\\"}]" << endl;');
-    testCode.push('        cout << "__DONE__" << endl;');
-    testCode.push('    } catch (...) {');
-    testCode.push('        cout << "__TEST_RESULTS__" << endl;');
-    testCode.push('        cout << "[{\\"index\\":" << ' + (i + 1) + ' << ",\\"passed\\":false,\\"expected\\":\\"' + escapedExpected + '\\",\\"actual\\":\\"exception\\"}]" << endl;');
-    testCode.push('        cout << "__DONE__" << endl;');
-    testCode.push('        return 0;');
-    testCode.push('    }');
-  }
-
-  return '#include <iostream>\n#include <string>\n#include <vector>\n#include <sstream>\n#include <algorithm>\nusing namespace std;\n\n' +
-    userCode.trimEnd() + '\n\nint main() {\n' +
-    testCode.join('\n') + '\n    return 0;\n}\n';
-}
-
 export interface RunResult {
   testResults?: { index: number; passed: boolean; expected: string; actual: string }[];
   output: string;
@@ -560,14 +538,23 @@ function generateRunPython(userCode: string, runArgs: string[]): string {
   const sig = parseSignature(userCode);
   const methodName = sig?.methodName ?? 'solve';
   const hasClass = userCode.includes('class Solution');
+  const usesGraph = runArgs.length > 0 && needsGraphCode(userCode);
 
-  const argStr = runArgs.join(', ');
+  let argStr: string;
+  if (usesGraph) {
+    argStr = runArgs.map(a => `build_graph(${JSON.stringify(a)})`).join(', ');
+  } else {
+    argStr = runArgs.join(', ');
+  }
   const setupLine = hasClass ? '        s = Solution()' : '';
   const callExpr = hasClass ? `s.${methodName}(${argStr})` : `${methodName}(${argStr})`;
 
-  return `import sys
+  const helpers = usesGraph ? '\n' + PYTHON_GRAPH_HELPERS.trimEnd() + '\n' : '';
 
-${userCode.trimEnd()}
+  return `import sys
+import json
+
+${userCode.trimEnd()}${helpers}
 
 def main():
     try:
@@ -639,7 +626,13 @@ function generateRunCpp(userCode: string, runArgs: string[]): string {
   const callArgs: string[] = [];
   if (sig) {
     sig.params.forEach((p, i) => {
-      const val = i < runArgs.length ? runArgs[i] : '0';
+      const hasArg = i < runArgs.length;
+      const val = hasArg ? runArgs[i] : '';
+      if (!hasArg) {
+        // No matching example arg — default-construct the param
+        callArgs.push('{}');
+        return;
+      }
       const expr = runtimeArgExpr('cpp', val, p.type);
       const norm = normalizedType(p.type);
       // Create named variables for complex types so they are lvalues
@@ -711,4 +704,204 @@ export function generateWrapper(language: Language, userCode: string, testCases?
 export function parseExampleInput(input: string): string[] {
   const values = input.replace(/^.*?=\s*/, '');
   return values.split(/,\s*\w+\s*=\s*/);
+}
+
+const CPP_GRAPH_HELPERS = `
+#include <unordered_set>
+#include <unordered_map>
+#include <queue>
+
+Node* buildGraph(const string& json) {
+    if (json == "[]" || json.size() < 2) return nullptr;
+    string inner = json.substr(1, json.size() - 2);
+    vector<vector<int>> adj;
+    for (size_t _i = 0; _i < inner.size();) {
+        if (inner[_i] == '[') {
+            size_t _end = inner.find(']', _i);
+            string _arr = inner.substr(_i + 1, _end - _i - 1);
+            vector<int> _nbs;
+            stringstream _ss(_arr);
+            string _tok;
+            while (getline(_ss, _tok, ','))
+                if (!_tok.empty()) _nbs.push_back(stoi(_tok));
+            adj.push_back(_nbs);
+            _i = _end + 1;
+        } else _i++;
+    }
+    if (adj.empty()) return nullptr;
+    vector<Node*> _nodes;
+    for (size_t _i = 0; _i < adj.size(); _i++)
+        _nodes.push_back(new Node((int)(_i + 1)));
+    for (size_t _i = 0; _i < adj.size(); _i++)
+        for (int _nb : adj[_i])
+            if (_nb >= 1 && _nb <= (int)_nodes.size())
+                _nodes[_i]->neighbors.push_back(_nodes[_nb - 1]);
+    return _nodes[0];
+}
+
+string graphToJson(Node* node) {
+    if (!node) return "[]";
+    unordered_set<Node*> _seen;
+    queue<Node*> _q;
+    _q.push(node);
+    _seen.insert(node);
+    vector<Node*> _nodes;
+    while (!_q.empty()) {
+        auto _cur = _q.front(); _q.pop();
+        _nodes.push_back(_cur);
+        for (auto _nb : _cur->neighbors) {
+            if (!_seen.count(_nb)) {
+                _seen.insert(_nb);
+                _q.push(_nb);
+            }
+        }
+    }
+    sort(_nodes.begin(), _nodes.end(), [](Node* a, Node* b) { return a->val < b->val; });
+    string _res = "[";
+    for (size_t _i = 0; _i < _nodes.size(); _i++) {
+        if (_i > 0) _res += ",";
+        _res += "[";
+        vector<int> _nbVals;
+        for (auto _nb : _nodes[_i]->neighbors) _nbVals.push_back(_nb->val);
+        sort(_nbVals.begin(), _nbVals.end());
+        for (size_t _j = 0; _j < _nbVals.size(); _j++) {
+            if (_j > 0) _res += ",";
+            _res += to_string(_nbVals[_j]);
+        }
+        _res += "]";
+    }
+    _res += "]";
+    return _res;
+}
+`;
+
+const PYTHON_GRAPH_HELPERS = `
+
+def build_graph(json_str):
+    adj = json.loads(json_str)
+    if not adj:
+        return None
+    nodes = [Node(i + 1) for i in range(len(adj))]
+    for i, neighbors in enumerate(adj):
+        for nb in neighbors:
+            nodes[i].neighbors.append(nodes[nb - 1])
+    return nodes[0]
+
+def graph_to_json(node):
+    if node is None:
+        return "[]"
+    seen = set()
+    q = [node]
+    seen.add(node)
+    all_nodes = []
+    while q:
+        cur = q.pop(0)
+        all_nodes.append(cur)
+        for nb in cur.neighbors:
+            if nb not in seen:
+                seen.add(nb)
+                q.append(nb)
+    all_nodes.sort(key=lambda n: n.val)
+    result = [[nb.val for nb in sorted(n.neighbors, key=lambda x: x.val)] for n in sorted(all_nodes, key=lambda n: n.val)]
+    return json.dumps(result, separators=(",", ":"))
+`;
+
+function needsGraphCode(code: string): boolean {
+  return code.includes('class Node') && /def \w+/.test(code);
+}
+
+function isPointerType(type: string): boolean {
+  const t = type.trim();
+  if (t.endsWith('*') && t !== 'int*' && t !== 'char*' && t !== 'byte*' && t !== 'long*') return true;
+  return ['ListNode', 'TreeNode'].some(n => t === n || t.startsWith(n + '<') || t.startsWith(n + ' '));
+}
+
+function needsGraphHelper(sig: MethodSignature | null): boolean {
+    if (!sig) return false;
+    if (isPointerType(sig.returnType)) return true;
+    return sig.params.some(p => isPointerType(p.type));
+}
+
+function generateCppWrapper(userCode: string, testCases: TestCase[]): string {
+  const sig = parseSignature(userCode);
+  const methodName = sig?.methodName ?? 'solve';
+  const isVoid = sig?.returnType === 'void';
+  const usesGraph = needsGraphHelper(sig);
+
+  const testCode: string[] = [];
+  for (let i = 0; i < testCases.length; i++) {
+    const tc = testCases[i];
+
+    const varDecls: string[] = [];
+    const callArgs: string[] = [];
+    if (sig) {
+      sig.params.forEach((p, j) => {
+        const hasArg = j < tc.args.length;
+        const val = hasArg ? tc.args[j] : '';
+        if (!hasArg) {
+          callArgs.push('{}');
+          return;
+        }
+        const isGraphPtr = isPointerType(p.type) && val.startsWith('[');
+        const expr = isGraphPtr ? `buildGraph(${JSON.stringify(val)})` : cppArgExpr(val, p.type);
+        const norm = normalizedType(p.type);
+        if (isGraphPtr || norm.startsWith('vector<') || norm === 'string' || norm === 'std::string') {
+          const vn = `_arg${i}_${j}`;
+          varDecls.push(`        auto ${vn} = ${expr};`);
+          callArgs.push(vn);
+        } else {
+          callArgs.push(expr);
+        }
+      });
+    } else {
+      tc.args.forEach(a => callArgs.push(a));
+    }
+
+    const args = callArgs.join(', ');
+    const escapedExpected = tc.expected.replace(/"/g, '\\"');
+
+    testCode.push('    // Test ' + (i + 1));
+    testCode.push('    try {');
+    if (varDecls.length) testCode.push(varDecls.join('\n'));
+    if (isVoid) {
+      testCode.push('        ' + methodName + '(' + args + ');');
+      testCode.push(`        string actual${i}Str = "(void)";`);
+    } else if (usesGraph) {
+      testCode.push(`        auto result${i} = ${methodName}(${args});`);
+      testCode.push(`        string actual${i}Str = graphToJson(result${i});`);
+    } else if (args) {
+      testCode.push(`        auto result${i} = ${methodName}(${args});`);
+      testCode.push(`        string actual${i}Str = "[";`);
+    } else {
+      testCode.push(`        ${methodName}();`);
+      testCode.push(`        string actual${i}Str = "(void)";`);
+    }
+    testCode.push(`        string expected${i}Str = "${escapedExpected}";`);
+    testCode.push(`        bool passed${i} = (actual${i}Str == expected${i}Str);`);
+    testCode.push(`        cout << "__TEST_RESULTS__" << endl;`);
+    testCode.push(`        cout << "[{\\"index\\":" << ${i + 1} << ",\\"passed\\":" << (passed${i} ? "true" : "false") << ",\\"expected\\":\\"" << expected${i}Str << "\\",\\"actual\\":\\"" << actual${i}Str << "\\"}]" << endl;`);
+    testCode.push(`        cout << "__DONE__" << endl;`);
+    testCode.push('    } catch (...) {');
+    testCode.push(`        cout << "__TEST_RESULTS__" << endl;`);
+    testCode.push(`        cout << "[{\\"index\\":" << ${i + 1} << ",\\"passed\\":false,\\"expected\\":\\"${escapedExpected}\\",\\"actual\\":\\"exception\\"}]" << endl;`);
+    testCode.push(`        cout << "__DONE__" << endl;`);
+    testCode.push('        return 0;');
+    testCode.push('    }');
+  }
+
+  return '#include <iostream>\n#include <string>\n#include <vector>\n#include <sstream>\n#include <algorithm>\nusing namespace std;\n\n' +
+    userCode.trimEnd() +
+    (usesGraph ? CPP_GRAPH_HELPERS : '') + '\n\nint main() {\n' +
+    testCode.join('\n') + '\n    return 0;\n}\n';
+}
+
+export function canAutoGenerateTests(code: string, language: Language): boolean {
+  if (language === 'python' || language === 'typescript') return true;
+  const sig = parseSignature(code);
+  if (!sig) return false;
+  return !sig.params.some(p => {
+    if (!isPointerType(p.type)) return false;
+    const t = normalizedType(p.type);
+    return t !== 'Node';
+  });
 }
