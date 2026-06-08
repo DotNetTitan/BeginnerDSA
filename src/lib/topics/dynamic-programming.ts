@@ -10,16 +10,25 @@ export const topic: Topic = {
   prerequisites: ['big-o', 'arrays-strings', 'recursion'],
   theory: [
     {
+      id: 'why-dp',
+      title: 'The Problem with "Try Everything"',
+      content: `In the Recursion module, you learned backtracking - try every possibility, undo, try the next. That works for small problems, but some problems have **overlapping subproblems**: the same subproblem gets solved thousands of times.
+
+Remember naive Fibonacci? \`fib(5)\` calls \`fib(3)\` twice and \`fib(2)\` three times. As n grows, the redundant work explodes exponentially.
+
+**Dynamic Programming = recursion + caching.** You solve each subproblem once, store the result, and reuse it whenever the same subproblem appears again.
+
+The name is confusing - it's not "dynamic" and it's not "programming" in the coding sense. It's really just **smart brute force**: avoid repeating work you've already done.`,
+    },
+    {
       id: 'dp-basics',
       title: 'What is Dynamic Programming?',
       component: 'dp-viz',
-      content: `Dynamic Programming = **recursion + memoization**.
-
-Solve problems by breaking them into overlapping subproblems and caching results.
+      content: `Dynamic Programming = **smart recursion** - you solve each subproblem once and cache the result.
 
 **Two approaches:**
-1. **Top-down (memoization)** - recursive with cache
-2. **Bottom-up (tabulation)** - iterative, filling a table
+1. **Top-down (memoization)** - recursive with a cache (dictionary/array). Same structure as the naive solution, but with a "check cache before computing" step.
+2. **Bottom-up (tabulation)** - iterative, filling a table from smallest to largest. Often more efficient and avoids recursion depth limits.
 
 **When to use DP:**
 1. Problem asks for **count**, **max/min**, or **true/false** (is it possible?)
@@ -589,7 +598,7 @@ int knapsack(const std::vector<int>& weights, const std::vector<int>& values, in
     },
     {
       id: 'mistakes',
-      title: 'Common Mistakes / Gotchas',
+      title: 'Common Mistakes',
       content: `**Wrong base case:** A single off-by-one in the base case propagates to every computed value. Always test small inputs (n=0, n=1, n=2) before scaling up.
 
 **Wrong iteration order in bottom-up DP:** If \`dp[i]\` depends on \`dp[i-1]\`, you iterate forward. If it depends on \`dp[i+1]\`, you iterate backward. Getting this wrong uses stale or uninitialized values.
@@ -604,7 +613,7 @@ int knapsack(const std::vector<int>& weights, const std::vector<int>& values, in
     },
     {
       id: 'common-patterns',
-      title: 'Common Interview Patterns',
+      title: 'Key Patterns to Remember',
       content: `1. **Fibonacci-style** - climbing stairs, house robber, decode ways
 2. **Grid DP** - unique paths, min path sum, maximal square
 3. **Two sequences** - LCS, edit distance, wildcard matching
@@ -617,6 +626,15 @@ int knapsack(const std::vector<int>& weights, const std::vector<int>& values, in
 2. Find the recurrence (how does dp[i] relate to previous states?)
 3. Set base cases
 4. Determine iteration order`,
+    },
+    {
+      id: 'whats-next',
+      title: 'What\'s Next?',
+      content: `Dynamic Programming is the most feared topic in DSA interviews - but also the most rewarding once it clicks. You've learned that caching overlapping results turns exponential brute force into polynomial solutions.
+
+There's one more strategy to consider before we're done: **Greedy & Intervals**. Sometimes you don't need to explore anything - the locally optimal choice is always the globally optimal one. Greedy algorithms are the opposite of DP: instead of caching everything, you just pick the best option at each step and move on.
+
+**Next up: Greedy & Intervals**`,
     },
   ],
   problemIds: ['climbing-stairs', 'house-robber', 'coin-change', 'longest-increasing-subsequence', 'longest-common-subsequence'],

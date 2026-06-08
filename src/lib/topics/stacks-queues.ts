@@ -10,18 +10,30 @@ export const topic: Topic = {
   prerequisites: ['big-o', 'arrays-strings', 'linked-lists'],
   theory: [
     {
+      id: 'why-stacks-queues',
+      title: 'Imposing Rules to Gain Clarity',
+      content: `So far, every data structure you've seen lets you access elements freely - you can read, insert, or delete from anywhere.
+
+But sometimes, **restricting how you access data** actually makes problems easier to solve.
+
+Think of a text editor's undo feature. You press Ctrl+Z, and the **most recent** action is undone. It doesn't matter what you did 10 steps ago - you only care about the last thing. That's a stack.
+
+Or think of a printer queue. Documents are printed in the order they were sent - first come, first served. That's a queue.
+
+These restrictions aren't weaknesses. They're **contracts** that make the behavior predictable. When you see a problem that involves "most recent first" or "first come, first served," you know exactly which tool to reach for.`,
+    },
+    {
       id: 'stack-basics',
-      title: 'Stack (LIFO)',
+      title: 'Stack - Last In, First Out (LIFO)',
       component: 'stack-diagram',
-      content: `A stack follows **Last In, First Out**. Think of a stack of plates - you add and remove from the top.
+      content: `A stack is like a stack of plates. You add a plate to the top (push), and you take a plate from the top (pop). The plate at the bottom might stay there for a long time - you can't touch it without removing everything above it.
 
-| Operation | Stack |
-|---|---|
-| Push | O(1) |
-| Pop | O(1) |
-| Peek | O(1) |
+**Three operations, all O(1):**
+- **Push** - add an item to the top
+- **Pop** - remove and return the top item
+- **Peek/Top** - look at the top item without removing it
 
-**Uses:** Undo/redo, backtracking, expression evaluation, nested structure parsing.`,
+**Classic uses:** undo/redo, parsing expressions, checking balanced brackets, backtracking in algorithms (we'll see this in the Recursion module).`,
       codeExamples: [
         {
           title: 'Stack usage',
@@ -160,17 +172,16 @@ bool isValid(const std::string& s) {
     },
     {
       id: 'queue-basics',
-      title: 'Queue (FIFO)',
+      title: 'Queue - First In, First Out (FIFO)',
       component: 'queue-diagram',
-      content: `A queue follows **First In, First Out**. Think of a line at a store.
+      content: `A queue is like a line at a grocery store. The first person in line is the first person served. New people join at the back.
 
-| Operation | Queue |
-|---|---|
-| Enqueue | O(1) |
-| Dequeue | O(1) |
-| Peek | O(1) |
+**Three operations, all O(1):**
+- **Enqueue** - add an item to the back
+- **Dequeue** - remove and return the front item
+- **Peek** - look at the front item without removing it
 
-**Uses:** Task scheduling, buffering, sliding window.`,
+**Classic uses:** task scheduling, buffering data streams, Breadth-First Search (we'll use this extensively in the Trees and Graphs modules).`,
       codeExamples: [
         {
           title: 'Queue usage',
@@ -241,6 +252,7 @@ queue.push(3);  // [1, 2, 3]
 const front = queue[0];       // 1 (no removal)
 const dequeued = queue.shift(); // 1, queue is now [2, 3]
 
+// Note: shift() in JS is O(n) - use an index or a proper queue for large data
 // Processing items in FIFO order
 const q = [1, 2, 3];
 while (q.length > 0) {
@@ -276,16 +288,15 @@ while (!q2.empty()) {
     },
     {
       id: 'priority-queue',
-      title: 'Priority Queue',
-      content: `A priority queue dequeues elements by **priority**, not insertion order.
+      title: 'Priority Queue (Heap)',
+      content: `A **priority queue** is like a queue, but instead of "first come, first served," it serves the **highest priority** item first - regardless of when it arrived.
 
-| Operation | Priority Queue |
-|---|---|
-| Enqueue | O(log n) |
-| Dequeue | O(log n) |
-| Peek | O(1) |
+This is implemented with a **heap** under the hood. We'll cover heaps in detail later, but for now know this:
+- Insert: O(log n)
+- Remove highest priority: O(log n)
+- Peek at highest priority: O(1)
 
-**Uses:** K smallest/largest elements, task scheduling with priorities.`,
+**Classic uses:** "Top K" problems, task scheduling, merging K sorted lists, Dijkstra's algorithm for shortest paths.`,
       codeExamples: [
         {
           title: 'PriorityQueue usage',
@@ -421,55 +432,62 @@ std::priority_queue<int> maxHeap;`,
     },
     {
       id: 'when-to-use-stacks-queues',
-      title: 'Stack vs Queue vs Priority Queue',
-      content: `**Stack (LIFO) is for:**
-- "Last thing first" - undo/redo, backtracking, parsing nested structures
-- Problems where the **most recent** element is what matters (valid parentheses, next greater element)
-- **Signal keywords:** "nested", "backtrack", "most recent", "undo"
+      title: 'Which One Do I Use?',
+      content: `**Stack (LIFO) - "most recent first"**
+- Undo/redo, backtracking, parsing nested structures
+- Problems where the **most recent** element is what matters
+- Signal keywords: "nested", "backtrack", "most recent", "undo"
 
-**Queue (FIFO) is for:**
-- "First come, first served" - task scheduling, buffering
-- Processing items in order of arrival
+**Queue (FIFO) - "first come, first served"**
+- Task scheduling, buffering, BFS traversal
 - Problems where **order of arrival** determines priority
-- **Signal keywords:** "streaming", "buffer", "order of arrival"
+- Signal keywords: "streaming", "buffer", "order of arrival"
 
-**Priority Queue (Heap) is for:**
-- "Always process the most/least important item next"
+**Priority Queue (Heap) - "most important first"**
 - K smallest/largest elements, scheduling with priorities
-- When you need to **repeatedly extract the min or max**
-- **Signal keywords:** "top K", "K smallest/largest", "merge K sorted", "schedule"
-
-**Decision guide:**
-| Signal | Structure |
-|---|---|
-| "Process in reverse order" | Stack |
-| "First come, first served" | Queue |
-| "Always pick the smallest/largest" | Priority queue |
-| "Parse nested brackets" | Stack |
-| "Track K most frequent" | Priority queue |`,
+- When you need to repeatedly extract the min or max
+- Signal keywords: "top K", "K smallest/largest", "merge K sorted"`,
     },
     {
       id: 'mistakes',
-      title: 'Common Mistakes / Gotchas',
-      content: `**Popping from an empty stack:** Always check \`stack.Count > 0\` / \`!stack.isEmpty()\` before popping. An empty pop is a runtime error in most languages.
+      title: 'Common Mistakes',
+      content: `**Popping from an empty stack**
+Always check that the stack isn't empty before popping. An empty pop is a runtime error in most languages.
 
-**Using a queue when a stack was needed (or vice versa):** LIFO vs FIFO: if you need "most recent first" it's a stack (undo, backtracking). If you need "first come, first served" it's a queue (BFS, buffering).
+**Using a queue when you need a stack (or vice versa)**
+LIFO vs FIFO: if you need "most recent first", it's a stack. If you need "first come, first served", it's a queue. Getting this wrong means your algorithm processes data in the wrong order.
 
-**JavaScript array as queue: \`shift()\` is O(n):** Using \`arr.shift()\` in JS re-indexes the entire array. Use an index pointer or a proper queue implementation instead.
+**JavaScript: shift() is O(n)**
+Using \`arr.shift()\` in JavaScript re-indexes the entire array. For large queues, use an index pointer, a proper queue implementation, or a deque.
 
-**Priority queue comparator order confusion:** In a min-heap, the smallest element is dequeued first. In a max-heap, the largest. Always check whether your language's default is min or max before using it.
+**Priority queue comparator confusion**
+In a min-heap, the smallest element comes out first. In a max-heap, the largest. Double-check which default your language uses before writing logic around it.
 
-**Stack overflow with deep recursion:** Each recursive call uses stack space. If your recursion depth could exceed ~1000, consider an iterative approach with an explicit stack.`,
+**Stack overflow with recursion**
+Every recursive call uses stack space. For deep recursion (thousands of calls), consider an iterative approach with an explicit stack. We'll cover this trade-off more in the Recursion module.`,
     },
     {
       id: 'common-patterns',
-      title: 'Common Interview Patterns',
+      title: 'Key Patterns to Remember',
       content: `1. **Monotonic stack** - next greater element, daily temperatures
 2. **Valid parentheses** - classic stack problem with matching brackets
 3. **Queue with two stacks** - implement a queue using two stacks
 4. **Min stack** - stack that supports GetMin() in O(1)
-5. **Queue-based processing** - processing items in arrival order
-6. **Top K elements** - use PriorityQueue to efficiently track K largest/smallest`,
+5. **Queue-based processing** - processing items in arrival order (BFS)
+6. **Top K elements** - use a priority queue to efficiently track K largest/smallest`,
+    },
+    {
+      id: 'whats-next',
+      title: 'What\'s Next?',
+      content: `Stacks and queues are your first encounter with **restricted-access** data structures. You're starting to see a theme: different structures make different trade-offs.
+
+Now we get to one of the most mind-bending topics in computer science: **Recursion & Backtracking**.
+
+Recursion is when a function calls itself. It sounds circular and useless at first, but it's actually the key to solving problems that have a naturally self-similar structure - like navigating nested folders, exploring game trees, or generating all possible combinations.
+
+And yes - recursion uses a **stack** under the hood (the call stack). So you already know more about how it works than you think.
+
+**Next up: Recursion & Backtracking**`,
     },
   ],
   problemIds: ['valid-parentheses', 'min-stack', 'daily-temperatures', 'implement-queue-using-stacks', 'top-k-frequent-elements'],

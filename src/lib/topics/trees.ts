@@ -10,13 +10,27 @@ export const topic: Topic = {
   prerequisites: ['big-o', 'arrays-strings', 'recursion'],
   theory: [
     {
+      id: 'why-trees',
+      title: 'When Data Has a Hierarchy',
+      content: `So far, all our data structures have been **linear** - arrays, linked lists, stacks, queues. One element after another, in a line.
+
+But real-world data is often **hierarchical**. Your file system has folders inside folders. A company has managers who manage managers who manage employees.
+
+A **tree** is the data structure for this. It's a collection of **nodes**, where each node has a value and **children** - forming a branching structure.
+
+Trees introduce two big ideas you'll carry through the rest of the course:
+1. **Recursive structure** - every node in a tree is itself the root of a smaller tree
+2. **Traversal order** - the order you visit nodes changes what you can compute`,
+    },
+    {
       id: 'tree-basics',
       title: 'Tree Basics',
       component: 'tree-traversal-viz',
-      content: `A tree is a hierarchical structure with a **root** node and **children** nodes. Each node has a **value** and pointers to its children.
+      content: `A tree has a **root** node at the top. Each node has a **value** and **children**. Nodes with no children are called **leaves**.
 
-**Binary Tree:** Each node has at most 2 children (left and right).
-**Binary Search Tree (BST):** For every node: left < node < right.
+Two common tree types:
+- **Binary Tree** - each node has at most 2 children (left and right)
+- **Binary Search Tree (BST)** - left child < parent < right child. This property makes searching O(log n) in a balanced tree.
 
 | Operation | BST (balanced) | BST (skewed) |
 |---|---|---|
@@ -439,7 +453,7 @@ bool validate(TreeNode* node, long min, long max) {
     },
     {
       id: 'mistakes',
-      title: 'Common Mistakes / Gotchas',
+      title: 'Common Mistakes',
       content: `**BST validation: checking only immediate children:** A common mistake: \`left.val < node.val < right.val\`. This is WRONG. ALL nodes in the left subtree must be < node.val. Example: root=5, left=3, left.right=6 would pass the naive check but violates BST (6 > 5). Use the min/max range approach.
 
 **Forgetting null checks on tree nodes:** \`node.left\` and \`node.right\` can be null. Always check \`if (node == null) return\` before accessing children.
@@ -660,12 +674,23 @@ private:
     },
     {
       id: 'common-patterns',
-      title: 'Common Interview Patterns',
+      title: 'Key Patterns to Remember',
       content: `1. **Tree traversal** - inorder (sorted BST), preorder (serialization), level order (BFS)
 2. **LCA (Lowest Common Ancestor)** - recursive or iterative for BST
 3. **Diameter / max path sum** - post-order traversal with global variable
 4. **Serialize / deserialize** - preorder with null markers
 5. **Balanced tree check** - compute height and check balance at each node`,
+    },
+    {
+      id: 'whats-next',
+      title: 'What\'s Next?',
+      content: `Trees introduced you to hierarchical data and recursive traversal. A tree has a strict parent-child relationship - each node has exactly one parent.
+
+**Graphs** remove that restriction. Any node can connect to any other node. This makes graphs incredibly expressive - they model social networks, road maps, web pages, and dependency relationships.
+
+If trees are a family tree, graphs are a city's road network - connections everywhere, with no single "root."
+
+**Next up: Graphs**`,
     },
   ],
   problemIds: ['max-depth-binary-tree', 'inorder-traversal', 'validate-bst', 'lca-bst', 'serialize-deserialize'],

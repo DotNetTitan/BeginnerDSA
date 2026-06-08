@@ -10,9 +10,20 @@ export const topic: Topic = {
   prerequisites: ['big-o', 'arrays-strings', 'recursion'],
   theory: [
     {
+      id: 'why-search-sort',
+      title: 'Two Problems You\'ll Solve Every Day',
+      content: `**Finding things** and **ordering things** - these are the two most common operations in programming.
+
+You've been searching since Module 1. The phone book problem? That was binary search. Checking if something exists in an array? That's linear search. Now you'll learn to implement both properly.
+
+And sorting - why does it matter? Because sorted data makes many problems trivial. Finding a value in an unsorted array is O(n). In a sorted array, it's O(log n). Finding duplicates in an unsorted array might require a hash set; in a sorted array, they're right next to each other.
+
+Many interview problems follow the pattern: **"sort first, then solve."** Learning when and how to sort is a superpower.`,
+    },
+    {
       id: 'linear-search',
-      title: 'Linear Search',
-      content: `Linear search checks every element one by one until the target is found. It's the simplest search - no preprocessing needed, works on **any** data.
+      title: 'Linear Search - The Brute Force',
+      content: `Linear search checks every element one by one until it finds the target. It's the simplest search - no preprocessing needed, works on any data.
 
 | | Linear Search |
 |---|---|
@@ -22,8 +33,8 @@ export const topic: Topic = {
 
 **When to use:**
 - Small or unsorted arrays
-- One-time search (sorting just to binary search would cost more)
-- When you need to find **all** occurrences
+- One-time search (sorting just to use binary search would cost more)
+- When you need to find all occurrences
 
 Despite being "slow" on paper, linear search is often the right choice for small inputs.`,
       codeExamples: [
@@ -98,10 +109,12 @@ std::vector<int> findAll(const std::vector<int>& arr, int target) {
     },
     {
       id: 'binary-search',
-      title: 'Binary Search',
+      title: 'Binary Search - Cutting the Problem in Half',
       content: `Binary search finds an element in a **sorted** array by repeatedly dividing the search range in half. Each step eliminates half the remaining elements.
 
-**Key requirement:** The array must be sorted. If you need to search only once, sorting just to use binary search may not be worth it - linear search might be faster.
+We first saw this in the Big O module with the phone book example. Now you'll implement it.
+
+**Key requirement:** The array must be sorted. If you only need to search once, sorting just to use binary search may not be worth it - linear search might be faster.
 
 **Binary search variants:**
 - Standard: find exact target
@@ -281,21 +294,19 @@ int upperBound(const std::vector<int>& arr, int target) {
 |---|---|---|---|---|
 | **Linear Search** | O(n) | O(1) | No | Small/unsorted |
 | **Binary Search** | O(log n) | O(1) | Yes | Large sorted |
-| **BS on Answer** | O(log range) | O(1) | Predicate | Optimization |
-| **DFS/BFS** | O(V + E) | O(V) | No | Graph/tree (Modules 8, 10) |
+| **BS on Answer** | O(log range) | O(1) | Predicate | Optimization problems |
 
 **When to use what:**
 - **Unsorted & small** → Linear Search (no preprocessing cost)
-- **Sorted & static** → Binary Search (fastest)
-- **Need O(1) lookup** → Hash Map (Module 3)
+- **Sorted & static** → Binary Search
+- **Need O(1) lookup** → Hash Map (from Module 3)
 - **Searching in a range of values** → Binary Search on Answer (e.g., "minimum capacity to ship within D days")
-- **Searching relationships** → DFS or BFS (covered in Trees & Graphs modules)
 
-Binary search is the most commonly tested in interviews, but knowing *when* linear search is actually the right choice (small n, unsorted data) is just as important.`,
+Binary search is the most commonly tested in interviews, but knowing *when* linear search is actually the right choice is just as important.`,
     },
     {
       id: 'sorting-algorithms',
-      title: 'Sorting Algorithms',
+      title: 'Sorting Algorithms Overview',
       content: `| Algorithm | Average Time | Worst Time | Space | Stable |
 |---|---|---|---|---|
 | Bubble Sort | O(n²) | O(n²) | O(1) | Yes |
@@ -305,43 +316,38 @@ Binary search is the most commonly tested in interviews, but knowing *when* line
 | Quick Sort | O(n log n) | O(n²) | O(log n) | No |
 | Heap Sort | O(n log n) | O(n log n) | O(1) | No |
 
-Most languages have a built-in sort that uses **introsort** (quick sort + heap sort fallback) for primitive types and a stable sort for reference types. The sections below cover the key algorithms you need to know for interviews.`,
+Most languages have a built-in sort that's highly optimized. But understanding how these work is essential for interviews - and for knowing which one to reach for when a built-in won't do.`,
     },
     {
       id: 'when-to-sort',
-      title: 'When to Use Which Sort',
-      content: `Not all sorting algorithms are equal. The right choice depends on data size, structure, and requirements.
-
-| Decision | Best Choice | Why |
+      title: 'Choosing the Right Sort',
+      content: `| Decision | Best Choice | Why |
 |---|---|---|
-| **Small input (< 50 items)** | Insertion Sort (or built-in) | Simple, fast on small data, stable |
-| **General purpose, need speed** | Quick Sort | In-place, fast average case, built-in default |
-| **Need guaranteed O(n log n)** | Merge Sort or Heap Sort | No O(n²) worst case |
-| **Limited memory (O(1) space)** | Heap Sort | O(n log n) time, O(1) space |
-| **Need stable sort** | Merge Sort (or Insertion) | Preserves relative order of equal elements |
-| **Nearly sorted data** | Insertion Sort or Bubble Sort | O(n) on nearly-sorted, minimal swaps |
-| **Mostly sorted, online (streaming)** | Insertion Sort | Efficiently adds one element at a time |
-| **Don't care, just want it sorted** | Built-in sort (introsort) | Combines quick + heap + insertion, optimized |
+| Small input (< 50 items) | Insertion Sort (or built-in) | Simple, fast on small data |
+| General purpose, need speed | Quick Sort | In-place, fast average case |
+| Need guaranteed O(n log n) | Merge Sort or Heap Sort | No O(n²) worst case |
+| Limited memory (O(1) space) | Heap Sort | O(n log n) time, O(1) space |
+| Need stable sort | Merge Sort | Preserves relative order of equal elements |
+| Nearly sorted data | Insertion Sort | O(n) on nearly-sorted, minimal swaps |
+| Don't care | Built-in sort | Optimized for general use |
 
-**Key trade-off:** Quick sort is the interview favorite; learn it well. Merge sort is the "safe" choice. Heap sort wins on space. Insertion sort wins on tiny/nearly-sorted data.
+**Key trade-off:** Quick sort is the interview favorite; learn it well. Merge sort is the "safe" choice with guaranteed performance. Heap sort wins on space.
 
 **Interview tip:** Always ask about constraints before choosing. "Is the data nearly sorted? Do we need stability? What's the input size?"`,
     },
     {
       id: 'bubble-sort',
       title: 'Bubble Sort',
-      content: `Bubble sort repeatedly steps through the array, **swapping adjacent elements** if they're in the wrong order. Larger elements "bubble up" to their correct position with each pass.
+      component: 'bubble-sort-viz',
+      content: `Bubble sort repeatedly steps through the array, swapping adjacent elements if they're in the wrong order. Larger elements "bubble up" to their correct position with each pass.
 
-**Why learn it:** It's the simplest sort to understand and teaches the concept of swapping. **Why NOT to use it:** O(n²) makes it impractical for real data. You'll rarely be asked to implement it, but it tests whether you understand basic sorting mechanics.
+**Why learn it:** It's the simplest sort to understand and teaches the concept of swapping. **Why NOT to use it:** O(n²) makes it impractical for real data.
 
 | Operation | Count |
 |---|---|
 | Passes | n-1 |
 | Comparisons per pass | n-1, n-2, ..., 1 |
-| Total comparisons | n(n-1)/2 ≈ O(n²) |
-
-Use the interactive demo below to watch each pass bubble the largest unsorted element to its correct position.`,
-      component: 'bubble-sort-viz',
+| Total comparisons | n(n-1)/2 ≈ O(n²) |`,
       vizLabel: 'Given an unsorted array, arrange the numbers in ascending order by repeatedly swapping adjacent elements that are out of order.',
       codeExamples: [
         {
@@ -380,7 +386,7 @@ Use the interactive demo below to watch each pass bubble the largest unsorted el
                 swapped = true;
             }
         }
-        if (!swapped) break; // optimization: already sorted
+        if (!swapped) break;
     }
 }`,
             javascript: `function bubbleSort(arr) {
@@ -393,7 +399,7 @@ Use the interactive demo below to watch each pass bubble the largest unsorted el
                 swapped = true;
             }
         }
-        if (!swapped) break; // optimization: already sorted
+        if (!swapped) break;
     }
 }`,
             cpp: `void bubbleSort(std::vector<int>& arr) {
@@ -406,7 +412,7 @@ Use the interactive demo below to watch each pass bubble the largest unsorted el
                 swapped = true;
             }
         }
-        if (!swapped) break; // optimization: already sorted
+        if (!swapped) break;
     }
 }`,
           },
@@ -416,14 +422,14 @@ Use the interactive demo below to watch each pass bubble the largest unsorted el
     {
       id: 'quick-sort',
       title: 'Quick Sort',
+      component: 'quick-sort-viz',
       content: `Quick sort picks a **pivot**, partitions the array so all elements ≤ pivot come before it, then recursively sorts each side.
 
-Key advantage over merge sort: **in-place** sorting (O(log n) stack space vs O(n) space). Trade-off: worst-case O(n²) when pivot selection is poor (e.g., already sorted array with pivot at end).
+**Key advantage:** It sorts in-place, using only O(log n) stack space (compared to Merge Sort's O(n) space).
 
-Quick sort is the most commonly asked sorting implementation in interviews.
+**Key risk:** Worst-case O(n²) when pivot selection is poor - for example, always picking the last element on an already-sorted array. This is why good implementations use a random pivot or median-of-three.
 
-Use the interactive demo below to watch the pivot selection, partitioning, and recursive sorting.`,
-      component: 'quick-sort-viz',
+Quick sort is the most commonly asked sorting implementation in interviews.`,
       vizLabel: 'Given an unsorted array, arrange the numbers in ascending order by selecting a pivot, partitioning around it, and recursing on both sides.',
       codeExamples: [
         {
@@ -528,12 +534,14 @@ int partition(std::vector<int>& arr, int left, int right) {
     {
       id: 'merge-sort',
       title: 'Merge Sort',
-      content: `Merge sort is a **divide and conquer** algorithm that splits the array in half, recursively sorts each half, then merges the sorted halves. It's **stable** and guarantees O(n log n) in all cases.
-
-Key advantage over quick sort: predictable O(n log n) worst-case performance. Trade-off: requires O(n) extra space.
-
-Use the interactive demo below to watch the recursive splitting and merging in action.`,
       component: 'merge-sort-viz',
+      content: `Merge sort is a **divide and conquer** algorithm that splits the array in half, recursively sorts each half, then merges the sorted halves.
+
+**Key advantage over Quick Sort:** Guaranteed O(n log n) in all cases - no worst-case O(n²) trap.
+
+**Key disadvantage:** Requires O(n) extra space for merging.
+
+It's also **stable** - equal elements keep their original relative order. This matters when sorting by multiple criteria.`,
       vizLabel: 'Given an unsorted array, arrange the numbers in ascending order by repeatedly splitting in half, sorting each half, then merging the sorted halves.',
       codeExamples: [
         {
@@ -660,27 +668,33 @@ std::vector<int> merge(const std::vector<int>& left, const std::vector<int>& rig
     },
     {
       id: 'mistakes',
-      title: 'Common Mistakes / Gotchas',
-      content: `**Binary search off-by-one: \`left < right\` vs \`left <= right\`:** Use \`left <= right\` when searching for an exact value (standard binary search). Use \`left < right\` when narrowing to a single position (lower bound, rotated array min). Getting this wrong causes infinite loops or missed elements.
+      title: 'Common Mistakes',
+      content: `**Binary search off-by-one: \`left < right\` vs \`left <= right\`**
+Use \`left <= right\` when searching for an exact value (standard binary search). Use \`left < right\` when narrowing to a single position (lower bound, rotated array min). Getting this wrong causes infinite loops or missed elements.
 
-**Forgetting to sort before binary search:** Binary search requires a sorted array. Searching an unsorted array with binary search gives random results.
+**Forgetting to sort before binary search**
+Binary search requires a sorted array. Searching an unsorted array with binary search gives random results.
 
-**Sorting without a custom comparator for non-default ordering:** In JavaScript, \`.sort()\` defaults to lexicographic sort: \`[1, 2, 10].sort() = [1, 10, 2]\`. Always pass a comparator: \`.sort((a, b) => a - b)\`.
+**Sorting without a custom comparator for non-default ordering**
+In JavaScript, \`.sort()\` defaults to lexicographic sort: \`[1, 2, 10].sort() = [1, 10, 2]\`. Always pass a comparator: \`.sort((a, b) => a - b)\`.
 
-**Confusing stable vs unstable sort:** A stable sort preserves the relative order of equal elements. Merge sort is stable; quick sort is not. This matters when sorting by multiple criteria (e.g., sort by date, then by priority).
+**Confusing stable vs unstable sort**
+A stable sort preserves the relative order of equal elements. Merge sort is stable; quick sort is not. This matters when sorting by multiple criteria (e.g., sort by date, then by priority).
 
-**"Quicksort is always O(n log n)":** Quicksort degrades to O(n²) on already sorted arrays if pivot selection is poor. Use random pivot selection or median-of-three to avoid this.
+**"Quicksort is always O(n log n)"**
+Quick sort degrades to O(n²) on already sorted arrays if pivot selection is poor. Use random pivot selection or median-of-three.
 
-**In-place vs non-in-place confusion:** Merge sort creates new arrays (O(n) space). Quick sort sorts in-place (O(log n) stack space). Don't claim "O(1) space" for merge sort.`,
+**In-place vs non-in-place confusion**
+Merge sort creates new arrays (O(n) space). Quick sort sorts in-place (O(log n) stack space). Don't claim "O(1) space" for merge sort.`,
     },
     {
       id: 'binary-search-rotated',
-      title: 'Advanced: Binary Search on Rotated Array',
-      content: `A **rotated sorted array** is a sorted array that has been shifted. Example: [4, 5, 6, 7, 0, 1, 2].
+      title: 'Advanced: Binary Search on a Rotated Array',
+      content: `A **rotated sorted array** is a sorted array that's been shifted. Example: [4, 5, 6, 7, 0, 1, 2].
 
 This is a common interview challenge, not a core topic. Make sure you're comfortable with standard binary search before attempting this.
 
-Key insight: One half of the array is always normally sorted. Determine which half, then search accordingly.`,
+**Key insight:** One half of the array is always normally sorted. Determine which half, then search accordingly.`,
       codeExamples: [
         {
           title: 'Search in rotated sorted array',
@@ -869,12 +883,23 @@ int findMin(const std::vector<int>& arr) {
     },
     {
       id: 'common-patterns',
-      title: 'Common Interview Patterns',
-      content: `1. **Binary search on answer** - search for the minimum valid value (e.g., ship capacity, splitting arrays)
+      title: 'Key Patterns to Remember',
+      content: `1. **Binary search on answer** - search for the minimum valid value (ship capacity, splitting arrays)
 2. **Search in rotated array** - modified binary search with half-range elimination
 3. **Two-pointer with sorting** - sort then use two pointers for pair/three-sum problems
 4. **Dutch national flag** - three-way partition (sort 0s, 1s, 2s)
 5. **Merge intervals after sorting** - sort by start time, then merge`,
+    },
+    {
+      id: 'whats-next',
+      title: 'What\'s Next?',
+      content: `You now know how to search and sort efficiently. These skills will serve you well in every module that follows.
+
+Next, we move from linear structures to **hierarchical** ones. **Trees & Tries** introduce the concept of parent-child relationships - data that branches instead of lining up in a row.
+
+Trees are everywhere: file systems, HTML DOM, organizational charts, and decision processes. And binary search trees? They give you O(log n) search and insert - like binary search, but with fast insertions too.
+
+**Next up: Trees & Tries**`,
     },
   ],
   problemIds: ['binary-search', 'search-rotated-array', 'kth-largest', 'find-min-rotated', 'sort-colors'],

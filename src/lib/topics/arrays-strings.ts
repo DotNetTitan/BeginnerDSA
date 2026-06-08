@@ -10,18 +10,26 @@ export const topic: Topic = {
   prerequisites: ['big-o'],
   theory: [
     {
+      id: 'why-arrays',
+      title: 'Why Arrays?',
+      content: `In the last module, you learned to analyze code speed with Big O. Now you get to apply it.
+
+Arrays are the simplest and most fundamental data structure. Almost everything else in computer science builds on them. A string is just an array of characters. A matrix is an array of arrays. Hash maps, heaps, and graphs all use arrays under the hood.
+
+Think of an array as a row of lockers. Each locker has a number (its **index**), and you can walk straight to locker #42 without checking lockers #1 through #41. That instant access by position is what makes arrays special.
+
+But arrays aren't perfect for everything. You'll see why in this module - and that's what will motivate the data structures in the modules ahead.`,
+    },
+    {
       id: 'array-basics',
       title: 'Array Basics',
-      content: `Arrays store elements in **contiguous memory** with O(1) index-based access. Arrays are fixed-size. Use a dynamic array for dynamic sizing.
+      content: `Arrays store elements in **contiguous memory** - meaning the elements are placed right next to each other in memory. This is why index-based access is O(1): the computer can calculate the exact memory address of arr[42] instantly.
 
-| Operation | Array | Dynamic Array |
-|---|---|---|
-| Access by index | O(1) | O(1) |
-| Search (unsorted) | O(n) | O(n) |
-| Insert at end | N/A (fixed) | O(1) amortized |
-| Insert at middle | O(n) (shift) | O(n) |
-| Remove at end | N/A | O(1) |
-| Remove at middle | O(n) | O(n) |`,
+**Two flavors:**
+- **Fixed-size array** - the size is set at creation and can't change
+- **Dynamic array** (called List in C#, ArrayList in Java, vector in C++, list in Python/JS) - automatically grows when you add elements
+
+Here's how they compare:`,
       codeExamples: [
         {
           title: 'Array vs List declarations',
@@ -101,16 +109,29 @@ int index = (int)(it - vec.begin());`,
           },
         },
       ],
+      table: {
+        headers: ['Operation', 'Array', 'Dynamic Array'],
+        rows: [
+          ['Access by index', 'O(1)', 'O(1)'],
+          ['Search (unsorted)', 'O(n)', 'O(n)'],
+          ['Insert at end', 'N/A (fixed)', 'O(1) amortized'],
+          ['Insert at middle', 'O(n) (shift)', 'O(n)'],
+          ['Remove at end', 'N/A', 'O(1)'],
+          ['Remove at middle', 'O(n)', 'O(n)'],
+        ],
+      },
     },
     {
       id: 'two-pointer',
       title: 'Two-Pointer Technique',
-      content: `Two pointers iterate from different positions toward each other (or in the same direction at different speeds). Useful for **sorted arrays**, **palindromes**, and **in-place reversal**.
+      content: `Here's your first array pattern. The **two-pointer technique** uses two indices to traverse the array - often from opposite ends moving toward each other, or at different speeds in the same direction.
 
-Common patterns:
-1. **Opposite ends** - one at start, one at end, move toward each other
-2. **Same direction** - slow and fast pointer (also used in linked lists)
-3. **Sliding window** - maintain a window that expands/contracts`,
+This is useful for:
+1. **Opposite ends** - palindrome checking, reversing an array in-place
+2. **Same direction (slow/fast)** - finding cycles, removing duplicates (we'll revisit this with Linked Lists)
+3. **Sliding window** - the next section
+
+The beauty? These are all O(n) time with O(1) extra space.`,
       codeExamples: [
         {
           title: 'Two pointers from opposite ends',
@@ -217,12 +238,12 @@ bool isPalindrome(const std::string& s) {
     {
       id: 'sliding-window',
       title: 'Sliding Window',
-      content: `A window (subarray) slides across the array. Used for subarray problems like **max sum subarray of size k** or **longest substring without repeating characters**.
+      content: `The **sliding window** is a two-pointer variant where you maintain a **window** (a subarray) that slides across the array. Each element enters the window once and leaves it once - O(n) total.
 
-**Fixed window**: Window size is constant.
-**Variable window**: Window expands and contracts based on a condition.
+- **Fixed window**: the window stays the same size (e.g., "maximum sum of any 3 consecutive elements")
+- **Variable window**: the window grows and shrinks based on a condition (e.g., "shortest subarray that sums to at least k")
 
-Complexity: O(n) - each element enters and leaves the window at most once.`,
+This pattern shows up constantly in interview problems. Once you see it, you won't unsee it.`,
       codeExamples: [
         {
           title: 'Fixed-size sliding window',
@@ -294,48 +315,62 @@ int maxSumSubarray(const std::vector<int>& arr, int k) {
     },
     {
       id: 'when-to-use-arrays',
-      title: 'When to Use Arrays',
+      title: 'When Arrays Shine (and When They Don\'t)',
       content: `**Arrays are the right choice when:**
-- You need **O(1) access by index** (random access)
-- You process elements in **sequential order** (iterating once)
-- The **size is known ahead of time** (or bounded)
-- You need **contiguous memory** for cache-friendly access
+- You need **O(1) access by index** - jump to any position instantly
+- You process elements in **sequential order** (a single pass)
+- The **size is known ahead of time** (or bounded and predictable)
+- You want **cache-friendly access** - contiguous memory means faster reads
 
 **Arrays are NOT the right choice when:**
-- You frequently **insert or delete at the beginning** (use linked list - Module 4)
-- The **size changes unpredictably** and you can't pre-allocate (use dynamic array, still fine)
-- You need **fast membership lookup** (use a hash set - Module 3)
+- You frequently **insert or delete at the beginning** - every element has to shift (O(n) each time). A linked list handles this better.
+- You need **fast membership lookup** - scanning an unsorted array is O(n). A hash set handles this in O(1).
+- The size is completely unknown - though dynamic arrays handle this pretty well.
 
-**Decision guide:**
-| Signal | Best choice |
+**Quick guide:**
+| What you need | Best tool |
 |---|---|
 | "Find element by position" | Array (O(1) index) |
-| "Frequent insert/remove at front" | Linked list (Module 4) |
-| "Check if something exists" | Hash set (Module 3) |
+| "Frequent insert/remove at front" | Linked List |
+| "Check if something exists" | Hash Set |
 | "Process in order, one pass" | Array |
-| "Pair elements by key" | Hash map (Module 3) |`,
+| "Pair elements by key" | Hash Map |`,
     },
     {
       id: 'mistakes',
-      title: 'Common Mistakes / Gotchas',
-      content: `**Off-by-one: forgetting arrays are 0-indexed:** \`for (int i = 0; i <= arr.Length; i++)\` accesses arr[arr.Length] which is out of bounds.
+      title: 'Common Mistakes',
+      content: `**Off-by-one: forgetting arrays are 0-indexed**
+\`for (int i = 0; i <= arr.Length; i++)\` - this tries to access arr[arr.Length] on the last iteration, which is out of bounds. Always use \`i < length\`, not \`i <= length\`.
 
-**Mutating an array while iterating over it:** Removing elements during iteration messes up indices. Either iterate backward or build a new list.
+**Mutating an array while iterating**
+Removing elements during a forward loop messes up indices. Either iterate backward or build a new list.
 
-**String immutability in loops:** \`s = s + c\` in a loop creates a new string each time - O(n²). Use StringBuilder / join / list append instead.
+**String immutability in loops**
+In most languages, \`s = s + c\` in a loop creates a new string every iteration - O(n²) total. Use StringBuilder / \`''.join()\` / array append instead.
 
-**Confusing "length" with "last index":** If arr has length n, the last valid index is n-1, not n.
+**Confusing "length" with "last index"**
+If an array has length n, the last valid index is n-1, not n.
 
-**"Two-pointer only works on sorted arrays":** Two-pointer can also work on unsorted arrays for problems like "move zeros" or "remove duplicates in-place" using slow/fast pointers.`,
+**"Two-pointer only works on sorted arrays"**
+Not true! Two-pointer also works on unsorted arrays for problems like "move zeros to the end" or "remove duplicates in-place" using slow/fast pointers.`,
     },
     {
       id: 'common-patterns',
-      title: 'Common Interview Patterns',
-      content: `1. **Two Sum variant** - use a hash map for O(n) lookup (see Module 3)
-2. **In-place array manipulation** - maintain a "write index"
-3. **Prefix sum** - precompute cumulative sums for O(1) range sum queries
-4. **String builder** - anytime you need to build/modify a string in a loop
-5. **Character counting** - use int[26] for lowercase letters, Dictionary<char,int> for general`,
+      title: 'Key Patterns to Remember',
+      content: `1. **Two Sum** - use a hash map for O(n) lookup (see the next module)
+2. **In-place manipulation** - maintain a "write index" for O(1) space
+3. **Prefix sum** - precompute cumulative sums for O(1) range queries
+4. **String builder** - any time you're building a string in a loop, use the right tool
+5. **Character counting** - use int[26] for lowercase letters, or a dictionary for general unicode`,
+    },
+    {
+      id: 'whats-next',
+      title: 'What\'s Next?',
+      content: `You now know the most basic data structure - and you've already seen its limits. Scanning an array for a specific value takes O(n) time. What if you need to answer "does this exist?" a million times?
+
+That's where **HashMaps & Sets** come in. They trade away ordering (you can't ask "what's at position 42?") for O(1) lookups. If arrays are a row of lockers, hash maps are a coat check - you hand over your ticket and get your coat instantly, but you can't ask "what's in the 42nd coat slot?"
+
+**Next up: HashMaps & Sets**`,
     },
   ],
   problemIds: ['two-sum-array', 'best-time-stock', 'product-except-self', 'longest-substring-no-repeat', 'valid-palindrome'],
