@@ -298,7 +298,7 @@ function generateCSharpWrapper(userCode: string, testCases: TestCase[]): string 
     indentedCode + '\n' + helpers + '\n' +
     '    static string Fmt(object o) {\n' +
     '        if (o == null) return "null";\n' +
-    '        if (o is int[] a) return "[" + string.Join(", ", a) + "]";\n' +
+    '        if (o is int[] a) return "[" + string.Join(",", a) + "]";\n' +
     '        if (o is string s) return s;\n' +
     '        if (o is bool b) return b.ToString().ToLower();\n' +
     '        return o.ToString() ?? "null";\n' +
@@ -411,7 +411,7 @@ function generateJavaWrapper(userCode: string, testCases: TestCase[]): string {
       testCode.push(`                String actual${i}Str = graphToJson(result${i});`);
     } else if (args) {
       testCode.push(`                var result${i} = s.${methodName}(${args});`);
-      testCode.push(`                String actual${i}Str = Objects.toString(result${i});`);
+      testCode.push(`                String actual${i}Str = fmt(result${i});`);
     } else {
       testCode.push(`                s.${methodName}();`);
       testCode.push(`                String actual${i}Str = "(void)";`);
@@ -432,6 +432,17 @@ function generateJavaWrapper(userCode: string, testCases: TestCase[]): string {
 
 public class Solution {
 ${userCode.trimEnd().split('\n').map(line => '    ' + line).join('\n')}${helpers}
+
+    static String fmt(Object o) {
+        if (o == null) return "null";
+        if (o instanceof int[]) return Arrays.toString((int[]) o).replace(" ", "");
+        if (o instanceof char[]) return Arrays.toString((char[]) o).replace(" ", "");
+        if (o instanceof boolean[]) return Arrays.toString((boolean[]) o).replace(" ", "");
+        if (o instanceof long[]) return Arrays.toString((long[]) o).replace(" ", "");
+        if (o instanceof double[]) return Arrays.toString((double[]) o).replace(" ", "");
+        if (o instanceof Object[]) return Arrays.deepToString((Object[]) o).replace(" ", "");
+        return Objects.toString(o);
+    }
 
     public static void main(String[] args) {
         try {
@@ -1100,7 +1111,7 @@ function generateCppWrapper(userCode: string, testCases: TestCase[]): string {
       testCode.push(`        string actual${i}Str = graphToJson(result${i});`);
     } else if (args) {
       testCode.push(`        auto result${i} = ${methodName}(${args});`);
-      testCode.push(`        string actual${i}Str = "[";`);
+      testCode.push(`        string actual${i}Str = _fmt(result${i});`);
     } else {
       testCode.push(`        ${methodName}();`);
       testCode.push(`        string actual${i}Str = "(void)";`);
@@ -1118,15 +1129,35 @@ function generateCppWrapper(userCode: string, testCases: TestCase[]): string {
     testCode.push('    }');
   }
 
+  const cppFmtHelpers = `string _fmt(int v) { return to_string(v); }
+string _fmt(bool v) { return v ? "true" : "false"; }
+string _fmt(const string& v) { return "\\"" + v + "\\""; }
+template<typename T>
+string _fmt(const vector<T>& v) {
+    string r = "[";
+    for (size_t i = 0; i < v.size(); i++) {
+        if (i) r += ",";
+        r += _fmt(v[i]);
+    }
+    return r + "]";
+}
+`;
+
   return '#include <iostream>\n#include <string>\n#include <vector>\n#include <sstream>\n#include <algorithm>\nusing namespace std;\n\n' +
     userCode.trimEnd() +
-    (usesGraph ? CPP_GRAPH_HELPERS : '') + '\n\nint main() {\n' +
+    (usesGraph ? CPP_GRAPH_HELPERS : '') + '\n\n' + cppFmtHelpers + 'int main() {\n' +
     testCode.join('\n') + '\n    return 0;\n}\n';
 }
 
 export function canAutoGenerateTests(code: string, language: Language): boolean {
-  if (language === 'python' || language === 'typescript') return true;
   const sig = parseSignature(code);
+  if (language === 'python' || language === 'typescript') {
+    if (sig && sig.params.some(p => isPointerType(p.type))) return false;
+    if (/\b(ListNode|TreeNode)\b/.test(code)) return false;
+    if (/\.next\b/.test(code)) return false;
+    if (/\.left\b/.test(code) && /\.right\b/.test(code)) return false;
+    return true;
+  }
   if (!sig) return false;
   return !sig.params.some(p => {
     if (!isPointerType(p.type)) return false;
