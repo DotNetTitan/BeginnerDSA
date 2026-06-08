@@ -59,7 +59,7 @@ function parseSignature(code: string): MethodSignature | null {
   }
 
   const allMatches = [...code.matchAll(
-    /(?:public\s+|private\s+|protected\s+)?([^\s;(:{]+(?:\s*<[^>]+>)?(?:\[\])?)\s+(\w+)\s*\(([^)]*)\)(?!\s*;)/g
+    /(?:public\s+|private\s+|protected\s+)?([^\s;(:{]+(?:\s*<[^>]+>)?(?:\[\])?)\s+(?!(?:if|for|while|switch|catch|return|new|delete)\b)(\w+)\s*\(([^)]*)\)(?!\s*;)/g
   )];
   const filteredMatches = allMatches.filter(m => {
     if (/^\s*(private|protected)\s/.test(m[0])) return false;
@@ -717,11 +717,13 @@ function generateRunCpp(userCode: string, runArgs: string[]): string {
     runArgs.forEach(a => callArgs.push(a));
   }
 
-  return `#include <iostream>
+   return `#include <iostream>
 #include <string>
 #include <vector>
 #include <sstream>
+#include <queue>
 #include <exception>
+#include <unordered_map>
 using namespace std;
 
 ${userCode.trimEnd()}
@@ -1143,7 +1145,7 @@ string _fmt(const vector<T>& v) {
 }
 `;
 
-  return '#include <iostream>\n#include <string>\n#include <vector>\n#include <sstream>\n#include <algorithm>\nusing namespace std;\n\n' +
+  return '#include <iostream>\n#include <string>\n#include <vector>\n#include <sstream>\n#include <algorithm>\n#include <unordered_map>\n#include <queue>\nusing namespace std;\n\n' +
     userCode.trimEnd() +
     (usesGraph ? CPP_GRAPH_HELPERS : '') + '\n\n' + cppFmtHelpers + 'int main() {\n' +
     testCode.join('\n') + '\n    return 0;\n}\n';
