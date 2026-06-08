@@ -110,6 +110,110 @@ bool isValid(const std::string& s) {
     ],
     constraints: ['pop, top, and getMin will always be called on non-empty stacks.'],
     hints: ['Use a second stack to track the minimum at each level.', 'Alternatively, store each element as (value, currentMin).'],
+    code: {
+      csharp: `public class MinStack {
+    private Stack<(int val, int min)> stack = new();
+
+    public void Push(int val) {
+        // TODO: implement your solution here
+    }
+
+    public void Pop() {
+        // TODO: implement your solution here
+    }
+
+    public int Top() {
+        // TODO: implement your solution here
+        return 0;
+    }
+
+    public int GetMin() {
+        // TODO: implement your solution here
+        return 0;
+    }
+}`,
+      python: `class MinStack:
+    def __init__(self):
+        # TODO: implement your solution here
+        pass
+
+    def push(self, val):
+        # TODO: implement your solution here
+        pass
+
+    def pop(self):
+        # TODO: implement your solution here
+        pass
+
+    def top(self):
+        # TODO: implement your solution here
+        return 0
+
+    def get_min(self):
+        # TODO: implement your solution here
+        return 0
+`,
+      java: `class MinStack {
+    private Stack<int[]> stack = new Stack<>();
+
+    public void push(int val) {
+        // TODO: implement your solution here
+    }
+
+    public void pop() {
+        // TODO: implement your solution here
+    }
+
+    public int top() {
+        // TODO: implement your solution here
+        return 0;
+    }
+
+    public int getMin() {
+        // TODO: implement your solution here
+        return 0;
+    }
+}`,
+      typescript: `class MinStack {
+    constructor() {
+        // TODO: implement your solution here
+    }
+    push(val) {
+        // TODO: implement your solution here
+    }
+    pop() {
+        // TODO: implement your solution here
+    }
+    top() {
+        // TODO: implement your solution here
+        return 0;
+    }
+    getMin() {
+        // TODO: implement your solution here
+        return 0;
+    }
+}`,
+      cpp: `class MinStack {
+public:
+    void push(int val) {
+        // TODO: implement your solution here
+    }
+
+    void pop() {
+        // TODO: implement your solution here
+    }
+
+    int top() {
+        // TODO: implement your solution here
+        return 0;
+    }
+
+    int getMin() {
+        // TODO: implement your solution here
+        return 0;
+    }
+};`,
+    },
     solution: {
       csharp: `public class MinStack {
     private Stack<(int val, int min)> stack = new();
@@ -284,6 +388,116 @@ std::vector<int> dailyTemperatures(const std::vector<int>& temperatures) {
     ],
     constraints: ['All calls are valid (pop/peek on non-empty queue).'],
     hints: ['Use one stack for input, one for output.', 'When output stack is empty, transfer all from input to output.'],
+    code: {
+      csharp: `public class MyQueue {
+    private Stack<int> input = new();
+    private Stack<int> output = new();
+
+    public void Push(int x) {
+        // TODO: implement your solution here
+    }
+
+    public int Pop() {
+        // TODO: implement your solution here
+        return 0;
+    }
+
+    public int Peek() {
+        // TODO: implement your solution here
+        return 0;
+    }
+
+    public bool Empty() {
+        // TODO: implement your solution here
+        return false;
+    }
+}`,
+      python: `class MyQueue:
+    def __init__(self):
+        # TODO: implement your solution here
+        pass
+
+    def push(self, x):
+        # TODO: implement your solution here
+        pass
+
+    def pop(self):
+        # TODO: implement your solution here
+        return 0
+
+    def peek(self):
+        # TODO: implement your solution here
+        return 0
+
+    def empty(self):
+        # TODO: implement your solution here
+        return False
+`,
+      java: `class MyQueue {
+    private Stack<Integer> input = new Stack<>();
+    private Stack<Integer> output = new Stack<>();
+
+    public void push(int x) {
+        // TODO: implement your solution here
+    }
+
+    public int pop() {
+        // TODO: implement your solution here
+        return 0;
+    }
+
+    public int peek() {
+        // TODO: implement your solution here
+        return 0;
+    }
+
+    public boolean empty() {
+        // TODO: implement your solution here
+        return false;
+    }
+}`,
+      typescript: `class MyQueue {
+    constructor() {
+        // TODO: implement your solution here
+    }
+    push(x) {
+        // TODO: implement your solution here
+    }
+    pop() {
+        // TODO: implement your solution here
+        return 0;
+    }
+    peek() {
+        // TODO: implement your solution here
+        return 0;
+    }
+    empty() {
+        // TODO: implement your solution here
+        return false;
+    }
+}`,
+      cpp: `class MyQueue {
+public:
+    void push(int x) {
+        // TODO: implement your solution here
+    }
+
+    int pop() {
+        // TODO: implement your solution here
+        return 0;
+    }
+
+    int peek() {
+        // TODO: implement your solution here
+        return 0;
+    }
+
+    bool empty() {
+        // TODO: implement your solution here
+        return false;
+    }
+};`,
+    },
     solution: {
       csharp: `public class MyQueue {
     private Stack<int> input = new();

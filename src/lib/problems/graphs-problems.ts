@@ -13,6 +13,12 @@ export const problems: Problem[] = [
     ],
     constraints: ['m, n <= 300'],
     hints: ['Use DFS or BFS to traverse each island.', 'Mark visited cells as "0" to avoid revisiting.'],
+    code: {
+      cpp: `int numIslands(std::vector<std::vector<char>>& grid) {
+    // TODO: implement your solution here
+    return 0;
+}`,
+    },
     solution: {
       csharp: `public int NumIslands(char[][] grid) {
     int count = 0;
@@ -131,6 +137,60 @@ int numIslands(std::vector<std::vector<char>>& grid) {
     ],
     constraints: ['The number of nodes is in the range [0, 100].'],
     hints: ['Use a Dictionary<Node, Node> to map original to clone.', 'Use DFS or BFS.'],
+    code: {
+      cpp: `class Node {
+public:
+    int val;
+    std::vector<Node*> neighbors;
+    Node(int _val) : val(_val) {}
+};
+
+Node* cloneGraph(Node* node) {
+    // TODO: implement your solution here
+    return nullptr;
+}`,
+      python: `def clone_graph(node):
+    # TODO: implement your solution here
+    pass
+`,
+      java: `static class Node {
+    public int val;
+    public List<Node> neighbors;
+    public Node(int _val) {
+        val = _val;
+        neighbors = new ArrayList<Node>();
+    }
+}
+
+public Node cloneGraph(Node node) {
+    // TODO: implement your solution here
+    return null;
+}`,
+      csharp: `public class Node {
+    public int val;
+    public IList<Node> neighbors;
+    public Node(int _val, IList<Node> _neighbors = null) {
+        val = _val;
+        neighbors = _neighbors ?? new List<Node>();
+    }
+}
+
+public Node CloneGraph(Node node) {
+    // TODO: implement your solution here
+    return null;
+}`,
+      typescript: `class Node {
+    constructor(val, neighbors = []) {
+        this.val = val;
+        this.neighbors = neighbors;
+    }
+}
+
+function cloneGraph(node) {
+    // TODO: implement your solution here
+    return null;
+}`,
+    },
     solution: {
       csharp: `public class Node {
     public int val;
@@ -176,7 +236,16 @@ def clone_graph(node):
 
     return dfs(node)
 `,
-      java: `public Node cloneGraph(Node node) {
+      java: `static class Node {
+    public int val;
+    public List<Node> neighbors;
+    public Node(int _val) {
+        val = _val;
+        neighbors = new ArrayList<Node>();
+    }
+}
+
+public Node cloneGraph(Node node) {
     if (node == null) return null;
     Map<Node, Node> map = new HashMap<>();
     return clone(node, map);
@@ -190,7 +259,14 @@ private Node clone(Node n, Map<Node, Node> map) {
         copy.neighbors.add(clone(neighbor, map));
     return copy;
 }`,
-      typescript: `function cloneGraph(node) {
+      typescript: `class Node {
+    constructor(val, neighbors = []) {
+        this.val = val;
+        this.neighbors = neighbors;
+    }
+}
+
+function cloneGraph(node) {
     if (node === null) return null;
     const map = new Map();
     function dfs(n) {
