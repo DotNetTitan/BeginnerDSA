@@ -4,7 +4,7 @@ import { useState, useCallback, useEffect, useRef, type KeyboardEvent } from 're
 import { useLanguage } from '@/lib/language-context';
 import { generateWrapper, parseExampleInput } from '@/lib/compiler-map';
 import { Loader2, Play, Terminal, Clock, MemoryStick as Memory, ChevronDown, ChevronRight, Check, X, FileCheck } from 'lucide-react';
-import CopyButtonClient from './CopyButtonClient';
+
 import { Button } from '@/components/ui/button';
 import type { Example } from '@/lib/types';
 import { createHighlighter, createJavaScriptRegexEngine, type Highlighter, type BundledLanguage } from 'shiki';
@@ -263,10 +263,7 @@ export default function CodeEditor({ starterCode, solutionCode, examples }: Code
       {expanded && (
         <div className="p-4 space-y-3">
             <div className="relative rounded-lg border bg-[#0d1117]">
-              <div className="absolute top-1.5 right-1.5 z-10">
-                <CopyButtonClient code={code} />
-              </div>
-              <div style={{ display: 'grid', minHeight: '16rem' }}>
+               <div style={{ display: 'grid', minHeight: '16rem' }}>
                 <pre
                   ref={preRef}
                   style={{ gridArea: '1/1', pointerEvents: 'none', overflow: 'auto', margin: 0, whiteSpace: 'pre-wrap', overflowWrap: 'break-word', wordBreak: 'break-word' }}

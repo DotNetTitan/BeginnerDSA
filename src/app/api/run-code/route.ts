@@ -8,11 +8,31 @@ interface RunCodeBody {
   code: string;
 }
 
+const rateLimit = new Map<string, { count: number; resetAt: number }>();
+const RATE_LIMIT_WINDOW = 60_000;
+const RATE_LIMIT_MAX = 30;
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const entry = rateLimit.get(ip);
+  if (!entry || now > entry.resetAt) {
+    rateLimit.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW });
+    return false;
+  }
+  entry.count++;
+  return entry.count > RATE_LIMIT_MAX;
+}
+
 export async function POST(request: Request) {
   const body: RunCodeBody = await request.json();
 
   if (!body.language || !body.code) {
     return NextResponse.json({ error: 'Missing required fields: language, code' }, { status: 400 });
+  }
+
+  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+  if (isRateLimited(ip)) {
+    return NextResponse.json({ error: 'Too many requests. Please wait a moment before running again.' }, { status: 429 });
   }
 
   const apiKey = process.env.ONLINECOMPILER_API_KEY;
