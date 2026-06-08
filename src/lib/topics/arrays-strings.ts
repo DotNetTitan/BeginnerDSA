@@ -75,7 +75,7 @@ list.remove(1);                     // O(n) - shifts elements
 Arrays.sort(arr);                   // O(n log n)
 // Reverse: no built-in, manual swap
 int index = Arrays.binarySearch(arr, 3); // O(log n) - requires sorted`,
-            javascript: `// Fixed-size array
+            typescript: `// Fixed-size array
 const arr = [1, 2, 3, 4, 5];
 
 // Dynamic array
@@ -193,7 +193,7 @@ public boolean isPalindrome(String s) {
     }
     return true;
 }`,
-            javascript: `// Reverse an array in-place - O(n), O(1) space
+            typescript: `// Reverse an array in-place - O(n), O(1) space
 const reverse = (arr) => {
     let left = 0, right = arr.length - 1;
     while (left < right) {
@@ -281,7 +281,7 @@ public int maxSumSubarray(int[] arr, int k) {
     }
     return maxSum;
 }`,
-            javascript: `// Max sum of any subarray of size k - O(n)
+            typescript: `// Max sum of any subarray of size k - O(n)
 const maxSumSubarray = (arr, k) => {
     let windowSum = 0;
     for (let i = 0; i < k; i++) windowSum += arr[i];

@@ -10,7 +10,7 @@ function getHighlighter() {
   if (!highlighterPromise) {
     highlighterPromise = createHighlighter({
       themes: ['github-dark'],
-      langs: ['csharp', 'python', 'java', 'javascript', 'cpp'],
+      langs: ['csharp', 'python', 'java', 'typescript', 'cpp'],
     });
   }
   return highlighterPromise;
@@ -31,7 +31,7 @@ export default function CodeRenderer({ code, title, language = 'csharp' }: { cod
     return () => { mountedRef.current = false; };
   }, [trimmed, language]);
 
-  const langLabel = ({ csharp: 'C#', python: 'Python', java: 'Java', javascript: 'JavaScript', cpp: 'C++' } as Record<string, string>)[language] ?? language.toUpperCase();
+  const langLabel = ({ csharp: 'C#', python: 'Python', java: 'Java', typescript: 'TypeScript', cpp: 'C++' } as Record<string, string>)[language] ?? language.toUpperCase();
 
   return (
     <div className="relative rounded-lg overflow-hidden border my-3 group">

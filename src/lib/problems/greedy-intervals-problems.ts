@@ -58,7 +58,7 @@ export const problems: Problem[] = [
     merged.add(curr);
     return merged.toArray(new int[merged.size()][]);
 }`,
-      javascript: `function merge(intervals) {
+      typescript: `function merge(intervals) {
     intervals.sort((a, b) => a[0] - b[0]);
     const merged = [];
     let curr = intervals[0];
@@ -145,7 +145,7 @@ std::vector<std::vector<int>> merge(std::vector<std::vector<int>>& intervals) {
     }
     return count;
 }`,
-      javascript: `function eraseOverlapIntervals(intervals) {
+      typescript: `function eraseOverlapIntervals(intervals) {
     intervals.sort((a, b) => a[1] - b[1]);
     let count = 0;
     let end = intervals[0][1];
@@ -215,7 +215,7 @@ int eraseOverlapIntervals(std::vector<std::vector<int>>& intervals) {
     }
     return true;
 }`,
-      javascript: `function canJump(nums) {
+      typescript: `function canJump(nums) {
     let maxReach = 0;
     for (let i = 0; i < nums.length; i++) {
         if (i > maxReach) return false;
@@ -273,7 +273,7 @@ bool canJump(const std::vector<int>& nums) {
             profit += prices[i] - prices[i - 1];
     return profit;
 }`,
-      javascript: `function maxProfit(prices) {
+      typescript: `function maxProfit(prices) {
     let profit = 0;
     for (let i = 1; i < prices.length; i++)
         if (prices[i] > prices[i - 1])
@@ -355,7 +355,7 @@ int maxProfitII(const std::vector<int>& prices) {
     }
     return rooms;
 }`,
-      javascript: `function minMeetingRooms(intervals) {
+      typescript: `function minMeetingRooms(intervals) {
     if (intervals.length === 0) return 0;
     const starts = intervals.map(i => i[0]).sort((a, b) => a - b);
     const ends = intervals.map(i => i[1]).sort((a, b) => a - b);

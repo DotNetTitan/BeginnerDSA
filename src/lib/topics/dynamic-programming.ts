@@ -130,7 +130,7 @@ public int fibTable(int n) {
         dp[i] = dp[i - 1] + dp[i - 2];
     return dp[n];
 }`,
-            javascript: `// Top-down (memoization) - O(n) time, O(n) space
+            typescript: `// Top-down (memoization) - O(n) time, O(n) space
 const fibMemo = (n, memo = {}) => {
     if (n <= 1) return n;
     if (n in memo) return memo[n];
@@ -308,7 +308,7 @@ public int coinChange(int[] coins, int amount) {
     }
     return dp[amount] > amount ? -1 : dp[amount];
 }`,
-            javascript: `// House Robber - O(n), O(1) space
+            typescript: `// House Robber - O(n), O(1) space
 const rob = (nums) => {
     let prev2 = 0, prev1 = 0;
     for (const n of nums) {
@@ -496,7 +496,7 @@ public int knapsack(int[] weights, int[] values, int capacity) {
     }
     return dp[n][capacity];
 }`,
-            javascript: `// Longest Common Subsequence - O(m*n)
+            typescript: `// Longest Common Subsequence - O(m*n)
 const lcs = (text1, text2) => {
     const m = text1.length, n = text2.length;
     const dp = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));

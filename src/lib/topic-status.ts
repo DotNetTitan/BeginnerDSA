@@ -9,7 +9,7 @@ export function getTopicStatus(
   forceUnlocked?: boolean
 ): TopicStatus {
   const tp = progress.topics[topic.id];
-  const unlocked = forceUnlocked ?? (typeof window !== 'undefined' ? localStorage.getItem('dsa-all-unlocked') === 'true' : false);
+  const unlocked = forceUnlocked ?? false;
 
   if (!unlocked) {
     // Check prerequisites: theory read AND all problems solved
@@ -43,8 +43,8 @@ export function getTopicStatus(
   return 'available';
 }
 
-export function isPracticeReachable(topic: Topic, progress: AppProgress, allTopics: Topic[]): boolean {
-  const status = getTopicStatus(topic, progress, allTopics);
+export function isPracticeReachable(topic: Topic, progress: AppProgress, allTopics: Topic[], forceUnlocked?: boolean): boolean {
+  const status = getTopicStatus(topic, progress, allTopics, forceUnlocked);
   return status === 'in-progress' || status === 'completed';
 }
 
@@ -59,7 +59,8 @@ export function isReadyForExam(topic: Topic, progress: AppProgress): boolean {
 
 export function getNextRecommendedTopic(
   progress: AppProgress,
-  allTopics: Topic[]
+  allTopics: Topic[],
+  forceUnlocked?: boolean
 ): Topic | null {
   // First, check for a topic ready for exam
   for (const topic of allTopics) {
@@ -69,7 +70,7 @@ export function getNextRecommendedTopic(
   }
   // Then check for available or in-progress topics
   for (const topic of allTopics) {
-    const status = getTopicStatus(topic, progress, allTopics);
+    const status = getTopicStatus(topic, progress, allTopics, forceUnlocked);
     if (status === 'available' || status === 'in-progress') {
       return topic;
     }

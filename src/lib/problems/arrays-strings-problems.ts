@@ -39,7 +39,7 @@ export const problems: Problem[] = [
     }
     return new int[0];
 }`,
-      javascript: `function twoSum(nums, target) {
+      typescript: `function twoSum(nums, target) {
     for (let i = 0; i < nums.length; i++) {
         for (let j = i + 1; j < nums.length; j++) {
             if (nums[i] + nums[j] === target)
@@ -110,7 +110,7 @@ std::vector<int> twoSum(const std::vector<int>& nums, int target) {
     }
     return maxProfit;
 }`,
-      javascript: `function maxProfit(prices) {
+      typescript: `function maxProfit(prices) {
     let minPrice = Infinity;
     let maxProfit = 0;
     for (const price of prices) {
@@ -202,7 +202,7 @@ int maxProfit(const std::vector<int>& prices) {
     }
     return result;
 }`,
-      javascript: `function productExceptSelf(nums) {
+      typescript: `function productExceptSelf(nums) {
     const n = nums.length;
     const result = new Array(n).fill(1);
     let prefix = 1;
@@ -291,7 +291,7 @@ std::vector<int> productExceptSelf(const std::vector<int>& nums) {
     }
     return maxLen;
 }`,
-      javascript: `function lengthOfLongestSubstring(s) {
+      typescript: `function lengthOfLongestSubstring(s) {
     const set = new Set();
     let maxLen = 0, left = 0;
     for (let right = 0; right < s.length; right++) {
@@ -376,7 +376,7 @@ int lengthOfLongestSubstring(const std::string& s) {
     }
     return true;
 }`,
-      javascript: `function isPalindrome(s) {
+      typescript: `function isPalindrome(s) {
     let i = 0, j = s.length - 1;
     while (i < j) {
         while (i < j && !/[a-zA-Z0-9]/.test(s[i])) i++;

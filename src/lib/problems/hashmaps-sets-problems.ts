@@ -45,7 +45,7 @@ export const problems: Problem[] = [
     }
     return new int[0];
 }`,
-      javascript: `function twoSum(nums, target) {
+      typescript: `function twoSum(nums, target) {
     const map = new Map();
     for (let i = 0; i < nums.length; i++) {
         const complement = target - nums[i];
@@ -120,7 +120,7 @@ std::vector<int> twoSum(const std::vector<int>& nums, int target) {
     }
     return new ArrayList<>(map.values());
 }`,
-      javascript: `function groupAnagrams(strs) {
+      typescript: `function groupAnagrams(strs) {
     const map = new Map();
     for (const s of strs) {
         const key = s.split('').sort().join('');
@@ -212,7 +212,7 @@ std::vector<std::vector<std::string>> groupAnagrams(const std::vector<std::strin
     }
     return maxLen;
 }`,
-      javascript: `function longestConsecutive(nums) {
+      typescript: `function longestConsecutive(nums) {
     const set = new Set(nums);
     let maxLen = 0;
     for (const n of set) {
@@ -318,7 +318,7 @@ int longestConsecutive(const std::vector<int>& nums) {
         }
     return result;
 }`,
-      javascript: `function topKFrequent(nums, k) {
+      typescript: `function topKFrequent(nums, k) {
     const counts = new Map();
     for (const n of nums)
         counts.set(n, (counts.get(n) || 0) + 1);

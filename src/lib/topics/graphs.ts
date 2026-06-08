@@ -109,7 +109,7 @@ for (int i = 0; i < n; i++) graph2[i] = new ArrayList<>();
 // Weighted graph
 Map<Integer, List<int[]>> weighted = new HashMap<>();
 // weighted.get(u).add(new int[]{v, 5});`,
-            javascript: `// Graph as adjacency list
+            typescript: `// Graph as adjacency list
 const graph = new Map();
 
 // Build from edges
@@ -276,7 +276,7 @@ public boolean dfs(Map<Integer, List<Integer>> graph, int node, Set<Integer> vis
 
     return true;
 }`,
-            javascript: `// BFS - shortest path in unweighted graph
+            typescript: `// BFS - shortest path in unweighted graph
 const bfs = (graph, start, target) => {
     const q = [start];
     const visited = new Set([start]);
@@ -450,7 +450,7 @@ public int[] topologicalSort(int n, int[][] edges) {
         ? result.stream().mapToInt(i -> i).toArray()
         : new int[0]; // [] if cycle
 }`,
-            javascript: `const topologicalSort = (n, edges) => {
+            typescript: `const topologicalSort = (n, edges) => {
     const graph = Array.from({ length: n }, () => []);
     const inDegree = new Array(n).fill(0);
 

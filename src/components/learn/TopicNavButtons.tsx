@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight, Lock } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { getProgress } from '@/lib/progress-store';
+import { getProgress, isAllUnlocked } from '@/lib/progress-store';
 import { getTopicStatus } from '@/lib/topic-status';
 import { topics } from '@/lib/topics';
 import type { AppProgress } from '@/lib/types';
@@ -17,9 +17,13 @@ interface Props {
 export default function TopicNavButtons({ prev, next }: Props) {
   const router = useRouter();
   const [progress, setProgress] = useState<AppProgress | null>(null);
+  const [allUnlocked, setAllUnlocked] = useState(false);
   useEffect(() => {
     const handler = () => setProgress(getProgress());
-    setProgress(getProgress()); // eslint-disable-line react-hooks/set-state-in-effect
+    /* eslint-disable react-hooks/set-state-in-effect */
+    setProgress(getProgress());
+    setAllUnlocked(isAllUnlocked());
+    /* eslint-enable react-hooks/set-state-in-effect */
     window.addEventListener('dsa-progress-changed', handler);
     return () => window.removeEventListener('dsa-progress-changed', handler);
   }, []);
@@ -28,7 +32,7 @@ export default function TopicNavButtons({ prev, next }: Props) {
     if (!progress) return true;
     const topic = topics.find(t => t.id === id);
     if (!topic) return true;
-    return getTopicStatus(topic, progress, topics) === 'locked';
+    return getTopicStatus(topic, progress, topics, allUnlocked) === 'locked';
   };
 
   return (

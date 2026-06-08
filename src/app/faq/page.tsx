@@ -16,11 +16,11 @@ const faqs = [
   },
   {
     q: "Do I need to know programming before starting?",
-    a: "You should know the basics of at least one programming language (variables, loops, functions, conditionals). We do not teach syntax. We teach DSA concepts. Code examples are provided in Python, Java, C++, JavaScript, and C#.",
+    a: "You should know the basics of at least one programming language (variables, loops, functions, conditionals). We do not teach syntax. We teach DSA concepts. Code examples are provided in Python, Java, C++, TypeScript, and C#.",
   },
   {
     q: "What languages are supported?",
-    a: "All code examples and problem solutions are available in Python, Java, C++, JavaScript, and C#. You can switch languages at any time using the language selector in the top navigation bar.",
+    a: "All code examples and problem solutions are available in Python, Java, C++, TypeScript, and C#. You can switch languages at any time using the language selector in the top navigation bar.",
   },
   {
     q: "Is this free?",

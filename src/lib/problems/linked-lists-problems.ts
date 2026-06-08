@@ -48,7 +48,7 @@ export const problems: Problem[] = [
     }
     return prev;
 }`,
-      javascript: `function reverseList(head) {
+      typescript: `function reverseList(head) {
     let prev = null;
     let curr = head;
     while (curr !== null) {
@@ -136,7 +136,7 @@ export const problems: Problem[] = [
     curr.next = list1 != null ? list1 : list2;
     return dummy.next;
 }`,
-      javascript: `function mergeTwoLists(list1, list2) {
+      typescript: `function mergeTwoLists(list1, list2) {
     const dummy = new ListNode();
     let curr = dummy;
     while (list1 !== null && list2 !== null) {
@@ -216,7 +216,7 @@ export const problems: Problem[] = [
     }
     return false;
 }`,
-      javascript: `function hasCycle(head) {
+      typescript: `function hasCycle(head) {
     let slow = head, fast = head;
     while (fast !== null && fast.next !== null) {
         slow = slow.next;
@@ -291,7 +291,7 @@ export const problems: Problem[] = [
     slow.next = slow.next.next;
     return dummy.next;
 }`,
-      javascript: `function removeNthFromEnd(head, n) {
+      typescript: `function removeNthFromEnd(head, n) {
     const dummy = new ListNode(0, head);
     let slow = dummy, fast = dummy;
     for (let i = 0; i < n; i++)
@@ -414,7 +414,7 @@ private ListNode reverseList(ListNode head) {
     }
     return prev;
 }`,
-      javascript: `function isPalindrome(head) {
+      typescript: `function isPalindrome(head) {
     let slow = head, fast = head;
     while (fast !== null && fast.next !== null) {
         slow = slow.next;

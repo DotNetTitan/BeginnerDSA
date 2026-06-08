@@ -109,7 +109,7 @@ public int fibMemo(int n, Map<Integer, Integer> memo) {
     memo.put(n, result);
     return result;
 }`,
-            javascript: `// Iterative factorial - O(n) time, O(1) space
+            typescript: `// Iterative factorial - O(n) time, O(1) space
 const factorialIter = (n) => {
     let result = 1;
     for (let i = 2; i <= n; i++) result *= i;
@@ -313,7 +313,7 @@ private void backtrackPermute(int[] nums, boolean[] used,
         used[i] = false;
     }
 }`,
-            javascript: `// Generate all subsets (powerset) - O(2ⁿ)
+            typescript: `// Generate all subsets (powerset) - O(2ⁿ)
 const subsets = (nums) => {
     const result = [];
     const current = [];
@@ -450,7 +450,7 @@ It sounds abstract, but you've already seen it: binary search (from the Big O mo
 }
 // sum(arr, 0, arr.length - 1) to start
 // O(n) time, O(log n) stack space`,
-            javascript: `const sum = (arr, left, right) => {
+            typescript: `const sum = (arr, left, right) => {
     if (left === right)
         return arr[left];                // base case
 

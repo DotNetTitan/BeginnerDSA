@@ -62,7 +62,7 @@ export const problems: Problem[] = [
     }
     return stack.isEmpty();
 }`,
-      javascript: `function isValid(s) {
+      typescript: `function isValid(s) {
     const stack = [];
     const pairs = { ')': '(', '}': '{', ']': '[' };
     for (const c of s) {
@@ -154,7 +154,7 @@ bool isValid(const std::string& s) {
     public int top() { return stack.peek()[0]; }
     public int getMin() { return stack.peek()[1]; }
 }`,
-      javascript: `class MinStack {
+      typescript: `class MinStack {
     constructor() {
         this.stack = [];
     }
@@ -241,7 +241,7 @@ public:
     }
     return result;
 }`,
-      javascript: `function dailyTemperatures(temperatures) {
+      typescript: `function dailyTemperatures(temperatures) {
     const result = new Array(temperatures.length).fill(0);
     const stack = [];
     for (let i = 0; i < temperatures.length; i++) {
@@ -357,7 +357,7 @@ std::vector<int> dailyTemperatures(const std::vector<int>& temperatures) {
                 output.push(input.pop());
     }
 }`,
-      javascript: `class MyQueue {
+      typescript: `class MyQueue {
     constructor() {
         this.input = [];
         this.output = [];
@@ -466,7 +466,7 @@ def top_k_frequent(nums, k):
         result[i] = heap.poll().getKey();
     return result;
 }`,
-      javascript: `function topKFrequent(nums, k) {
+      typescript: `function topKFrequent(nums, k) {
     const counts = new Map();
     for (const n of nums)
         counts.set(n, (counts.get(n) || 0) + 1);

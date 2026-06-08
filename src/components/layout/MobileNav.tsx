@@ -35,10 +35,10 @@ export default function MobileNav() {
     const p = getProgress();
     const s: Record<string, TopicStatus> = {};
     for (const t of topics) {
-      s[t.id] = getTopicStatus(t, p, topics);
+      s[t.id] = getTopicStatus(t, p, topics, allUnlocked);
     }
     return s;
-  }, [mounted, revision]);
+  }, [mounted, revision, allUnlocked]);
 
   const basePath = pathname.startsWith('/practice') ? '/practice' : '/learn';
   const currentTopicId = pathname.split('/')[2];

@@ -57,7 +57,7 @@ private void backtrack(int[] nums, int start, List<Integer> current, List<List<I
         current.remove(current.size() - 1);
     }
 }`,
-      javascript: `function subsets(nums) {
+      typescript: `function subsets(nums) {
     const result = [];
     const current = [];
     function backtrack(start) {
@@ -169,7 +169,7 @@ private void backtrack(int[] nums, boolean[] used, List<Integer> current, List<L
         used[i] = false;
     }
 }`,
-      javascript: `function permute(nums) {
+      typescript: `function permute(nums) {
     const result = [];
     const current = [];
     const used = new Array(nums.length).fill(false);
@@ -287,7 +287,7 @@ private void backtrack(int[] candidates, int remaining, int start, List<Integer>
         current.remove(current.size() - 1);
     }
 }`,
-      javascript: `function combinationSum(candidates, target) {
+      typescript: `function combinationSum(candidates, target) {
     const result = [];
     const current = [];
     function backtrack(start, remaining) {
@@ -387,7 +387,7 @@ private void backtrack(int n, int open, int close, String current, List<String> 
     if (open < n) backtrack(n, open + 1, close, current + "(", result);
     if (close < open) backtrack(n, open, close + 1, current + ")", result);
 }`,
-      javascript: `function generateParenthesis(n) {
+      typescript: `function generateParenthesis(n) {
     const result = [];
     function backtrack(open, close, current) {
         if (current.length === n * 2) {
@@ -524,7 +524,7 @@ private void backtrack(int n, int row, char[][] board, Set<Integer> cols, Set<In
         cols.remove(col); diag.remove(row - col); anti.remove(row + col);
     }
 }`,
-      javascript: `function solveNQueens(n) {
+      typescript: `function solveNQueens(n) {
     const result = [];
     const board = Array.from({ length: n }, () => new Array(n).fill('.'));
     const cols = new Set();

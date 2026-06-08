@@ -33,10 +33,10 @@ export default function TopicSidebar() {
     const p = getProgress();
     const s: Record<string, TopicStatus> = {};
     for (const t of topics) {
-      s[t.id] = getTopicStatus(t, p, topics);
+      s[t.id] = getTopicStatus(t, p, topics, allUnlocked);
     }
     return s;
-  }, [pathname, mounted, revision]);
+  }, [pathname, mounted, revision, allUnlocked]);
 
   const basePath = pathname.startsWith('/learn') ? '/learn' :
     pathname.startsWith('/practice') ? '/practice' : '/learn';

@@ -36,12 +36,11 @@ export default function TopicGrid() {
   const statuses = useMemo(() => {
     const s: Record<string, TopicStatus> = {};
     for (const t of topics) {
-      s[t.id] = getTopicStatus(t, progress, topics);
+      s[t.id] = getTopicStatus(t, progress, topics, allUnlocked);
     }
     return s;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [progress, allUnlocked]);
-  const nextTopic = useMemo(() => getNextRecommendedTopic(progress, topics), [progress]);
+  const nextTopic = useMemo(() => getNextRecommendedTopic(progress, topics, allUnlocked), [progress, allUnlocked]);
   const allDone = useMemo(() => topics.every(t => statuses[t.id] === 'completed'), [statuses]);
   const isNextReadyForExam = nextTopic ? isReadyForExam(nextTopic, progress) : false;
   const isFirstVisit = !Object.values(progress.topics).some(tp => tp.completed || tp.solvedProblems.length > 0);
@@ -257,7 +256,7 @@ export default function TopicGrid() {
                       <BookOpen className="h-4 w-4 mr-1" />
                       Learn
                     </Button>
-                    {isPracticeReachable(nextTopic, progress, topics) && (
+                    {isPracticeReachable(nextTopic, progress, topics, allUnlocked) && (
                       <Button size="sm" variant="outline" onClick={(e) => { e.stopPropagation(); router.push(`/practice/${nextTopic.id}`); }}>
                         <Code2 className="h-4 w-4 mr-1" />
                         Practice
@@ -388,7 +387,7 @@ export default function TopicGrid() {
                         <BookOpen className="h-4 w-4 mr-1" />
                         Learn
                       </Button>
-                      {isPracticeReachable(topic, progress, topics) && (
+                      {isPracticeReachable(topic, progress, topics, allUnlocked) && (
                         <Button size="sm" variant="outline" className="flex-1" onClick={() => { setSelectedTopic(null); router.push(`/practice/${topic.id}`); }}>
                           <Code2 className="h-4 w-4 mr-1" />
                           Practice

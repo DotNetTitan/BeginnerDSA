@@ -31,7 +31,7 @@ export const problems: Problem[] = [
         if (x > max) max = x;
     return max;
 }`,
-      javascript: `function findMax(arr) {
+      typescript: `function findMax(arr) {
     let max = arr[0];
     for (const x of arr)
         if (x > max) max = x;
@@ -71,7 +71,7 @@ def find_max(arr):
 }
 // Time: O(n) - must check each element once
 // Space: O(1) - only one extra variable`,
-      javascript: `// Finding max in an unsorted array
+      typescript: `// Finding max in an unsorted array
 function findMax(arr) {
     let max = arr[0];
     for (const x of arr)
@@ -121,7 +121,7 @@ int findMax(const std::vector<int>& arr) {
         for (int j = i + 1; j < arr.length; j++)
             System.out.println(arr[i] + "," + arr[j]);
 }`,
-      javascript: `function compareAllPairs(arr) {
+      typescript: `function compareAllPairs(arr) {
     for (let i = 0; i < arr.length; i++)
         for (let j = i + 1; j < arr.length; j++)
             console.log(arr[i] + "," + arr[j]);
@@ -152,7 +152,7 @@ def compare_all_pairs(arr):
             System.out.println(arr[i] + "," + arr[j]);
 }
 // Number of operations: n*(n-1)/2 ≈ n²/2 → O(n²)`,
-      javascript: `// Comparing all pairs - O(n²)
+      typescript: `// Comparing all pairs - O(n²)
 function compareAllPairs(arr) {
     for (let i = 0; i < arr.length; i++)
         for (let j = i + 1; j < arr.length; j++)
@@ -200,7 +200,7 @@ void compareAllPairs(const std::vector<int>& arr) {
         copy[i] = arr[i];
     return copy;
 }`,
-      javascript: `function copyArray(arr) {
+      typescript: `function copyArray(arr) {
     const copy = new Array(arr.length);
     for (let i = 0; i < arr.length; i++)
         copy[i] = arr[i];
@@ -233,7 +233,7 @@ void compareAllPairs(const std::vector<int>& arr) {
     return copy;
 }
 // Space: O(n) - creates a new array of size n`,
-      javascript: `// Creates a new array of size n
+      typescript: `// Creates a new array of size n
 function copyArray(arr) {
     const copy = new Array(arr.length);
     for (let i = 0; i < arr.length; i++)

@@ -111,7 +111,7 @@ public boolean isValid(String s) {
     return stack.isEmpty();
 }
 // "()[]{}" → true,  "(]" → false`,
-            javascript: `const stack = [];
+            typescript: `const stack = [];
 
 stack.push(1);  // [1]
 stack.push(2);  // [1, 2]
@@ -243,7 +243,7 @@ while (!q.isEmpty()) {
     System.out.print(q.poll() + " ");
 }
 // Output: 1 2 3`,
-            javascript: `const queue = [];
+            typescript: `const queue = [];
 
 queue.push(1);  // [1]
 queue.push(2);  // [1, 2]
@@ -376,7 +376,7 @@ while (!taskQueue.isEmpty()) {
 
 // For max-heap, reverse comparator
 PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a, b) -> b - a);`,
-            javascript: `// Priority queue can be implemented with a binary heap.
+            typescript: `// Priority queue can be implemented with a binary heap.
 // Many JS runtimes now include a built-in PriorityQueue:
 
 // Process tasks by priority
@@ -457,7 +457,7 @@ Always check that the stack isn't empty before popping. An empty pop is a runtim
 **Using a queue when you need a stack (or vice versa)**
 LIFO vs FIFO: if you need "most recent first", it's a stack. If you need "first come, first served", it's a queue. Getting this wrong means your algorithm processes data in the wrong order.
 
-**JavaScript: shift() is O(n)**
+**typescript: shift() is O(n)**
 Using \`arr.shift()\` in JavaScript re-indexes the entire array. For large queues, use an index pointer, a proper queue implementation, or a deque.
 
 **Priority queue comparator confusion**

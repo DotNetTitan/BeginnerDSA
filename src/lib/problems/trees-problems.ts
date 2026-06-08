@@ -27,7 +27,7 @@ export const problems: Problem[] = [
     if (root == null) return 0;
     return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
 }`,
-      javascript: `function maxDepth(root) {
+      typescript: `function maxDepth(root) {
     if (root === null) return 0;
     return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
 }`,
@@ -106,7 +106,7 @@ int maxDepth(TreeNode* root) {
     }
     return result;
 }`,
-      javascript: `function inorderTraversal(root) {
+      typescript: `function inorderTraversal(root) {
     const result = [];
     const stack = [];
     let curr = root;
@@ -186,7 +186,7 @@ private boolean validate(TreeNode node, long min, long max) {
     if (node.val <= min || node.val >= max) return false;
     return validate(node.left, min, node.val) && validate(node.right, node.val, max);
 }`,
-      javascript: `function isValidBST(root) {
+      typescript: `function isValidBST(root) {
     function validate(node, min, max) {
         if (node === null) return true;
         if (node.val <= min || node.val >= max) return false;
@@ -255,7 +255,7 @@ bool isValidBST(TreeNode* root) {
     }
     return null;
 }`,
-      javascript: `function lowestCommonAncestor(root, p, q) {
+      typescript: `function lowestCommonAncestor(root, p, q) {
     while (root !== null) {
         if (p.val < root.val && q.val < root.val)
             root = root.left;
@@ -369,7 +369,7 @@ bool isValidBST(TreeNode* root) {
         return node;
     }
 }`,
-      javascript: `class Codec {
+      typescript: `class Codec {
     serialize(root) {
         function dfs(node) {
             if (node === null) return "#";
