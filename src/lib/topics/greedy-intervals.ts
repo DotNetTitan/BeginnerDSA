@@ -10,6 +10,17 @@ export const topic: Topic = {
   prerequisites: ['big-o', 'arrays-strings', 'sorting-searching'],
   theory: [
     {
+      id: 'why-greedy',
+      title: 'When "Good Enough Now" Is Actually Optimal',
+      content: `So far, most of our algorithms have been about exploring possibilities - either systematically (recursion/backtracking) or with caching (DP). But some problems have a special property: **the best choice right now is also the best choice overall.**
+
+Think of making change with US coins. To make 67 cents, you'd grab a quarter (25), another quarter (50), a dime (60), a nickel (65), and two pennies (67). That's greedy - at each step, take the largest coin that doesn't exceed the target. And it works for US denominations.
+
+But greedy doesn't always work. With denominations [1, 3, 4], making 6 cents: greedy says 4+1+1 (3 coins), but optimal is 3+3 (2 coins).
+
+The art of greedy algorithms is knowing **when** to trust your greedy instinct and when to fall back to exploration.`,
+    },
+    {
       id: 'greedy-basics',
       title: 'Greedy Algorithm Basics',
       content: `A greedy algorithm makes the **best choice at each step** without considering future consequences.
@@ -606,7 +617,7 @@ int jump(const std::vector<int>& nums) {
     },
     {
       id: 'mistakes',
-      title: 'Common Mistakes / Gotchas',
+      title: 'Common Mistakes',
       content: `**"Greedy always works" - it doesn't:** Greedy only works when the greedy choice property holds. Classic counterexample: coin change with denominations [1, 3, 4] for target 6. Greedy picks 4+1+1 (3 coins), but optimal is 3+3 (2 coins).
 
 **Not proving the greedy choice before coding:** Before writing greedy code, ask: "Can I prove that the locally optimal choice is always part of the globally optimal solution?" If not, consider exploring all possibilities instead.
@@ -619,13 +630,30 @@ int jump(const std::vector<int>& nums) {
     },
     {
       id: 'common-patterns',
-      title: 'Common Interview Patterns',
+      title: 'Key Patterns to Remember',
       content: `1. **Interval scheduling** - sort by end, pick non-overlapping
 2. **Merge intervals** - sort by start, merge overlapping
 3. **Insert interval** - linear scan, merge where needed
 4. **Jump Game** - greedy reachability or minimum jumps
 5. **Stock trading** - max profit (buy low, sell high greedily)
 6. **Minimum platforms / meeting rooms** - sweep line or two-pointer`,
+    },
+    {
+      id: 'whats-next',
+      title: 'You\'ve Reached the End',
+      content: `Congratulations - you've made it through all 11 modules of Zero To DSA!
+
+You started with Big O, learning to talk about algorithm speed. You built up through arrays, hash maps, linked lists, stacks, and queues. You tackled recursion, sorting, trees, and graphs. And you finished with the two advanced strategies: dynamic programming and greedy algorithms.
+
+You now have a mental toolbox of data structures and algorithms. When you encounter a new problem, you can ask:
+- What's the input size? (Big O)
+- Does order matter? (Array vs HashSet vs Tree)
+- Is it hierarchical? (Tree) or connected? (Graph)
+- Should I explore all possibilities? (Recursion/Backtracking)
+- Should I cache results? (DP)
+- Or is the greedy choice always optimal? (Greedy)
+
+The rest is practice. Each problem you solve will strengthen these mental muscles. Good luck!`,
     },
   ],
   problemIds: ['merge-intervals', 'non-overlapping-intervals', 'jump-game', 'best-time-stock-ii', 'meeting-rooms-ii'],

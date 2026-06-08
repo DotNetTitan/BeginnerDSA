@@ -10,16 +10,17 @@ export const topic: Topic = {
   prerequisites: ['big-o', 'arrays-strings', 'stacks-queues'],
   theory: [
     {
-      id: 'recursion-basics',
-      title: 'Recursion Basics',
-      component: 'recursion-viz',
-      content: `A recursive function calls itself with a **smaller or simpler input** until it reaches a **base case** (the simplest possible input).
+      id: 'why-recursion',
+      title: 'When Solving a Problem Means Solving a Smaller Version of It',
+      content: `Imagine you're in a movie theater and you want to know what row you're sitting in. You can't turn around and count from the front. But you can ask the person in front of you: "What row are you in?" They don't know either, so they ask the person in front of them. Eventually, the first person says "Row 1." That answer travels back: "Row 2," "Row 3," until you get "Row 7."
 
-Every recursive function needs:
-1. **Base case** - the condition that stops the recursion
-2. **Recursive case** - the function calling itself with modified input
+That's recursion. A function that solves a problem by calling itself with a **smaller input**, until it reaches a version so simple the answer is obvious. Then the answers propagate back up.
 
-The **call stack** tracks each recursive call. Too many recursive calls = **stack overflow**.`,
+You've already seen the stack structure in the previous module. Recursion uses the **call stack** - each recursive call pushes a frame onto the stack, and when the base case is reached, the frames pop off one by one.
+
+Every recursive function needs two things:
+1. **Base case** - the condition where the answer is immediate (no more recursion)
+2. **Recursive case** - the function calling itself with a smaller or simpler input`,
       vizLabel: 'Compute 5! (5 factorial) by breaking it into smaller subproblems. Watch how the call stack grows as each recursive call is pushed.',
       codeExamples: [
         {
@@ -174,15 +175,19 @@ int fibMemo(int n, std::unordered_map<int, int>& memo) {
     },
     {
       id: 'backtracking',
-      title: 'Backtracking',
-      content: `Backtracking is a systematic way to try all possibilities. You make a choice, explore recursively, then **undo** the choice (backtrack) and try the next option.
+      title: 'Backtracking - Try, Then Undo',
+      content: `Backtracking is recursion applied to **exploring all possibilities**. You make a choice, recurse to explore the consequences, then **undo** the choice and try the next option.
 
-**Template:**
-1. Check if current state is a valid solution → add to results
-2. Iterate through all possible choices at this step
-3. Make the choice → recurse → **undo** the choice
+Think of a maze. At each fork, you pick a direction and walk. If you hit a dead end, you backtrack to the last fork and try a different direction. The "undo" step is the key - without it, your path choices accumulate and you can't explore alternative branches.
 
-Used for: permutations, subsets, combination sum, N-Queens, Sudoku solver.`,
+**The template:**
+1. Check if the current state is a valid solution → add to results
+2. For each possible choice at this step:
+   - Make the choice
+   - Recurse (explore from this new state)
+   - **Undo** the choice
+
+This pattern is used for permutations, subsets, combination sums, N-Queens, and Sudoku solvers.`,
       codeExamples: [
         {
           title: 'Backtracking template',
@@ -399,12 +404,13 @@ std::vector<std::vector<int>> permute(const std::vector<int>& nums) {
     {
       id: 'divide-and-conquer',
       title: 'Divide & Conquer',
-      content: `A recursive pattern where you:
+      content: `A recursive pattern that shows up everywhere in computer science:
+
 1. **Divide** the problem into smaller subproblems
 2. **Conquer** each subproblem recursively
 3. **Combine** the results
 
-Examples: Finding the maximum in an array, binary search, merge sort (covered in the Sorting module).`,
+It sounds abstract, but you've already seen it: binary search (from the Big O module), merge sort, quick sort, and many tree algorithms all follow this pattern. The key insight is that if you can solve a smaller version of the problem, you can combine those solutions to solve the full problem.`,
       codeExamples: [
         {
           title: 'Sum of array - divide & conquer',
@@ -478,56 +484,70 @@ int sum(const std::vector<int>& arr, int left, int right) {
       id: 'when-to-use-recursion',
       title: 'Recursion vs Iteration',
       content: `**Recursion works best when:**
-- The problem has a **natural recursive structure** (nested data, divide and conquer)
-- The input can be **defined recursively** (lists, nested structures, combinatorial search)
-- The **backtracking pattern** fits (try choice, recurse, undo)
-- Code **clarity and brevity** matter more than performance
+- The problem has a natural recursive structure (nested data, divide and conquer, recursive definitions)
+- The backtracking pattern fits (try, recurse, undo)
+- Code clarity matters more than pushing the last ounce of performance
 
 **Iteration is better when:**
-- Stack depth could be a problem (deep recursion = stack overflow)
-- The problem is **linear** (looping through an array)
-- **Performance is critical** (function calls have overhead)
-- The recursion would have **duplicate work** (use memoization or iteration)
+- Stack depth could be a problem (deep recursion can overflow the call stack)
+- The problem is linear (looping through an array)
+- Performance is critical (function calls aren't free)
+- The recursion would do duplicate work (use memoization or iterate instead)
 
 **Decision guide:**
-| Pattern | Use recursion? | Why |
-|---|---|---|
-| Tree traversal (Tree module) | Yes | Natural recursive structure |
-| Array iteration | No | Simple loop is faster |
-| Permutations / subsets | Yes | Backtracking is naturally recursive |
-| Factorial / Fibonacci | Memoized recursion or iteration | Naive recursion is wasteful |
-| Divide & conquer | Yes | Divide + combine is recursive |
-| Level-order processing | No | Queue iteration is simpler |
+| Pattern | Use recursion? |
+|---|---|
+| Tree traversal | Yes - natural recursive structure |
+| Array iteration | No - simple loop is faster |
+| Permutations / subsets | Yes - backtracking is naturally recursive |
+| Factorial / Fibonacci | Memoized recursion or iteration |
+| Divide & conquer | Yes - split, solve, combine |
+| Level-order processing | No - queue iteration is simpler |
 
 **Warning signs for recursion:**
-- Depth could exceed 1000 (stack overflow)
+- Depth could exceed 1000 (stack overflow risk)
 - Problem has no overlapping subproblems (simple iteration works)
 - You need to pass mutable state through many levels`,
     },
     {
       id: 'mistakes',
-      title: 'Common Mistakes / Gotchas',
-      content: `**Missing base case (infinite recursion):** Without a base case, recursion never stops and you get stack overflow. Always write the base case first.
+      title: 'Common Mistakes',
+      content: `**Missing base case (infinite recursion)**
+Without a base case, the recursion never stops and you get a stack overflow. Always write the base case first.
 
-**Not returning the recursive result:** \`factorial(n) = n * factorial(n - 1)\` - if you forget the \`return\`, the function returns \`undefined\` / \`null\`. Always return the recursive result.
+**Not returning the recursive result**
+\`factorial(n) = n * factorial(n - 1)\` - if you forget the \`return\`, the function returns nothing. Always propagate the result back up.
 
-**Naive Fibonacci is O(2ⁿ):** \`fib(n) = fib(n-1) + fib(n-2)\` without memoization recomputes the same values exponentially. Use memoization or iteration.
+**Naive Fibonacci is O(2ⁿ)**
+\`fib(n) = fib(n-1) + fib(n-2)\` without memoization recomputes the same values exponentially. For n=50, it's trillions of calls. Use memoization (caching) or iteration.
 
-**Stack overflow from deep recursion:** Each call adds a stack frame. For depth > 1000 (Python), > 10000 (C#/Java/C++), you risk overflow. Consider iterative alternatives for linear problems.
+**Stack overflow from deep recursion**
+Each call adds a stack frame. Beyond ~1000 frames (Python) or ~10000 (C#/Java/C++), you risk overflow. For linear problems, consider the iterative version.
 
-**Modifying shared state during recursion:** If you pass a mutable list down recursive calls and mutate it, you need to undo (backtrack) or copy. Forgetting the undo step corrupts sibling branches.
+**Forgetting to undo in backtracking**
+If you modify shared state (like a list) during recursion and don't undo it, sibling branches see corrupted state. The "undo" step in backtracking is not optional.
 
-**Confusing recursion depth with problem size:** A recursive function on a balanced binary structure of n elements can have O(log n) depth, not O(n). Depth depends on structure, not total elements.`,
+**Confusing recursion depth with problem size**
+A recursive function on a balanced binary tree of n elements has O(log n) depth, not O(n). The depth depends on the structure, not the total element count.`,
     },
     {
       id: 'common-patterns',
-      title: 'Common Interview Patterns',
-      content: `1. **Subsets (powerset)** - for each element, include or exclude
+      title: 'Key Patterns to Remember',
+      content: `1. **Subsets (powerset)** - for each element, include or exclude it
 2. **Permutations** - try each unused element at each position
-3. **Combination sum** - pick elements (with/without repetition) to reach target
+3. **Combination sum** - pick elements (with/without repetition) to reach a target sum
 4. **Generate parentheses** - add open or close parenthesis, tracking counts
-5. **DFS traversal** - naturally recursive (used in trees and graphs, covered in their modules)
-6. **Divide & conquer** - split, solve recursively, combine (e.g., merge sort from Sorting module)`,
+5. **DFS traversal** - naturally recursive, used heavily in trees and graphs
+6. **Divide & conquer** - split, solve recursively, combine`,
+    },
+    {
+      id: 'whats-next',
+      title: 'What\'s Next?',
+      content: `Recursion gives you a powerful way to think about problems - especially ones that can be broken into smaller versions of themselves.
+
+Now we'll apply that thinking to **Sorting & Searching**. Sorting is the ultimate divide-and-conquer success story. Algorithms like Merge Sort and Quick Sort are textbook examples of recursion in action. And searching - especially binary search - is the O(log n) superpower we hinted at way back in the Big O module.
+
+**Next up: Sorting & Searching**`,
     },
   ],
   problemIds: ['subsets', 'permutations', 'combination-sum', 'generate-parentheses', 'n-queens'],

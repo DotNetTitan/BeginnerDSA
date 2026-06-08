@@ -10,21 +10,39 @@ export const topic: Topic = {
   prerequisites: ['big-o', 'arrays-strings'],
   theory: [
     {
+      id: 'why-linked-lists',
+      title: 'The Array\'s Weakness',
+      content: `Arrays are great at two things: instant access by index (O(1)) and iterating sequentially. But they have a weakness: **inserting or deleting at the beginning costs O(n)** - every element has to shift.
+
+Imagine a line of people at a movie theater. If someone cuts to the front, everyone behind has to take a step back. That's the array's "shift" problem.
+
+Now imagine each person just holds the hand of the person behind them. To insert at the front, you just tell the new person "hold onto the current front person" - nobody moves. That's a linked list.
+
+A **linked list** sacrifices random access (no more arr[42]) for O(1) insertions and deletions anywhere - provided you already have a reference to the right spot.`,
+      table: {
+        headers: ['Operation', 'Array', 'Linked List'],
+        rows: [
+          ['Access by index', 'O(1)', 'O(n)'],
+          ['Insert at beginning', 'O(n)', 'O(1)'],
+          ['Insert at end', 'O(1)*', 'O(n)**'],
+          ['Delete at beginning', 'O(n)', 'O(1)'],
+          ['Search by value', 'O(n)', 'O(n)'],
+        ],
+      },
+    },
+    {
       id: 'linked-list-basics',
       title: 'Linked List Basics',
       component: 'singly-linked-list',
-      content: `A linked list consists of **nodes**, each containing a value and a pointer to the next node (and optionally the previous node).
+      content: `A linked list is made of **nodes**. Each node contains a value and a pointer to the next node. The list is "linked" because each node points to the next one in sequence.
 
-| Operation | Singly Linked | Doubly Linked |
-|---|---|---|
-| Access head | O(1) | O(1) |
-| Access tail | O(n) | O(1) |
-| Access by index | O(n) | O(n) |
-| Insert at head | O(1) | O(1) |
-| Insert at tail | O(n) | O(1) |
-| Delete by value | O(n) | O(n) |
+The first node is called the **head**. The last node points to **null** (nothing).
 
-**When to use:** Frequent insertions/deletions at the beginning, or when size is unknown. Otherwise, prefer arrays/lists.`,
+There are two flavors:
+- **Singly linked** - each node points only to the next node
+- **Doubly linked** - each node also points to the previous node (we'll cover this next)
+
+The key difference from arrays: to find element #5, you can't jump there - you have to start at the head and follow pointers 5 times. That's O(n) access by index.`,
       codeExamples: [
         {
           title: 'Singly linked list node',
@@ -97,6 +115,17 @@ list.addFirst("b");
           },
         },
       ],
+      table: {
+        headers: ['Operation', 'Singly Linked', 'Doubly Linked'],
+        rows: [
+          ['Access head', 'O(1)', 'O(1)'],
+          ['Access tail', 'O(n)', 'O(1)'],
+          ['Access by index', 'O(n)', 'O(n)'],
+          ['Insert at head', 'O(1)', 'O(1)'],
+          ['Insert at tail', 'O(n)', 'O(1)'],
+          ['Delete by value', 'O(n)', 'O(n)'],
+        ],
+      },
     },
     {
       id: 'doubly-linked-lists',
@@ -104,25 +133,17 @@ list.addFirst("b");
       component: 'doubly-linked-list',
       content: `A **doubly linked list** node stores two pointers: \`prv\` (previous) and \`nxt\` (next), allowing traversal in both directions.
 
-**Singly vs Doubly:**
-
-| Feature | Singly | Doubly |
-|---|---|---|
-| Pointers per node | 1 (\`nxt\`) | 2 (\`prv\` + \`nxt\`) |
-| Memory per node | Less | More |
-| Traverse backward | O(n) - must restart from head | O(1) - just follow \`prv\` |
-| Tail access / delete | O(n) - must traverse to find previous | O(1) - tail has \`prv\` pointer |
-| Insert before a node | O(n) - need to find previous | O(1) - node has \`prv\` |
+The trade-off: more memory per node (an extra pointer), but O(1) access to both previous and next nodes.
 
 **When to use doubly:**
-- You need **O(1) tail operations** (delete last, add to end in a raw list)
-- You need **backward traversal** (undo/redo, browser history)
-- You frequently **insert/delete before a known node**
+- You need O(1) tail operations (delete last, add to end)
+- You need backward traversal (undo/redo, browser history)
+- You frequently insert/delete before a known node
 
 **When to stick with singly:**
-- **Memory is constrained** (every \`prv\` pointer adds overhead)
-- You only need **forward-only traversal**
-- The list is **small** (the O(n) cost of traversal is negligible)`,
+- Memory is constrained
+- You only need forward-only traversal
+- The list is small enough that O(n) traversal doesn't matter`,
       codeExamples: [
         {
           title: 'Doubly linked list node',
@@ -210,7 +231,11 @@ ListNode* insertAtHead(ListNode* head, int val) {
       id: 'reversal',
       title: 'Reversing a Linked List',
       component: 'reversal-diagram',
-      content: `Reversal is the most common linked list operation. The key: track three nodes - **prev**, **current**, and **next** - and reverse the pointer direction at each step.`,
+      content: `Reversal is the most common linked list operation - and it's a great exercise in pointer manipulation.
+
+The idea: walk through the list, and for each node, make it point to the **previous** node instead of the **next** node. By the time you reach the end, the list is reversed.
+
+You need to track three nodes: **prev**, **current**, and **next** (so you don't lose the rest of the list when you flip the pointer).`,
       codeExamples: [
         {
           title: 'Iterative reversal',
@@ -289,11 +314,15 @@ ListNode* reverseList(ListNode* head) {
       id: 'fast-slow-pointer',
       title: 'Fast & Slow Pointer',
       component: 'fast-slow-diagram',
-      content: `Two pointers traverse the list at different speeds. The **slow** pointer moves 1 step, the **fast** pointer moves 2 steps.
+      content: `Two pointers traverse the list at different speeds - the **slow** pointer moves 1 step, the **fast** pointer moves 2 steps.
 
-**Find middle node:** When \`fast\` reaches the end, \`slow\` is at the middle. This works because fast moves twice as fast.
+This is useful for:
 
-**Find nth from end:** Move \`fast\` n steps ahead, then advance both until \`fast\` reaches the end. \`slow\` will be at the nth node from the end.`,
+**Find the middle node:** When fast reaches the end, slow is at the middle. (Fast moves twice as fast, so it covers the full distance while slow covers half.)
+
+**Find the nth node from the end:** Move fast n steps ahead, then advance both pointers together. When fast hits the end, slow is at the nth-from-last node.
+
+These patterns work because of the relative speed difference - no extra data structures needed.`,
       codeExamples: [
         {
           title: 'Find middle node',
@@ -350,11 +379,11 @@ ListNode* findMiddle(ListNode* head) {
       id: 'cycle-detection',
       title: 'Cycle Detection (Floyd\'s Algorithm)',
       component: 'cycle-diagram',
-      content: `A **cycle** occurs when a node's \`nxt\` pointer points back to an earlier node instead of \`null\`, creating an infinite loop.
+      content: `A **cycle** happens when a node's \`next\` pointer points back to an earlier node instead of null - creating an infinite loop.
 
-**Floyd's algorithm (tortoise & hare):** Use two pointers. \`slow\` moves 1 step, \`fast\` moves 2 steps. If they meet, a cycle exists.
+**Floyd's algorithm (tortoise & hare):** Use the same fast/slow pointer technique. Slow moves 1 step, fast moves 2 steps. If they ever point to the same node, there's a cycle. If fast reaches the end (null), there isn't.
 
-**Key insight:** In the diagram below, node \`4\` points back to node \`2\` instead of \`null\`. This means \`fast\` will eventually lap around and meet \`slow\` from behind.`,
+The intuition: on a circular track, a faster runner will eventually lap a slower runner. In a straight line, the faster runner just reaches the finish line first.`,
       codeExamples: [
         {
           title: 'Detect cycle (Floyd\'s algorithm)',
@@ -415,25 +444,43 @@ bool hasCycle(ListNode* head) {
     },
     {
       id: 'mistakes',
-      title: 'Common Mistakes / Gotchas',
-      content: `**Losing reference to the head:** If you move your head pointer without saving it first, you lose the entire list. Always keep a separate reference to head, or use a dummy node.
+      title: 'Common Mistakes',
+      content: `**Losing the head of the list**
+If you move your head pointer without saving it first, you lose the entire list. Always keep a separate reference, or use a dummy node.
 
-**Null dereference on .next:** Always check \`node?.next != null\` (or \`node != null && node.next != null\`) before accessing \`node.next.next\`. This is the most common linked list bug.
+**Null dereference on .next**
+Always check that both the node **and** its .next are non-null before accessing .next.next. This is the most common linked list bug.
 
-**Forgetting the "save next" step in reversal:** In iterative reversal: you must save \`curr.next\` before overwriting it. Without \`ListNode next = curr.next\`, you lose the rest of the list.
+**Forgetting to "save next" during reversal**
+In reversal: you must save \`curr.next\` before overwriting it. Without \`ListNode next = curr.next\`, you lose the rest of the list.
 
-**Assuming built-in linked list has O(1) index access:** No - \`list[5]\` on a linked list is O(n). That's why array lists exist.
+**Assuming O(1) index access**
+\`list[5]\` on a linked list is O(n) - you have to walk 5 pointers. Arrays are for random access; linked lists are for sequential access with cheap insertions/deletions.
 
-**Cycle detection without correct initialization:** Floyd's algorithm: start BOTH slow and fast at head. Starting fast at head.next can miss cycles in edge cases.`,
+**Starting fast/slow pointers incorrectly in cycle detection**
+Both pointers should start at head, not head.next. Starting fast at head.next can miss cycles in edge cases.`,
     },
     {
       id: 'common-patterns',
-      title: 'Common Interview Patterns',
+      title: 'Key Patterns to Remember',
       content: `1. **Reverse** - full reversal, reverse between positions, reverse in k-groups
 2. **Merge** - merge two sorted lists, merge k sorted lists
-3. **Fast & slow** - cycle detection, middle, palindrome check
-4. **Dummy head** - create a dummy node before the real head to simplify edge cases (especially with deletions)
-5. **Two lists** - intersection, addition (sum two numbers represented as lists)`,
+3. **Fast & slow** - cycle detection, middle node, palindrome check
+4. **Dummy head** - create a dummy node before the real head to simplify edge cases (especially deletions)
+5. **Two lists** - intersection, addition (sum two numbers as linked lists)`,
+    },
+    {
+      id: 'whats-next',
+      title: 'What\'s Next?',
+      content: `Linked lists introduced you to the idea that data doesn't have to be stored in contiguous memory. Nodes can be anywhere, connected by pointers.
+
+Now we'll look at two structures that build on this idea but add restrictions on how you can interact with them: **Stacks & Queues**.
+
+A stack is like a stack of plates - you can only add or remove from the top (Last In, First Out). A queue is like a line at a store - the first person in line is the first person served (First In, First Out).
+
+These restrictions might seem limiting, but they simplify reasoning about certain problems enormously.
+
+**Next up: Stacks & Queues**`,
     },
   ],
   problemIds: ['reverse-linked-list', 'merge-two-sorted-lists', 'linked-list-cycle', 'remove-nth-from-end', 'palindrome-linked-list'],

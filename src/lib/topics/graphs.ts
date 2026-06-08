@@ -10,6 +10,17 @@ export const topic: Topic = {
   prerequisites: ['big-o', 'arrays-strings', 'stacks-queues', 'trees'],
   theory: [
     {
+      id: 'why-graphs',
+      title: 'Beyond Trees: Arbitrary Connections',
+      content: `In the Trees module, every node had exactly one parent (except the root). That's a **hierarchy** - a strict parent-child relationship.
+
+But what if you need to model something more complex? A social network where anyone can befriend anyone. A road map where intersections connect to many other intersections. A web where pages link to any other page.
+
+That's a **graph**. A graph has **vertices** (nodes) and **edges** (connections) - and there's no restriction on how many connections a node can have, or in what direction.
+
+The key idea: if trees are about **hierarchy**, graphs are about **connectivity**.`,
+    },
+    {
       id: 'graph-representation',
       title: 'Graph Representation',
       content: `A graph consists of **vertices (nodes)** and **edges** connecting them. Graphs can be **directed** or **undirected**, **weighted** or **unweighted**.
@@ -535,7 +546,7 @@ std::vector<int> topologicalSort(int n, std::vector<std::vector<int>>& edges) {
     },
     {
       id: 'mistakes',
-      title: 'Common Mistakes / Gotchas',
+      title: 'Common Mistakes',
       content: `**Forgetting the visited set (infinite loop):** Without tracking visited nodes, BFS/DFS will revisit nodes and loop forever in a cyclic graph. Always initialize a visited set before traversal and check it before enqueuing/exploring.
 
 **Confusing directed and undirected graphs:** In an undirected graph, add both directions: \`graph[u].Add(v)\` AND \`graph[v].Add(u)\`. In a directed graph, only add one direction. Missing this causes wrong answers.
@@ -550,13 +561,24 @@ std::vector<int> topologicalSort(int n, std::vector<std::vector<int>>& edges) {
     },
     {
       id: 'common-patterns',
-      title: 'Common Interview Patterns',
+      title: 'Key Patterns to Remember',
       content: `1. **Number of islands / connected components** - DFS or BFS on grid
 2. **Course schedule / prerequisite order** - topological sort
 3. **Clone graph** - BFS/DFS with hash map to track cloned nodes
 4. **Word ladder** - BFS shortest path on implicit graph
 5. **Detect cycle** - DFS with recursion stack tracking (3-coloring: unvisited, in-stack, done)
 6. **Dijkstra's shortest path** - PriorityQueue for weighted graphs`,
+    },
+    {
+      id: 'whats-next',
+      title: 'What\'s Next?',
+      content: `Graphs are the most flexible data structure - they can model almost anything. But that flexibility comes with a cost: exhaustive search (DFS/BFS) explores all possibilities, which can be exponential.
+
+**Dynamic Programming** is the solution to this problem. When your graph-like exploration has overlapping subproblems (the same state visited via different paths), DP caches results to avoid recomputation.
+
+If recursion is "try everything," DP is "try everything but don't repeat yourself."
+
+**Next up: Dynamic Programming**`,
     },
   ],
   problemIds: ['number-of-islands', 'clone-graph', 'course-schedule', 'rotting-oranges', 'word-ladder'],
