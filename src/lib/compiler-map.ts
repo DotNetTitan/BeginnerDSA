@@ -17,10 +17,6 @@ export function getCompilerId(language: Language): string {
   return COMPILER_IDS[language];
 }
 
-export function isLanguageSupported(_language: Language): true | string {
-  return true;
-}
-
 interface MethodSignature {
   methodName: string;
   params: { type: string; name: string }[];
@@ -49,7 +45,6 @@ function parseSignature(code: string): MethodSignature | null {
   );
   if (!sigMatch) return null;
 
-  const returnType = sigMatch[1].trim();
   const methodName = sigMatch[2];
   const paramsStr = sigMatch[3].trim();
 
@@ -66,34 +61,6 @@ function parseSignature(code: string): MethodSignature | null {
   }
 
   return { methodName, params };
-}
-
-function isSimpleType(t: string): boolean {
-  return ['int', 'bool', 'string', 'long', 'double', 'float', 'char'].includes(t);
-}
-
-function isIntArray(t: string): boolean {
-  return t === 'int[]';
-}
-
-function isVoid(t: string): boolean {
-  return t === 'void';
-}
-
-function isStringArray(t: string): boolean {
-  return t === 'string[]';
-}
-
-function is2DIntArray(t: string): boolean {
-  return t === 'int[][]';
-}
-
-function is2DCharArray(t: string): boolean {
-  return t === 'char[][]';
-}
-
-function isGenericList(t: string): boolean {
-  return t.startsWith('IList<') || t.startsWith('IList<');
 }
 
 function csharpArgExpr(value: string, type: string): string {

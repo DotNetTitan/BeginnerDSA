@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getCompilerId, extractTestResults } from '@/lib/compiler-map';
+import { getCompilerId, extractTestResults, type Language } from '@/lib/compiler-map';
 
 const API_URL = 'https://api.onlinecompiler.io/api/run-code-sync/';
 
@@ -24,7 +24,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Code exceeds maximum length (100KB)' }, { status: 400 });
   }
 
-  const compiler = getCompilerId(body.language as any);
+  const compiler = getCompilerId(body.language as Language);
   if (!compiler) {
     return NextResponse.json({ error: `Unsupported language: ${body.language}` }, { status: 400 });
   }

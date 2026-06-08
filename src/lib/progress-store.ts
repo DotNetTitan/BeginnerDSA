@@ -198,7 +198,7 @@ export function toggleAllUnlocked(): boolean {
   return next;
 }
 
-export function getStats(): {
+export function getStats(forceUnlocked?: boolean): {
   totalTopics: number;
   completedTopics: number;
   totalProblems: number;
@@ -218,7 +218,7 @@ export function getStats(): {
     if (tp) {
       if (tp.solvedProblems) solvedProblems += tp.solvedProblems.length;
       const topic = topics.find(t => t.id === id);
-      if (topic && getTopicStatus(topic, progress, topics) === 'completed') {
+      if (topic && getTopicStatus(topic, progress, topics, forceUnlocked) === 'completed') {
         completedTopics++;
       }
     }

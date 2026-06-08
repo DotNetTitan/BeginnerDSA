@@ -7,14 +7,14 @@ import { Button, buttonVariants } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from '@/components/ui/dialog';
 import { topics } from '@/lib/topics';
 import TopicIcon from '@/components/ui/TopicIcon';
-import { getStats, getRecentActivity, resetProgress, getProgress } from '@/lib/progress-store';
+import { getStats, getRecentActivity, resetProgress, getProgress, isAllUnlocked } from '@/lib/progress-store';
 import { BookOpen, Code2, RotateCcw, Trophy, GraduationCap, CheckCircle2 } from 'lucide-react';
 
 export default function ProgressContent() {
   const mounted = useSyncExternalStore(() => () => {}, () => true, () => false);
   const [refresh, setRefresh] = useState(0);
   const [resetOpen, setResetOpen] = useState(false);
-  const stats = useMemo(() => { void refresh; return getStats(); }, [refresh]);
+  const stats = useMemo(() => { void refresh; return getStats(isAllUnlocked()); }, [refresh]);
   const activity = useMemo(() => { void refresh; return getRecentActivity(10); }, [refresh]);
   const topicProgress = useMemo(() => {
     void refresh; const p = getProgress();

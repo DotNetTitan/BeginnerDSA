@@ -107,19 +107,6 @@ function extractStarter(code: string, language: string): string {
 
 export default function CodeEditor({ starterCode, solutionCode, examples }: CodeEditorProps) {
   const { language } = useLanguage();
-  const [code, setCode] = useState(() => {
-    if (starterCode?.[language]) return starterCode[language];
-    if (solutionCode[language]) return extractStarter(solutionCode[language], language);
-    return '';
-  });
-
-  useEffect(() => {
-    if (starterCode?.[language]) { setCode(starterCode[language]); }
-    else if (solutionCode[language]) { setCode(extractStarter(solutionCode[language], language)); }
-    else { setCode(''); }
-    setRunPassed(false);
-  }, [language, starterCode, solutionCode]);
-
   const [runningMode, setRunningMode] = useState<'run' | 'tests' | null>(null);
   const [rawOutput, setRawOutput] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -129,6 +116,20 @@ export default function CodeEditor({ starterCode, solutionCode, examples }: Code
   const [expanded, setExpanded] = useState(true);
   const [testResults, setTestResults] = useState<{ index: number; passed: boolean; expected: string; actual: string }[] | null>(null);
   const [runPassed, setRunPassed] = useState(false);
+  const [code, setCode] = useState(() => {
+    if (starterCode?.[language]) return starterCode[language];
+    if (solutionCode[language]) return extractStarter(solutionCode[language], language);
+    return '';
+  });
+
+  useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect */
+    if (starterCode?.[language]) { setCode(starterCode[language]); }
+    else if (solutionCode[language]) { setCode(extractStarter(solutionCode[language], language)); }
+    else { setCode(''); }
+    setRunPassed(false);
+    /* eslint-enable react-hooks/set-state-in-effect */
+  }, [language, starterCode, solutionCode]);
 
   const [highlightedHtml, setHighlightedHtml] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -226,7 +227,7 @@ export default function CodeEditor({ starterCode, solutionCode, examples }: Code
     } finally {
       setRunningMode(null);
     }
-  }, [code, language, testableExamples]);
+  }, [code, language, testableExamples, setRunPassed]);
 
   const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Tab') {
