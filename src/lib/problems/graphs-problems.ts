@@ -179,6 +179,17 @@ public Node CloneGraph(Node node) {
     // TODO: implement your solution here
     return null;
 }`,
+      typescript: `class Node {
+    constructor(val, neighbors = []) {
+        this.val = val;
+        this.neighbors = neighbors;
+    }
+}
+
+function cloneGraph(node) {
+    // TODO: implement your solution here
+    return null;
+}`,
     },
     solution: {
       csharp: `public class Node {
@@ -248,7 +259,14 @@ private Node clone(Node n, Map<Node, Node> map) {
         copy.neighbors.add(clone(neighbor, map));
     return copy;
 }`,
-      typescript: `function cloneGraph(node) {
+      typescript: `class Node {
+    constructor(val, neighbors = []) {
+        this.val = val;
+        this.neighbors = neighbors;
+    }
+}
+
+function cloneGraph(node) {
     if (node === null) return null;
     const map = new Map();
     function dfs(n) {

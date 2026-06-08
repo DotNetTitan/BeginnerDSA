@@ -45,4 +45,26 @@ The same `buildGraph`/`graphToJson` pattern exists for Python via `PYTHON_GRAPH_
 Python detection uses `needsGraphCode(code)` which checks for `class Node` + `def` in the code. The Python `parseSignature` also handles the case where `class Node:` is the first line (not a `def`) by scanning all lines from the bottom for the last top-level `def`.
 
 `PYTHON_GRAPH_HELPERS` does NOT include `import json` (it's already in the wrapper header). The Python Run and Run Tests flows both use `build_graph(args)` for param construction and `graph_to_json(result)` for result serialization with compact `json.dumps(..., separators=(",", ":"))`.
+
+# C# graph helpers (src/lib/compiler-map.ts)
+
+Same pattern via `CSHARP_GRAPH_HELPERS`:
+
+- **`BuildGraph(json)`**: Parses adjacency list JSON string into `Node` objects using manual string parsing.
+- **`GraphToJson(node)`**: Serializes a `Node` graph back to compact JSON string using BFS with `HashSet<Node>` and `Queue<Node>`.
+
+C# detection uses `needsGraphCode(code)` (same `class Node` + `neighbors` check). `generateRunCSharp` and `generateCSharpWrapper` inject helpers and use `BuildGraph`/`GraphToJson` when graph code is detected.
+
+# TypeScript graph helpers (src/lib/compiler-map.ts)
+
+Same pattern via `TYPESCRIPT_GRAPH_HELPERS`:
+
+- **`buildGraph(json)`**: Parses JSON string into `Node` objects using `JSON.parse`. Nodes are 1-indexed by position.
+- **`graphToJson(node)`**: Serializes a `Node` graph back to compact JSON string using BFS with `Set` and array-based queue.
+
+TypeScript detection uses `needsGraphCode(userCode)`. `generateRunTypescript` injects helpers and wraps args with `buildGraph`. `generateTypescriptWrapper` maps test args through `buildGraph` and serializes results with `graphToJson`. `parseSignature` prefers the first `function`-return-type match (outermost function) over inner/nested ones.
+
+# parseSignature `function` keyword filter
+
+The `parseSignature` regex also matches JavaScript/TypeScript function declarations (`function name(params)`). Matches with `function` as group 1 (the "return type") are collected separately, and the **first** such match is used as the entry point (innermost function is typically the entry). Non-`function` matches (C++/Java/C# methods) continue to use `.pop()` (last match). This prevents inner functions like `function dfs(n)` inside `cloneGraph` from being picked as the entry point.
 <!-- END:parseSignature-regex -->

@@ -61,8 +61,13 @@ function parseSignature(code: string): MethodSignature | null {
   const allMatches = [...code.matchAll(
     /(?:public\s+|private\s+|protected\s+)?([^\s;(:{]+(?:\s*<[^>]+>)?(?:\[\])?)\s+(\w+)\s*\(([^)]*)\)(?!\s*;)/g
   )];
-  const filteredMatches = allMatches.filter(m => !/^\s*(private|protected)\s/.test(m[0]));
-  const sigMatch = (filteredMatches.length > 0 ? filteredMatches : allMatches).pop();
+  const filteredMatches = allMatches.filter(m => {
+    if (/^\s*(private|protected)\s/.test(m[0])) return false;
+    return true;
+  });
+  // For TypeScript/JS, prefer the first top-level function (not an inner/nested one)
+  const tsMatches = filteredMatches.filter(m => m[1].trim() === 'function');
+  const sigMatch = tsMatches.length > 0 ? tsMatches[0] : (filteredMatches.length > 0 ? filteredMatches : allMatches).pop();
   if (!sigMatch) return null;
 
   const returnType = sigMatch[1].trim();
@@ -454,12 +459,15 @@ ${testCode.join('\n')}
 function generateTypescriptWrapper(userCode: string, testCases: TestCase[]): string {
   const sig = parseSignature(userCode);
   const methodName = sig?.methodName ?? 'solve';
+  const usesGraph = testCases.length > 0 && needsGraphCode(userCode);
 
   const testCasesJson = testCases.map(tc =>
     `    { args: ${JSON.stringify(tc.args)}, expected: ${JSON.stringify(tc.expected)} }`
   ).join(',\n');
 
-  return `${userCode.trimEnd()}
+  const helpers = usesGraph ? '\n' + TYPESCRIPT_GRAPH_HELPERS.trimEnd() + '\n' : '';
+
+  return `${userCode.trimEnd()}${helpers}
 
 async function main() {
     const testCases = [
@@ -473,8 +481,9 @@ ${testCasesJson}
         const tc = testCases[i];
         try {
             const parsed = tc.args.map(a => JSON.parse(a));
-            const actual = ${methodName}(...parsed);
-            const actualStr = JSON.stringify(actual);
+            const actual = ${usesGraph ? 'tc.args.map(a => buildGraph(a))' : 'parsed'};
+            const result = ${methodName}(${usesGraph ? '...actual' : '...parsed'});
+            const actualStr = ${usesGraph ? 'graphToJson(result)' : 'JSON.stringify(result)'};
             const expectedStr = JSON.stringify(JSON.parse(tc.expected));
             const passed = actualStr === expectedStr;
             results.push({ index: i + 1, passed, expected: tc.expected, actual: actualStr });
@@ -642,10 +651,18 @@ ${userCode.trimEnd().split('\n').map(line => '    ' + line).join('\n')}${helpers
 function generateRunTypescript(userCode: string, runArgs: string[]): string {
   const sig = parseSignature(userCode);
   const methodName = sig?.methodName ?? 'solve';
+  const usesGraph = runArgs.length > 0 && needsGraphCode(userCode);
 
-  const argStr = runArgs.join(', ');
+  let argStr: string;
+  if (usesGraph) {
+    argStr = runArgs.map(a => `buildGraph(${JSON.stringify(a)})`).join(', ');
+  } else {
+    argStr = runArgs.join(', ');
+  }
 
-  return `${userCode.trimEnd().replace(/\n$/, '')}
+  const helpers = usesGraph ? '\n' + TYPESCRIPT_GRAPH_HELPERS.trimEnd() + '\n' : '';
+
+  return `${userCode.trimEnd().replace(/\n$/, '')}${helpers}
 
 async function main() {
     try {
@@ -975,6 +992,47 @@ const CSHARP_GRAPH_HELPERS = `
         _res.Append("]");
         return _res.ToString();
     }
+`;
+
+const TYPESCRIPT_GRAPH_HELPERS = `
+function buildGraph(json) {
+    var adj = JSON.parse(json);
+    if (!adj || adj.length === 0) return null;
+    var nodes = adj.map(function(_, i) { return new Node(i + 1); });
+    for (var i = 0; i < adj.length; i++)
+        for (var j = 0; j < adj[i].length; j++) {
+            var nb = adj[i][j];
+            if (nb >= 1 && nb <= nodes.length)
+                nodes[i].neighbors.push(nodes[nb - 1]);
+        }
+    return nodes[0];
+}
+
+function graphToJson(node) {
+    if (!node) return "[]";
+    var seen = new Set();
+    var q = [node];
+    seen.add(node);
+    var allNodes = [];
+    while (q.length > 0) {
+        var cur = q.shift();
+        allNodes.push(cur);
+        for (var k = 0; k < cur.neighbors.length; k++) {
+            var nb = cur.neighbors[k];
+            if (!seen.has(nb)) {
+                seen.add(nb);
+                q.push(nb);
+            }
+        }
+    }
+    allNodes.sort(function(a, b) { return a.val - b.val; });
+    var parts = [];
+    for (var i = 0; i < allNodes.length; i++) {
+        var nbs = allNodes[i].neighbors.map(function(nb) { return nb.val; }).sort(function(a, b) { return a - b; });
+        parts.push("[" + nbs.join(",") + "]");
+    }
+    return "[" + parts.join(",") + "]";
+}
 `;
 
 function needsGraphCode(code: string): boolean {
