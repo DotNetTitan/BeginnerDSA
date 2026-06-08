@@ -20,7 +20,7 @@
 Zero To DSA guides learners through 11 fundamental DSA topics with:
 
 - **Theory-first approach** - Each topic begins with clear, example-driven content explaining the core concepts and patterns.
-- **Multi-language code examples** - Solutions in C#, Python, Java, JavaScript, and C++ so you can learn in the language you're most comfortable with.
+- **Multi-language code examples** - Solutions in C#, Python, Java, TypeScript, and C++ so you can learn in the language you're most comfortable with.
 - **Interactive visualizations** - Step-through animations for arrays, sorting, trees, graphs, recursion, and DP tables.
 - **Practice problems** - 52 curated problems with coded solutions in all supported languages.
 - **Progress tracking** - Per-topic and per-problem status persisted in LocalStorage, with a dependency-aware learning path that unlocks topics as you complete prerequisites.
@@ -32,11 +32,11 @@ Zero To DSA guides learners through 11 fundamental DSA topics with:
 |---|---|
 | **Theory modules** | 11 topics with content, complexity tables, and multi-language code tabs |
 | **Visualizations** | Step-through animations for sorting, trees, graphs, DP, recursion |
-| **Practice problems** | 52 problems across all topics with solution panels |
+| **Practice problems** | 52 problems across all topics with solution panels and built-in code editor |
 | **Topic exams** | MCQ exams per topic - pass to mark the module complete |
 | **Progress dashboard** | `/progress` route with per-topic breakdown, stats, and activity log |
 | **Dependency graph** | Topics unlock automatically when prerequisites are completed |
-| **Multi-language** | Code in C#, Python, Java, JavaScript, and C++ with persistent language selector |
+| **Multi-language** | Code in C#, Python, Java, TypeScript, and C++ with persistent language selector |
 | **Bug reporting** | Integrated form with Turnstile spam protection, creates GitHub issues server-side |
 | **Responsive design** | Full mobile support via Tailwind CSS and shadcn/ui components |
 | **Dark mode** | Theme toggle with system preference detection |
@@ -127,7 +127,7 @@ src/
 │   └── report-bug/         # Bug report form
 ├── components/
 │   ├── bug-report/         # Bug report form with Turnstile
-│   ├── editor/             # Code renderer (Shiki)
+│   ├── editor/             # Code editor with live execution
 │   ├── exam/               # Exam question components
 │   ├── home/               # Home page topic grid
 │   ├── layout/             # Navbar, mobile nav, language selector
