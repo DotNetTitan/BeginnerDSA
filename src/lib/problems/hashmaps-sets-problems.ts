@@ -8,9 +8,9 @@ export const problems: Problem[] = [
     difficulty: 'easy',
     description: `Given an array of integers \`nums\` and an integer \`target\`, return indices of the two numbers that add up to \`target\`. Use O(n) time with a hash map.`,
     examples: [
-      { input: 'nums = [2,7,11,15], target = 9', output: '[0, 1]' },
-      { input: 'nums = [3,2,4], target = 6', output: '[1, 2]' },
-      { input: 'nums = [3,3], target = 6', output: '[0, 1]' },
+      { input: 'nums = [2,7,11,15], target = 9', output: '[0,1]' },
+      { input: 'nums = [3,2,4], target = 6', output: '[1,2]' },
+      { input: 'nums = [3,3], target = 6', output: '[0,1]' },
     ],
     constraints: ['2 <= nums.length <= 10^4', 'Exactly one valid answer exists.'],
     hints: ['Use Dictionary<int, int> to store value -> index.', 'For each element, check if target - nums[i] exists in the map.'],
@@ -80,7 +80,7 @@ std::vector<int> twoSum(const std::vector<int>& nums, int target) {
     difficulty: 'medium',
     description: `Given an array of strings \`strs\`, group the anagrams together. An anagram is a word formed by rearranging the letters of another.`,
     examples: [
-      { input: 'strs = ["eat","tea","tan","ate","nat","bat"]', output: '[["bat"],["nat","tan"],["ate","eat","tea"]]' },
+      { input: 'strs = ["eat","tea","tan","ate","nat","bat"]', output: '[["eat","tea","ate"],["tan","nat"],["bat"]]' },
       { input: 'strs = [""]', output: '[[""]]' },
     ],
     constraints: ['1 <= strs.length <= 10^4', '0 <= strs[i].length <= 100'],
