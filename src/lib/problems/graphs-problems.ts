@@ -13,6 +13,12 @@ export const problems: Problem[] = [
     ],
     constraints: ['m, n <= 300'],
     hints: ['Use DFS or BFS to traverse each island.', 'Mark visited cells as "0" to avoid revisiting.'],
+    code: {
+      cpp: `int numIslands(std::vector<std::vector<char>>& grid) {
+    // TODO: implement your solution here
+    return 0;
+}`,
+    },
     solution: {
       csharp: `public int NumIslands(char[][] grid) {
     int count = 0;
