@@ -31,16 +31,13 @@ export const problems: Problem[] = [
 }`,
       python: `def subsets(nums):
     result = []
-    current = []
-
-    def backtrack(start):
-        result.append(current[:])
-        for i in range(start, len(nums)):
-            current.append(nums[i])
-            backtrack(i + 1)
-            current.pop()
-
-    backtrack(0)
+    n = len(nums)
+    for mask in range(1 << n):
+        subset = []
+        for i in range(n):
+            if mask & (1 << i):
+                subset.append(nums[i])
+        result.append(subset)
     return result
 `,
       java: `public List<List<Integer>> subsets(int[] nums) {
