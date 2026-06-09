@@ -23,7 +23,7 @@ interface MethodSignature {
   params: { type: string; name: string }[];
 }
 
-function parseSignature(code: string): MethodSignature | null {
+export function parseSignature(code: string): MethodSignature | null {
   const lines = code.trim().split('\n');
   const firstLine = lines[0].trim();
 
@@ -323,6 +323,8 @@ function generatePythonWrapper(userCode: string, testCases: TestCase[]): string 
   const methodName = sig?.methodName ?? 'solve';
   const hasClass = userCode.includes('class Solution');
   const usesGraph = testCases.length > 0 && needsGraphCode(userCode);
+  const usesListNode = testCases.length > 0 && needsListNodeCode(userCode);
+  const usesTreeNode = testCases.length > 0 && needsTreeNodeCode(userCode);
 
   const testCasesJson = testCases.map(tc =>
     `        {"args": ${JSON.stringify(tc.args)}, "expected": ${JSON.stringify(tc.expected)}}`
@@ -339,6 +341,30 @@ function generatePythonWrapper(userCode: string, testCases: TestCase[]): string 
             expected_obj = json.loads(tc["expected"])
             expected_str = json.dumps(expected_obj, separators=(",", ":"))
             passed = actual_str == expected_str`;
+  } else if (usesListNode) {
+    callExpr = hasClass
+      ? `s.${methodName}(*[build_list(a) for a in tc["args"] if a.startswith('[')])`
+      : `${methodName}(*[build_list(a) for a in tc["args"] if a.startswith('[')])`;
+    comparisonCode = `
+            if isinstance(actual, ListNode):
+                actual_str = list_to_json(actual)
+            elif actual is None:
+                actual_str = json.dumps(parsed_args[0], separators=(",", ":"))
+            else:
+                actual_str = json.dumps(actual, separators=(",", ":")) if not isinstance(actual, str) else actual
+            passed = actual_str == tc["expected"]`;
+  } else if (usesTreeNode) {
+    callExpr = hasClass
+      ? `s.${methodName}(*[build_tree(a) for a in tc["args"] if a.startswith('[')])`
+      : `${methodName}(*[build_tree(a) for a in tc["args"] if a.startswith('[')])`;
+    comparisonCode = `
+            if isinstance(actual, TreeNode):
+                actual_str = tree_to_json(actual)
+            elif actual is None:
+                actual_str = json.dumps(parsed_args[0], separators=(",", ":"))
+            else:
+                actual_str = json.dumps(actual, separators=(",", ":")) if not isinstance(actual, str) else actual
+            passed = actual_str == tc["expected"]`;
   } else {
     callExpr = hasClass ? `s.${methodName}(*parsed_args)` : `${methodName}(*parsed_args)`;
     comparisonCode = `
@@ -350,7 +376,10 @@ function generatePythonWrapper(userCode: string, testCases: TestCase[]): string 
   }
   const instanceLine = hasClass ? '    s = Solution()' : '';
 
-  const helpers = usesGraph ? '\n' + PYTHON_GRAPH_HELPERS.trimEnd() + '\n' : '';
+  const helpers = usesGraph ? '\n' + PYTHON_GRAPH_HELPERS.trimEnd() + '\n'
+    : usesListNode ? '\n' + PYTHON_LISTNODE_HELPERS.trimEnd() + '\n'
+    : usesTreeNode ? '\n' + PYTHON_TREENODE_HELPERS.trimEnd() + '\n'
+    : '';
 
   return `import sys
 import json
@@ -597,17 +626,26 @@ function generateRunPython(userCode: string, runArgs: string[]): string {
   const methodName = sig?.methodName ?? 'solve';
   const hasClass = userCode.includes('class Solution');
   const usesGraph = runArgs.length > 0 && needsGraphCode(userCode);
+  const usesListNode = runArgs.length > 0 && needsListNodeCode(userCode);
+  const usesTreeNode = runArgs.length > 0 && needsTreeNodeCode(userCode);
 
   let argStr: string;
   if (usesGraph) {
-    argStr = runArgs.map(a => `build_graph(${JSON.stringify(a)})`).join(', ');
+    argStr = runArgs.filter(a => a.startsWith('[')).map(a => `build_graph(${JSON.stringify(a)})`).join(', ');
+  } else if (usesListNode) {
+    argStr = runArgs.filter(a => a.startsWith('[')).map(a => `build_list(${JSON.stringify(a)})`).join(', ');
+  } else if (usesTreeNode) {
+    argStr = runArgs.filter(a => a.startsWith('[')).map(a => `build_tree(${JSON.stringify(a)})`).join(', ');
   } else {
     argStr = runArgs.join(', ');
   }
   const setupLine = hasClass ? '        s = Solution()' : '';
   const callExpr = hasClass ? `s.${methodName}(${argStr})` : `${methodName}(${argStr})`;
 
-  const helpers = usesGraph ? '\n' + PYTHON_GRAPH_HELPERS.trimEnd() + '\n' : '';
+  const helpers = usesGraph ? '\n' + PYTHON_GRAPH_HELPERS.trimEnd() + '\n'
+    : usesListNode ? '\n' + PYTHON_LISTNODE_HELPERS.trimEnd() + '\n'
+    : usesTreeNode ? '\n' + PYTHON_TREENODE_HELPERS.trimEnd() + '\n'
+    : '';
 
   return `import sys
 import json
@@ -880,6 +918,80 @@ def graph_to_json(node):
     return json.dumps(result, separators=(",", ":"))
 `;
 
+const PYTHON_LISTNODE_HELPERS = `
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def build_list(json_str):
+    arr = json.loads(json_str)
+    if not arr:
+        return None
+    dummy = ListNode()
+    curr = dummy
+    for val in arr:
+        curr.next = ListNode(val)
+        curr = curr.next
+    return dummy.next
+
+def list_to_json(node):
+    result = []
+    while node:
+        result.append(node.val)
+        node = node.next
+    return json.dumps(result, separators=(",", ":"))
+`;
+
+const PYTHON_TREENODE_HELPERS = `
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def build_tree(json_str):
+    arr = json.loads(json_str)
+    if not arr:
+        return None
+    root = TreeNode(arr[0])
+    q = [root]
+    i = 1
+    while q and i < len(arr):
+        node = q.pop(0)
+        if node is not None:
+            if i < len(arr) and arr[i] is not None:
+                node.left = TreeNode(arr[i])
+                q.append(node.left)
+            else:
+                q.append(None)
+            i += 1
+            if i < len(arr) and arr[i] is not None:
+                node.right = TreeNode(arr[i])
+                q.append(node.right)
+            else:
+                q.append(None)
+            i += 1
+    return root
+
+def tree_to_json(root):
+    if root is None:
+        return "[]"
+    result = []
+    q = [root]
+    while q:
+        node = q.pop(0)
+        if node is None:
+            result.append(None)
+        else:
+            result.append(node.val)
+            q.append(node.left)
+            q.append(node.right)
+    while result and result[-1] is None:
+        result.pop()
+    return json.dumps(result, separators=(",", ":"))
+`;
+
 const JAVA_GRAPH_HELPERS = `
     static Node buildGraph(String json) {
         if (json.equals("[]") || json.length() < 2) return null;
@@ -1055,6 +1167,14 @@ function needsGraphCode(code: string): boolean {
   return code.includes('class Node') && code.includes('neighbors');
 }
 
+function needsListNodeCode(code: string): boolean {
+  return /\bListNode\b/.test(code) || /\.next\b/.test(code);
+}
+
+function needsTreeNodeCode(code: string): boolean {
+  return /\bTreeNode\b/.test(code) || (/\.left\b/.test(code) && /\.right\b/.test(code));
+}
+
 function isPointerType(type: string): boolean {
   const t = type.trim();
   if (t.endsWith('*') && t !== 'int*' && t !== 'char*' && t !== 'byte*' && t !== 'long*') return true;
@@ -1156,7 +1276,11 @@ string _fmt(const vector<T>& v) {
 
 export function canAutoGenerateTests(code: string, language: Language): boolean {
   const sig = parseSignature(code);
-  if (language === 'python' || language === 'typescript') {
+  if (language === 'python') {
+    if (sig && sig.params.some(p => isPointerType(p.type))) return false;
+    return true;
+  }
+  if (language === 'typescript') {
     if (sig && sig.params.some(p => isPointerType(p.type))) return false;
     if (/\b(ListNode|TreeNode)\b/.test(code)) return false;
     if (/\.next\b/.test(code)) return false;

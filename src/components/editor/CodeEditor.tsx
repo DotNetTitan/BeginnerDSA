@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect, useRef, useMemo, type KeyboardEvent } from 'react';
 import { useLanguage } from '@/lib/language-context';
-import { generateWrapper, parseExampleInput, canAutoGenerateTests } from '@/lib/compiler-map';
+import { generateWrapper, parseExampleInput, parseSignature, canAutoGenerateTests } from '@/lib/compiler-map';
 import { Loader2, Play, Terminal, Clock, MemoryStick as Memory, ChevronDown, ChevronRight, Check, X, FileCheck } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -143,7 +143,15 @@ export default function CodeEditor({ starterCode, solutionCode, examples }: Code
   const preRef = useRef<HTMLPreElement>(null);
 
   const testableExamples = examples.filter(e => e.output != null);
-  const canTest = useMemo(() => canAutoGenerateTests(code, language), [code, language]);
+  const canTest = useMemo(() => {
+    if (!canAutoGenerateTests(code, language)) return false;
+    const sig = parseSignature(code);
+    if (sig && testableExamples.length > 0) {
+      const parsedArgs = parseExampleInput(testableExamples[0].input);
+      if (parsedArgs.length !== sig.params.length) return false;
+    }
+    return true;
+  }, [code, language, testableExamples]);
 
   useEffect(() => {
     const timer = setTimeout(async () => {
