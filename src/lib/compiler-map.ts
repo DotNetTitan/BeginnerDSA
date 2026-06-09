@@ -59,7 +59,7 @@ function parseSignature(code: string): MethodSignature | null {
   }
 
   const allMatches = [...code.matchAll(
-    /(?:public\s+|private\s+|protected\s+)?([^\s;(:{]+(?:\s*<[^>]+>)?(?:\[\])?)\s+(?!(?:if|for|while|switch|catch|return|new|delete)\b)(\w+)\s*\(([^)]*)\)(?!\s*;)/g
+    /(?:public\s+|private\s+|protected\s+)?([^\s;(:{]+(?:\s*<[^>]+>)?(?:\[\])?)\s+(?!(?:if|for|while|switch|catch|return|new|delete|foreach)\b)(\w+)\s*\(([^)]*)\)(?!\s*;)/g
   )];
   const filteredMatches = allMatches.filter(m => {
     if (/^\s*(private|protected)\s/.test(m[0])) return false;
@@ -342,7 +342,10 @@ function generatePythonWrapper(userCode: string, testCases: TestCase[]): string 
   } else {
     callExpr = hasClass ? `s.${methodName}(*parsed_args)` : `${methodName}(*parsed_args)`;
     comparisonCode = `
-            actual_str = json.dumps(actual) if not isinstance(actual, str) else actual
+            if actual is None:
+                actual_str = json.dumps(parsed_args[0], separators=(",", ":"))
+            else:
+                actual_str = json.dumps(actual, separators=(",", ":")) if not isinstance(actual, str) else actual
             passed = actual_str == tc["expected"]`;
   }
   const instanceLine = hasClass ? '    s = Solution()' : '';
