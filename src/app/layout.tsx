@@ -6,7 +6,7 @@ import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   title: "Zero To DSA",
-  description: "Learn DSA from zero. Structured modules and practice problems for absolute beginners.",
+  description: "Learn Data Structures & Algorithms from zero. Structured modules and practice problems for absolute beginners.",
   metadataBase: new URL("https://zerotodsa.com"),
   icons: {
     icon: [
