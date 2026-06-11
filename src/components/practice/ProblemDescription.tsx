@@ -15,9 +15,9 @@ export default function ProblemDescription({
   return (
     <div>
       <p
-        className="text-sm leading-relaxed"
+        className="text-sm sm:text-base leading-relaxed"
         dangerouslySetInnerHTML={{
-          __html: description.replace(/`([^`]+)`/g, '<code class="text-xs bg-muted px-1 py-0.5 rounded font-mono">$1</code>'),
+          __html: description.replace(/`([^`]+)`/g, '<code class="text-xs sm:text-sm bg-muted px-1 py-0.5 rounded font-mono">$1</code>'),
         }}
       />
       {code && (

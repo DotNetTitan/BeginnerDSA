@@ -149,7 +149,7 @@ export default function ExamPage({ topicId, topicTitle }: Props) {
         <div className="flex items-center gap-3 mb-6">
           <GraduationCap className="h-6 w-6 text-primary" />
           <div>
-            <h1 className="text-2xl font-bold">Module Exam</h1>
+            <h1 className="text-xl sm:text-2xl font-bold">Module Exam</h1>
             <p className="text-sm text-muted-foreground">{topicTitle}</p>
           </div>
         </div>
@@ -221,7 +221,7 @@ export default function ExamPage({ topicId, topicTitle }: Props) {
             </div>
 
             <div className="border rounded-lg p-6 mb-4">
-              <h3 className="text-lg font-semibold mb-4">{questions[currentQ].question}</h3>
+              <h3 className="text-base sm:text-lg font-semibold mb-4">{questions[currentQ].question}</h3>
               <div className="space-y-2">
                 {questions[currentQ].options.map((option, idx) => {
                   const revealed = showResult[questions[currentQ].id];

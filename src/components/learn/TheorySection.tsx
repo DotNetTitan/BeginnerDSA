@@ -14,7 +14,7 @@ export default function TheorySection({ section }: { section: TheorySectionType 
 
   return (
     <section id={section.id} className="animate-fade-in">
-      <h2 className="text-xl font-semibold mb-3">{section.title}</h2>
+      <h2 className="text-lg sm:text-xl font-semibold mb-3">{section.title}</h2>
 
       <div className="prose prose-sm dark:prose-invert max-w-none mb-4">
         <ReactMarkdown
@@ -31,7 +31,7 @@ export default function TheorySection({ section }: { section: TheorySectionType 
 
               return (
                 <code
-                  className="text-xs bg-muted px-1 py-0.5 rounded font-mono"
+                  className="text-sm bg-muted px-1 py-0.5 rounded font-mono"
                   {...props}
                 >
                   {children}
@@ -39,9 +39,9 @@ export default function TheorySection({ section }: { section: TheorySectionType 
               );
             },
             pre: ({ children }) => <>{children}</>,
-            p: ({ children }) => <p className="text-sm leading-relaxed text-foreground/80 mb-3 last:mb-0">{children}</p>,
-            ul: ({ children }) => <ul className="text-sm text-foreground/80 space-y-1 list-disc pl-5 mb-3">{children}</ul>,
-            ol: ({ children }) => <ol className="text-sm text-foreground/80 space-y-1 list-decimal pl-5 mb-3">{children}</ol>,
+            p: ({ children }) => <p className="text-sm sm:text-base leading-relaxed text-foreground/80 mb-3 last:mb-0">{children}</p>,
+            ul: ({ children }) => <ul className="text-sm sm:text-base text-foreground/80 space-y-2 list-disc pl-5 mb-3">{children}</ul>,
+            ol: ({ children }) => <ol className="text-sm sm:text-base text-foreground/80 space-y-2 list-decimal pl-5 mb-3">{children}</ol>,
             li: ({ children }) => <li className="leading-relaxed">{children}</li>,
             h3: ({ children }) => <h3 className="text-base font-semibold mt-4 mb-2">{children}</h3>,
             table: ({ children }) => (
@@ -50,16 +50,16 @@ export default function TheorySection({ section }: { section: TheorySectionType 
               </div>
             ),
             thead: ({ children }) => <thead className="bg-muted/50">{children}</thead>,
-            th: ({ children }) => <th className="px-3 py-2 text-left font-semibold text-xs">{children}</th>,
+            th: ({ children }) => <th className="px-3 py-2 text-left font-semibold text-sm">{children}</th>,
             td: ({ children }) => {
               const text = typeof children === 'string' ? children : undefined;
               if (text?.startsWith('✓ ')) {
-                return <td className="px-3 py-2 border-t text-xs"><span className="inline-flex items-center gap-1"><CheckCircle2 className="w-3.5 h-3.5 text-green-600" /><span className="font-mono">{text.slice(2)}</span></span></td>;
+                return <td className="px-3 py-2 border-t text-sm"><span className="inline-flex items-center gap-1"><CheckCircle2 className="w-3.5 h-3.5 text-green-600" /><span className="font-mono">{text.slice(2)}</span></span></td>;
               }
               if (text?.startsWith('✗ ')) {
-                return <td className="px-3 py-2 border-t text-xs"><span className="inline-flex items-center gap-1"><XCircle className="w-3.5 h-3.5 text-red-600" /><span className="font-mono">{text.slice(2)}</span></span></td>;
+                return <td className="px-3 py-2 border-t text-sm"><span className="inline-flex items-center gap-1"><XCircle className="w-3.5 h-3.5 text-red-600" /><span className="font-mono">{text.slice(2)}</span></span></td>;
               }
-              return <td className="px-3 py-2 border-t font-mono text-xs">{children}</td>;
+              return <td className="px-3 py-2 border-t font-mono text-sm">{children}</td>;
             },
           }}
         >
