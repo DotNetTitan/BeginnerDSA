@@ -16,7 +16,7 @@ export default function HomePage() {
       <div className="mb-8">
         <h1 className="text-2xl font-bold tracking-tight">Zero To DSA</h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Learn DSA from zero. Structured modules and practice problems for absolute beginners.
+          Learn Data Structures & Algorithms from zero. Structured modules and practice problems for absolute beginners.
         </p>
       </div>
 
