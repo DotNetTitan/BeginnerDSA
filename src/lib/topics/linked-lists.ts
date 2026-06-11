@@ -110,7 +110,7 @@ list.addFirst("b");
     ListNode(int x = 0, ListNode* nxt = nullptr) : val(x), next(nxt) {}
 };
 
-// C++ doesn't have a built-in linked list in the standard library.
+// C++ has std::list (doubly linked) and std::forward_list (singly linked).
 // For interviews, you'll usually implement the node struct.`,
           },
         },
