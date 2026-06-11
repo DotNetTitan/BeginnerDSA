@@ -7,7 +7,7 @@ export const topic: Topic = {
   order: 8,
   description: 'Hierarchical data structures. Master recursion on trees and prefix-based search with tries.',
   difficulty: 'intermediate',
-  prerequisites: ['big-o', 'arrays-strings', 'recursion'],
+  prerequisites: ['big-o', 'arrays-strings', 'stacks-queues', 'recursion'],
   theory: [
     {
       id: 'why-trees',
@@ -686,11 +686,11 @@ private:
       title: 'What\'s Next?',
       content: `Trees introduced you to hierarchical data and recursive traversal. A tree has a strict parent-child relationship - each node has exactly one parent.
 
-**Graphs** remove that restriction. Any node can connect to any other node. This makes graphs incredibly expressive - they model social networks, road maps, web pages, and dependency relationships.
+So far, every algorithm you've learned explores all possibilities or follows a fixed rule. But what if you could solve a problem by simply making the **best choice at each step**? That's the idea behind **Greedy Algorithms** - and it works for a surprising number of problems, from interval scheduling to stock trading.
 
-If trees are a family tree, graphs are a city's road network - connections everywhere, with no single "root."
+If trees are about navigating hierarchy, greedy algorithms are about trusting your instincts.
 
-**Next up: Graphs**`,
+**Next up: Greedy & Intervals**`,
     },
   ],
   problemIds: ['max-depth-binary-tree', 'inorder-traversal', 'validate-bst', 'lca-bst', 'serialize-deserialize'],
