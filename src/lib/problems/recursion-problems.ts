@@ -324,8 +324,8 @@ std::vector<std::vector<int>> combinationSum(const std::vector<int>& candidates,
     return result;
 }`,
     },
-    timeComplexity: 'O(2^n)',
-    spaceComplexity: 'O(target / min(candidates))',
+    timeComplexity: 'O(N^(T/M+1)) where N = candidates, T = target, M = min(candidate)',
+    spaceComplexity: 'O(T/M) recursion depth',
     leetcodeUrl: 'https://leetcode.com/problems/combination-sum/',
   },
   {

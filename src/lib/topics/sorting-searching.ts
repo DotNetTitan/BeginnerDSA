@@ -313,7 +313,7 @@ Binary search is the most commonly tested in interviews, but knowing *when* line
 | Selection Sort | O(n²) | O(n²) | O(1) | No |
 | Insertion Sort | O(n²) | O(n²) | O(1) | Yes |
 | Merge Sort | O(n log n) | O(n log n) | O(n) | Yes |
-| Quick Sort | O(n log n) | O(n²) | O(log n) | No |
+| Quick Sort | O(n log n) | O(n²) | O(log n) avg, O(n) worst | No |
 | Heap Sort | O(n log n) | O(n log n) | O(1) | No |
 
 Most languages have a built-in sort that's highly optimized. But understanding how these work is essential for interviews - and for knowing which one to reach for when a built-in won't do.`,
@@ -425,7 +425,7 @@ Most languages have a built-in sort that's highly optimized. But understanding h
       component: 'quick-sort-viz',
       content: `Quick sort picks a **pivot**, partitions the array so all elements ≤ pivot come before it, then recursively sorts each side.
 
-**Key advantage:** It sorts in-place, using only O(log n) stack space (compared to Merge Sort's O(n) space).
+**Key advantage:** It sorts in-place, using O(log n) stack space on average (compared to Merge Sort's O(n) space). Worst case degrades to O(n) stack space.
 
 **Key risk:** Worst-case O(n²) when pivot selection is poor - for example, always picking the last element on an already-sorted array. This is why good implementations use a random pivot or median-of-three.
 
@@ -685,7 +685,7 @@ A stable sort preserves the relative order of equal elements. Merge sort is stab
 Quick sort degrades to O(n²) on already sorted arrays if pivot selection is poor. Use random pivot selection or median-of-three.
 
 **In-place vs non-in-place confusion**
-Merge sort creates new arrays (O(n) space). Quick sort sorts in-place (O(log n) stack space). Don't claim "O(1) space" for merge sort.`,
+Merge sort creates new arrays (O(n) space). Quick sort sorts in-place (O(log n) stack space average, O(n) worst). Don't claim "O(1) space" for merge sort.`,
     },
     {
       id: 'binary-search-rotated',

@@ -622,16 +622,16 @@ public:
   },
   {
     id: 'top-k-frequent-elements',
-    title: 'Top K Frequent Elements (Heap)',
+    title: 'Top K Frequent Elements',
     topicId: 'stacks-queues',
     difficulty: 'medium',
-    description: `Given an integer array \`nums\` and an integer \`k\`, return the k most frequent elements using a heap/priority queue.`,
+    description: `Given an integer array \`nums\` and an integer \`k\`, return the k most frequent elements. (Canonical solution: a min-heap of size k.)`,
     examples: [
       { input: 'nums = [1,1,1,2,2,3], k = 2', output: '[1,2]' },
       { input: 'nums = [1], k = 1', output: '[1]' },
     ],
     constraints: ['1 <= nums.length <= 10^5'],
-    hints: ['Count frequencies, then use a min-heap of size k.', 'PriorityQueue<TElement, TPriority> is your friend.'],
+    hints: ['Count frequencies, then use a min-heap of size k, or try a bucket-sort approach.', 'PriorityQueue<TElement, TPriority> is your friend.'],
     solution: {
       csharp: `public int[] TopKFrequent(int[] nums, int k) {
     var counts = new Dictionary<int, int>();
@@ -684,16 +684,14 @@ def top_k_frequent(nums, k):
     const counts = new Map();
     for (const n of nums)
         counts.set(n, (counts.get(n) || 0) + 1);
-    const heap = [];
-    for (const [num, freq] of counts) {
-        heap.push([freq, num]);
-        heap.sort((a, b) => a[0] - b[0]);
-        if (heap.length > k) heap.pop();
-    }
-    const result = new Array(k);
-    for (let i = k - 1; i >= 0; i--)
-        result[i] = heap.pop()[1];
-    return result;
+    // Bucket sort by frequency (index = frequency)
+    const bucket = Array.from({ length: nums.length + 1 }, () => []);
+    for (const [num, freq] of counts)
+        bucket[freq].push(num);
+    const result = [];
+    for (let i = bucket.length - 1; i >= 0 && result.length < k; i--)
+        if (bucket[i].length) result.push(...bucket[i]);
+    return result.slice(0, k);
 }`,
       cpp: `#include <vector>
 #include <unordered_map>
@@ -715,8 +713,8 @@ std::vector<int> topKFrequentHeap(const std::vector<int>& nums, int k) {
     return result;
 }`,
     },
-    timeComplexity: 'O(n log k)',
-    spaceComplexity: 'O(n + k)',
+    timeComplexity: 'O(n log k) using heap, O(n) using bucket sort',
+    spaceComplexity: 'O(n + k) using heap, O(n) using bucket sort',
     leetcodeUrl: 'https://leetcode.com/problems/top-k-frequent-elements/',
   },
 ];
