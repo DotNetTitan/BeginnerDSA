@@ -19,7 +19,7 @@ export default function TopicNavButtons({ prev, next }: Props) {
   const [progress, setProgress] = useState<AppProgress | null>(null);
   const [allUnlocked, setAllUnlocked] = useState(false);
   useEffect(() => {
-    const handler = () => setProgress(getProgress());
+    const handler = () => { setProgress(getProgress()); setAllUnlocked(isAllUnlocked()); };
     /* eslint-disable react-hooks/set-state-in-effect */
     setProgress(getProgress());
     setAllUnlocked(isAllUnlocked());
