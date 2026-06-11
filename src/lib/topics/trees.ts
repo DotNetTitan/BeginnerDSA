@@ -12,7 +12,7 @@ export const topic: Topic = {
     {
       id: 'why-trees',
       title: 'When Data Has a Hierarchy',
-      content: `So far, all our data structures have been **linear** - arrays, linked lists, stacks, queues. One element after another, in a line.
+      content: `So far, our data structures have been either **linear** (arrays, linked lists, stacks, queues - one element after another) or **hash-based** (hash maps and sets - instant lookup by value). Both arrange data on a flat plane.
 
 But real-world data is often **hierarchical**. Your file system has folders inside folders. A company has managers who manage managers who manage employees.
 
