@@ -114,7 +114,7 @@ export default async function ProblemPage({ params }: Props) {
       {problem.constraints.length > 0 && (
         <div className="mb-6">
           <h3 className="text-sm font-semibold mb-2">Constraints</h3>
-          <ul className="text-xs text-muted-foreground space-y-1 list-disc pl-4">
+          <ul className="text-sm text-muted-foreground space-y-1 list-disc pl-4">
             {problem.constraints.map((c, i) => <li key={i}>{c}</li>)}
           </ul>
         </div>
@@ -124,11 +124,11 @@ export default async function ProblemPage({ params }: Props) {
         <h3 className="text-sm font-semibold">Examples</h3>
         {problem.examples.map((ex, i) => (
           <div key={i} className="border rounded-lg p-3 text-sm">
-            <div><span className="font-semibold">Input:</span> <code className="text-xs bg-muted px-1 py-0.5 rounded">{ex.input}</code></div>
+            <div><span className="font-semibold">Input:</span> <code className="text-sm bg-muted px-1 py-0.5 rounded">{ex.input}</code></div>
             {ex.output && (
-              <div><span className="font-semibold">Output:</span> <code className="text-xs bg-muted px-1 py-0.5 rounded">{ex.output}</code></div>
+              <div><span className="font-semibold">Output:</span> <code className="text-sm bg-muted px-1 py-0.5 rounded">{ex.output}</code></div>
             )}
-            {ex.explanation && <div className="text-xs text-muted-foreground mt-1">{ex.explanation}</div>}
+            {ex.explanation && <div className="text-sm text-muted-foreground mt-1">{ex.explanation}</div>}
           </div>
         ))}
       </div>
@@ -150,7 +150,7 @@ export default async function ProblemPage({ params }: Props) {
             <AccordionItem value="hints">
               <AccordionTrigger className="text-sm font-medium">Hints</AccordionTrigger>
               <AccordionContent>
-                <ul className="text-sm text-muted-foreground space-y-2 list-disc pl-4">
+                <ul className="text-base text-foreground/80 space-y-2 list-disc pl-4">
                   {problem.hints.map((h, i) => <li key={i}>{h}</li>)}
                 </ul>
               </AccordionContent>
