@@ -82,7 +82,7 @@ export default async function ProblemPage({ params }: Props) {
         <div>
           <div className="flex items-center gap-2 mb-1">
             <TopicIcon topicId={topicId} className="h-6 w-6 text-primary" />
-            <h1 className="text-xl font-bold">{problem.title}</h1>
+            <h1 className="text-lg sm:text-xl font-bold">{problem.title}</h1>
           </div>
           <div className="flex items-center gap-2">
             <Badge variant="secondary" className={difficultyColor(problem.difficulty)}>
@@ -150,7 +150,7 @@ export default async function ProblemPage({ params }: Props) {
             <AccordionItem value="hints">
               <AccordionTrigger className="text-sm font-medium">Hints</AccordionTrigger>
               <AccordionContent>
-                <ul className="text-base text-foreground/80 space-y-2 list-disc pl-4">
+                <ul className="text-sm sm:text-base text-foreground/80 space-y-2 list-disc pl-4">
                   {problem.hints.map((h, i) => <li key={i}>{h}</li>)}
                 </ul>
               </AccordionContent>
