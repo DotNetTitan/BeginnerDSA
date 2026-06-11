@@ -457,7 +457,7 @@ Always check that the stack isn't empty before popping. An empty pop is a runtim
 **Using a queue when you need a stack (or vice versa)**
 LIFO vs FIFO: if you need "most recent first", it's a stack. If you need "first come, first served", it's a queue. Getting this wrong means your algorithm processes data in the wrong order.
 
-**typescript: shift() is O(n)**
+**TypeScript: shift() is O(n)**
 Using \`arr.shift()\` in JavaScript re-indexes the entire array. For large queues, use an index pointer, a proper queue implementation, or a deque.
 
 **Priority queue comparator confusion**
