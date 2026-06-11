@@ -183,6 +183,24 @@ const PROBLEM_COUNTS: Record<string, number> = {
 const TOPIC_IDS = Object.keys(PROBLEM_COUNTS);
 
 const UNLOCK_KEY = 'dsa-all-unlocked';
+const MIGRATION_KEY = 'dsa-migration-v1';
+
+export function runMigrations(): void {
+  if (typeof window === 'undefined') return;
+  if (localStorage.getItem(MIGRATION_KEY)) return;
+
+  const progress = getProgress();
+  const hasPriorProgress = Object.entries(progress.topics)
+    .some(([id, tp]) => id !== 'intro' && (tp.completed || tp.solvedProblems.length > 0));
+
+  if (hasPriorProgress) {
+    const intro = ensureTopicProgress(progress, 'intro');
+    intro.completed = true;
+    saveProgress(progress);
+  }
+
+  localStorage.setItem(MIGRATION_KEY, 'true');
+}
 
 export function isAllUnlocked(): boolean {
   if (typeof window === 'undefined') return false;
