@@ -54,12 +54,20 @@ export default async function LearnPage({ params }: Props) {
               <span className="text-xs text-muted-foreground">
                 {topic.problemIds.length} problems
               </span>
-              {topic.prerequisites.length > 0 && (
-                <span className="text-xs text-muted-foreground">
-                  · Prerequisites: {topic.prerequisites.map(id => getTopic(id)?.title).join(', ')}
-                </span>
-              )}
             </div>
+            {topic.prerequisites.length > 0 && (
+              <div className="flex items-center gap-1.5 mt-1.5 flex-wrap">
+                <span className="text-xs text-muted-foreground">Prerequisites:</span>
+                {topic.prerequisites.map(id => {
+                  const prereq = getTopic(id);
+                  return prereq ? (
+                    <span key={id} className="inline-flex h-5 items-center rounded-full border border-border px-2 text-[11px] font-medium text-muted-foreground whitespace-nowrap">
+                      {prereq.title}
+                    </span>
+                  ) : null;
+                })}
+              </div>
+            )}
           </div>
         </div>
 
