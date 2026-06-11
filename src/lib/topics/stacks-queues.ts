@@ -291,7 +291,7 @@ while (!q2.empty()) {
       title: 'Priority Queue (Heap)',
       content: `A **priority queue** is like a queue, but instead of "first come, first served," it serves the **highest priority** item first - regardless of when it arrived.
 
-This is implemented with a **heap** under the hood. We'll cover heaps in detail later, but for now know this:
+This is implemented with a **heap** — a binary tree where the parent always has higher priority than its children. A heap supports:
 - Insert: O(log n)
 - Remove highest priority: O(log n)
 - Peek at highest priority: O(1)
