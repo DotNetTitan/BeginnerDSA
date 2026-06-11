@@ -230,11 +230,34 @@ def find_kth_largest(nums, k):
     return heap.peek();
 }`,
       typescript: `function findKthLargest(nums, k) {
+    // Min-heap of size k using a binary heap
     const heap = [];
+    const up = (i) => {
+        while (i > 0) {
+            const p = (i - 1) >> 1;
+            if (heap[p] <= heap[i]) break;
+            [heap[p], heap[i]] = [heap[i], heap[p]];
+            i = p;
+        }
+    };
+    const down = (i) => {
+        const n = heap.length;
+        while (true) {
+            let s = i, l = i * 2 + 1, r = i * 2 + 2;
+            if (l < n && heap[l] < heap[s]) s = l;
+            if (r < n && heap[r] < heap[s]) s = r;
+            if (s === i) break;
+            [heap[s], heap[i]] = [heap[i], heap[s]];
+            i = s;
+        }
+    };
     for (const n of nums) {
         heap.push(n);
-        heap.sort((a, b) => a - b);
-        if (heap.length > k) heap.shift();
+        up(heap.length - 1);
+        if (heap.length > k) {
+            heap[0] = heap.pop();
+            down(0);
+        }
     }
     return heap[0];
 }`,

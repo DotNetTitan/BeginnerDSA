@@ -268,7 +268,7 @@ bool hasPairSum(const std::vector<int>& arr, int target) {
 - You want to remove duplicates from a collection
 
 **Use neither when:**
-- Order matters - hash structures don't preserve insertion order. Use a sorted or linked variant.
+- Order matters - hash structures generally don't guarantee insertion order across all languages. Use a sorted or linked variant, or check your language's specific behavior.
 - You need range queries ("give me all keys between 10 and 20") - tree-based structures handle this.`,
     },
     {
@@ -283,8 +283,8 @@ O(1) is the average case. In the worst case (all keys collide), it degrades to O
 **Double lookup anti-pattern**
 \`if (map.ContainsKey(key)) return map[key]\` - this performs TWO hash lookups. Use \`TryGetValue\` / \`.get()\` with a default instead.
 
-**Order is NOT guaranteed**
-Hash maps and sets do not guarantee any particular iteration order. If you need sorted keys or insertion-order preservation, look at sorted/linked variants.
+**Order is NOT guaranteed across all languages**
+Hash maps and sets generally do not guarantee a particular iteration order (some languages like Python and JavaScript preserve insertion order in their built-in types, but others don't). If you need sorted keys or insertion-order preservation, use sorted/linked variants or check your language's guarantees.
 
 **Confusing HashMap with HashSet**
 Ask yourself: do I need to store a value associated with this key (use HashMap), or do I just need to track whether it exists (use HashSet)?`,
@@ -303,9 +303,9 @@ Ask yourself: do I need to store a value associated with this key (use HashMap),
       title: 'What\'s Next?',
       content: `You now have two tools in your toolbox: arrays for ordered, position-based data, and hash maps for O(1) value-based lookups.
 
-But there's a gap. Both arrays and hash maps store elements in **contiguous memory**. What if you need to insert or delete at the beginning frequently? With an array, that's O(n) - everything shifts. With a hash map, you lose ordering entirely.
+But there's a gap. Arrays store elements in **contiguous memory**, and hash maps internally use an array of buckets — but entries are scattered across those buckets, not stored as a simple contiguous sequence. What if you need to insert or delete at the beginning frequently? With an array, that's O(n) - everything shifts. With a hash map, you generally can't rely on any positional ordering.
 
-That's where **Linked Lists** come in. They sacrifice random access (indexing) for O(1) insertions and deletions anywhere in the list. They're also the foundation for more advanced structures like trees and graphs.
+That's where **Linked Lists** come in. They sacrifice random access (indexing) for O(1) insertions and deletions — given you already have a reference to the position. They're also the foundation for more advanced structures like trees and graphs.
 
 **Next up: Linked Lists**`,
     },

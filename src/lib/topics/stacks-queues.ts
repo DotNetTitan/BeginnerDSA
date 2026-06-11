@@ -377,7 +377,7 @@ while (!taskQueue.isEmpty()) {
 // For max-heap, reverse comparator
 PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a, b) -> b - a);`,
             typescript: `// Priority queue can be implemented with a binary heap.
-// Many JS runtimes now include a built-in PriorityQueue:
+// JavaScript doesn't have a built-in PriorityQueue, so we simulate here:
 
 // Process tasks by priority
 const tasks = [];

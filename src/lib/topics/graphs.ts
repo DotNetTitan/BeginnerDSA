@@ -167,7 +167,7 @@ std::unordered_map<int, std::vector<std::pair<int, int>>> weighted;
 |---|---|---|
 | Order | Level by level | Deep first |
 | Shortest path | Yes (unweighted) | No |
-| Space | O(width) | O(depth) |
+| Space | O(V) (queue + visited set) | O(V) (stack + visited set) |
 | Use case | Shortest path, level order | Topological, connectivity, cycles |
 
 **Key difference:** BFS uses a queue and explores neighbors level by level. DFS uses a stack (or recursion) and goes deep before backtracking.`,
@@ -572,7 +572,7 @@ std::vector<int> topologicalSort(int n, std::vector<std::vector<int>>& edges) {
     {
       id: 'whats-next',
       title: 'What\'s Next?',
-      content: `Graphs are the most flexible data structure - they can model almost anything. But that flexibility comes with a cost: exhaustive search (DFS/BFS) explores all possibilities, which can be exponential.
+      content: `Graphs are the most flexible data structure - they can model almost anything. But that flexibility comes with a cost: exhaustive search (backtracking) on a state space explores all possibilities, which can be exponential. (Standard BFS/DFS on a graph visits each vertex once — O(V+E).)
 
 **Dynamic Programming** is the solution to this problem. When your graph-like exploration has overlapping subproblems (the same state visited via different paths), DP caches results to avoid recomputation.
 

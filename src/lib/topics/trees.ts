@@ -269,7 +269,7 @@ void levelOrder(TreeNode* root) {
       title: 'BST Operations',
       content: `BST property: \`left.val < node.val < right.val\` for ALL nodes (not just immediate children).
 
-This property enables fast search - at each node you eliminate half the tree.`,
+This property enables fast search - in a balanced tree, at each node you eliminate roughly half the remaining nodes.`,
       codeExamples: [
         {
           title: 'BST search, insert, validate',
@@ -684,7 +684,7 @@ private:
     {
       id: 'whats-next',
       title: 'What\'s Next?',
-      content: `Trees introduced you to hierarchical data and recursive traversal. A tree has a strict parent-child relationship - each node has exactly one parent.
+      content: `Trees introduced you to hierarchical data and recursive traversal. A tree has a strict parent-child relationship - each node (except the root) has exactly one parent.
 
 So far, every algorithm you've learned explores all possibilities or follows a fixed rule. But what if you could solve a problem by simply making the **best choice at each step**? That's the idea behind **Greedy Algorithms** - and it works for a surprising number of problems, from interval scheduling to stock trading.
 

@@ -147,7 +147,7 @@ The "O" stands for "order of" (as in "on the order of"). And inside the parenthe
         {
           title: 'Spot the difference',
           code: {
-            csharp: `// O(1) - Constant time: always 1 operation, no matter the input size
+            csharp: `// O(1) - Constant time: same number of operations no matter the input size
 int GetFirst(int[] arr) => arr[0];
 
 // O(n) - Linear time: if array is 10x bigger, this is 10x slower
@@ -163,7 +163,7 @@ void PrintPairs(int[] arr) {
         for (int j = 0; j < arr.Length; j++)
             Console.WriteLine($"{arr[i]},{arr[j]}");
 }`,
-            python: `# O(1) - Constant time: always 1 operation, no matter the input size
+            python: `# O(1) - Constant time: same number of operations no matter the input size
 def get_first(arr):
     return arr[0]
 
@@ -179,7 +179,7 @@ def print_pairs(arr):
     for i in range(len(arr)):
         for j in range(len(arr)):
             print(f"{arr[i]},{arr[j]}")`,
-            java: `// O(1) - Constant time: always 1 operation, no matter the input size
+            java: `// O(1) - Constant time: same number of operations no matter the input size
 public int getFirst(int[] arr) { return arr[0]; }
 
 // O(n) - Linear time: if array is 10x bigger, this is 10x slower
@@ -195,7 +195,7 @@ public void printPairs(int[] arr) {
         for (int j = 0; j < arr.length; j++)
             System.out.println(arr[i] + "," + arr[j]);
 }`,
-            typescript: `// O(1) - Constant time: always 1 operation, no matter the input size
+            typescript: `// O(1) - Constant time: same number of operations no matter the input size
 const getFirst = (arr) => arr[0];
 
 // O(n) - Linear time: if array is 10x bigger, this is 10x slower
@@ -211,7 +211,7 @@ const printPairs = (arr) => {
         for (let j = 0; j < arr.length; j++)
             console.log(arr[i] + "," + arr[j]);
 };`,
-            cpp: `// O(1) - Constant time: always 1 operation, no matter the input size
+            cpp: `// O(1) - Constant time: same number of operations no matter the input size
 int getFirst(const std::vector<int>& arr) { return arr[0]; }
 
 // O(n) - Linear time: if array is 10x bigger, this is 10x slower
