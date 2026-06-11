@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function PracticePage({ params }: Props) {
   const { topicId } = await params;
   const topic = getTopic(topicId);
-  if (!topic) notFound();
+  if (!topic || topic.problemIds.length === 0) notFound();
   const problems = getProblems(topicId);
 
   return (

@@ -134,12 +134,12 @@ export default function ProgressContent() {
                         {tp.examPassed && <GraduationCap className="h-3.5 w-3.5 text-emerald-500" />}
                       </span>
                       <span className="text-muted-foreground text-xs flex items-center gap-1.5">
-                        {tp.examPassed ? (
+                        {tp.examPassed || (tp.theoryRead && tp.total === 0) ? (
                           <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
                         ) : tp.theoryRead ? (
                           <BookOpen className="h-3.5 w-3.5 text-amber-500" />
                         ) : null}
-                        {tp.solved}/{tp.total}
+                        {tp.total > 0 && `${tp.solved}/${tp.total}`}
                       </span>
                     </div>
                     <Progress value={pct} className="h-1.5" />

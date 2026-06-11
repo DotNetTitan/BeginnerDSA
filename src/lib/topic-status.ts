@@ -32,6 +32,11 @@ export function getTopicStatus(
   const theoryRead = tp?.completed ?? false;
   const examPassed = tp?.examPassed ?? false;
 
+  // Topics with no problems (like intro) complete when theory is read
+  if (topic.problemIds.length === 0 && theoryRead) {
+    return 'completed';
+  }
+
   if (theoryRead && examPassed && problemsSolved >= topic.problemIds.length) {
     return 'completed';
   }
@@ -44,11 +49,13 @@ export function getTopicStatus(
 }
 
 export function isPracticeReachable(topic: Topic, progress: AppProgress, allTopics: Topic[], forceUnlocked?: boolean): boolean {
+  if (topic.problemIds.length === 0) return false;
   const status = getTopicStatus(topic, progress, allTopics, forceUnlocked);
   return status === 'in-progress' || status === 'completed';
 }
 
 export function isReadyForExam(topic: Topic, progress: AppProgress): boolean {
+  if (topic.problemIds.length === 0) return false;
   const tp = progress.topics[topic.id];
   if (!tp) return false;
   const problemsSolved = tp.solvedProblems?.length ?? 0;

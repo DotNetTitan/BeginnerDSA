@@ -106,7 +106,7 @@ describe('getRecentActivity', () => {
 describe('getStats', () => {
   it('returns stats with default values', () => {
     const stats = getStats();
-    expect(stats.totalTopics).toBe(11);
+    expect(stats.totalTopics).toBe(12);
     expect(stats.totalProblems).toBe(52);
     expect(stats.solvedProblems).toBe(0);
     expect(stats.completedTopics).toBe(0);

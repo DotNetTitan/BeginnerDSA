@@ -4,7 +4,7 @@ import TopicGrid from '@/components/home/TopicGrid';
 import { BookOpen, Code2, Signal, Coffee } from 'lucide-react';
 
 export default function HomePage() {
-  const moduleCount = topics.length;
+  const moduleCount = topics.filter(t => t.id !== 'intro').length;
   const allProblems = topics.flatMap(t => getProblems(t.id));
   const problemCount = allProblems.length;
   const easyCount = allProblems.filter(p => p.difficulty === 'easy').length;

@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ExamRoute({ params }: Props) {
   const { topicId } = await params;
   const topic = getTopic(topicId);
-  if (!topic) notFound();
+  if (!topic || topic.problemIds.length === 0) notFound();
 
   return <ExamPage topicId={topicId} topicTitle={topic.title} />;
 }

@@ -142,7 +142,7 @@ export default function TopicGrid() {
 
               <div className="flex items-center gap-3 shrink-0">
                 <div className="hidden sm:flex items-center gap-2 text-xs text-muted-foreground">
-                  <span>{totalProblems} problems</span>
+                  {totalProblems > 0 && <span>{totalProblems} problems</span>}
                 </div>
 
                 <div className="flex items-center gap-1">
@@ -155,20 +155,24 @@ export default function TopicGrid() {
                       }`}>
                         <BookOpen className="h-3 w-3" />
                       </div>
-                      <div className={`h-6 w-6 rounded-full flex items-center justify-center ${
-                        solvedCount > 0
-                          ? 'bg-emerald-100 dark:bg-emerald-900 text-emerald-600'
-                          : 'bg-muted text-muted-foreground'
-                      }`}>
-                        <Code2 className="h-3 w-3" />
-                      </div>
-                      <div className={`h-6 w-6 rounded-full flex items-center justify-center ${
-                        progress.topics[t.id]?.examPassed
-                          ? 'bg-emerald-100 dark:bg-emerald-900 text-emerald-600'
-                          : 'bg-muted text-muted-foreground'
-                      }`}>
-                        <GraduationCap className="h-3 w-3" />
-                      </div>
+                      {totalProblems > 0 && (
+                        <div className={`h-6 w-6 rounded-full flex items-center justify-center ${
+                          solvedCount > 0
+                            ? 'bg-emerald-100 dark:bg-emerald-900 text-emerald-600'
+                            : 'bg-muted text-muted-foreground'
+                        }`}>
+                          <Code2 className="h-3 w-3" />
+                        </div>
+                      )}
+                      {totalProblems > 0 && (
+                        <div className={`h-6 w-6 rounded-full flex items-center justify-center ${
+                          progress.topics[t.id]?.examPassed
+                            ? 'bg-emerald-100 dark:bg-emerald-900 text-emerald-600'
+                            : 'bg-muted text-muted-foreground'
+                        }`}>
+                          <GraduationCap className="h-3 w-3" />
+                        </div>
+                      )}
                     </div>
                   )}
                   {isClickable && (
@@ -178,7 +182,7 @@ export default function TopicGrid() {
               </div>
             </div>
 
-            {(status === 'in-progress' || status === 'completed') && (
+            {totalProblems > 0 && (status === 'in-progress' || status === 'completed') && (
               <Progress value={pct} className="h-1 mt-2" />
             )}
           </CardContent>
@@ -192,7 +196,7 @@ export default function TopicGrid() {
       {isFirstVisit ? (
         <Card
           className="border-emerald-500/30 bg-emerald-50/50 dark:bg-emerald-950/20 cursor-pointer transition-all hover:scale-[1.02] hover:-translate-y-0.5 hover:ring-emerald-500/40"
-          onClick={() => router.push('/learn/big-o')}
+          onClick={() => router.push('/learn/intro')}
         >
           <CardContent className="py-4 px-5">
             <div className="flex items-center justify-between flex-wrap gap-3">
@@ -202,11 +206,11 @@ export default function TopicGrid() {
                 </div>
                 <div>
                   <p className="text-xs text-muted-foreground uppercase tracking-wider font-medium">Welcome to Zero To DSA</p>
-                  <p className="font-semibold text-sm">Start with Big O & Complexity</p>
+                  <p className="font-semibold text-sm">Start with Introduction to DSA</p>
                 </div>
               </div>
               <div className="w-full sm:w-auto flex justify-center sm:justify-end">
-                <Button size="sm" onClick={(e) => { e.stopPropagation(); router.push('/learn/big-o'); }}>
+                  <Button size="sm" onClick={(e) => { e.stopPropagation(); router.push('/learn/intro'); }}>
                   <BookOpen className="h-4 w-4 mr-1" />
                   Start Learning
                 </Button>
@@ -223,7 +227,7 @@ export default function TopicGrid() {
               </div>
               <div>
                 <p className="text-xs text-emerald-600 dark:text-emerald-400 uppercase tracking-wider font-semibold">All Modules Completed</p>
-                <p className="text-sm text-muted-foreground">Great work! You&apos;ve finished all {topics.length} modules.</p>
+                <p className="text-sm text-muted-foreground">Great work! You&apos;ve finished all {topics.filter(t => t.id !== 'intro').length} modules.</p>
               </div>
             </div>
           </CardContent>
@@ -368,10 +372,12 @@ export default function TopicGrid() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-1.5 text-muted-foreground pt-1">
-                  <ListTodo className="h-4 w-4" />
-                  <span>{topic.problemIds.length} problems</span>
-                </div>
+                {topic.problemIds.length > 0 && (
+                  <div className="flex items-center gap-1.5 text-muted-foreground pt-1">
+                    <ListTodo className="h-4 w-4" />
+                    <span>{topic.problemIds.length} problems</span>
+                  </div>
+                )}
               </div>
 
               {isClickable ? (
@@ -387,7 +393,7 @@ export default function TopicGrid() {
                         <BookOpen className="h-4 w-4 mr-1" />
                         Learn
                       </Button>
-                      {isPracticeReachable(topic, progress, topics, allUnlocked) && (
+                      {topic.problemIds.length > 0 && isPracticeReachable(topic, progress, topics, allUnlocked) && (
                         <Button size="sm" variant="outline" className="flex-1" onClick={() => { setSelectedTopic(null); router.push(`/practice/${topic.id}`); }}>
                           <Code2 className="h-4 w-4 mr-1" />
                           Practice

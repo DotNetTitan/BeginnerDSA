@@ -7,7 +7,7 @@ export const topic: Topic = {
   order: 1,
   description: 'Analyze how runtime and memory scale with input size. The foundation of every algorithm discussion.',
   difficulty: 'beginner',
-  prerequisites: [],
+  prerequisites: ['intro'],
   theory: [
     {
       id: 'motivating-problem',
