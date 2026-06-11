@@ -39,9 +39,9 @@ export default function TheorySection({ section }: { section: TheorySectionType 
               );
             },
             pre: ({ children }) => <>{children}</>,
-            p: ({ children }) => <p className="text-sm leading-relaxed text-muted-foreground mb-3 last:mb-0">{children}</p>,
-            ul: ({ children }) => <ul className="text-sm text-muted-foreground space-y-1 list-disc pl-5 mb-3">{children}</ul>,
-            ol: ({ children }) => <ol className="text-sm text-muted-foreground space-y-1 list-decimal pl-5 mb-3">{children}</ol>,
+            p: ({ children }) => <p className="text-sm leading-relaxed text-foreground/90 mb-3 last:mb-0">{children}</p>,
+            ul: ({ children }) => <ul className="text-sm text-foreground/90 space-y-1 list-disc pl-5 mb-3">{children}</ul>,
+            ol: ({ children }) => <ol className="text-sm text-foreground/90 space-y-1 list-decimal pl-5 mb-3">{children}</ol>,
             li: ({ children }) => <li className="leading-relaxed">{children}</li>,
             h3: ({ children }) => <h3 className="text-base font-semibold mt-4 mb-2">{children}</h3>,
             table: ({ children }) => (
