@@ -11,7 +11,7 @@ export const topic: Topic = {
   theory: [
     {
       id: 'what-is-dsa',
-      title: 'What is DSA?',
+      title: 'What is Data Structures & Algorithms?',
       content: '',
       component: 'intro-content',
     },
