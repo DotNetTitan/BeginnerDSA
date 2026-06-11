@@ -7,7 +7,9 @@ import RecursionVisualizer from './RecursionVisualizer';
 import DPVisualizer from './DPVisualizer';
 import { SinglyLinkedList, DoublyLinkedList, ReversalDiagram, FastSlowDiagram, CycleDiagram } from './LinkedListDiagram';
 import { StackDiagram, QueueDiagram } from './StackQueueDiagram';
+import IntroContent from './IntroContent';
 const COMPONENT_MAP: Record<string, React.ReactNode> = {
+  'intro-content': <IntroContent />,
   'bubble-sort-viz': <SortingVisualizer algorithm="bubble" />,
   'quick-sort-viz': <SortingVisualizer algorithm="quick" />,
   'merge-sort-viz': <SortingVisualizer algorithm="merge" />,

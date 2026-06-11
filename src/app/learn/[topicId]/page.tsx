@@ -10,6 +10,8 @@ import MarkCompleteButton from './MarkCompleteButton';
 import TakeExamButton from './TakeExamButton';
 import PracticeNavButton from './PracticeNavButton';
 import TopicNavButtons from '@/components/learn/TopicNavButtons';
+import NextModulePrompt from './NextModulePrompt';
+import NextModuleButton from './NextModuleButton';
 
 interface Props {
   params: Promise<{ topicId: string }>;
@@ -51,9 +53,11 @@ export default async function LearnPage({ params }: Props) {
               <Badge variant="secondary" className={difficultyColor(topic.difficulty)}>
                 {topic.difficulty}
               </Badge>
-              <span className="text-xs text-muted-foreground">
-                {topic.problemIds.length} problems
-              </span>
+              {topic.problemIds.length > 0 && (
+                <span className="text-xs text-muted-foreground">
+                  {topic.problemIds.length} problems
+                </span>
+              )}
             </div>
             {topic.prerequisites.length > 0 && (
               <div className="flex items-center gap-1.5 mt-1.5 flex-wrap">
@@ -71,12 +75,13 @@ export default async function LearnPage({ params }: Props) {
           </div>
         </div>
 
-        <ModuleFlow topicId={topicId} />
+        {topic.problemIds.length > 0 && <ModuleFlow topicId={topicId} />}
 
         <div className="flex justify-center gap-2 flex-wrap mb-6">
           <MarkCompleteButton topicId={topicId} />
-          <PracticeNavButton topicId={topicId} />
-          <TakeExamButton topicId={topicId} totalProblems={topic.problemIds.length} />
+          {topic.problemIds.length === 0 && <NextModuleButton topicId={topicId} />}
+          {topic.problemIds.length > 0 && <PracticeNavButton topicId={topicId} />}
+          {topic.problemIds.length > 0 && <TakeExamButton topicId={topicId} totalProblems={topic.problemIds.length} />}
         </div>
 
         <div className="space-y-10">
@@ -87,9 +92,11 @@ export default async function LearnPage({ params }: Props) {
 
         <div className="flex justify-center gap-2 flex-wrap mt-10">
           <MarkCompleteButton topicId={topicId} />
-          <PracticeNavButton topicId={topicId} />
-          <TakeExamButton topicId={topicId} totalProblems={topic.problemIds.length} />
+          {topic.problemIds.length > 0 && <PracticeNavButton topicId={topicId} />}
+          {topic.problemIds.length > 0 && <TakeExamButton topicId={topicId} totalProblems={topic.problemIds.length} />}
         </div>
+
+        {topic.problemIds.length === 0 && <div className="mt-4"><NextModulePrompt topicId={topicId} /></div>}
 
         <TopicNavButtons prev={prev ? { id: prev.id, title: prev.title } : null} next={next ? { id: next.id, title: next.title } : null} />
       </div>

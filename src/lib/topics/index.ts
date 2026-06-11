@@ -1,4 +1,5 @@
 import type { Topic } from '../types';
+import { topic as intro } from './intro';
 import { topic as bigO } from './big-o';
 import { topic as arraysStrings } from './arrays-strings';
 import { topic as hashmapsSets } from './hashmaps-sets';
@@ -12,7 +13,7 @@ import { topic as dynamicProgramming } from './dynamic-programming';
 import { topic as greedyIntervals } from './greedy-intervals';
 
 export const topics: Topic[] = [
-  bigO, arraysStrings, hashmapsSets, linkedLists, stacksQueues,
+  intro, bigO, arraysStrings, hashmapsSets, linkedLists, stacksQueues,
   recursion, sortingSearching, trees, greedyIntervals, graphs, dynamicProgramming,
 ];
 

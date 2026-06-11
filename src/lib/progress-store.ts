@@ -166,6 +166,7 @@ export function resetProgress(): void {
 }
 
 const PROBLEM_COUNTS: Record<string, number> = {
+  'intro': 0,
   'big-o': 3,
   'arrays-strings': 5,
   'hashmaps-sets': 4,

@@ -34,7 +34,7 @@ describe('topics data', () => {
   });
 
   it('getPrevTopic returns undefined for first topic', () => {
-    expect(getPrevTopic('big-o')).toBeUndefined();
+    expect(getPrevTopic('intro')).toBeUndefined();
   });
 });
 
