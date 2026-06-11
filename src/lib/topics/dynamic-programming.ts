@@ -12,7 +12,9 @@ export const topic: Topic = {
     {
       id: 'why-dp',
       title: 'The Problem with "Try Everything"',
-      content: `In the Recursion module, you learned backtracking - try every possibility, undo, try the next. That works for small problems, but some problems have **overlapping subproblems**: the same subproblem gets solved thousands of times.
+      content: `Dynamic Programming is the most feared topic in DSA interviews - but also the most rewarding once it clicks.
+
+In the Recursion module, you learned backtracking - try every possibility, undo, try the next. That works for small problems, but some problems have **overlapping subproblems**: the same subproblem gets solved thousands of times.
 
 Remember naive Fibonacci? \`fib(5)\` calls \`fib(3)\` twice and \`fib(2)\` three times. As n grows, the redundant work explodes exponentially.
 
@@ -629,12 +631,20 @@ int knapsack(const std::vector<int>& weights, const std::vector<int>& values, in
     },
     {
       id: 'whats-next',
-      title: 'What\'s Next?',
-      content: `Dynamic Programming is the most feared topic in DSA interviews - but also the most rewarding once it clicks. You've learned that caching overlapping results turns exponential brute force into polynomial solutions.
+      title: 'You\'ve Reached the End',
+      content: `Congratulations - you've made it through all 11 modules of Zero To DSA!
 
-There's one more strategy to consider before we're done: **Greedy & Intervals**. Sometimes you don't need to explore anything - the locally optimal choice is always the globally optimal one. Greedy algorithms are the opposite of DP: instead of caching everything, you just pick the best option at each step and move on.
+You started with Big O, learning to talk about algorithm speed. You built up through arrays, hash maps, linked lists, stacks, and queues. You tackled recursion, sorting, trees, and graphs. And you finished with the two advanced strategies: dynamic programming and greedy algorithms.
 
-**Next up: Greedy & Intervals**`,
+You now have a mental toolbox of data structures and algorithms. When you encounter a new problem, you can ask:
+- What's the input size? (Big O)
+- Does order matter? (Array vs HashSet vs Tree)
+- Is it hierarchical? (Tree) or connected? (Graph)
+- Should I explore all possibilities? (Recursion/Backtracking)
+- Should I cache results? (DP)
+- Or is the greedy choice always optimal? (Greedy)
+
+The rest is practice. Each problem you solve will strengthen these mental muscles. Good luck!`,
     },
   ],
   problemIds: ['climbing-stairs', 'house-robber', 'coin-change', 'longest-increasing-subsequence', 'longest-common-subsequence'],

@@ -12,7 +12,7 @@ export const topic: Topic = {
     {
       id: 'why-greedy',
       title: 'When "Good Enough Now" Is Actually Optimal',
-      content: `So far, most of our algorithms have been about exploring possibilities - either systematically (recursion/backtracking) or with caching (DP). But some problems have a special property: **the best choice right now is also the best choice overall.**
+      content: `So far, most of our algorithms have been about exploring possibilities - systematically (recursion/backtracking). But some problems have a special property: **the best choice right now is also the best choice overall.**
 
 Think of making change with US coins. To make 67 cents, you'd grab a quarter (25), another quarter (50), a dime (60), a nickel (65), and two pennies (67). That's greedy - at each step, take the largest coin that doesn't exceed the target. And it works for US denominations.
 
@@ -640,20 +640,12 @@ int jump(const std::vector<int>& nums) {
     },
     {
       id: 'whats-next',
-      title: 'You\'ve Reached the End',
-      content: `Congratulations - you've made it through all 11 modules of Zero To DSA!
+      title: 'What\'s Next?',
+      content: `Greedy algorithms are a powerful addition to your mental toolbox - sometimes the best choice really is the greedy one. You've learned to spot problems where a simple rule (sort by end time, buy every dip, jump as far as possible) leads to the optimal answer.
 
-You started with Big O, learning to talk about algorithm speed. You built up through arrays, hash maps, linked lists, stacks, and queues. You tackled recursion, sorting, trees, and graphs. And you finished with the two advanced strategies: dynamic programming and greedy algorithms.
+But many real-world problems involve **connections and relationships** that can't be solved with a single greedy pass. For that, you need **Graphs** - the most flexible data structure of all. Social networks, road maps, and dependency graphs all require graph algorithms like BFS, DFS, and topological sort.
 
-You now have a mental toolbox of data structures and algorithms. When you encounter a new problem, you can ask:
-- What's the input size? (Big O)
-- Does order matter? (Array vs HashSet vs Tree)
-- Is it hierarchical? (Tree) or connected? (Graph)
-- Should I explore all possibilities? (Recursion/Backtracking)
-- Should I cache results? (DP)
-- Or is the greedy choice always optimal? (Greedy)
-
-The rest is practice. Each problem you solve will strengthen these mental muscles. Good luck!`,
+**Next up: Graphs**`,
     },
   ],
   problemIds: ['merge-intervals', 'non-overlapping-intervals', 'jump-game', 'best-time-stock-ii', 'meeting-rooms-ii'],
