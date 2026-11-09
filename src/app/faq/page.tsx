@@ -24,7 +24,7 @@ const faqs = [
   },
   {
     q: "Is this free?",
-    a: "Yes, Zero To DSA is completely free. If you find it helpful, you can <a href=\"https://ko-fi.com/zerotodsa\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline underline-offset-2 hover:text-foreground\">support the project on Ko‑fi</a>, but there is no paywall. All content is accessible to everyone.",
+    a: "Yes, Zero To DSA is completely free. If you find it helpful, you can <a href=\"https://buymeacoffee.com/dotnettitan\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline underline-offset-2 hover:text-foreground\">support the project on Buy Me a Coffee</a>, but there is no paywall. All content is accessible to everyone.",
   },
   {
     q: "How does progress tracking work?",
